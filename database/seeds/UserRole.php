@@ -1,0 +1,92 @@
+<?php
+
+use App\Models\Role;
+use App\User;
+use Illuminate\Database\Seeder;
+
+class UserRole extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+
+
+        //setup Roles
+        $owner = new Role();
+        $owner->name         = 'admin';
+        $owner->display_name = 'Administrator'; // optional
+        $owner->description  = 'Administrator role'; // optional
+        $owner->save();
+
+
+        $owner = new Role();
+        $owner->name         = 'call_center';
+        $owner->display_name = 'Call Center'; // optional
+        $owner->description  = 'Call Center role'; // optional
+        $owner->save();
+
+        $owner = new Role();
+        $owner->name         = 'business';
+        $owner->display_name = 'Business'; // optional
+        $owner->description  = 'Business role'; // optional
+        $owner->save();
+
+        $owner = new Role();
+        $owner->name         = 'fraud_monitoring';
+        $owner->display_name = 'Fraud Monitoring'; // optional
+        $owner->description  = 'Fraud Monitoring role'; // optional
+        $owner->save();
+
+
+        //setup users
+        $user = new User();
+        $user->name = 'Business User';
+        $user->email = 'business@gmail.com';
+        $user->password = 'password';
+        $user->save();
+
+        $user = new User();
+        $user->name = 'Admin User';
+        $user->email = 'admin@gmail.com';
+        $user->password = 'password';
+        $user->save();
+
+
+        $user = new User();
+        $user->name = 'Fraud User';
+        $user->email = 'fraud@gmail.com';
+        $user->password = 'password';
+        $user->save();
+
+        $user = new User();
+        $user->name = 'CallCenter User';
+        $user->email = 'callcenter@gmail.com';
+        $user->password = 'password';
+        $user->save();
+
+
+        //setup roles for users
+        $roles = new Role();
+
+        $business = $roles->where('name', '=', 'business')->first();
+        $user = User::where('email', '=', 'business@gmail.com')->first();
+        $user->attachRole($business);
+
+        $callcenter = $roles->where('name', '=', 'call_center')->first();
+        $user = User::where('email', '=', 'callcenter@gmail.com')->first();
+        $user->attachRole($callcenter);
+
+        $fraud = Role::where('name', '=', 'fraud_monitoring')->first();
+        $user = User::where('email', '=', 'fraud@gmail.com')->first();
+        $user->attachRole($fraud);
+
+        $admin = Role::where('name', '=', 'admin')->first();
+        $user = User::where('email', '=', 'admin@gmail.com')->first();
+        $user->attachRole($admin);
+
+    }
+}

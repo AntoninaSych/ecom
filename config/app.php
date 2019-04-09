@@ -178,6 +178,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class,
         'Collective\Html\HtmlServiceProvider',
+        JeroenNoten\LaravelAdminLte\ServiceProvider::class,
     ],
 
     /*

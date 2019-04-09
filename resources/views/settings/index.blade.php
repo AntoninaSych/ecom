@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 @section('heading')
     <h1>{{ __('Settings') }}</h1>
 @stop

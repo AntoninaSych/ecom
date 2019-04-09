@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Permission;
 use App\Models\Role;
-
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Zizaco\Entrust\Entrust;
+use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
 {
@@ -19,7 +17,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-     $this->middleware('auth');
+        $this->middleware('auth');
     }
 
     /**
@@ -30,9 +28,10 @@ class HomeController extends Controller
     public function index()
     {
 
-   //$admins =  Auth::user()->hasRole('admin');
-  // $admins = Auth::user()->can('manage-users');
+       //s $admins =  Auth::user()->hasRole('admin');
 
+//        $admins = Auth::user()->can('manage-users');
+//dd($admins);
         return view('home');
     }
 }

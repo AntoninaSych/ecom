@@ -32,7 +32,9 @@
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+
                         <ul class="nav navbar-nav">
+
                             @each('adminlte::partials.menu-item-top-nav', $adminlte->menu(), 'item')
                         </ul>
                     </div>
@@ -93,6 +95,13 @@
 
                 <!-- Sidebar Menu -->
                 <ul class="sidebar-menu" data-widget="tree">
+                    <div style=" color: #fff;margin: 10px;">
+
+
+                        Ваш логин:  <?php echo auth()->user()->email; ?>
+
+                    </div>
+
                     @each('adminlte::partials.menu-item', $adminlte->menu(), 'item')
                 </ul>
                 <!-- /.sidebar-menu -->

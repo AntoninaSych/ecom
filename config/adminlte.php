@@ -111,6 +111,12 @@ return [
     'menu' => [
         'SETTINGS',
         [
+            'text' => 'Add user',
+            'url'  => 'register',
+            'icon'        => 'user',
+            'can'  => 'add-user',
+        ],
+        [
             'text' => 'Manage Roles',
             'url'  => 'settings',
             'icon'        => 'user',
@@ -124,8 +130,8 @@ return [
         ],
         [
             'text' => 'История операций',
-            'url'  => 'admin/blog',
-            'can'  => 'test',
+            'url'  => '/payments',
+            'can'  => 'view-payments',
         ],
         [
             'text' => 'Аналитика',

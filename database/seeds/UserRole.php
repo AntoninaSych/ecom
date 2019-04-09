@@ -19,7 +19,7 @@ class UserRole extends Seeder
 
         //setup Roles
         $owner = new Role();
-        $owner->name         = 'admin';
+        $owner->name         = 'administrator';
         $owner->display_name = 'Administrator'; // optional
         $owner->description  = 'Administrator role'; // optional
         $owner->save();
@@ -43,6 +43,18 @@ class UserRole extends Seeder
         $owner->description  = 'Fraud Monitoring role'; // optional
         $owner->save();
 
+        $owner = new Role();
+        $owner->name         = 'developer';
+        $owner->display_name = 'Developer'; // optional
+        $owner->description  = 'Developer role'; // optional
+        $owner->save();
+
+        $owner = new Role();
+        $owner->name         = 'security';
+        $owner->display_name = 'Security Department'; // optional
+        $owner->description  = 'Security role'; // optional
+        $owner->save();
+        //end setup roles
 
         //setup users
         $user = new User();
@@ -52,8 +64,8 @@ class UserRole extends Seeder
         $user->save();
 
         $user = new User();
-        $user->name = 'Admin User';
-        $user->email = 'admin@gmail.com';
+        $user->name = 'Administrator User';
+        $user->email = 'administrator@gmail.com';
         $user->password = Hash::make('password');
         $user->save();
 
@@ -69,6 +81,19 @@ class UserRole extends Seeder
         $user->email = 'callcenter@gmail.com';
         $user->password = Hash::make('password');
         $user->save();
+
+        $user = new User();
+        $user->name = 'Developer User';
+        $user->email = 'developer@gmail.com';
+        $user->password = Hash::make('password');
+        $user->save();
+
+        $user = new User();
+        $user->name = 'Security User';
+        $user->email = 'security@gmail.com';
+        $user->password = Hash::make('password');
+        $user->save();
+        //end setup users
 
 
         //setup roles for users
@@ -86,9 +111,17 @@ class UserRole extends Seeder
         $user = User::where('email', '=', 'fraud@gmail.com')->first();
         $user->attachRole($fraud);
 
-        $admin = Role::where('name', '=', 'admin')->first();
-        $user = User::where('email', '=', 'admin@gmail.com')->first();
+        $admin = Role::where('name', '=', 'administrator')->first();
+        $user = User::where('email', '=', 'administrator@gmail.com')->first();
         $user->attachRole($admin);
+
+        $developer = Role::where('name', '=', 'developer')->first();
+        $user = User::where('email', '=', 'developer@gmail.com')->first();
+        $user->attachRole($developer);
+
+        $security = Role::where('name', '=', 'security')->first();
+        $user = User::where('email', '=', 'security@gmail.com')->first();
+        $user->attachRole($security);
 
 
         //setup permissions
@@ -107,7 +140,7 @@ class UserRole extends Seeder
         //attach permission to role
 
         $permission = Permission::where('name', '=', 'manage-users')->first();
-        $adminRole = Role::where('name', '=', 'admin')->first();
+        $adminRole = Role::where('name', '=', 'developer')->first();
         $adminRole->attachPermission($permission);
 
 

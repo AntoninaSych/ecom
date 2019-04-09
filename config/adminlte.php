@@ -113,7 +113,7 @@ return [
         [
             'text' => 'Manage Roles',
             'url'  => 'settings',
-            'icon'        => 'lock',
+            'icon'        => 'user',
             'can'  => 'manage-users',
             ],
         'MAIN NAVIGATION',

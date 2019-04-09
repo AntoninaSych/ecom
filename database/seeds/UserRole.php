@@ -95,7 +95,13 @@ class UserRole extends Seeder
         $permission = new Permission();
         $permission->name         = 'manage-users';
         $permission->display_name = 'Manage Users'; // optional
-        $permission->description  = 'create/update users'; // optional
+        $permission->description  = 'Create/update users'; // optional
+        $permission->save();
+
+        $permission = new Permission();
+        $permission->name         = 'view-payments';
+        $permission->display_name = 'View payments'; // optional
+        $permission->description  = 'View payments page'; // optional
         $permission->save();
 
         //attach permission to role
@@ -103,5 +109,7 @@ class UserRole extends Seeder
         $permission = Permission::where('name', '=', 'manage-users')->first();
         $adminRole = Role::where('name', '=', 'admin')->first();
         $adminRole->attachPermission($permission);
+
+
     }
 }

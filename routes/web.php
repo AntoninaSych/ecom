@@ -28,3 +28,7 @@ Route::group(['prefix' => 'settings'], function () {
     Route::patch('/overall', 'SettingsController@updateOverall');
 });
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

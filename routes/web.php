@@ -19,4 +19,12 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+/**
+ * Settings
+ */
+Route::group(['prefix' => 'settings'], function () {
+    Route::get('/', 'SettingsController@index')->name('settings.index');
+    Route::patch('/permissionsUpdate', 'SettingsController@permissionsUpdate');
+    Route::patch('/overall', 'SettingsController@updateOverall');
+});
 

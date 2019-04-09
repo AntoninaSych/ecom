@@ -1,8 +1,10 @@
 <?php
 
+use App\Models\Permission;
 use App\Models\Role;
 use App\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class UserRole extends Seeder
 {
@@ -46,26 +48,26 @@ class UserRole extends Seeder
         $user = new User();
         $user->name = 'Business User';
         $user->email = 'business@gmail.com';
-        $user->password = 'password';
+        $user->password = Hash::make('password');
         $user->save();
 
         $user = new User();
         $user->name = 'Admin User';
         $user->email = 'admin@gmail.com';
-        $user->password = 'password';
+        $user->password = Hash::make('password');
         $user->save();
 
 
         $user = new User();
         $user->name = 'Fraud User';
         $user->email = 'fraud@gmail.com';
-        $user->password = 'password';
+        $user->password = Hash::make('password');
         $user->save();
 
         $user = new User();
         $user->name = 'CallCenter User';
         $user->email = 'callcenter@gmail.com';
-        $user->password = 'password';
+        $user->password = Hash::make('password');
         $user->save();
 
 
@@ -88,5 +90,18 @@ class UserRole extends Seeder
         $user = User::where('email', '=', 'admin@gmail.com')->first();
         $user->attachRole($admin);
 
+
+        //setup permissions
+        $permission = new Permission();
+        $permission->name         = 'manage-users';
+        $permission->display_name = 'Manage Users'; // optional
+        $permission->description  = 'create/update users'; // optional
+        $permission->save();
+
+        //attach permission to role
+
+        $permission = Permission::where('name', '=', 'manage-users')->first();
+        $adminRole = Role::where('name', '=', 'admin')->first();
+        $adminRole->attachPermission($permission);
     }
 }

@@ -63,7 +63,9 @@ class Kernel extends HttpKernel
         'role' => \Zizaco\Entrust\Middleware\EntrustRole::class,
         'permission' => \Zizaco\Entrust\Middleware\EntrustPermission::class,
         'ability' => \Zizaco\Entrust\Middleware\EntrustAbility::class,
-        'user.is.admin' => [ \App\Http\Middleware\RedirectIfNotAdmin::class ],
+        'user.is.admin' => \App\Http\Middleware\RedirectIfNotAdmin::class,
+        'can.add.user' => \App\Http\Middleware\RedirectIfCantAddUser::class,
+        'can.manage.roles' => \App\Http\Middleware\CanManageRoles::class,
     ];
 
     /**

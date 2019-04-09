@@ -22,7 +22,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 /**
  * Settings
  */
-Route::group(['prefix' => 'settings'], function () {
+Route::group(['prefix' => 'settings','middleware' =>[ 'can.manage.roles']], function () {
     Route::get('/', 'SettingsController@index')->name('settings.index');
     Route::patch('/permissionsUpdate', 'SettingsController@permissionsUpdate');
     Route::patch('/overall', 'SettingsController@updateOverall');
@@ -31,4 +31,8 @@ Route::group(['prefix' => 'settings'], function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home'); // don't delete - for users who not in login
+
+
+Route::get('/payments', 'Payments\PaymentsController@payments')->name('payments');
+Route::get('/search', 'PaymentsController@search')->name('search');

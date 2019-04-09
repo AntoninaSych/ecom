@@ -4,8 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class RedirectIfNotAdmin
+class RedirectIfCantAddUser
 {
+    protected $redirectPath = '/login';
     /**
      * Handle an incoming request.
      *
@@ -15,9 +16,14 @@ class RedirectIfNotAdmin
      */
     public function handle($request, Closure $next)
     {
-        if (!auth()->user()->hasRole('administrator')) {
+
+
+
+        if (auth()->user()==null || !auth()->user()->can('add-user') ) {
             Session()->flash('flash_message_warning', 'Only Allowed for admins');
-            return redirect()->back();
+//      return redirect()->back();
+
+            return  redirect('/login');
         }
         return $next($request);
     }

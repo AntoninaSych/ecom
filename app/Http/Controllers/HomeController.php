@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Permission;
 use App\Models\Role;
 use App\User;
 use Illuminate\Http\Request;
@@ -27,8 +28,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+      // dd(auth()->user()->can('add-user'));
 
-       //s $admins =  Auth::user()->hasRole('admin');
+     //   $admins =  Auth::user()->hasRole('admin');
 
 //        $admins = Auth::user()->can('manage-users');
 //dd($admins);

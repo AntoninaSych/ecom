@@ -113,13 +113,13 @@ return [
         [
             'text' => 'Добавить пользователя',
             'url'  => 'register',
-            'icon'        => 'user',
+            'icon'        => ' fa-user-plus',
             'can'  => 'add-user',
         ],
         [
             'text' => 'Менеджер ролей',
             'url'  => 'settings',
-            'icon'        => 'user',
+            'icon'        => ' fa-user',
             'can'  => 'manage-users',
             ],
         'MAIN NAVIGATION',
@@ -131,6 +131,7 @@ return [
         [
             'text' => 'История операций',
             'url'  => '/payments',
+            'icon' => ' fa-credit-card',
             'can'  => 'view-payments',
         ],
         [
@@ -252,6 +253,6 @@ return [
     'plugins' => [
         'datatables' => true,
         'select2'    => true,
-        'chartjs'    => true,
+        'chartjs'    => true
     ],
 ];

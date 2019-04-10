@@ -34,5 +34,10 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home'); // don't delete - for users who not in login
 
 
-Route::get('/payments', 'Payments\PaymentsController@payments')->name('payments');
-Route::get('/search', 'PaymentsController@search')->name('search');
+//Route::match(['get'], 'getRequests', 'Api\RequestHandler@getRequests');
+
+
+Route::group(['prefix' => 'payments'], function () {
+    Route::get('/', 'PaymentsController@payments')->name('payments');
+    Route::match(['get'], '/getSearchResponse', 'PaymentsController@getSearchResponse');
+});

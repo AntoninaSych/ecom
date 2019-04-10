@@ -111,13 +111,13 @@ return [
     'menu' => [
         'SETTINGS',
         [
-            'text' => 'Add user',
+            'text' => 'Добавить пользователя',
             'url'  => 'register',
             'icon'        => 'user',
             'can'  => 'add-user',
         ],
         [
-            'text' => 'Manage Roles',
+            'text' => 'Менеджер ролей',
             'url'  => 'settings',
             'icon'        => 'user',
             'can'  => 'manage-users',

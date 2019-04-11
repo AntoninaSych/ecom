@@ -41,13 +41,7 @@
     @endif
 
     @yield('adminlte_css')
-    <script src="{{ asset('/js/libraries/jquery-3.3.1.min.js') }}"></script>
-    <!-- DatePicker 3.3.7 -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-    <!-- DatePicker 3.3.7 -->
+
 
 
     <script src="{{ asset('/js/config.js') }}"></script>
@@ -87,6 +81,13 @@
 @endif
 
 @yield('adminlte_js')
-
+<script src="{{ asset('/js/libraries/jquery-3.3.1.min.js') }}"></script>
+<!-- DatePicker 3.3.7 -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<!-- DatePicker 3.3.7 -->
+<script src="{{ asset('js/payment.js') }}"></script>
 </body>
 </html>

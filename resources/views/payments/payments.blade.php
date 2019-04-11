@@ -114,6 +114,5 @@
       </div>
   </div>
 
-  <script src="{{ asset('js/payment.js') }}"></script>
 @stop
 

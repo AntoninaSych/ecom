@@ -4,7 +4,7 @@
 namespace App\Classes\LogicalModels;
 
 
-
+use App\Exceptions\NotFoundException;
 use App\Models\Merchants;
 
 class MerchantsRepository
@@ -16,9 +16,13 @@ class MerchantsRepository
         $this->merchants = $merchants;
     }
 
-    public function getList()
+    public function getOneByName(string $merchantName)
     {
-       return $this->merchants->get();
+        $merchants = Merchants::select()->where('name', 'LIKE', '%' . $merchantName . '%')->get();
+        if (empty($merchants->toArray())) {
+            throw new NotFoundException("Мерчанты не найдены.");
+        }
+        return $merchants;
     }
 
     public function getListLimited()

@@ -11,9 +11,6 @@
 
     <link rel="stylesheet" href="{{ asset('/css/libraries/alertify/alertify.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/libraries/alertify/default.min.css') }}">
-
-
-
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/bootstrap/dist/css/bootstrap.min.css') }}">
     <!-- Font Awesome -->
@@ -22,11 +19,6 @@
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/Ionicons/css/ionicons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-
-
-
-
-
 @if(config('adminlte.plugins.select2'))
         <!-- Select2 -->
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css">
@@ -84,10 +76,12 @@
 <script src="{{ asset('/js/libraries/jquery-3.3.1.min.js') }}"></script>
 <!-- DatePicker 3.3.7 -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script src="//cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <!-- DatePicker 3.3.7 -->
 <script src="{{ asset('js/payment.js') }}"></script>
+
 </body>
 </html>

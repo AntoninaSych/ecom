@@ -36,6 +36,9 @@ Route::get('/home', 'HomeController@index')->name('home'); // don't delete - for
 
 //Route::match(['get'], 'getRequests', 'Api\RequestHandler@getRequests');
 
+Route::group(['prefix' => 'merchants'], function () {
+    Route::match(['get'], '/getlistByName', 'MerchantController@getlistByName');
+});
 
 Route::group(['prefix' => 'payments'], function () {
     Route::get('/', 'PaymentsController@payments')->name('payments');

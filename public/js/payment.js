@@ -1,16 +1,51 @@
 $(document).ready(function () {
+
     //добавляем datetimepicker
+    delimiter = ' - ';
     // dateTimeRangeConfiguration.format = 'YYYY-MM-DD';
-    // $('#request_period').daterangepicker({
-    //     locale: dateTimeRangeConfiguration,
-    //     startDate: moment().subtract(10, 'days'),
-    //     timePicker24Hour: false,
-    //     endDate: moment(),
-    //     timePicker: false,
-    //     timePickerSeconds: false
-    // });
-    $('#request_period').daterangepicker();
-    // $('input[name="dates"]').daterangepicker();
+    var dateTimeRangeConfiguration = {
+        "format": 'YYYY-MM-DD',
+        "separator": " - ",
+        "applyLabel": "Применить",
+        "cancelLabel": "Отмена",
+        "fromLabel": "От",
+        "toLabel": "До",
+        "customRangeLabel": "Свой",
+        "daysOfWeek": [
+            "Вс",
+            "Пн",
+            "Вт",
+            "Ср",
+            "Чт",
+            "Пт",
+            "Сб"
+        ],
+        "monthNames": [
+            "Январь",
+            "Февраль",
+            "Март",
+            "Апрель",
+            "Май",
+            "Июнь",
+            "Июль",
+            "Август",
+            "Сентябрь",
+            "Октябрь",
+            "Ноябрь",
+            "Декабрь"
+        ],
+        "firstDay": 1
+    };
+    $('#request_period').daterangepicker({
+        locale: dateTimeRangeConfiguration,
+        startDate: moment().subtract(10, 'days'),
+        timePicker24Hour: false,
+        endDate: moment(),
+        timePicker: false,
+        timePickerSeconds: false
+    });
+
+    // $('#request_period').daterangepicker();
 
     $('#payment-search-button').on('click', function (event) {
         event.preventDefault();
@@ -23,8 +58,9 @@ $(document).ready(function () {
 
 function getFormParams() {
     var time = $('#request_period').val();
-    // var start_date = time.split(delimiter)[0];
-    // var end_date = time.split(delimiter)[1];
+    var start_date = time.split(delimiter)[0];
+    var end_date = time.split(delimiter)[1];
+
 
     var main_el = $('#search-form');
     var request_object = {
@@ -37,8 +73,8 @@ function getFormParams() {
         merchant_id: main_el.find("select[name*='merchant_id']").val(),
         card_number: main_el.find("input[name*='card_number']").val(),
         description: main_el.find("input[name*='description']").val(),
-        created_from: main_el.find("input[name*='created_from']").val(),
-        created_to: main_el.find("input[name*='created_to']").val()
+        created_from: start_date,
+        created_to: end_date
     };
 
     return request_object;
@@ -117,3 +153,4 @@ function buildTable(data) {
 
     $('#search-data-body').html(template);
 }
+

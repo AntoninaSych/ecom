@@ -12,19 +12,17 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login');
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('/home', 'HomeController@index')->name('home'); // don't delete - for users who not in login
 
 
 Auth::routes();
 
 Route::group(['middleware'=>'auth'],function(){
+    Route::get('/home', 'HomeController@index')->name('home'); // don't delete - for users who not in login
 
     /**
      * Settings

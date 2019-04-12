@@ -3,7 +3,13 @@
     <h1>{{ __('Settings') }}</h1>
 @stop
 @section('content')
-    <div class="row">
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">Менеджер ролей</h3>
+        </div>
+
+        <div class="box-body">
+             <div class="row">
     <div class="col-lg-12">
 
     </div>
@@ -56,7 +62,8 @@
      </div>
      @endforeach
 </div>
-
+        </div>
+    </div>
 
 @stop
 

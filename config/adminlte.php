@@ -119,9 +119,15 @@ return [
         [
             'text' => 'Менеджер ролей',
             'url'  => 'settings',
-            'icon'        => ' fa-user',
+            'icon' => ' fa-user',
             'can'  => 'manage-users',
             ],
+        [
+            'text' => 'Менеджер пользователей',
+            'url'  => '/settings/users',
+            'icon' => ' fa-user',
+            'can'  => 'manage-users',
+        ],
         'MAIN NAVIGATION',
         [
             'text' => 'Управление магазинами',

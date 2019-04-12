@@ -46,6 +46,8 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        return view('errors.default')->with(['message'=>$exception->getMessage(),'code'=>$exception->getCode()]);
+        dd($exception);
 //        if($exception->getCode()==0)
 //        {
 //            return  redirect('/login');

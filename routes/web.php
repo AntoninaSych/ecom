@@ -31,10 +31,8 @@ Route::group(['middleware'=>'auth'],function(){
         Route::get('/', 'SettingsController@index')->name('settings.index');
         Route::patch('/permissionsUpdate', 'SettingsController@permissionsUpdate');
         Route::patch('/overall', 'SettingsController@updateOverall');
+        Route::match(['get'], '/users', 'UsersController@getList');
     });
-
-
-
 
 //Route::match(['get'], 'getRequests', 'Api\RequestHandler@getRequests');
 

@@ -19,29 +19,34 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-/**
- * Settings
- */
-Route::group(['prefix' => 'settings','middleware' =>[ 'can.manage.roles']], function () {
-    Route::get('/', 'SettingsController@index')->name('settings.index');
-    Route::patch('/permissionsUpdate', 'SettingsController@permissionsUpdate');
-    Route::patch('/overall', 'SettingsController@updateOverall');
-});
+Route::get('/home', 'HomeController@index')->name('home'); // don't delete - for users who not in login
 
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home'); // don't delete - for users who not in login
+Route::group(['middleware'=>'auth'],function(){
+
+    /**
+     * Settings
+     */
+    Route::group(['prefix' => 'settings','middleware' =>[ 'can.manage.roles']], function () {
+        Route::get('/', 'SettingsController@index')->name('settings.index');
+        Route::patch('/permissionsUpdate', 'SettingsController@permissionsUpdate');
+        Route::patch('/overall', 'SettingsController@updateOverall');
+    });
+
+
 
 
 //Route::match(['get'], 'getRequests', 'Api\RequestHandler@getRequests');
 
-Route::group(['prefix' => 'merchants'], function () {
-    Route::match(['get'], '/getlistByName', 'MerchantController@getlistByName');
-});
+    Route::group(['prefix' => 'merchants'], function () {
+        Route::match(['get'], '/getlistByName', 'MerchantController@getlistByName');
+    });
 
-Route::group(['prefix' => 'payments'], function () {
-    Route::get('/', 'PaymentsController@payments')->name('payments');
-    Route::match(['get'], '/getSearchResponse', 'PaymentsController@getSearchResponse');
-    Route::match(['get'], '/view', 'PaymentsController@getOneById');
+    Route::group(['prefix' => 'payments'], function () {
+        Route::get('/', 'PaymentsController@payments')->name('payments');
+        Route::match(['get'], '/getSearchResponse', 'PaymentsController@getSearchResponse');
+        Route::match(['get'], '/view', 'PaymentsController@getOneById');
+    });
 });

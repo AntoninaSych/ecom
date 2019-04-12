@@ -137,7 +137,7 @@
 
                     <div class="box-body">
 
-                        @if($callBackLog)
+                        @if(!$callBackLog)
                             <table class="table">
                                 <tr>
                                     <th>time</th>

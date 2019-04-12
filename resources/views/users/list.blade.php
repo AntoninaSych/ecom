@@ -1,5 +1,3 @@
-
-
 @extends('adminlte::page')
 
 @section('title', 'AdminLTE')
@@ -15,12 +13,23 @@
         </div>
 
         <div class="box-body">
-        <table>
-            @foreach($users as $user)
-                <tr><td>{{$user->name}}</td><td> </td></tr>
+            <table class="table">
+                <th>Имя</th>
+                <th>Email</th>
+                <th>Текущая роль</th>
+                <th>Выбрать другую роль</th>
+                @foreach($users as $user)
+                    <tr>
+                        <td>{{$user->name}}</td>
+                        <td> {{$user->email}}</td>
+                        <td><?php  echo json_decode($user->roles[0],true)['display_name']; ?>  </td>
+                        <td>
+                            <button class="btn-default">Изменить роль</button>
+                        </td>
+                    </tr>
 
-            @endforeach
-        </table>
+                @endforeach
+            </table>
         </div>
     </div>
 

@@ -18,7 +18,7 @@ class UsersRepository
 
     public function getList()
     {
-        return $this->users->select()->get();
+        return $this->users->with('roles')->get();
     }
 
 }

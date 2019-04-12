@@ -6,6 +6,7 @@ namespace App\Classes\LogicalModels;
 
 use App\Classes\Filters\CardFilter;
 use App\Classes\Filters\SearchPaymentsFilter;
+use App\Exceptions\NotFoundException;
 use App\Models\Payments;
 use App\Models\PaymentStatus;
 use App\Models\PaymentType;
@@ -82,7 +83,7 @@ class PaymentsRepository
         }
 
         if (!is_null($filter->description)) {
-            $query = $query->where('payments.description','like', '%'.$filter->description."%");
+            $query = $query->where('payments.description', 'like', '%' . $filter->description . "%");
         }
 
         if (!is_null($filter->cardNumber)) {
@@ -116,4 +117,20 @@ class PaymentsRepository
         return $results;
     }
 
+
+    /**
+     * @return Payments
+     */
+    public function getOneById(int $id): Payments
+    {
+        $payment = $this->payments->whereId($id)->first();
+
+        $payment = CardFilter::filterModel($payment);
+
+        if (empty($payment)) {
+            throw new  NotFoundException('Платеж с данным id не существует');
+        }
+
+        return $payment;
+    }
 }

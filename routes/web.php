@@ -43,4 +43,5 @@ Route::group(['prefix' => 'merchants'], function () {
 Route::group(['prefix' => 'payments'], function () {
     Route::get('/', 'PaymentsController@payments')->name('payments');
     Route::match(['get'], '/getSearchResponse', 'PaymentsController@getSearchResponse');
+    Route::match(['get'], '/view', 'PaymentsController@getOneById');
 });

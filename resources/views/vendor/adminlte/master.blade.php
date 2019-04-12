@@ -8,6 +8,9 @@
 @yield('title_postfix', config('adminlte.title_postfix', ''))</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+{{--    <link rel="stylesheet" href="{{asset('/css/libraries/select2/select2.min.css')}}">--}}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+
 
     <link rel="stylesheet" href="{{ asset('/css/libraries/alertify/alertify.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/libraries/alertify/default.min.css') }}">
@@ -18,7 +21,7 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/Ionicons/css/ionicons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+
 @if(config('adminlte.plugins.select2'))
         <!-- Select2 -->
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css">
@@ -57,15 +60,15 @@
 
 
 
-@if(config('adminlte.plugins.select2'))
-    <!-- Select2 -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
-@endif
+{{--@if(config('adminlte.plugins.select2'))--}}
+{{--    <!-- Select2 -->--}}
+{{--    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>--}}
+{{--@endif--}}
 
-@if(config('adminlte.plugins.datatables'))
-    <!-- DataTables with bootstrap 3 renderer -->
-    <script src="//cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.js"></script>
-@endif
+{{--@if(config('adminlte.plugins.datatables'))--}}
+{{--    <!-- DataTables with bootstrap 3 renderer -->--}}
+{{--    <script src="//cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.js"></script>--}}
+{{--@endif--}}
 
 @if(config('adminlte.plugins.chartjs'))
     <!-- ChartJS -->
@@ -80,6 +83,10 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+<script src="{{ asset('js/libraries/select2/select2.full.min.js') }}"></script>
+
+<script src="{{ asset('js/libraries/select2/ru.js') }}"></script>
 <!-- DatePicker 3.3.7 -->
 <script src="{{ asset('js/payment.js') }}"></script>
 

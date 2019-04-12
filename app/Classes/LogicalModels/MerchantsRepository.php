@@ -18,7 +18,7 @@ class MerchantsRepository
 
     public function getOneByName(string $merchantName)
     {
-        $merchants = Merchants::select()->where('name', 'LIKE', '%' . $merchantName . '%')->get();
+        $merchants = Merchants::select()->where('name', 'LIKE', '%' . $merchantName . '%')->limit(4)->get();
         if (empty($merchants->toArray())) {
             throw new NotFoundException("Мерчанты не найдены.");
         }
@@ -27,6 +27,6 @@ class MerchantsRepository
 
     public function getListLimited()
     {
-        return $this->merchants->select()->limit(10)->get();
+        return $this->merchants->select()->limit(3)->get();
     }
 }

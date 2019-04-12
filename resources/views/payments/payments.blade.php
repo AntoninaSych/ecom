@@ -26,28 +26,45 @@
 
                         <form role="form" id="search-form">
                             <div class="row">
-                                <div class=" col-md-4 offset-md-8" >
+                                <div class=" col-md-4" >
                                     <label class="control-label">Дата платежа</label>
 
                                     <div class="input-group input-daterange" style="width: 100%">
-                                        <input required="" id="request_period" class="form-control valid"
-                                               name="request_period" type="text"
+                                        <input required="" id="request_period_updated" class="form-control valid"
+                                               name="request_period_updated" type="text"
                                                aria-invalid="false" style="width: 100%;">
                                     </div>
                                 </div>
+
+
+
+
+                                <div class="col-md-4">
+                                    <label class="control-label">Дата создания платежа</label>
+
+
+                                        <div class="input-group input-daterange" style="width: 100%">
+                                            <input required="" id="request_period_created" class="form-control valid"
+                                                   name="request_period_created" type="text"
+                                                   aria-invalid="false" style="width: 100%;">
+                                        </div>
+
+                                </div>
+                                <div class="col-md-4">&nbsp;</div>
+
                             </div>
+
                             <div class="row">
                                 <div class="col-md-4">
                                     <label class="control-label">ID платежа</label>
                                     <input class="form-control" type="text" name="id">
 
 
-                                    <label class="control-label">Дата создания</label>
-                                    <input class="form-control" type="text" name="created_date">
 
                                     <label class="control-label">Тип платежа</label>
 
                                     <select class="form-control" type="text" name="payment_type">
+                                        <option value="" disabled selected hidden>Пожалуйста, сделайте выбор...</option>
                                         @foreach($paymentTypes as $type)
                                             <option value="{{$type->id}}">{{$type->name}}</option>
                                         @endforeach
@@ -60,6 +77,7 @@
                                     <label class="control-label">Статус платежа
                                     </label>
                                     <select class="form-control" type="text" name="payment_status">
+                                        <option value="" disabled selected hidden>Пожалуйста, сделайте выбор...</option>
                                         @foreach($paymentStatuses as $status)
                                             <option value="{{$status->id}}">{{$status->name}}</option>
                                         @endforeach
@@ -74,18 +92,10 @@
                                 </div>
 
                                 <div class="col-md-4">
-
                                     <label class="control-label">Мерчант
                                     </label>
-                                    <select class="form-control" type="text" name="merchant_id">
-                                        <option value="" selected disabled hidden placeholder="Введите имя мерчанта">
-                                            Введите имя мерчанта
-                                        </option>
-                                        @foreach($merchants as $merchant)
-                                            <option value="{{$merchant->id}}">{{$merchant->name}}</option>
-                                        @endforeach
+                                    <select class="merchant_id form-control"  id="merchant_id" name="merchant_id" multiple="multiple">
                                     </select>
-
 
                                     <label class="control-label">Маскированый номер карты</label>
                                     <input class="form-control" type="text" name="card_number">
@@ -93,23 +103,12 @@
                                     <label class="control-label">Описание</label>
                                     <input class="form-control" type="text" name="description">
 
-
-                                    {{--                             <label class="control-label" >Дата платежа</label>--}}
-
-                                    {{--                             <div class="input-group input-daterange">--}}
-                                    {{--                                 <input required="" id="request_period" class="form-control valid" name="request_period" type="text"--}}
-                                    {{--                                        aria-invalid="false" style="width: 100%;">--}}
-                                    {{--                             </div>--}}
-                                    {{--                             <div class="input-group input-daterange">--}}
-                                    {{--                                 <input type="text" id="paymentssearch-created_from" class="form-control" name="created_from" value="2019-04-01">--}}
-                                    {{--                                 <span class="input-group-addon">to</span>--}}
-                                    {{--                                 <input type="text" id="paymentssearch-created_to" class="form-control" name="created_to" value="2019-04-10">--}}
-                                    {{--                             </div>--}}
                                 </div>
                             </div>
-                            <div class="input-group input-daterange">
-                                <input type="submit" value="Поиск" class="btn btn-primary" id="payment-search-button">
-                            </div>
+
+                                <div  style="margin-top: 25px">
+                                    <input type="submit" value="Поиск" class="btn btn-default form-control" id="payment-search-button">
+                                </div>
                         </form>
                     </div>
                 </div>

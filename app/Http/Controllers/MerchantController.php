@@ -25,7 +25,8 @@ class MerchantController extends Controller
 
     public function getlistByName()
     {
-        $validator = Validator::make($this->request->all(), [
+
+         $validator = Validator::make($this->request->all(), [
             'name' => 'required|string'
         ]);
 

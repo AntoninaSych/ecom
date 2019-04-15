@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 @section('heading')
-    <h1>{{ __('Settings') }}</h1>
+    <h1>Менеджер ролей</h1>
 @stop
 @section('content')
     <div class="box">

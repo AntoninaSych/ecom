@@ -63,9 +63,8 @@ $(document).ready(function () {
 
     $('#payment-search-button').on('click', function (event) {
         event.preventDefault();
-
-        getSearchResponse();
-
+        $('#payment-table').dataTable().fnDestroy();
+        buildTable();
     });
 
     $("#merchant_id").select2({
@@ -231,30 +230,27 @@ function getSearchResponse() {
     });
 }
 
-function buildTable(data) {
+function buildTable() {
 
-    console.log(data);
-    var template = '';
-    $('#search-data-body').empty();
-
-    for (var i = 0; i < data.length; i++) {
-        var card_num = data[i]['card_num'] !== null ? data[i]['card_num'] : ''; //data[i]['card_num'];
-        var row = (i % 2 == 0) ? "odd" : "even";
-        template += '<tr role="row" class="' + row + '" data-id="' + data[i]['id'] + '">';
-        template += '<td>' + data[i]['id'] + '</td>';
-        template += '<td  role="row" class="' + row + '">' + data[i]['created'] + '</td>';
-        template += '<td  role="row" class="' + row + '">' + data[i]['amount'] + '</td>';
-        template += '<td  role="row" class="' + row + '">' + data[i]['customer_fee'] + '</td>';
-        template += '<td  role="row" class="' + row + '">' + data[i]['status'] + '</td>';
-        template += '<td  role="row" class="' + row + '">' + card_num + '</td>';
-        template += '<td  role="row" class="' + row + '">' + data[i]['order_id'] + '</td>';
-        template += '<td  role="row" class="' + row + '">' + data[i]['description'] + '</td>';
-        template += '<td role="row" class="' + row + '"> <a class="btn btn-black" href="/payments/view?id='+data[i]['id']+'" title="Просмотр"><i class="fa fa-fw fa-eye"></i></a></td>';
-
-        template += '</tr>';
-    }
-
-    $('#search-data-body').html(template);
+    $('#payment-table').DataTable({
+        processing: true,
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Russian.json"
+        },
+        serverSide: true,
+        ajax: '{!! route('get.search.payment') !!}',
+        columns: [
+            {data: 'id', name: 'id'},
+            {data: 'created', name: 'created'},
+            {data: 'amount', name: 'amount',},
+            {data: 'customer_fee', name: 'customer_fee'},
+            {data: 'status', name: 'status'},
+            {data: 'card_num', name: 'card_num'},
+            {data: 'order_id', name: 'order_id'},
+            {data: 'description', name: 'description'},
+            {data: 'view_details', name: 'view_details',  searchable: false}
+        ]
+    });
 }
 
 

@@ -42,7 +42,7 @@ class PaymentsRepository
      * [number_order],[amount],[card_number],[description]:
      * [created_from]: 2019-04-02, [created_to]: 2019-04-12
      */
-    public function getSearch(SearchPaymentsFilter $filter): Collection
+    public function getSearch(SearchPaymentsFilter $filter)
     {
         $query = DB::table($this->payments->getTable() . ' as payments')
             ->select(

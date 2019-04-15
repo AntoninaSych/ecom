@@ -121,7 +121,21 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Результаты поиска</h3>
                     <div class="box-body" id="payment-search-results">
-                        @include('payments.search-results')
+                        <table class="table table-hover" id="payment-table">
+                            <thead>
+                            <tr role="row">
+                                <th> ID</th>
+                                <th> Дата операции</th>
+                                <th> Сумма</th>
+                                <th> Комиссия</th>
+                                <th> Статус</th>
+                                <th> Карта</th>
+                                <th> ID заказа</th>
+                                <th> Описание</th>
+                                <th> Просмотр </th>
+                            </tr>
+                            </thead>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -129,4 +143,28 @@
     </div>
 
 @stop
-
+<script src="{{ asset('js/libraries/jquery-3.3.1.min.js') }}"></script>
+<script src="{{ asset('js/libraries/datatables/dataTables.bootstrap.min.js') }}"></script>
+    <script>
+       $(function () {
+            $('#payment-table').DataTable({
+                processing: true,
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Russian.json"
+                },
+                serverSide: true,
+                ajax: '{!! route('get.search.payment') !!}',
+                columns: [
+                    {data: 'id', name: 'id'},
+                    {data: 'created', name: 'created'},
+                    {data: 'amount', name: 'amount',},
+                    {data: 'customer_fee', name: 'customer_fee'},
+                    {data: 'status', name: 'status'},
+                    {data: 'card_num', name: 'card_num'},
+                    {data: 'order_id', name: 'order_id'},
+                    {data: 'description', name: 'description'},
+                    {data: 'view_details', name: 'view_details',  searchable: false}
+                ]
+            });
+        });
+</script>

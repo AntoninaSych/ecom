@@ -42,7 +42,8 @@ Route::group(['middleware'=>'auth'],function(){
     });
 
     Route::group(['prefix' => 'payments','middleware' =>[ 'can.view.payments']], function () {
-        Route::get('/', 'PaymentsController@payments')->name('payments');
+        Route::get('/', 'PaymentsController@index')->name('payments');
+        Route::match(['get'], '/getSearch', 'PaymentsController@anyData')->name('get.search.payment');
         Route::match(['get'], '/getSearchResponse', 'PaymentsController@getSearchResponse');
         Route::match(['get'], '/view', 'PaymentsController@getOneById');
     });

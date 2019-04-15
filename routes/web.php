@@ -22,7 +22,7 @@ Auth::routes();
 Auth::routes();
 
 Route::group(['middleware'=>'auth'],function(){
-    Route::get('/home', 'HomeController@index')->name('home'); // don't delete - for users who not in login
+    Route::get('/home', 'HomeController@index')->name('home'); // default page for auth useres
 
     /**
      * Settings
@@ -32,6 +32,7 @@ Route::group(['middleware'=>'auth'],function(){
         Route::patch('/permissionsUpdate', 'SettingsController@permissionsUpdate');
         Route::patch('/overall', 'SettingsController@updateOverall');
         Route::match(['get'], '/users', 'UsersController@getList');
+        Route::match(['get'], '/applyRole', 'UsersController@applyRole');
     });
 
 //Route::match(['get'], 'getRequests', 'Api\RequestHandler@getRequests');
@@ -40,7 +41,7 @@ Route::group(['middleware'=>'auth'],function(){
         Route::match(['get'], '/getlistByName', 'MerchantController@getlistByName');
     });
 
-    Route::group(['prefix' => 'payments'], function () {
+    Route::group(['prefix' => 'payments','middleware' =>[ 'can.view.payments']], function () {
         Route::get('/', 'PaymentsController@payments')->name('payments');
         Route::match(['get'], '/getSearchResponse', 'PaymentsController@getSearchResponse');
         Route::match(['get'], '/view', 'PaymentsController@getOneById');

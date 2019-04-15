@@ -4,21 +4,19 @@
 namespace App\Models;
 
 
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+
 class Users extends BaseModel
 {
     protected $table = 'users';
 
-    public function roles()
+
+    public function roles_relation(): BelongsToMany
     {
-        return $this->hasManyThrough(Role::class,
-            RoleUser::class,
+        return $this->belongsToMany(Role::class,
+            'role_user',
             'user_id',
-            'id',
-            'id',
-            'role_id')
-            ->select('display_name');
+            'role_id');
     }
-
-
 
 }

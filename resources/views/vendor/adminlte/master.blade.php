@@ -89,6 +89,6 @@
 <script src="{{ asset('js/libraries/select2/ru.js') }}"></script>
 <!-- DatePicker 3.3.7 -->
 <script src="{{ asset('js/payment.js') }}"></script>
-
+<script src="{{ asset('js/user-list.js') }}"></script>
 </body>
 </html>

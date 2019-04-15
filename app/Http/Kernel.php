@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\CanViewPayments;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -64,8 +65,9 @@ class Kernel extends HttpKernel
         'permission' => \Zizaco\Entrust\Middleware\EntrustPermission::class,
         'ability' => \Zizaco\Entrust\Middleware\EntrustAbility::class,
         'user.is.admin' => \App\Http\Middleware\RedirectIfNotAdmin::class,
-        'can.add.user' => \App\Http\Middleware\RedirectIfCantAddUser::class,
-        'can.manage.roles' => \App\Http\Middleware\CanManageRoles::class,
+        'can.add.user' => \App\Http\Middleware\CanAddUser::class,
+        'can.manage.roles' => \App\Http\Middleware\CanManageUsers::class,
+        'can.view.payments' => CanViewPayments::class
     ];
 
     /**

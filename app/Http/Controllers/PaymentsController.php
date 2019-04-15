@@ -32,6 +32,8 @@ class PaymentsController extends Controller
 
     )
     {
+
+
         $this->request = $request;
         $this->merchants = $merchantsRepository;
         $this->paymentTypes = $paymentTypes;

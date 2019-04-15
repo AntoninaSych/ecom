@@ -109,7 +109,7 @@ return [
     |
     */
     'menu' => [
-        'SETTINGS',
+        'USER MANAGMENT',
         [
             'text' => 'Добавить пользователя',
             'url'  => 'register',

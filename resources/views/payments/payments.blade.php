@@ -36,14 +36,9 @@
                                     </div>
                                 </div>
 
-
-
-
                                 <div class="col-md-4">
                                     <label class="control-label">Дата создания платежа</label>
-
-
-                                        <div class="input-group input-daterange" style="width: 100%">
+                                    <div class="input-group input-daterange" style="width: 100%">
                                             <input required="" id="request_period_created" class="form-control valid"
                                                    name="request_period_created" type="text"
                                                    aria-invalid="false" style="width: 100%;">
@@ -144,6 +139,7 @@
 
 @stop
 <script src="{{ asset('js/libraries/jquery-3.3.1.min.js') }}"></script>
+<script src="{{ asset('js/libraries/datatables/datatables.min.js') }}"></script>
 <script src="{{ asset('js/libraries/datatables/dataTables.bootstrap.min.js') }}"></script>
     <script>
 
@@ -182,14 +178,14 @@
                            id:$('#search-form').find("input[name*='id']").val(),
                             created_date: $('#search-form').find("input[name*='created_date']").val(),
                             payment_type: $('#search-form').find("select[name*='payment_type']").val(),
-                           payment_status:  $('#search-form').find("select[name*='payment_status']").val(),
+                            payment_status:  $('#search-form').find("select[name*='payment_status']").val(),
                             number_order:  $('#search-form').find("input[name*='number_order']").val(),
                             amount:  $('#search-form').find("input[name*='amount']").val(),
                             merchant_id:  $('#search-form').find("select[name*='merchant_id']").val(),
-                           card_number: $('#search-form').find("input[name*='card_number']").val(),
+                            card_number: $('#search-form').find("input[name*='card_number']").val(),
                             description:  $('#search-form').find("input[name*='description']").val(),
-                           updated_from: $('#request_period_updated').val().split(delimiter)[0],//дата платежа
-                           updated_to:  $('#request_period_updated').val().split(delimiter)[1],//дата платежа
+                            updated_from: $('#request_period_updated').val().split(delimiter)[0],//дата платежа
+                            updated_to:  $('#request_period_updated').val().split(delimiter)[1],//дата платежа
                             created_from:  $('#request_period_created').val().split(delimiter)[0],//дата платежа
                             created_to:  $('#request_period_created').val().split(delimiter)[1]//дата платежа
                        }
@@ -207,8 +203,8 @@
                    ]
                });
                oTable.draw();
+               alertify.success('Данные загружены');
                e.preventDefault();
-
            });
 
         });

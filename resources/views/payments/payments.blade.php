@@ -146,6 +146,7 @@
 <script src="{{ asset('js/libraries/jquery-3.3.1.min.js') }}"></script>
 <script src="{{ asset('js/libraries/datatables/dataTables.bootstrap.min.js') }}"></script>
     <script>
+
        $(function () {
             $('#payment-table').DataTable({
                 processing: true,
@@ -166,5 +167,49 @@
                     {data: 'view_details', name: 'view_details',  searchable: false}
                 ]
             });
+
+           $('#payment-search-button').on('click', function (e) {
+               $('#payment-table').dataTable().fnDestroy();
+               var oTable = $('#payment-table').DataTable({
+                   processing: true,
+                   "language": {
+                       "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Russian.json"
+                   },
+                   serverSide: true,
+                   ajax: {
+                       url: '{!! route('get.search.payment') !!}',
+                       data: {
+                           id:$('#search-form').find("input[name*='id']").val(),
+                            created_date: $('#search-form').find("input[name*='created_date']").val(),
+                            payment_type: $('#search-form').find("select[name*='payment_type']").val(),
+                           payment_status:  $('#search-form').find("select[name*='payment_status']").val(),
+                            number_order:  $('#search-form').find("input[name*='number_order']").val(),
+                            amount:  $('#search-form').find("input[name*='amount']").val(),
+                            merchant_id:  $('#search-form').find("select[name*='merchant_id']").val(),
+                           card_number: $('#search-form').find("input[name*='card_number']").val(),
+                            description:  $('#search-form').find("input[name*='description']").val(),
+                           updated_from: $('#request_period_updated').val().split(delimiter)[0],//дата платежа
+                           updated_to:  $('#request_period_updated').val().split(delimiter)[1],//дата платежа
+                            created_from:  $('#request_period_created').val().split(delimiter)[0],//дата платежа
+                            created_to:  $('#request_period_created').val().split(delimiter)[1]//дата платежа
+                       }
+                   },
+                   columns: [
+                       {data: 'id', name: 'id'},
+                       {data: 'created', name: 'created'},
+                       {data: 'amount', name: 'amount',},
+                       {data: 'customer_fee', name: 'customer_fee'},
+                       {data: 'status', name: 'status'},
+                       {data: 'card_num', name: 'card_num'},
+                       {data: 'order_id', name: 'order_id'},
+                       {data: 'description', name: 'description'},
+                       {data: 'view_details', name: 'view_details',  searchable: false}
+                   ]
+               });
+               oTable.draw();
+               e.preventDefault();
+
+           });
+
         });
 </script>

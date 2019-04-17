@@ -35,7 +35,6 @@ Route::group(['middleware'=>'auth'],function(){
         Route::match(['get'], '/applyRole', 'UsersController@applyRole');
     });
 
-//Route::match(['get'], 'getRequests', 'Api\RequestHandler@getRequests');
 
     Route::group(['prefix' => 'merchants'], function () {
         Route::match(['get'], '/getlistByName', 'MerchantController@getlistByName');

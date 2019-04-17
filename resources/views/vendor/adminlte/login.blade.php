@@ -71,16 +71,19 @@
     </div><!-- /.login-box -->
 @stop
 
-@section('adminlte_js')
-    <script src="{{ asset('vendor/adminlte/plugins/iCheck/icheck.min.js') }}"></script>
-    <script>
-        $(function () {
-            $('input').iCheck({
-                checkboxClass: 'icheckbox_square-blue',
-                radioClass: 'iradio_square-blue',
-                increaseArea: '20%' // optional
-            });
-        });
-    </script>
+{{--@section('adminlte_js')--}}
+
+
+{{--    <script src="{{ asset('/vendor/adminlte/plugins/iCheck/icheck.js') }}"></script>--}}
+
+{{--    <script>--}}
+{{--        $(function () {--}}
+{{--            $('input').iCheck({--}}
+{{--                checkboxClass: 'icheckbox_square-blue',--}}
+{{--                radioClass: 'iradio_square-blue',--}}
+{{--                increaseArea: '20%' // optional--}}
+{{--            });--}}
+{{--        });--}}
+{{--    </script>--}}
     @yield('js')
-@stop
+{{--@stop--}}

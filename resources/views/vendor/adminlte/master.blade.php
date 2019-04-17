@@ -11,11 +11,16 @@
     {{--    <link rel="stylesheet" href="{{asset('/css/libraries/select2/select2.min.css')}}">--}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
-    <script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.min.js') }}"></script>
-    <script src="{{ asset('js/libraries/jquery-3.3.1.min.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('/css/libraries/alertify/alertify.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('/css/libraries/alertify/default.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('/css/libraries/datatables/dataTables.bootstrap.min.css') }}">
+
+{{--    jquery validation--}}
+    {{--<!--https://github.com/jquery-validation/jquery-validation-->--}}
+    {{--    <script type="text/javascript" src="/js/libraries/jquery-validation/jquery.validate.min.js?version={{Config::get('version.client')}}"></script>--}}
+    {{--    <script type="text/javascript" src="/js/libraries/jquery-validation/additional-methods.min.js?version={{Config::get('version.client')}}"></script>--}}
+    {{--    <script type="text/javascript" src="/js/libraries/jquery-validation/localization/messages_ru.min.js?version={{Config::get('version.client')}}"></script>--}}
+
+    <script src="{{ asset('/js/libraries/jquery-3.3.1.min.js') }}"></script>
+{{--    <script type="text/javascript" src="{{ asset('/js/libraries/jquery.js') }}"></script>--}}
+
 
 
     <!-- Bootstrap 3.3.7 -->
@@ -64,24 +69,28 @@
 
 
 
-{{--@if(config('adminlte.plugins.select2'))--}}
-{{--    <!-- Select2 -->--}}
-{{--    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>--}}
-{{--@endif--}}
+@if(config('adminlte.plugins.select2'))
+    <!-- Select2 -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+@endif
 
-{{--@if(config('adminlte.plugins.datatables'))--}}
-{{--    <!-- DataTables with bootstrap 3 renderer -->--}}
-{{--    <script src="//cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.js"></script>--}}
-{{--@endif--}}
+@if(config('adminlte.plugins.datatables'))
+    <!-- DataTables with bootstrap 3 renderer -->
+    <script src="//cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.js"></script>
+@endif
 
 @if(config('adminlte.plugins.chartjs'))
     <!-- ChartJS -->
+    <script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.min.js') }}"></script>
+{{--    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>--}}
+
     <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js"></script>
 @endif
 
 @yield('adminlte_js')
 <script src="{{ asset('/js/libraries/jquery-3.3.1.min.js') }}"></script>
 <!-- DatePicker 3.3.7 -->
+
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script src="//cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
@@ -92,7 +101,6 @@
 
 <script src="{{ asset('js/libraries/select2/ru.js') }}"></script>
 <!-- DatePicker 3.3.7 -->
-<script src="{{ asset('js/payment.js') }}"></script>
 <script src="{{ asset('js/user-list.js') }}"></script>
 </body>
 </html>

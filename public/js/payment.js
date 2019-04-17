@@ -1,6 +1,7 @@
 let merchants;
 
 $(document).ready(function () {
+
     //добавляем datetimepicker - ы
     delimiter = ' - ';
     var dateTimeRangeConfiguration = {
@@ -39,12 +40,13 @@ $(document).ready(function () {
 
     $('#request_period_updated').daterangepicker({
         locale: dateTimeRangeConfiguration,
-        startDate: moment().subtract(10, 'days'),
+        startDate: moment().subtract(1, 'days'),
         timePicker24Hour: false,
         endDate: moment(),
         timePicker: false,
         timePickerSeconds: false
     });
+
 
 
     $('#request_period_created').daterangepicker({
@@ -65,6 +67,7 @@ $(document).ready(function () {
         allowClear: true,
         data: merchants,
         ajax: {
+            delay: 250,
             url: config.services.getMerchants,
             data: function (params) {
                 var queryParameters = {
@@ -87,3 +90,10 @@ $(document).ready(function () {
     });
 
 });
+
+function setDateAfterReset() {
+
+    $("#merchant_id").empty().trigger('change')
+   $('#search-form').trigger("reset");
+   $('#request_period_updated').val(moment().subtract(1, 'days').format('YYYY-MM-DD') + " - " + moment().format('YYYY-MM-DD'));
+}

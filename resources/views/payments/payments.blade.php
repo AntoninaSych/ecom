@@ -122,7 +122,7 @@
                                     </div>
 
                                     <div style="width: 100%">&nbsp;
-                                        <input type="submit" value="Поиск" class="btn btn-info form-control"
+                                        <input type="submit" value="Поиск" class="btn btn-primary form-control"
                                                id="payment-search-button">
 
                                     </div>
@@ -173,17 +173,11 @@
 <script type="text/javascript" src="{{ asset('/js/libraries/jquery-validation/jquery.mask.min.js') }}"></script>
 <script src="{{ asset('/js/libraries/jquery-validation/validation.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/js/libraries/jquery-validation/additional-methods.min.js') }}"></script>
-<script type="text/javascript"
-        src="{{ asset('/js/libraries/jquery-validation/localization/messages_ru.min.js') }}"></script>
-
+<script type="text/javascript"  src="{{ asset('/js/libraries/jquery-validation/localization/messages_ru.min.js') }}"></script>
 <script src="{{ asset('js/payment.js') }}"></script>
-
 <script>
     (function ($) {
-
-
         $(function () {
-
             $("#card_number").mask("000000******0000");
             $.validator.addMethod(
                 "regex",
@@ -301,14 +295,11 @@
                             {data: 'view_details', name: 'view_details', searchable: false}
                         ]
                     });
-                    // oTable.draw();
-
                     e.preventDefault();
                 }
             });
 
         });
-
     })(jQuery);
 
 </script>

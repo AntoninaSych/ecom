@@ -1,18 +1,17 @@
 @extends('adminlte::page')
-@section('heading')
-    <h1>Менеджер ролей</h1>
+@section('content_header')
+    <h1>Таблица ролей и их прав</h1>
 @stop
+
 @section('content')
     <div class="box">
-        <div class="box-header">
-            <h3 class="box-title">Менеджер ролей</h3>
-        </div>
+
+
+
 
         <div class="box-body">
              <div class="row">
-    <div class="col-lg-12">
 
-    </div>
     @foreach($roles as $role) 
     <div class="col-lg-12">
     {!! Form::model($permission, [
@@ -46,10 +45,13 @@
                                     )
                             );  ?>
 
-                            <td><input type="checkbox"
-                                       <?php if (!$isEnabled) echo 'checked' ?> name="permissions[ {{ $perm->id }} ]"
-                                       value="1" data-role="{{ $role->id }}">
-                                <span class="perm-name"></span><br/></td>
+                            <td>     <input type="checkbox"
+                                                                  <?php if (!$isEnabled) echo 'checked' ?> name="permissions[ {{ $perm->id }} ]"
+                                                                  value="1" data-role="{{ $role->id }}">
+
+
+                                <span class="perm-name"></span><br/>
+                            </td>
 
                 
                     @endforeach        

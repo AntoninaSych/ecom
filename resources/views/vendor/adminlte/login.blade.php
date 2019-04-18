@@ -73,17 +73,22 @@
 
 {{--@section('adminlte_js')--}}
 
+<script src="{{ asset('/js/libraries/jquery.js') }}"></script>
+    <script src="{{ asset('/vendor/adminlte/plugins/iCheck/icheck.js') }}"></script>
 
-{{--    <script src="{{ asset('/vendor/adminlte/plugins/iCheck/icheck.js') }}"></script>--}}
+    <script>
+        (function ($) {
 
-{{--    <script>--}}
-{{--        $(function () {--}}
-{{--            $('input').iCheck({--}}
-{{--                checkboxClass: 'icheckbox_square-blue',--}}
-{{--                radioClass: 'iradio_square-blue',--}}
-{{--                increaseArea: '20%' // optional--}}
-{{--            });--}}
-{{--        });--}}
-{{--    </script>--}}
+
+            $(function () {
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_square-blue',
+                radioClass: 'iradio_square-blue',
+                increaseArea: '20%' // optional
+            });
+            });
+
+        })(jQuery);
+    </script>
     @yield('js')
 {{--@stop--}}

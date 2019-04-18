@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 2',
+    'title' => 'Concord pay',
 
     'title_prefix' => '',
 
@@ -113,20 +113,20 @@ return [
         [
             'text' => 'Добавить пользователя',
             'url'  => 'register',
-            'icon'        => ' fa-user-plus',
+            'icon' => 'fa-user-plus',
             'can'  => 'add-user',
         ],
         [
             'text' => 'Менеджер ролей',
             'url'  => 'settings',
-            'icon' => ' fa-user',
+            'icon' => 'fa-user',
             'can'  => 'manage-users',
-            ],
+        ],
         [
             'text' => 'Менеджер пользователей',
             'url'  => '/settings/users',
-            'icon' => ' fa-user',
-            'can'  => 'manage-users',
+            'icon' => 'fa-male',
+            'can'  => 'add-user',
         ],
         'MAIN NAVIGATION',
         [

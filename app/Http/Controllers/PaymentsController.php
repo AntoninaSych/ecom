@@ -44,38 +44,7 @@ class PaymentsController extends Controller
     }
 
 
-    public function getSearchResponse()
-    {
 
-
-//        $validator = Validator::make($this->request->all(), [
-//            'id' => 'integer',
-//            'merchant_id' => 'array',
-//            'created_date' => 'date',
-//            'payment_type' => 'integer',
-//            'payment_status' => 'integer',
-//            'number_order' => 'integer',
-//            'amount' => 'integer',
-//            'card_number' => 'string',
-//            'description' => 'string',
-//            'created_from' => 'date',
-//            'created_tp' => 'date',
-//        ]);
-
-
-//        if ($validator->fails()) {
-//            return ApiResponse::badResponse("Данные для поиска не валидны", 401);
-////            return ApiResponse::badResponseValidation(ValidatorHelper::toArray($validator));
-//        } else {
-        try {
-            return ApiResponse::goodResponseSimple($this->payments->getSearch(SearchPaymentsFilter::create($this->request->all())));
-        } catch (NotFoundException $e) {
-            return ApiResponse::badResponse($e->getMessage(), $e->getCode());
-        }
-//        }
-
-
-    }
 
     public function index()
     {

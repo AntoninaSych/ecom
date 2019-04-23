@@ -1,10 +1,10 @@
-@extends('adminlte::page')
+{{--@extends('adminlte::page')--}}
 
-@section('title', 'AdminLTE')
+{{--@section('title', 'AdminLTE')--}}
 
-@section('content_header')
+{{--@section('content_header')--}}
 {{--    <h1>This is Error Page</h1>--}}
-@stop
+{{--@stop--}}
 
 @section('content')
 

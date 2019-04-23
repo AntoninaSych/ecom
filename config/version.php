@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'client' => '1.0',
+    'client' => '1.0.0',
 ];

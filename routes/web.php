@@ -34,16 +34,18 @@ Route::group(['middleware'=>'auth'],function(){
         Route::match(['get'], '/users', 'UsersController@getList');
         Route::match(['get'], '/applyRole', 'UsersController@applyRole');
     });
-
-//Route::match(['get'], 'getRequests', 'Api\RequestHandler@getRequests');
+    Route::group(['prefix' => 'payments',
+        'middleware' =>[ 'can.view.payments']
+    ], function () {
+        Route::get('/', 'PaymentsController@index')->name('payments');
+        Route::match(['get'], '/getSearch', 'PaymentsController@anyData')->name('get.search.payment');
+        Route::match(['get'], '/getSearchResponse', 'PaymentsController@getSearchResponse');
+        Route::match(['get'], '/view', 'PaymentsController@getOneById');
+    });
 
     Route::group(['prefix' => 'merchants'], function () {
         Route::match(['get'], '/getlistByName', 'MerchantController@getlistByName');
     });
 
-    Route::group(['prefix' => 'payments','middleware' =>[ 'can.view.payments']], function () {
-        Route::get('/', 'PaymentsController@payments')->name('payments');
-        Route::match(['get'], '/getSearchResponse', 'PaymentsController@getSearchResponse');
-        Route::match(['get'], '/view', 'PaymentsController@getOneById');
-    });
+
 });

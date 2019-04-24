@@ -10,7 +10,9 @@
  
 ## Make migrations
 - php artisan migrate
-  It will create tables:
+
+  **It will create tables**:
+  
 - users;
 - password_resets;
 - permission_role;
@@ -22,14 +24,16 @@
 ## Make seed with fake users, roles, permissions, attach permissions to the roles
 - php artisan db:seed
 
-It will setup roles:
+**It will setup roles:**
+
 - administrator;	 
 - call_center; 	
 - business;	 
 - fraud_monitoring;	 	
 - developer security;	
  
-It will setup users according with their roles:
+**It will setup users according with their roles:**
+
 - Business User	business@gmail.com;	 
 - Administrator User	administrator@gmail.com; 
 - Fraud User	fraud@gmail.com;	 
@@ -44,14 +48,14 @@ It will setup users according with their roles:
   **password** - **password** by default for pre-installed users.
   
         
-It will also attach roles to users according their logic name( one user - one role)
+**It will also attach roles to users** according their logic name( one user - one role)
 
-It will setup permissions:
+**It will setup permissions:**
  - manage-users;
  - view-payments;
  - add-user;
 
-It will attach permissions to the role 
+**It will attach permissions to the role** 
  - 'manage-users' and 'add-user' to developer role;
  - 'add-user' to administrator role;
 

@@ -1,16 +1,20 @@
 ## Make repository and clone project from 
-- git clone git@bitbucket.org:antoninasych/backoffice.git
-
+```bash 
+git init
+git clone git@bitbucket.org:antoninasych/backoffice.git
+```
 ##Composer install dependencies
-- composer install
-
+```bash 
+composer install
+```
 ## About Setup
 - Rename .envexample in .env
 - Setup there all configuration for DB connect
  
 ## Make migrations
-- php artisan migrate
-
+```bash 
+php artisan migrate
+```
   **It will create tables**:
   
 - users;
@@ -22,7 +26,9 @@
 
 
 ## Make seed with fake users, roles, permissions, attach permissions to the roles
-- php artisan db:seed
+```bash 
+php artisan db:seed
+```
 
 **It will setup roles:**
 

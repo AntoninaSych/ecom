@@ -13,7 +13,7 @@ git clone git@bitbucket.org:antoninasych/backoffice.git
 composer install
 ```
 ## About Setup
-- Rename .envexample in .env
+- Rename .env-example in .env
 - Setup there all configuration for DB connect
  
 ## Make migrations

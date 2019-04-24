@@ -71,6 +71,20 @@ Behavior:
      _http://backoffice.loc/register_
      Registration needs to define role from the list.
      New user gets a letter with information to with proposal to change password during 60 minutes.
+     For using this, you need to specify in .env file
+     For testing it I sing up account on https://mailtrap.io/signin ,
+      but for production you need to use production env.
+     Here my example:
+```bash 
+     MAIL_DRIVER=smtp
+     MAIL_HOST=smtp.mailtrap.io
+     MAIL_PORT=2525
+     MAIL_USERNAME=137a51c7c9adbb
+     MAIL_PASSWORD=98b5691fb8496f
+     MAIL_FROM_ADDRESS=activation@concord.com
+     MAIL_FROM_NAME=ecom
+```
+   Please fill it from your account of mailtrap and use mail for all users from backoffice.
      
  - Only with 'manage-users' permission user can 
    1. Attach permissions to roles:
@@ -83,7 +97,7 @@ Behavior:
     _http://backoffice.loc/payments/view?id=1_
  
  
- 
+
  
  
  

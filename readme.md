@@ -3,6 +3,11 @@
 git init
 git clone git@bitbucket.org:antoninasych/backoffice.git
 ```
+##Select category with index file for your hosts mapping
+```bash 
+/public
+```
+
 ##Composer install dependencies
 ```bash 
 composer install

@@ -113,25 +113,26 @@ return [
         [
             'text' => 'Добавить пользователя',
             'url'  => 'register',
-            'icon' => 'fa-user-plus',
+            'icon' => ' fa-credit-card',
             'can'  => 'add-user',
         ],
         [
             'text' => 'Менеджер ролей',
             'url'  => 'settings',
-            'icon' => 'fa-user',
+            'icon' => ' fa-credit-card',
             'can'  => 'manage-users',
         ],
         [
             'text' => 'Менеджер пользователей',
             'url'  => '/settings/users',
-            'icon' => 'fa-male',
+            'icon' => ' fa-credit-card',
             'can'  => 'manage-users',
         ],
         'MAIN NAVIGATION',
         [
             'text' => 'Управление магазинами',
             'url'  => 'admin/blog',
+            'icon' => ' fa-credit-card',
             'can'  => 'test',
         ],
         [

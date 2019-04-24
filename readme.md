@@ -68,8 +68,9 @@ Behavior:
    2. Change roles for existing users
     _http://backoffice.loc/settings/users_
     
- - Only with 'view-payments'  permission user can view payments page
+ - Only with 'view-payments'  permission user can view payments page and it details
     _http://backoffice.loc/payments_
+    _http://backoffice.loc/payments/view?id=1_
  
  
  

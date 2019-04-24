@@ -46,12 +46,8 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-       // return view('errors.default')->with(['message'=>$exception->getMessage(),'code'=>$exception->getCode()]);
+       return view('errors.default')->with(['message'=>$exception->getMessage(),'code'=>$exception->getCode()]);
 
-//        if($exception->getCode()==0)
-//        {
-//            return  redirect('/login');
-//        }
-        return parent::render($request, $exception);
+        // return parent::render($request, $exception);
     }
 }

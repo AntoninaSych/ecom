@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Exceptions\NotFoundException;
+use App\Exceptions\PermissionException;
 use Closure;
 
 class CanManageUsers
@@ -17,9 +19,8 @@ class CanManageUsers
     public function handle($request, Closure $next)
     {
         if (auth()->user()==null || !auth()->user()->can('manage-users') ) {
-            Session()->flash('flash_message_warning', 'Only Allowed for admins');
+            throw new PermissionException('У Вас недостаточно прав для просмотра этой страницы');
 
-            return  redirect('/login');
         }
         return $next($request);
     }

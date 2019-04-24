@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Exceptions\PermissionException;
 use Closure;
 
 class CanAddUser
@@ -17,9 +18,7 @@ class CanAddUser
     public function handle($request, Closure $next)
     {
         if (auth()->user()==null || !auth()->user()->can('add-user') ) {
-            Session()->flash('flash_message_warning', 'Only Allowed for admins');
-
-            return  redirect('/login');
+            throw new PermissionException('У Вас недостаточно прав для просмотра этой страницы');
         }
         return $next($request);
     }

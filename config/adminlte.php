@@ -126,7 +126,7 @@ return [
             'text' => 'Менеджер пользователей',
             'url'  => '/settings/users',
             'icon' => 'fa-male',
-            'can'  => 'add-user',
+            'can'  => 'manage-users',
         ],
         'MAIN NAVIGATION',
         [

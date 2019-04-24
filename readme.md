@@ -23,31 +23,30 @@
 - php artisan db:seed
 
 It will setup roles:
-        administrator	 
-        call_center 	
-        business	 
-        fraud_monitoring	 	
-        developer security	
+ - administrator	 
+ - call_center 	
+ -  business	 
+ -  fraud_monitoring	 	
+ -  developer security	
  
 It will setup users according with their roles:
-        Business User	business@gmail.com	 
-        Administrator User	administrator@gmail.com	 
-        Fraud User	fraud@gmail.com	NULL	 
-        CallCenter User	callcenter@gmail.com	 
-        Developer User	developer@gmail.com	NULL	 
-        Security User	security@gmail.com
+ - Business User	business@gmail.com	 
+ - Administrator User	administrator@gmail.com	 
+ - Fraud User	fraud@gmail.com	NULL	 
+ - CallCenter User	callcenter@gmail.com	 
+ - Developer User	developer@gmail.com	NULL	 
+ - Security User	security@gmail.com
         
-It will also attach roles to users according their logic name
-        one user - one role
+It will also attach roles to users according their logic name( one user - one role)
 
 It will setup permissions:
-        manage-users
-        view-payments
-        add-user
+ - manage-users
+ - view-payments
+ - add-user
 
 It will attach permissions to the role 
-- add-user and add-user to developer role
-- add-user to administrator role
+ - add-user and add-user to developer role
+ - add-user to administrator role
 
 
 

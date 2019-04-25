@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Mockery\Matcher\Not;
 
 class Handler extends ExceptionHandler
 {
@@ -29,7 +30,7 @@ class Handler extends ExceptionHandler
     /**
      * Report or log an exception.
      *
-     * @param  \Exception  $exception
+     * @param \Exception $exception
      * @return void
      */
     public function report(Exception $exception)
@@ -40,37 +41,26 @@ class Handler extends ExceptionHandler
     /**
      * Render an exception into an HTTP response.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $exception
+     * @param \Illuminate\Http\Request $request
+     * @param \Exception $exception
      * @return \Illuminate\Http\Response
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof NotFoundException) {
+            return response()->view('errors.default',
+                ['message' => "Страница не найдена", 'code' => $exception->getStatusCode()]);
+        }
+
+        if ($exception instanceof PermissionException) {
+            return response()->view('errors.default',
+                ['message' => $exception->getMessage(), 'code' =>$exception->getStatusCode()]);
+        }
+
+        return response()->view('errors.default',
+            ['message' => "Произошла ошибка", 'code' => '500']);
 
 
-//        if ($exception->getStatusCode()== '405')
-//        {
-//            return response()->view('errors.default',
-//                ['message'=>"Воспользуйтесь стандартным интерфейсом для продолжения операции",'code'=>$exception->getStatusCode()] );
-//        }
-//
-//
-//        if ($exception->getStatusCode()== '404')
-//        {
-//            return response()->view('errors.default',
-//                ['message'=>"Страница не найдена",'code'=>$exception->getStatusCode()] );
-//        }
-//
-//        if ($exception->getStatusCode()== '500')
-//        {
-//            return response()->view('errors.default',
-//                ['message'=>"Произола ошибка",'code'=>$exception->getStatusCode()] );
-//        }
-//
-//            return response()->view('errors.default',
-//            ['message'=>$exception->getMessage(),'code'=>$exception->getCode()] );
-
-
-           return parent::render($request, $exception);
+//           return parent::render($request, $exception);
     }
 }

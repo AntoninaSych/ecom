@@ -17,11 +17,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-
-
-Auth::routes();
-
-Route::group(['middleware'=>'auth'],function(){
+Route::group(['middleware'=>['auth','is.block.user']],function(){
     Route::get('/home', 'HomeController@index')->name('home'); // default page for auth useres
 
     /**

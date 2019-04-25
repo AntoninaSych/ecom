@@ -48,27 +48,27 @@ class Handler extends ExceptionHandler
     {
 
 
-        if ($exception->getStatusCode()== '405')
-        {
-            return response()->view('errors.default',
-                ['message'=>"Воспользуйтесь стандартным интерфейсом для продолжения операции",'code'=>$exception->getStatusCode()] );
-        }
-
-
-        if ($exception->getStatusCode()== '404')
-        {
-            return response()->view('errors.default',
-                ['message'=>"Страница не найдена",'code'=>$exception->getStatusCode()] );
-        }
-
-        if ($exception->getStatusCode()== '500')
-        {
-            return response()->view('errors.default',
-                ['message'=>"Произола ошибка",'code'=>$exception->getStatusCode()] );
-        }
-
-            return response()->view('errors.default',
-            ['message'=>$exception->getMessage(),'code'=>$exception->getCode()] );
+//        if ($exception->getStatusCode()== '405')
+//        {
+//            return response()->view('errors.default',
+//                ['message'=>"Воспользуйтесь стандартным интерфейсом для продолжения операции",'code'=>$exception->getStatusCode()] );
+//        }
+//
+//
+//        if ($exception->getStatusCode()== '404')
+//        {
+//            return response()->view('errors.default',
+//                ['message'=>"Страница не найдена",'code'=>$exception->getStatusCode()] );
+//        }
+//
+//        if ($exception->getStatusCode()== '500')
+//        {
+//            return response()->view('errors.default',
+//                ['message'=>"Произола ошибка",'code'=>$exception->getStatusCode()] );
+//        }
+//
+//            return response()->view('errors.default',
+//            ['message'=>$exception->getMessage(),'code'=>$exception->getCode()] );
 
 
            return parent::render($request, $exception);

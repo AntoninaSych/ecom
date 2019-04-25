@@ -20,6 +20,7 @@
                     <th>Email</th>
                     <th>Текущая роль</th>
                     <th>Выбрать другую роль</th>
+                    <th>Заблокировать пользователя</th>
                 </tr>
                 </thead>
                 <tbody id = 'list-of-users-with-roles'>
@@ -38,6 +39,14 @@
                                     data-toggle="modal" data-target="#modal-attach-role">Изменить роль
                             </button>
                         </td>
+                        <td>
+                            <button class="btn @if(intval($user->status) == 0) btn-success @else btn-warning @endif form-control block-user"
+                                    data-id={{$user->id}}
+                                     data-status={{intval($user->status)}}>
+                               <?php echo ($user->status == 0) ? "Разблокироать пользователся" : "Заблокировать пользователя";?>
+
+                            </button>
+                        </td>
                     </tr>
 
                 @endforeach
@@ -49,6 +58,7 @@
                     <th>Email</th>
                     <th>Текущая роль</th>
                     <th>Выбрать другую роль</th>
+                    <th>Заблокировать пользователя</th>
                 </tr>
                 </tfoot>
             </table>

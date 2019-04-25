@@ -11,11 +11,13 @@
 |
 */
 
+
+Auth::routes();
+
 Route::get('/', function () {
     return redirect('/login');
 });
 
-Auth::routes();
 
 Route::group(['middleware'=>['auth','is.block.user']],function(){
     Route::get('/home', 'HomeController@index')->name('home'); // default page for auth useres
@@ -29,6 +31,9 @@ Route::group(['middleware'=>['auth','is.block.user']],function(){
         Route::patch('/overall', 'SettingsController@updateOverall');
         Route::match(['get'], '/users', 'UsersController@getList');
         Route::match(['get'], '/applyRole', 'UsersController@applyRole');
+        Route::match(['get'],'/statusUpdate', 'UsersController@statusUpdate');
+
+
     });
     Route::group(['prefix' => 'payments',
         'middleware' =>[ 'can.view.payments']

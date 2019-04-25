@@ -23,7 +23,6 @@ class SettingsController extends Controller
     {
         $this->settings = $settings;
         $this->roles = $roles;
-       // $this->middleware('user.is.admin', ['only' => ['index']]);
     }
 
     /**
@@ -58,4 +57,6 @@ class SettingsController extends Controller
         Session::flash('flash_message', 'Role is updated');
         return redirect()->back();
     }
+
+
 }

@@ -31,5 +31,12 @@ class UsersRepository
         $user->roles_relation()->detach();
         $user->roles_relation()->attach($newRole);
     }
+
+    public function updateStatus($user_id, $status)
+    {
+        $user = $this->users->findOrFail($user_id);
+        $user->status = intval($status);
+        $user->save();
+    }
 }
 

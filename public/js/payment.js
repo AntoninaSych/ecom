@@ -49,17 +49,17 @@ $(document).ready(function () {
 
 
 
-    $('#request_period_created').daterangepicker({
-        locale: dateTimeRangeConfiguration,
-        timePicker: false,
-
-        timePickerSeconds: false
-    });
-    $('#request_period_created').on('cancel.daterangepicker', function (ev, picker) {
-        //do something, like clearing an input
-        $('#request_period_created').val('');
-    });
-    $('#request_period_created').val('');
+    // $('#request_period_created').daterangepicker({
+    //     locale: dateTimeRangeConfiguration,
+    //     timePicker: false,
+    //
+    //     timePickerSeconds: false
+    // });
+    // $('#request_period_created').on('cancel.daterangepicker', function (ev, picker) {
+    //     //do something, like clearing an input
+    //     $('#request_period_created').val('');
+    // });
+    // $('#request_period_created').val('');
 
     $("#merchant_id").select2({
         language: "ru",

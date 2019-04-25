@@ -37,17 +37,17 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-4">
-                                    <div>
-                                        <label class="control-label" for="request_period_created">Дата создания
-                                            платежа</label>
-                                        <div class="input-group input-daterange" style="width: 100%">
-                                            <input id="request_period_created" class="form-control valid"
-                                                   name="request_period_created" type="text"
-                                                   aria-invalid="false" style="width: 100%;">
-                                        </div>
-                                    </div>
-                                </div>
+{{--                                <div class="col-md-4">--}}
+{{--                                    <div>--}}
+{{--                                        <label class="control-label" for="request_period_created">Дата создания--}}
+{{--                                            платежа</label>--}}
+{{--                                        <div class="input-group input-daterange" style="width: 100%">--}}
+{{--                                            <input id="request_period_created" class="form-control valid"--}}
+{{--                                                   name="request_period_created" type="text"--}}
+{{--                                                   aria-invalid="false" style="width: 100%;">--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
                                 <div class="col-md-4">
                                     <label class="control-label" for="merchant_id">Мерчант
                                     </label>
@@ -146,7 +146,7 @@
                             <thead>
                             <tr role="row">
                                 <th> ID</th>
-                                <th> Дата создания</th>
+{{--                                <th> Дата создания</th>--}}
                                 <th> Дата платежа</th>
                                 <th> Сумма</th>
                                 <th> Комиссия</th>
@@ -196,7 +196,7 @@
                 ajax: '{!! route('get.search.payment') !!}',
                 columns: [
                     {data: 'id', name: 'id'},
-                    {data: 'created', name: 'created'},
+                    // {data: 'created', name: 'created'},
                     {data: 'updated', name: 'updated'},
                     {data: 'amount', name: 'amount',},
                     {data: 'customer_fee', name: 'customer_fee'},
@@ -284,7 +284,7 @@
                         error:function(data){console.log('success'+data)},
                         columns: [
                             {data: 'id', name: 'id'},
-                            {data: 'created', name: 'created'},
+                            // {data: 'created', name: 'created'},
                             {data: 'updated', name: 'updated'},
                             {data: 'amount', name: 'amount',},
                             {data: 'customer_fee', name: 'customer_fee'},

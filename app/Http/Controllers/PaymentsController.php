@@ -93,9 +93,9 @@ class PaymentsController extends Controller
             ->addColumn('id', function ($payments) {
                 return   $payments->id  ;
             })
-            ->editColumn('created', function ($payments) {
-                return $payments->created;
-            })
+//            ->editColumn('created', function ($payments) {
+//                return $payments->created;
+//            })
             ->editColumn('updated', function ($payments) {
                 return $payments->updated;
             })

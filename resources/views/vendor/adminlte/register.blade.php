@@ -13,8 +13,9 @@
             </ul>
         </div>
     @endif
+    <div class="row">
     <div class="col-md-4">
-    <div class="box">
+    <div class="box col-md-4">
         <div class="box-body">
             <div class="row">
                 <div class="col-lg-12">
@@ -80,6 +81,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
     </div>
 @stop

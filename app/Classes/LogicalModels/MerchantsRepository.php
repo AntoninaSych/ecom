@@ -25,8 +25,15 @@ class MerchantsRepository
         return $merchants;
     }
 
-    public function getListLimited()
+    /**
+     * @param null $limit
+     * @return mixed
+     */
+    public function getList($limit = null)
     {
-        return $this->merchants->select()->limit(3)->get();
+        if (!is_null($limit)) {
+            return $collection = $this->merchants->select()->limit($limit)->get();
+        }
+        return   Merchants::with('status:id,name')->get();
     }
 }

@@ -146,6 +146,13 @@ return [
             'url'  => 'admin/blog',
             'can'  => 'test',
         ],
+        'MERCHANTS MANAGMENT',
+        [
+            'text' => 'Просмотр мерчантов',
+            'url'  => 'merchants/',
+            'icon' => ' fa-credit-card',
+            'can'  => 'merchant-view',
+        ],
     ],
 //    'menu' => [
 //        'MAIN NAVIGATION',

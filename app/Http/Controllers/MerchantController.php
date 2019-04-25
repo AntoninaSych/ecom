@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Classes\Filters\SearchPaymentsFilter;
 use App\Classes\Helpers\ApiResponse;
 use App\Classes\Helpers\ValidatorHelper;
 use App\Classes\LogicalModels\MerchantsRepository;
@@ -11,6 +12,7 @@ use App\Exceptions\NoDataFoundException;
 use App\Exceptions\NotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\Facades\DataTables;
 
 class MerchantController extends Controller
 {
@@ -42,5 +44,32 @@ class MerchantController extends Controller
             }
         }
 
+    }
+
+    public function list()
+    {
+return view('merchants.view');
+    }
+
+    public function anyData()
+    {
+        $merchants = $this->merchants->getList();
+        return Datatables::of($merchants)
+            ->addColumn('id', function ($merchants) {
+                return   $merchants->id  ;
+            })
+            ->addColumn('merchant_id', function ($merchants) {
+                return   $merchants->merchant_id  ;
+            })
+            ->editColumn('name', function ($merchants) {
+                return $merchants->name;
+            })
+            ->editColumn('url', function ($merchants) {
+                return $merchants->url;
+            })
+            ->editColumn('status', function ($merchants) {
+                return $merchants->getRelations()['status']->name;
+            })
+            ->make(true);
     }
 }

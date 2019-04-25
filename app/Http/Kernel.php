@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\CanViewMerchants;
 use App\Http\Middleware\CanViewPayments;
 use App\Http\Middleware\IsBlockUser;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
@@ -69,7 +70,8 @@ class Kernel extends HttpKernel
         'can.add.user' => \App\Http\Middleware\CanAddUser::class,
         'can.manage.roles' => \App\Http\Middleware\CanManageUsers::class,
         'can.view.payments' => CanViewPayments::class,
-        'is.block.user' => IsBlockUser::class
+        'is.block.user' => IsBlockUser::class,
+        'can.view.merchants' =>CanViewMerchants::class
     ];
 
     /**

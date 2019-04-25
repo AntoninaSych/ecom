@@ -48,7 +48,7 @@ class PaymentsController extends Controller
 
     public function index()
     {
-        $this->merchants = $this->merchants->getListLimited();
+        $this->merchants = $this->merchants->getList(5);
         $this->paymentTypes = $this->paymentTypes->getList();
         $this->paymentStatuses = $this->paymentStatuses->getList();
 

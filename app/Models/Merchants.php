@@ -15,4 +15,10 @@ class Merchants extends BaseModel
         return $this->hasMany(Payments::class, 'id', 'merchant_id');
     }
 
+    public function status()
+    {
+
+        return $this->hasOne(MerchantStatus::class,'id','status');
+    }
+
 }

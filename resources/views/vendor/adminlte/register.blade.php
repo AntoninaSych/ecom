@@ -13,6 +13,7 @@
             </ul>
         </div>
     @endif
+    <div class="col-md-4">
     <div class="box">
         <div class="box-body">
             <div class="row">
@@ -22,7 +23,7 @@
                         {!! csrf_field() !!}
 
                         <div class="form-group has-feedback {{ $errors->has('name') ? 'has-error' : '' }}">
-                            <input type="text" name="name" class="form-control" value="{{ old('name') }}"
+                            <input type="text" name="name" class="form-control"   value="{{ old('name') }}"
                                    placeholder="Введите имя пользователя">
                             <span class="glyphicon glyphicon-user form-control-feedback"></span>
                             @if ($errors->has('name'))
@@ -32,8 +33,8 @@
                             @endif
                         </div>
                         <div class="form-group has-feedback {{ $errors->has('email') ? 'has-error' : '' }}">
-                            <input type="email" name="email" class="form-control" value="{{ old('email') }}"
-                                   placeholder="Введите Email">
+                            <input type="email" name="email"  maxlenght="15" class="form-control" value="{{ old('email') }}"
+                                   placeholder="Введите Email"  max="25">
                             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                             @if ($errors->has('email'))
                                 <span class="help-block">
@@ -80,6 +81,6 @@
             </div>
         </div>
     </div>
-
+    </div>
 @stop
 

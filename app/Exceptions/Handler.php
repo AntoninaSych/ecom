@@ -53,14 +53,14 @@ class Handler extends ExceptionHandler
         }
 
         if ($exception instanceof PermissionException) {
-            return response()->view('errors.default',
+            return response()->view('errors.custom',
                 ['message' => $exception->getMessage(), 'code' =>$exception->getStatusCode()]);
         }
+//
+//        return response()->view('errors.default',
+//            ['message' => "Произошла ошибка", 'code' => '500']);
+//
 
-        return response()->view('errors.default',
-            ['message' => "Произошла ошибка", 'code' => '500']);
-
-
-//           return parent::render($request, $exception);
+      return parent::render($request, $exception);
     }
 }

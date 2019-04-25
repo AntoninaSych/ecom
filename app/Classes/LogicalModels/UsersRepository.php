@@ -38,5 +38,11 @@ class UsersRepository
         $user->status = intval($status);
         $user->save();
     }
+
+    public function getOne($key,$value)
+    {
+        return $this->users->select()->where($key ,'=', $value)->first();
+    }
+
 }
 

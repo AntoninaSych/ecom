@@ -108,6 +108,9 @@ class PaymentsController extends Controller
             ->editColumn('status', function ($payments) {
                 return $payments->status;
             })
+            ->editColumn('merchant', function ($payments) {
+                return $payments->merchant;
+            })
             ->editColumn('card_num', function ($payments) {
                 return $payments->card_num;
             })

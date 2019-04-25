@@ -7,6 +7,7 @@ namespace App\Classes\LogicalModels;
 use App\Classes\Filters\CardFilter;
 use App\Classes\Filters\SearchPaymentsFilter;
 use App\Exceptions\NotFoundException;
+use App\Models\Merchants;
 use App\Models\Payments;
 use App\Models\PaymentStatus;
 use App\Models\PaymentType;
@@ -19,12 +20,14 @@ class PaymentsRepository
     protected $payments;
     protected $type;
     protected $status;
+    protected $merchants;
 
-    public function __construct(Payments $payments, PaymentStatus $status, PaymentType $type)
+    public function __construct(Payments $payments, PaymentStatus $status, PaymentType $type, Merchants $merchants)
     {
         $this->payments = $payments;
         $this->type = $type;
         $this->status = $status;
+        $this->merchants = $merchants;
     }
 
     public function getList()
@@ -57,8 +60,10 @@ class PaymentsRepository
                 'payments.merchant_id',
                 'payments.description',
                 'st.name  as  status',
-                'st.name  as  type'
+                'st.name  as  type',
+                'mer.name as merchant'
             )
+            ->leftjoin($this->merchants->getTable() . ' as mer', 'payments.merchant_id', '=', 'mer.id')
             ->leftjoin($this->status->getTable() . ' as st', 'payments.status', '=', 'st.id')
             ->leftjoin($this->type->getTable() . ' as tp', 'payments.type', '=', 'tp.id');
 
@@ -98,11 +103,11 @@ class PaymentsRepository
         }
 
 
-        if ($filter->createdTo != "" && $filter->createdFrom != "") {
-            $start_date = Carbon::createFromFormat('Y-m-d', $filter->createdFrom)->startOfDay()->toDateTimeString();
-            $end_date = Carbon::createFromFormat('Y-m-d', $filter->createdTo)->endOfDay()->toDateTimeString();
-            $query = $query->whereBetween('payments.created', [$start_date, $end_date]);
-        }
+//        if ($filter->createdTo != "" && $filter->createdFrom != "") {
+//            $start_date = Carbon::createFromFormat('Y-m-d', $filter->createdFrom)->startOfDay()->toDateTimeString();
+//            $end_date = Carbon::createFromFormat('Y-m-d', $filter->createdTo)->endOfDay()->toDateTimeString();
+//            $query = $query->whereBetween('payments.created', [$start_date, $end_date]);
+//        }
         if ($filter->updatedTo != "" && $filter->updatedFrom != "") {
             $start_date = Carbon::createFromFormat('Y-m-d', $filter->updatedFrom)->startOfDay()->toDateTimeString();
             $end_date = Carbon::createFromFormat('Y-m-d', $filter->updatedTo)->endOfDay()->toDateTimeString();
@@ -112,7 +117,6 @@ class PaymentsRepository
         $query = $query->orderBy('payments.created', 'DESC');
         $results = $query->get();
         $results = CardFilter::filterCollection($results);
-
 
         return $results;
     }

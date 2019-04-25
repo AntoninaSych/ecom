@@ -151,6 +151,7 @@
                                 <th> Сумма</th>
                                 <th> Комиссия</th>
                                 <th> Статус</th>
+                                <th> Мерчант</th>
                                 <th> Карта</th>
                                 <th> ID заказа</th>
                                 <th> Описание</th>
@@ -201,6 +202,7 @@
                     {data: 'amount', name: 'amount',},
                     {data: 'customer_fee', name: 'customer_fee'},
                     {data: 'status', name: 'status'},
+                    {data: 'merchant', name: 'merchant'},
                     {data: 'card_num', name: 'card_num'},
                     {data: 'order_id', name: 'order_id'},
                     {data: 'description', name: 'description'},
@@ -259,7 +261,7 @@
                             url: '{!! route('get.search.payment') !!}',
                             data: {
                                 id: $('#search-form').find("input[name*='id']").val(),
-                                created_date: $('#search-form').find("input[name*='created_date']").val(),
+                                // created_date: $('#search-form').find("input[name*='created_date']").val(),
                                 payment_type: $('#search-form').find("select[name*='payment_type']").val(),
                                 payment_status: $('#search-form').find("select[name*='payment_status']").val(),
                                 number_order: $('#search-form').find("input[name*='number_order']").val(),
@@ -289,6 +291,7 @@
                             {data: 'amount', name: 'amount',},
                             {data: 'customer_fee', name: 'customer_fee'},
                             {data: 'status', name: 'status'},
+                            {data: 'merchant', name: 'merchant'},
                             {data: 'card_num', name: 'card_num'},
                             {data: 'order_id', name: 'order_id'},
                             {data: 'description', name: 'description'},

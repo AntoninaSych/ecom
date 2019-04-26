@@ -36,4 +36,8 @@ class MerchantsRepository
         }
         return   Merchants::with('status:id,name')->get();
     }
+
+    public function getOneById(int $id){
+        return $this->merchants->findOrFail($id);
+    }
 }

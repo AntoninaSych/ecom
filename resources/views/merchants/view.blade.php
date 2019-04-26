@@ -22,6 +22,7 @@
                                 <th> Имя</th>
                                 <th> URL</th>
                                 <th> Статус</th>
+                                <th> Детали</th>
                             </tr>
                             </thead>
                         </table>
@@ -59,6 +60,7 @@
                     {data: 'name', name: 'name'},
                     {data: 'url', name: 'url',},
                     {data: 'status', name: 'status'},
+                    {data: 'view_details', name: 'view_details', searchable: false}
                 ]
             });
 

@@ -47,6 +47,7 @@ Route::group(['middleware' => ['auth', 'is.block.user']], function () {
         Route::group(['middleware' => 'can.view.merchants'], function () {
             Route::match(['get'], '/', 'MerchantController@list');
             Route::match(['get'], '/datatable', 'MerchantController@anyData')->name('get.search.merchants');
+            Route::match(['get'], '/view/{id}', 'MerchantController@getOneById')->name('merchant.detail');
         });
 
     });

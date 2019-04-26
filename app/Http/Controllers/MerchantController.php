@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Classes\Filters\SearchPaymentsFilter;
 use App\Classes\Helpers\ApiResponse;
 use App\Classes\Helpers\ValidatorHelper;
+use App\Classes\LogicalModels\CallBackRepository;
 use App\Classes\LogicalModels\MerchantsRepository;
 use App\Exceptions\NoDataFoundException;
 use App\Exceptions\NotFoundException;
@@ -28,7 +29,7 @@ class MerchantController extends Controller
     public function getlistByName()
     {
 
-         $validator = Validator::make($this->request->all(), [
+        $validator = Validator::make($this->request->all(), [
             'name' => 'required|string'
         ]);
 
@@ -48,7 +49,16 @@ class MerchantController extends Controller
 
     public function list()
     {
-return view('merchants.view');
+        return view('merchants.view');
+    }
+
+    public function getOneById(int $id)
+    {
+        $merchant = $this->merchants->getOneById($id);
+
+        return view('merchants.detailed')->with([
+            'merchant' => $merchant
+        ]);
     }
 
     public function anyData()
@@ -56,10 +66,10 @@ return view('merchants.view');
         $merchants = $this->merchants->getList();
         return Datatables::of($merchants)
             ->addColumn('id', function ($merchants) {
-                return   $merchants->id  ;
+                return $merchants->id;
             })
             ->addColumn('merchant_id', function ($merchants) {
-                return   $merchants->merchant_id  ;
+                return $merchants->merchant_id;
             })
             ->editColumn('name', function ($merchants) {
                 return $merchants->name;
@@ -70,6 +80,10 @@ return view('merchants.view');
             ->editColumn('status', function ($merchants) {
                 return $merchants->getRelations()['status']->name;
             })
+            ->addColumn('view_details', function ($merchants) {
+                return '<a class="btn btn-black" href="'.route('merchant.detail',['id'=>$merchants->id]).'"><i class="fa fa-fw fa-eye"></i></a>';
+            })
+            ->rawColumns(['view_details'])
             ->make(true);
     }
 }

@@ -271,8 +271,8 @@
                                 description: $('#search-form').find("input[name*='description']").val(),
                                 updated_from: $('#request_period_updated').val().split(delimiter)[0],//дата платежа
                                 updated_to: $('#request_period_updated').val().split(delimiter)[1],//дата платежа
-                                created_from: $('#request_period_created').val().split(delimiter)[0],//дата создания платежа
-                                created_to: $('#request_period_created').val().split(delimiter)[1]//дата создание платежа
+                                // created_from: $('#request_period_created').val().split(delimiter)[0],//дата создания платежа
+                                // created_to: $('#request_period_created').val().split(delimiter)[1]//дата создание платежа
                             },
                         },
                         success: function(result, status) {

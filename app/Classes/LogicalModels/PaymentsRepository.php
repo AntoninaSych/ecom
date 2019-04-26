@@ -114,7 +114,7 @@ class PaymentsRepository
             $query = $query->whereBetween('payments.updated', [$start_date, $end_date]);
         }
 
-        $query = $query->orderBy('payments.created', 'DESC');
+        $query = $query->orderBy('payments.id', 'DESC');
         $results = $query->get();
         $results = CardFilter::filterCollection($results);
 

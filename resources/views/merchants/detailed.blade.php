@@ -28,24 +28,24 @@
         <div class="box-body">
             <table class="table">
                 <tr>
-                    <td>Merchant Id</td>
+                    <td>Идентификатор мерчанта</td>
                     <td>{{$merchant->merchant_id}}</td>
                 </tr>
                 <tr>
-                    <td>Name</td>
+                    <td>Имя</td>
                     <td>{{$merchant->name}}</td>
                 </tr>
                 <tr>
                     <td>URL</td>
-                    <td>{{$merchant->url}}</td>
+                    <td><a href="{{$merchant->url}}">{{$merchant->url}}</a></td>
                 </tr>
 
                 <tr>
-                    <td>Comission</td>
+                    <td>Комиссия</td>
                     <td>{{$merchant->comission}}</td>
                 </tr>
                 <tr>
-                    <td>Apple Merchant</td>
+                    <td>Apple мерчанта</td>
                     <td>{{$merchant->apple_merchant_id}}</td>
                 </tr>
                 <tr>
@@ -55,32 +55,56 @@
                 <tr>
                     <td>Имя мерчанта</td>
                     <td>
-                        Name: {{$relations['user']->username}}<br>
-                        Email: {{$relations['user']->email}}
+                        {{$relations['user']->username}}<br>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>
+                        {{$relations['user']->email}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Тип компенсации</td>
+                    <td>{{$relations['compensationType']->name}}
+                        @if($relations['compensationType']->enabled ==1)
+                            <span class="label label-success"> Включен</span>
+                        @else
+                            <span class="label label-danger">Выключен</span>
+                        @endif
+
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>Вид компенсации</td>
+                    <td>{{$relations['compensationTerm']->name}}
+                        @if($relations['compensationTerm']->enabled ==1)
+                            <span class="label label-success"> Включен</span>
+                        @else
+                            <span class="label label-danger">Выключен</span>
+                        @endif
                     </td>
                 </tr>
 
                 <tr>
-                    <td>Compensation Type</td>
-                    <td>{{$relations['compensationType']->name}}<br>
-                        {{$relations['compensationType']->enabled}}
-                    </td>
-                </tr>
-                <tr>
-                    <td>Compensation Term</td>
-                    <td>{{$relations['compensationTerm']->name}}<br>
-                        {{$relations['compensationTerm']->enabled}}
-                    </td>
-                </tr>
+                    <td>Тип мерчанта</td>
 
-                <tr>
-                    <td>Merchant Type</td>
-                    <td>{{$relations['merchantType']->name}}<br>
-                        {{$relations['merchantType']->enabled}}
+
+                    <td>{{$relations['merchantType']->name}}
+
+                        @if($relations['merchantType']->enabled ==1)
+                            <span class="label label-success"> Включен</span>
+                        @else
+                            <span class="label label-danger">Выключен</span>
+                        @endif
+
+
                     </td>
                 </tr>
                 <tr>
-                    <td>Updated</td>
+                    <td>Дата обновления</td>
                     <td>{{$merchant->updated}}</td>
                 </tr>
             </table>
@@ -92,8 +116,6 @@
         <!-- box-footer -->
     </div>
     <!-- /.box -->
-    <?php //dd($merchant);?>
-
 @stop
 
 

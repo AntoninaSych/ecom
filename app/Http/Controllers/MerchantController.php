@@ -75,7 +75,9 @@ class MerchantController extends Controller
                 return $merchants->name;
             })
             ->editColumn('url', function ($merchants) {
-                return $merchants->url;
+
+                return '<a class="btn btn-black" href="'.$merchants->url.'">'.$merchants->url.'</a>';
+
             })
             ->editColumn('status', function ($merchants) {
                 return $merchants->getRelations()['status']->name;
@@ -83,7 +85,7 @@ class MerchantController extends Controller
             ->addColumn('view_details', function ($merchants) {
                 return '<a class="btn btn-black" href="'.route('merchant.detail',['id'=>$merchants->id]).'"><i class="fa fa-fw fa-eye"></i></a>';
             })
-            ->rawColumns(['view_details'])
+            ->rawColumns(['view_details','url'])
             ->make(true);
     }
 }

@@ -49,8 +49,5 @@ Route::group(['middleware' => ['auth', 'is.block.user']], function () {
             Route::match(['get'], '/datatable', 'MerchantController@anyData')->name('get.search.merchants');
             Route::match(['get'], '/view/{id}', 'MerchantController@getOneById')->name('merchant.detail');
         });
-
     });
-
-
 });

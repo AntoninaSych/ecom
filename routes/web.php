@@ -42,7 +42,7 @@ Route::group(['middleware' => ['auth', 'is.block.user']], function () {
     });
 
     Route::group(['prefix' => 'merchants'], function () {
-        Route::match(['get'], 'merchants/getlistByName', 'MerchantController@getlistByName'); // роут используется в поиске платежей
+        Route::match(['get'], '/getlistByName', 'MerchantController@getlistByName'); // роут используется в поиске платежей
 
         Route::group(['middleware' => 'can.view.merchants'], function () {
             Route::match(['get'], '/', 'MerchantController@list');

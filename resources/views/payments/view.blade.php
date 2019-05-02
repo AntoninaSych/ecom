@@ -214,6 +214,7 @@
 <script>
     (function ($) {
         $(function () {
+            var format ="DD-MM-YYYY HH:mm:ss";
             $.ajax({
                 url: config.services.processLog,
                 type: "GET",
@@ -235,11 +236,11 @@
                         template += '<div class="timeline-item">';
                         var request_time =process_log[i]['request_time'];
                         if(request_time !=null) {
-                            request_time = moment.unix(process_log[i]['request_time']).format("MM-DD-YYYY HH:mm:ss");
+                            request_time = moment.unix(process_log[i]['request_time']).format(format);
                         }else {
                             request_time = "Время не зафиксировано";
                         }
-                        template += '<span class="time"><i class="fa fa-clock-o"></i>Request:'+ request_time  +'</span>';
+                        template += '<span class="time"><i class="fa fa-clock-o"></i> Request: '+ request_time  +'</span>';
                         template += '<h3 class="timeline-header"><a href="#"> ID: '+ process_log[i]['id']+'</a></h3>';
 
                         template += '<div class="timeline-body">';
@@ -247,7 +248,7 @@
                         template += 'Request body: <div id="request'+i+'"><div class="json-view"> </div></div>';
                         var response_time = process_log[i]['response_time'];
                         if(response_time !=null) {
-                            response_time = process_log[i]['response_time'] = moment.unix(process_log[i]['response_time']).format("MM-DD-YYYY HH:mm:ss");
+                            response_time = process_log[i]['response_time'] = moment.unix(process_log[i]['response_time']).format(format);
                         }else{
                             response_time = "Время не зафиксировано";
                         }

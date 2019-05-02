@@ -94,14 +94,16 @@ Behavior:
  - Only with 'manage-users' permission user can 
    1. Attach permissions to roles:
      _http://backoffice.loc/settings_
-   2. Change roles for existing users
+   2. Change roles for existing users and block access to the whole project "Backoffice".
     _http://backoffice.loc/settings/users_
     
  - Only with 'view-payments'  permission user can view payments page and it details
     _http://backoffice.loc/payments_
     _http://backoffice.loc/payments/view?id=1_
  
- 
+  - Only with 'merchant-view'  permission user can view merchants page and it details
+  - Only with 'process-log-view'  permission user can view PaymentLog tabin payment's details page
+  
 
  
  

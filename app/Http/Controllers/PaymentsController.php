@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Classes\Filters\SearchPaymentsFilter;
 use App\Classes\Helpers\ApiResponse;
+use App\Classes\Helpers\PermissionHelper;
 use App\Classes\Helpers\ValidatorHelper;
 use App\Classes\LogicalModels\CallBackRepository;
 use App\Classes\LogicalModels\MerchantsRepository;
@@ -15,6 +16,7 @@ use App\Classes\LogicalModels\PaymentTypesRepository;
 use App\Exceptions\NotFoundException;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -72,13 +74,19 @@ class PaymentsController extends Controller
 
             $callBackLog = new CallBackRepository();
             $callBackLog = $callBackLog->getByPaymentId($payment->id);
+            $processLog = null;
+            if(Auth::user()->can(PermissionHelper::PROCESS_LOG_VIEW))
+            {
+               $processLog = $this->payments->getProcessingLog($this->request->get('id'));
+            }
         } catch (NotFoundException $e) {
             return ApiResponse::badResponse($e->getMessage(), $e->getCode());
         }
 
         return view('payments.view')->with([
             'payment' => $payment,
-            'callBackLog' => $callBackLog
+            'callBackLog' => $callBackLog,
+            'processLog' =>$processLog
         ]);
     }
 

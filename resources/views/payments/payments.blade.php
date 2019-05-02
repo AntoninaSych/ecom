@@ -301,7 +301,6 @@
                     e.preventDefault();
                 }
             });
-
         });
     })(jQuery);
 

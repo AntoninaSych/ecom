@@ -11,6 +11,7 @@ use App\Models\Merchants;
 use App\Models\Payments;
 use App\Models\PaymentStatus;
 use App\Models\PaymentType;
+use App\Models\ProcessingLog;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use \Carbon\Carbon;
@@ -136,5 +137,28 @@ class PaymentsRepository
         }
 
         return $payment;
+    }
+
+    public function getProcessingLog($paymentId)
+    {
+        $processingLog = new ProcessingLog();
+
+        $processingLog = $processingLog->where('payment_id',$paymentId)->get();
+
+          foreach ($processingLog as $log)
+          {
+              $log->request_body = json_decode( $log->request_body,true);
+              if(isset($log->request_body['Request']['PAN']))
+              {
+                 // $log->request_body['Request']['PAN'] =  CardFilter::filterString(    $log->request_body['Request']['PAN'] );
+                  $temp = $log->request_body;
+                  $temp['Request']['PAN'] =  CardFilter::filterString(    $log->request_body['Request']['PAN'] );
+                  $log->request_body = $temp;
+              }
+
+            $log->request_body = json_encode($log->request_body);
+          }
+
+        return $processingLog;
     }
 }

@@ -64,7 +64,13 @@ class LoginController extends Controller
 
         $user = $this->users->getOne('email', $request->get('email'));
 
-        if($user->status  == 0){
+        if(is_null($user)){
+            throw ValidationException::withMessages([
+                $this->username() => ['Пользователь с таким email не найден'],
+            ]);
+        }
+
+        if(  $user->status  == 0){
             throw ValidationException::withMessages([
                 $this->username() => ['Доступ для данного пользователя заблокирован'],
             ]);

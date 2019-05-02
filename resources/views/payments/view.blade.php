@@ -160,6 +160,29 @@
                 </div>
             </div>
         </div>
+{{--        //todo with nice styles time line maybe--}}
+        @if(isset($processLog) && !is_null($processLog))
+        <div class="col-md-8">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Processing Log (only for Administrator (make check // toDO)</h3>
+                    <div class="box-body">
+                        <table class="table">
+
+                            @foreach($processLog as $log)
+                                <tr><td>ID</td><td>{{$log['id']}}</td></tr>
+                             <tr> <td>ts</td><td>{{$log['ts']}}</td> </tr>
+                             <tr><td>request_time</td><td>{{$log['request_time']}}</td> </tr>
+                             <tr><td>response_time</td><td>{{$log['response_time']}}</td> </tr>
+                             <tr><td>request_body</td><td>{{$log['request_body']}}</td> </tr>
+                            <tr> <td>response_body</td> <td >{{$log['response_body']}}</td></tr>
+                                @endforeach
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+            @endif
     </div>
 
 @stop

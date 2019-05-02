@@ -46,8 +46,6 @@ class PaymentsController extends Controller
     }
 
 
-
-
     public function index()
     {
         $this->merchants = $this->merchants->getList(5);
@@ -74,11 +72,10 @@ class PaymentsController extends Controller
 
             $callBackLog = new CallBackRepository();
             $callBackLog = $callBackLog->getByPaymentId($payment->id);
-            $processLog = null;
-            if(Auth::user()->can(PermissionHelper::PROCESS_LOG_VIEW))
-            {
-               $processLog = $this->payments->getProcessingLog($this->request->get('id'));
-            }
+//            $processLog = null;
+//            if (Auth::user()->can(PermissionHelper::PROCESS_LOG_VIEW)) {
+//                $processLog = $this->payments->getProcessingLog($this->request->get('id'));
+//            }
         } catch (NotFoundException $e) {
             return ApiResponse::badResponse($e->getMessage(), $e->getCode());
         }
@@ -86,8 +83,28 @@ class PaymentsController extends Controller
         return view('payments.view')->with([
             'payment' => $payment,
             'callBackLog' => $callBackLog,
-            'processLog' =>$processLog
+//            'processLog' => $processLog
         ]);
+    }
+
+    public function getProcessLog()
+    {
+        $validator = Validator::make($this->request->all(), [
+            'id' => 'integer'
+        ]);
+        if ($validator->fails()) {
+            return ApiResponse::badResponseValidation(ValidatorHelper::toArray($validator));
+        }
+        try {
+            $processLog = null;
+            if (Auth::user()->can(PermissionHelper::PROCESS_LOG_VIEW)) {
+                $processLog = $this->payments->getProcessingLog($this->request->get('id'));
+            }
+        } catch (NotFoundException $e) {
+            return ApiResponse::badResponse($e->getMessage(), $e->getCode());
+        }
+
+        return ApiResponse::goodResponse(['processLog' => $processLog]);
     }
 
     /**
@@ -99,7 +116,7 @@ class PaymentsController extends Controller
         $payments = $this->payments->getSearch(SearchPaymentsFilter::create($this->request->all()));
         return Datatables::of($payments)
             ->addColumn('id', function ($payments) {
-                return   $payments->id  ;
+                return $payments->id;
             })
 //            ->editColumn('created', function ($payments) {
 //                return $payments->created;
@@ -129,9 +146,9 @@ class PaymentsController extends Controller
                 return $payments->description;
             })
             ->addColumn('view_details', function ($payments) {
-                return  '<a class="btn btn-black" href="/payments/view?id='.$payments->id.'"><i class="fa fa-fw fa-eye"></i></a>';
+                return '<a class="btn btn-black" href="/payments/view?id=' . $payments->id . '"><i class="fa fa-fw fa-eye"></i></a>';
             })
-            ->rawColumns(['view_details' ])
-    ->make(true);
+            ->rawColumns(['view_details'])
+            ->make(true);
     }
 }

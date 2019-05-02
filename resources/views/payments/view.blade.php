@@ -14,7 +14,9 @@
             <li class=""><a href="#main-information" data-toggle="tab" aria-expanded="false">Details</a></li>
             <li class=""><a href="#call-back-log" data-toggle="tab" aria-expanded="false">CallBackLog</a></li>
 
-            <li class=""><a href="#payment-log" data-toggle="tab" aria-expanded="true">PaymentLog</a></li>
+            @if( Auth::user()->can(PermissionHelper::PROCESS_LOG_VIEW) )
+                <li class=""><a href="#payment-log" data-toggle="tab" aria-expanded="true">PaymentLog</a></li>
+            @endif
             <li class="pull-left header"><i class="fa fa-inbox"></i> Детали платежа</li>
         </ul>
         <div class="tab-content no-padding">
@@ -185,33 +187,11 @@
 
                 <div class="row">
                     <div class="col-md-12" style="margin: 15px 0 0 15px">
-                        <ul class="timeline">
+                        @if( Auth::user()->can(PermissionHelper::PROCESS_LOG_VIEW) )
+                            <ul class="timeline" id="timeline" style="word-wrap: break-word; overflow-wrap: break-word;">
+                            </ul>
+                        @endif
 
-
-                            @foreach($processLog as $log)
-                                <li class="time-label">
-                                    <span class="bg-green">{{$log['ts']}}</span></li>
-                                <li>
-                                    <!-- timeline icon -->
-                                    <i class="fa  fa-clock-o bg-blue"></i>
-                                    <div class="timeline-item">
-                                        <span class="time"><i class="fa fa-clock-o"></i>Request: {{$log['request_time']}} </span>
-
-                                        <h3 class="timeline-header"><a href="#"> ID:  {{$log['id']}}  </a></h3>
-
-                                        <div class="timeline-body">
-                                            Request Time: {{$log['request_time']}}<br>
-                                            Request body: {{$log['request_body']}}
-                                        </div>
-
-                                        <div class="timeline-footer">
-                                            Response Time {{$log['response_time']}}<br>
-                                            Response body: {{$log['response_body']}}
-                                        </div>
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
                     </div>
                 </div>
 
@@ -221,5 +201,104 @@
 
     </div>
     </div>
+    <script>
+        var id = {!! json_encode($payment->id) !!};
+    </script>
 @stop
 
+<script src="{{ asset('/js/libraries/jquery.js') }}"></script>
+<script type="text/javascript" src="{{ asset('/js/libraries/tree-view/jquery.json-view.js') }}"></script>
+<link rel="stylesheet" href="{{ asset('/css/libraries/tree-view/jquery.json-view.css') }}">
+
+
+<script>
+    (function ($) {
+        $(function () {
+            $.ajax({
+                url: config.services.processLog,
+                type: "GET",
+                data: {
+                    "id": id
+                },
+                success: function (data) {
+                    if(data.data.processLog.length == 0){
+                        $('#timeline').html("Нет данных для отображения");
+                    }
+                    else{
+                    var process_log = data.data.processLog;
+                    var template = '';
+                    $('#timeline').html(template);
+                    for (var i = 0; i < process_log.length; i++) {
+                        template ='<li  class="time-label"><span  class="bg-green" >'+process_log[i]['ts']+'</span></li>';
+                        template += '<li>';
+                        template += '<i class="fa  fa-clock-o bg-blue"></i>';
+                        template += '<div class="timeline-item">';
+                        var time = moment(process_log[i]['request_time'], "MMMM Do YYYY, h:mm:ss") ;
+                        template += '<span class="time"><i class="fa fa-clock-o"></i>Request:'+ time  +'</span>';
+                        template += '<h3 class="timeline-header"><a href="#"> ID: '+ process_log[i]['id']+'</a></h3>';
+
+                        template += '<div class="timeline-body">';
+                        template += 'Request Time:'+process_log[i]['request_time']+'<br>';
+                        template += 'Request body: <div id="request'+i+'"><div class="json-view"> </div></div>';
+                        template += 'Response Time : '+process_log[i]['response_time']+'<br>';
+                        var xml =   $.parseXML(process_log[i]['response_body']) ;
+                        var json = xml2json(xml);
+
+                        template += 'Response body:<div id="xml'+i+'"></div>' ;
+                        template += '</div>-';
+
+                        template += '<div class="timeline-footer">';
+
+                        template += '</div>';
+                        template += '</div>';
+                        template += '</li>';
+
+                        $('#timeline').append(template);
+                        $('#request'+i).jsonView(process_log[i]['request_body']);
+
+                        $('#xml'+i).jsonView(json);
+
+                    }
+                }
+
+                }, error: function (data) {
+                    $('#timeline').html("У Вас нет доступа для просмотра данного раздела");
+                }
+            });
+
+
+            function xml2json(xml) {
+                try {
+                    var obj = {};
+                    if (xml.children.length > 0) {
+                        for (var i = 0; i < xml.children.length; i++) {
+                            var item = xml.children.item(i);
+                            var nodeName = item.nodeName;
+
+                            if (typeof (obj[nodeName]) == "undefined") {
+                                obj[nodeName] = xml2json(item);
+                            } else {
+                                if (typeof (obj[nodeName].push) == "undefined") {
+                                    var old = obj[nodeName];
+
+                                    obj[nodeName] = [];
+                                    obj[nodeName].push(old);
+                                }
+                                obj[nodeName].push(xml2json(item));
+                            }
+                        }
+                    } else {
+                        obj = xml.textContent;
+                    }
+                    return obj;
+                } catch (e) {
+                    console.log(e.message);
+                }
+            }
+
+        });
+    })(jQuery);
+
+</script>
+
+}

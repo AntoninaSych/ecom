@@ -14,7 +14,6 @@ $(document).ready(function () {
             var user_id = $(this).data("id");
             var current_role_id = $(this).data("role-id");
             var user_name = $(this).data("name");
-console.log('111');
             var options = "";
             for (var i = 0; i < roles_all.length; i++) {
                 if (current_role_id === roles_all[i].id) {

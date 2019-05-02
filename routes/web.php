@@ -39,6 +39,7 @@ Route::group(['middleware' => ['auth', 'is.block.user']], function () {
         Route::get('/', 'PaymentsController@index')->name('payments');
         Route::match(['get'], '/datatable', 'PaymentsController@anyData')->name('get.search.payment');
         Route::match(['get'], '/view', 'PaymentsController@getOneById');
+        Route::match(['get'], '/getProcessLog', 'PaymentsController@getProcessLog');
     });
 
     Route::group(['prefix' => 'merchants'], function () {

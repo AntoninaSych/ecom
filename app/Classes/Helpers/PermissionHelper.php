@@ -4,7 +4,9 @@
 namespace App\Classes\Helpers;
 
 
-class PermissionHelper
+use Illuminate\Support\Facades\Facade;
+
+class PermissionHelper extends Facade
 {
     const MANAGE_USERS = 'manage-users';
     const VIEW_PAYMENTS = 'view-payments';

@@ -233,14 +233,25 @@
                         template += '<li>';
                         template += '<i class="fa  fa-clock-o bg-blue"></i>';
                         template += '<div class="timeline-item">';
-                        var time = moment(process_log[i]['request_time'], "MMMM Do YYYY, h:mm:ss") ;
-                        template += '<span class="time"><i class="fa fa-clock-o"></i>Request:'+ time  +'</span>';
+                        var request_time =process_log[i]['request_time'];
+                        if(request_time !=null) {
+                            request_time = moment.unix(process_log[i]['request_time']).format("MM-DD-YYYY HH:mm:ss");
+                        }else {
+                            request_time = "Время не зафиксировано";
+                        }
+                        template += '<span class="time"><i class="fa fa-clock-o"></i>Request:'+ request_time  +'</span>';
                         template += '<h3 class="timeline-header"><a href="#"> ID: '+ process_log[i]['id']+'</a></h3>';
 
                         template += '<div class="timeline-body">';
-                        template += 'Request Time:'+process_log[i]['request_time']+'<br>';
+                        template += 'Request Time:'+request_time+'<br>';
                         template += 'Request body: <div id="request'+i+'"><div class="json-view"> </div></div>';
-                        template += 'Response Time : '+process_log[i]['response_time']+'<br>';
+                        var response_time = process_log[i]['response_time'];
+                        if(response_time !=null) {
+                            response_time = process_log[i]['response_time'] = moment.unix(process_log[i]['response_time']).format("MM-DD-YYYY HH:mm:ss");
+                        }else{
+                            response_time = "Время не зафиксировано";
+                        }
+                        template += 'Response Time: '+response_time+'<br>';
                         var xml =   $.parseXML(process_log[i]['response_body']) ;
                         var json = xml2json(xml);
 

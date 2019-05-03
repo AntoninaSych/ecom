@@ -102,7 +102,7 @@ class MerchantController extends Controller
     {
         $this->merchants->updateOverall($updateMerchant, $id);
 
-        return redirect()->back()->with('success', 'Merchant with ID  ' . $id . ' was successfully updated.');
+        return redirect()->back()->with('success', 'Мерчант  с ID  ' . $id . ' успешно обновлен.');
 
     }
 }

@@ -27,10 +27,10 @@ class UpdateMerchant extends FormRequest
         return [
             'merchant_identifier' => 'required|string|max:50',
             'merchant_name' => 'required|string|max:50',
-            'merchant_url' => 'string|max:50',
+            'merchant_url' => 'nullable|string|max:50',
             'merchant_status' => 'required|integer|exists:ref_merchant_statuses,id',
             'merchant_user_name' => 'required|string|max:50',
-            'merchant_user_email' => 'email|nullable|max:50',
+            'merchant_user_email' => 'email|max:50',
         ];
     }
 

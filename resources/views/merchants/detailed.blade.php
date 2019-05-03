@@ -112,39 +112,50 @@
                                     </ul>
                                 </div>
                             @endif
-                                @if (\Session::has('success'))
-                                    <div class="alert alert-success">
-                                        <ul>
-                                            <li>{!! \Session::get('success') !!}</li>
-                                        </ul>
-                                    </div>
-                                @endif
+                            @if (\Session::has('success'))
+                                <div class="alert alert-success">
+                                    <ul>
+                                        <li>{!! \Session::get('success') !!}</li>
+                                    </ul>
+                                </div>
+                            @endif
 
-                            {!! Form::open(array('url' => route('merchant.update',['id'=>$merchant->id]),'method' => 'POST')) !!}
+                            {!! Form::open(array('url' => route('merchant.update',['id'=>$merchant->id]),'method' => 'POST','id'=>'merchant_update')) !!}
+                            <div>
+                                {{ Form::label('merchant_identifier',"Идентификатор мерчанта" ) }}
+                                {{ Form::text("merchant_identifier",  $merchant->merchant_id,['class'=>'form-control','id'=>'merchant_identifier']) }}
+                            </div>
 
-                            {{ Form::label('merchant_identifier',"Идентификатор мерчанта" ) }}
-                            {{ Form::text("merchant_identifier",  $merchant->merchant_id,['class'=>'form-control']) }}
+                            <div>
+                                {{ Form::label('merchant_name',"Имя" ) }}
+                                {{ Form::text("merchant_name",  $merchant->name,['class'=>'form-control']) }}
+                            </div>
 
-                            {{ Form::label('merchant_name',"Имя" ) }}
-                            {{ Form::text("merchant_name",  $merchant->name,['class'=>'form-control']) }}
-
-                            {{ Form::label("URL", null ) }}
+                                <div>
+                            {{ Form::label("merchant_url", "URL" ) }}
                             {{ Form::text("merchant_url",  $merchant->url,['class'=>'form-control']) }}
+                                </div>
 
+                                <div>
                             {{ Form::label("merchant_status","Статус"  ) }}
 
                             {{ Form::select("merchant_status", $arrayMerchantStatuses->toArray(), $relations['status']->id ,
                             ['class'=>'form-control']) }}
+                                </div>
 
-                            {{ Form::label("Имя мерчанта", null ) }}
+                                <div>
+                            {{ Form::label("merchant_user_name", "Имя мерчанта" ) }}
                             {{ Form::text("merchant_user_name",  $relations['user']->username,['class'=>'form-control']) }}
+                                </div>
 
-                            {{ Form::label("Email мерчанта", null ) }}
+                                <div>
+                            {{ Form::label("merchant_user_email", "Email мерчанта" ) }}
                             {{ Form::text("merchant_user_email",  $relations['user']->email,['class'=>'form-control']) }}
-                            {{ Form::label(" ", null, ['class' => 'control-label']) }}
+                                </div>
 
-                            {{Form::submit('Обновить данные мерчанта',['class'=>'form-control btn btn-primary'])}}
-
+                                <div>
+                            {{Form::submit('Обновить данные мерчанта',['class'=>'form-control btn btn-primary','id'=>'submit_btn'])}}
+                                </div>
                             {!! Form::close() !!}
 
                         </div>
@@ -187,13 +198,12 @@
 
         </div>
     </div>
-
-
-
-
-
-
-
 @stop
+<script src="{{ asset('/js/libraries/jquery.js') }}"></script>
+<script src="{{ asset('/js/libraries/jquery-validation/validation.js') }}"></script>
+<script type="text/javascript" src="{{ asset('/js/libraries/jquery-validation/additional-methods.min.js') }}"></script>
+<script type="text/javascript"
+        src="{{ asset('/js/libraries/jquery-validation/localization/messages_ru.min.js') }}"></script>
+<script src="{{ asset('js/merchants.js') }}"></script>
 
 

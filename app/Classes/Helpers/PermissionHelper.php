@@ -13,4 +13,6 @@ class PermissionHelper extends Facade
     const ADD_USERS = 'add-user';
     const MERCHANT_VIEW = 'merchant-view';
     const PROCESS_LOG_VIEW = 'process-log-view';
+    const MANAGE_MCC =  'manage-mcc';
+    const MANAGE_MERCHANT=  'manage-merchant';
 }

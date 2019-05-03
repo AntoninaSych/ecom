@@ -129,7 +129,9 @@ class PaymentsRepository
     public function getOneById(int $id): Payments
     {
         $payment = $this->payments->whereId($id)->first();
-
+        if (is_null($payment)) {
+            throw new NotFoundException('Данный платеж не существует');
+        }
         $payment = CardFilter::filterModel($payment);
 
         if (empty($payment)) {
@@ -143,21 +145,19 @@ class PaymentsRepository
     {
         $processingLog = new ProcessingLog();
 
-        $processingLog = $processingLog->where('payment_id',$paymentId)->get();
+        $processingLog = $processingLog->where('payment_id', $paymentId)->get();
 
-          foreach ($processingLog as $log)
-          {
-              $log->request_body = json_decode( $log->request_body,true);
-              if(isset($log->request_body['Request']['PAN']))
-              {
-                 // $log->request_body['Request']['PAN'] =  CardFilter::filterString(    $log->request_body['Request']['PAN'] );
-                  $temp = $log->request_body;
-                  $temp['Request']['PAN'] =  CardFilter::filterString(    $log->request_body['Request']['PAN'] );
-                  $log->request_body = $temp;
-              }
+        foreach ($processingLog as $log) {
+            $log->request_body = json_decode($log->request_body, true);
+            if (isset($log->request_body['Request']['PAN'])) {
+                // $log->request_body['Request']['PAN'] =  CardFilter::filterString(    $log->request_body['Request']['PAN'] );
+                $temp = $log->request_body;
+                $temp['Request']['PAN'] = CardFilter::filterString($log->request_body['Request']['PAN']);
+                $log->request_body = $temp;
+            }
 
             $log->request_body = json_encode($log->request_body);
-          }
+        }
 
         return $processingLog;
     }

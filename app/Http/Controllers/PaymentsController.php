@@ -67,23 +67,15 @@ class PaymentsController extends Controller
         if ($validator->fails()) {
             return ApiResponse::badResponseValidation(ValidatorHelper::toArray($validator));
         }
-        try {
+
             $payment = $this->payments->getOneById($this->request->get('id'));
 
             $callBackLog = new CallBackRepository();
             $callBackLog = $callBackLog->getByPaymentId($payment->id);
-//            $processLog = null;
-//            if (Auth::user()->can(PermissionHelper::PROCESS_LOG_VIEW)) {
-//                $processLog = $this->payments->getProcessingLog($this->request->get('id'));
-//            }
-        } catch (NotFoundException $e) {
-            return ApiResponse::badResponse($e->getMessage(), $e->getCode());
-        }
 
         return view('payments.view')->with([
             'payment' => $payment,
-            'callBackLog' => $callBackLog,
-//            'processLog' => $processLog
+            'callBackLog' => $callBackLog
         ]);
     }
 

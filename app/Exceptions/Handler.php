@@ -49,17 +49,17 @@ class Handler extends ExceptionHandler
     {
         if ($exception instanceof NotFoundException) {
             return response()->view('errors.default',
-                ['message' => "Страница не найдена", 'code' => $exception->getStatusCode()]);
+                ['message' => $exception->getMessage(), 'code' => $exception->getStatusCode()]);
         }
 
         if ($exception instanceof PermissionException) {
             return response()->view('errors.custom',
                 ['message' => $exception->getMessage(), 'code' =>$exception->getStatusCode()]);
         }
-//
+
 //        return response()->view('errors.default',
 //            ['message' => "Произошла ошибка", 'code' => '500']);
-//
+
 
       return parent::render($request, $exception);
     }

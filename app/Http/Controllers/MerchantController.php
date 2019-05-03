@@ -9,8 +9,10 @@ use App\Classes\Helpers\ApiResponse;
 use App\Classes\Helpers\ValidatorHelper;
 use App\Classes\LogicalModels\CallBackRepository;
 use App\Classes\LogicalModels\MerchantsRepository;
+use App\Classes\LogicalModels\MerchantStatusRepository;
 use App\Exceptions\NoDataFoundException;
 use App\Exceptions\NotFoundException;
+use App\Http\Requests\Merchant\UpdateMerchant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
@@ -19,11 +21,15 @@ class MerchantController extends Controller
 {
     public $merchants;
     public $request;
+    public $statuses;
 
-    public function __construct(MerchantsRepository $merchantsRepository, Request $request)
+    public function __construct(MerchantsRepository $merchantsRepository,
+                                Request $request,
+                                MerchantStatusRepository $statuses)
     {
         $this->merchants = $merchantsRepository;
         $this->request = $request;
+        $this->statuses = $statuses;
     }
 
     public function getlistByName()
@@ -55,9 +61,12 @@ class MerchantController extends Controller
     public function getOneById(int $id)
     {
         $merchant = $this->merchants->getOneById($id);
+        $arrayMerchantStatuses = $this->statuses->getListMerchantStatuses()->pluck('name', 'id');
+
 
         return view('merchants.detailed')->with([
-            'merchant' => $merchant
+            'merchant' => $merchant,
+            'arrayMerchantStatuses' => $arrayMerchantStatuses
         ]);
     }
 
@@ -76,16 +85,24 @@ class MerchantController extends Controller
             })
             ->editColumn('url', function ($merchants) {
 
-                return '<a class="btn btn-black" href="'.$merchants->url.'">'.$merchants->url.'</a>';
+                return '<a class="btn btn-black" href="' . $merchants->url . '">' . $merchants->url . '</a>';
 
             })
             ->editColumn('status', function ($merchants) {
                 return $merchants->getRelations()['status']->name;
             })
             ->addColumn('view_details', function ($merchants) {
-                return '<a class="btn btn-black" href="'.route('merchant.detail',['id'=>$merchants->id]).'"><i class="fa fa-fw fa-eye"></i></a>';
+                return '<a class="btn btn-black" href="' . route('merchant.detail', ['id' => $merchants->id]) . '"><i class="fa fa-fw fa-eye"></i></a>';
             })
-            ->rawColumns(['view_details','url'])
+            ->rawColumns(['view_details', 'url'])
             ->make(true);
+    }
+
+    public function update(UpdateMerchant $updateMerchant, int $id)
+    {
+        $this->merchants->updateOverall($updateMerchant, $id);
+
+        return redirect()->back()->with('success', 'Merchant with ID  ' . $id . ' was successfully updated.');
+
     }
 }

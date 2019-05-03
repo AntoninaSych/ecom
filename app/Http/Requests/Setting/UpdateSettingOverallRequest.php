@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Setting;
 
+use App\Classes\Helpers\PermissionHelper;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateSettingOverallRequest extends FormRequest
@@ -13,7 +14,7 @@ class UpdateSettingOverallRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user()->hasRole('administrator');
+        return auth()->user()->can(PermissionHelper::MANAGE_USERS);
     }
 
     /**

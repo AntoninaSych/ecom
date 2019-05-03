@@ -14,14 +14,26 @@ class PermissionTableSeeder extends Seeder
     {
         $permission = new Permission();
         $permission->name         = 'merchant-view';
-        $permission->display_name = 'View processing'; // optional
-        $permission->description  = 'View payment processing'; // optional
+        $permission->display_name = 'View merchants'; // optional
+        $permission->description  = 'View merchants'; // optional
         $permission->save();
 
         $permission = new Permission();
         $permission->name         = 'process-log-view';
         $permission->display_name = 'View processing'; // optional
         $permission->description  = 'View payment processing'; // optional
+        $permission->save();
+
+        $permission = new Permission();
+        $permission->name         = 'manage-mcc';
+        $permission->display_name = 'Manage mcc'; // optional
+        $permission->description  = 'Manage mcc'; // optional
+        $permission->save();
+
+        $permission = new Permission();
+        $permission->name         = 'manage-merchant';
+        $permission->display_name = 'Manage merchants'; // optional
+        $permission->description  = 'Manage merchants'; // optional
         $permission->save();
     }
 }

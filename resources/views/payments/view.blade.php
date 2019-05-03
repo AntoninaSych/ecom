@@ -11,7 +11,7 @@
     <div class="nav-tabs-custom" style="cursor: move;">
         <!-- Tabs within a box -->
         <ul class="nav nav-tabs pull-right ui-sortable-handle">
-            <li class=""><a href="#main-information" data-toggle="tab" aria-expanded="false">Details</a></li>
+            <li class="active"><a href="#main-information" data-toggle="tab" aria-expanded="false">Details</a></li>
             <li class=""><a href="#call-back-log" data-toggle="tab" aria-expanded="false">CallBackLog</a></li>
 
             @if( Auth::user()->can(PermissionHelper::PROCESS_LOG_VIEW) )

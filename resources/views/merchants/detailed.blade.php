@@ -15,10 +15,10 @@
     <div class="nav-tabs-custom" style="cursor: move;">
         <!-- Tabs within a box -->
         <ul class="nav nav-tabs pull-right ui-sortable-handle">
-            <li class="active"><a href="#main-information" data-toggle="tab" aria-expanded="false">Детали</a></li>
+            <li class="active"><a href="#main-information" data-toggle="tab" aria-expanded="true">Детали</a></li>
 
             @if( Auth::user()->can(PermissionHelper::MANAGE_MERCHANT) )
-                <li class=""><a href="#settings" data-toggle="tab" aria-expanded="true">Настройки</a></li>
+                <li class=""><a href="#settings" data-toggle="tab" aria-expanded="false">Настройки</a></li>
             @endif
 
             <li class=""><a href="#refound" data-toggle="tab" aria-expanded="false">Возмещение</a></li>
@@ -28,7 +28,7 @@
         </ul>
         <div class="tab-content no-padding">
             {{--               Merchant's details begin--}}
-            <div id="main-information" class="tab-pane ">
+            <div id="main-information" class="tab-pane active">
                 <div class="box">
                     <div class="box-header with-border">
                         <h3 class="box-title">{{$merchant->name}}</h3>
@@ -90,7 +90,7 @@
 
             {{--               Settings detailsvend--}}
             @if( Auth::user()->can(PermissionHelper::MANAGE_MERCHANT) )
-                <div id="settings" class="tab-pane active">
+                <div id="settings" class="tab-pane ">
                     <div class="box">
                         <div class="box-header with-border">
                             <h3 class="box-title">{{$merchant->name}}</h3>

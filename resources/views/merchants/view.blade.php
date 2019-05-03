@@ -12,7 +12,7 @@
         <div class="col-md-12">
             <div class="box box-info">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Результаты поиска</h3>
+                    <h3 class="box-title">Список всех мерчантов</h3>
                     <div class="box-body" id="merchants-search-results">
                         <table class="table table-hover" id="merchants-table">
                             <thead>

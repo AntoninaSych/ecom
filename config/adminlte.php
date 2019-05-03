@@ -109,7 +109,7 @@ return [
     |
     */
     'menu' => [
-        'USER MANAGMENT',
+
         [
             'text' => 'Добавить пользователя',
             'url'  => 'register',
@@ -128,7 +128,7 @@ return [
             'icon' => ' fa-credit-card',
             'can'  => 'manage-users',
         ],
-        'MAIN NAVIGATION',
+
         [
             'text' => 'Управление магазинами',
             'url'  => 'admin/blog',
@@ -146,12 +146,17 @@ return [
             'url'  => 'admin/blog',
             'can'  => 'test',
         ],
-        'MERCHANTS MANAGMENT',
         [
             'text' => 'Просмотр мерчантов',
             'url'  => 'merchants/',
             'icon' => ' fa-credit-card',
             'can'  => 'merchant-view',
+        ],
+        [
+            'text' => 'Mange MCC Codes',
+            'url'  => '/mcc',
+            'icon' => ' fa-credit-card',
+            'can'  => 'manage-mcc',
         ],
     ],
 //    'menu' => [

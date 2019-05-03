@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Classes\Helpers\PermissionHelper;
 use App\Exceptions\PermissionException;
 use Closure;
 
@@ -17,7 +18,7 @@ class CanAddUser
      */
     public function handle($request, Closure $next)
     {
-        if (auth()->user()==null || !auth()->user()->can('add-user') ) {
+        if (auth()->user()==null || !auth()->user()->can(PermissionHelper::ADD_USERS) ) {
             throw new PermissionException('У Вас недостаточно прав для просмотра этой страницы');
         }
         return $next($request);

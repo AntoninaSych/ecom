@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Classes\LogicalModels\MccCodeRepository;
 use App\Http\Requests\Mcc\UpdateMccRequest;
+use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
 class MccController extends Controller
@@ -43,11 +44,11 @@ class MccController extends Controller
     }
 
 
-    public function destroy(int $id)
+    public function remove(Request $request)
     {
 
-        $this->codes->destroy($id);
-        return redirect()->back()->with('success', 'Mcc код  с ID  ' . $id . ' успешно удален.');
+        $this->codes->destroy(intval($request->get('id')));
+        return redirect()->back()->with('success', 'Mcc код  с ID  ' . $request->get('id') . ' успешно удален.');
     }
 
 
@@ -84,13 +85,15 @@ class MccController extends Controller
                 return $codes->updated_at;
             })
             ->addColumn('view_details', function ($codes) {
-                return '<a class="btn btn-black" href="' . route('mcc.edit', ['id' => intval($codes->id)]) . '"><i class="fa fa-fw fa-edit"></i></a>';
+                return '<a class="btn btn-default" href="' . route('mcc.edit', ['id' => intval($codes->id)]) . '"><i class="fa fa-fw fa-edit"></i></a>';
             })
             ->addColumn('remove', function ($codes) {
-                return '<a class="btn btn-danger" href="/mcc/destroy/' . $codes->id . '"><i class="fa fa-fw fa-remove"></i></a>';
+                return '<a class="btn btn-danger remove-btn" onclick="loadInfo('. $codes->id .', \''.  $codes->name .'\' ,'. $codes->code .')" data-toggle="modal" data-target="#modal-remove-mcc" ><i class="fa fa-fw fa-remove"></i></a>';
             })
             ->rawColumns(['view_details', 'remove'])
             ->make(true);
     }
 
 }
+
+//<!--     href="/mcc/destroy/' . $codes->id . '" -->

@@ -60,5 +60,8 @@ Route::group(['middleware' => ['auth', 'is.block.user']], function () {
 
 
     Route::match(['get'], '/mcc/datatable', 'MccController@anyData')->name('get.search.mcc.codes')->middleware('can.manage.mcc');
-    Route::match(['get'], '/mcc/destroy/{id}', 'MccController@destroy')->middleware('can.manage.mcc');
+
+    Route::match(['get'], '/mcc/remove', 'MccController@remove')->name('remove.mcc')->middleware('can.manage.mcc');
+
+
 });

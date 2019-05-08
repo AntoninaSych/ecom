@@ -13,7 +13,7 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Список MCC кодов</h3>
                     <div class="pull-right"><a href="{{route('mcc.create')}}" class="btn-primary btn" style="margin-bottom: 15px"title="Добавить новый код"> <i
-                                    class="fa fa-fw fa-plus"></i></a></div>
+                                    class="fa fa-fw fa-plus"></i>Добавить новый код</a></div>
                     <div class="box-body" id="mcc-codes">
                         @if ($errors->any())
                             <div class="alert alert-danger">

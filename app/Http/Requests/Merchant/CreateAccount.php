@@ -27,7 +27,7 @@ class CreateAccount extends  FormRequest
     public function rules()
     {
         return [
-            'merchant_id' =>  'required|integer|exists:ref_merchant_statuses,id',
+            'merchant_id' =>  'required|integer|exists:merchants,id',
              'payment_account' => 'required|string|regex:(^\d+(\.\d+)*$)|max:25',
             'edrpo_code' => 'required|string|max:25',
             'mfo_code' => 'required|string|max:25'

@@ -27,7 +27,7 @@ class UpdateAccount extends  FormRequest
     public function rules()
     {
         return [
-            'merchant_id' =>  'required|integer|exists:ref_merchant_statuses,id',
+            'merchant_id' =>  'required|integer|exists:merchants,id',
             'id_account'=> 'required|integer|exists:merchant_account,id',
             'payment_account' => 'required|string|regex:(^\d+(\.\d+)*$)|max:25',
             'edrpo_code' => 'required|string|max:25',

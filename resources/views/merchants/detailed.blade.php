@@ -21,7 +21,8 @@
                 <li class=""><a href="#settings" data-toggle="tab" aria-expanded="false">Настройки</a></li>
             @endif
 
-            <li class=""><a href="#refound"  id="ref_a" data-toggle="tab" aria-expanded="false" onclick="loadAccounts()">Возмещение</a></li>
+            <li class=""><a href="#refound" id="ref_a" data-toggle="tab" aria-expanded="false" onclick="loadAccounts()">Возмещение</a>
+            </li>
 
 
             <li class="pull-left header"><i class="fa fa-inbox"></i> Информация о мерчантe</li>
@@ -35,12 +36,11 @@
                         <div class="box-tools pull-right">
                             <!-- Buttons, labels, and many other things can be placed here! -->
                             <!-- Here is a label for example -->
-                            <span class="label label-primary">{{$merchant->name}}</span>
-                        </div>
+                         </div>
                         <!-- /.box-tools -->
                     </div>
                     <!-- /.box-header -->
-                    <div class="box-body">
+                    <div class="box-body col-md-6">
                         <table class="table">
                             <tr>
                                 <td>Идентификатор мерчанта</td>
@@ -97,12 +97,14 @@
                             <div class="box-tools pull-right">
                                 <!-- Buttons, labels, and many other things can be placed here! -->
                                 <!-- Here is a label for example -->
-                                <span class="label label-primary">{{$merchant->name}}</span>
+
                             </div>
                             <!-- /.box-tools -->
                         </div>
                         <!-- /.box-header -->
-                        <div class="box-body cols-md-6">
+
+                        <div class="box-body col-md-6">
+
                             @if ($errors->any())
                                 <div class="alert alert-danger">
                                     <ul>
@@ -131,31 +133,43 @@
                                 {{ Form::text("merchant_name",  $merchant->name,['class'=>'form-control']) }}
                             </div>
 
-                                <div>
-                            {{ Form::label("merchant_url", "URL" ) }}
-                            {{ Form::text("merchant_url",  $merchant->url,['class'=>'form-control']) }}
-                                </div>
+                            <div>
+                                {{ Form::label("merchant_url", "URL" ) }}
+                                {{ Form::text("merchant_url",  $merchant->url,['class'=>'form-control']) }}
+                            </div>
 
-                                <div>
-                            {{ Form::label("merchant_status","Статус"  ) }}
+                            <div>
+                                {{ Form::label("merchant_status","Статус"  ) }}
 
-                            {{ Form::select("merchant_status", $arrayMerchantStatuses->toArray(), $relations['status']->id ,
-                            ['class'=>'form-control']) }}
-                                </div>
+                                {{ Form::select("merchant_status", $arrayMerchantStatuses->toArray(), $relations['status']->id ,
+                                ['class'=>'form-control']) }}
+                            </div>
 
-                                <div>
-                            {{ Form::label("merchant_user_name", "Имя мерчанта" ) }}
-                            {{ Form::text("merchant_user_name",  $relations['user']->username,['class'=>'form-control']) }}
-                                </div>
+                            <div>
+                                {{ Form::label("merchant_user_name", "Имя мерчанта" ) }}
+                                {{ Form::text("merchant_user_name",  $relations['user']->username,['class'=>'form-control']) }}
+                            </div>
 
-                                <div>
-                            {{ Form::label("merchant_user_email", "Email мерчанта" ) }}
-                            {{ Form::text("merchant_user_email",  $relations['user']->email,['class'=>'form-control']) }}
-                                </div>
+                            <div>
+                                {{ Form::label("merchant_user_email", "Email мерчанта" ) }}
+                                {{ Form::text("merchant_user_email",  $relations['user']->email,['class'=>'form-control']) }}
+                            </div>
+                            <?php
+                            $new_arr = [0 => 'Пожалуйста сделайте выбор'];
 
-                                <div>
-                            {{Form::submit('Обновить данные мерчанта',['class'=>'form-control btn btn-primary','id'=>'submit_btn'])}}
-                                </div>
+                            foreach ($codes as $key => $value) {
+                             $new_arr[$key] = $value;
+                            }
+
+                            ?>
+                            <div>
+                                {{ Form::label("mcc_id", "Mcc code" ) }}
+                                {{ Form::select("mcc_id",   $new_arr, $merchant->mcc_id , ['class'=>'form-control']) }}
+                            </div>
+
+                            <div>
+                                {{Form::submit('Обновить данные мерчанта',['class'=>'form-control btn btn-primary','id'=>'submit_btn'])}}
+                            </div>
                             {!! Form::close() !!}
 
                         </div>
@@ -172,27 +186,26 @@
 
             {{--Refound detailsvend--}}
             @if( Auth::user()->can(PermissionHelper::MANAGE_MERCHANT) )
-            <div id="refound" class="tab-pane">
-                <div class="box">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">{{$merchant->name}}</h3>
-                        <div class="box-tools pull-right">
-                            <!-- Buttons, labels, and many other things can be placed here! -->
-                            <!-- Here is a label for example -->
-                            <span class="label label-primary">{{$merchant->name}}</span>
+                <div id="refound" class="tab-pane">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">{{$merchant->name}}</h3>
+                            <div class="box-tools pull-right">
+                                <!-- Buttons, labels, and many other things can be placed here! -->
+                                <!-- Here is a label for example -->
+                             </div>
+                            <!-- /.box-tools -->
                         </div>
-                        <!-- /.box-tools -->
+                        <!-- /.box-header -->
+                        <div class="box-body" id="refound-box">
+                            @include('merchants.account', ['merchant' => $merchant])
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer">
+                        </div>
+                        <!-- box-footer -->
                     </div>
-                    <!-- /.box-header -->
-                    <div class="box-body" id="refound-box">
-                        @include('merchants.account', ['merchant' => $merchant])
-                    </div>
-                    <!-- /.box-body -->
-                    <div class="box-footer">
-                    </div>
-                    <!-- box-footer -->
                 </div>
-            </div>
             @endif
             {{--Refound detailsvend--}}
 

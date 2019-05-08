@@ -55,7 +55,7 @@ class MccController extends Controller
     public function store(UpdateMccRequest $request)
     {
         $this->codes->store($request);
-        return $request->back()->with('success', 'Mcc код успешно добавлен.');
+        return redirect()->back()->with('success', 'Mcc код успешно добавлен.');
     }
 
     /**

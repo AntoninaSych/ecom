@@ -25,6 +25,7 @@ class UpdateMerchant extends FormRequest
     public function rules()
     {
         return [
+            'mcc_id' =>'nullable|integer',
             'merchant_identifier' => 'required|string|max:50',
             'merchant_name' => 'required|string|max:50',
             'merchant_url' => 'nullable|string|max:50',

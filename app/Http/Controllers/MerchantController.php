@@ -8,6 +8,7 @@ use App\Classes\Filters\SearchPaymentsFilter;
 use App\Classes\Helpers\ApiResponse;
 use App\Classes\Helpers\ValidatorHelper;
 use App\Classes\LogicalModels\CallBackRepository;
+use App\Classes\LogicalModels\MccCodeRepository;
 use App\Classes\LogicalModels\MerchantsRepository;
 use App\Classes\LogicalModels\MerchantStatusRepository;
 use App\Exceptions\NoDataFoundException;
@@ -22,14 +23,16 @@ class MerchantController extends Controller
     public $merchants;
     public $request;
     public $statuses;
+    public $codes;
 
     public function __construct(MerchantsRepository $merchantsRepository,
                                 Request $request,
-                                MerchantStatusRepository $statuses)
+                                MerchantStatusRepository $statuses, MccCodeRepository $codes)
     {
         $this->merchants = $merchantsRepository;
         $this->request = $request;
         $this->statuses = $statuses;
+        $this->codes = $codes;
     }
 
     public function getlistByName()
@@ -61,13 +64,28 @@ class MerchantController extends Controller
     public function getOneById(int $id)
     {
         $merchant = $this->merchants->getOneById($id);
-        $arrayMerchantStatuses = $this->statuses->getListMerchantStatuses()->pluck('name', 'id');
+        $arrayMerchantStatuses = $this->statuses->getListMerchantStatuses()->mapWithKeys(function ($item) {
+            return [$item['id'] => $item['name']];
+        });
+
+        $mcc_codes = $this->codes->getList()->mapWithKeys(function ($item) {
+            return [$item['id'] => $item['name']];
+        });
 
 
         return view('merchants.detailed')->with([
             'merchant' => $merchant,
-            'arrayMerchantStatuses' => $arrayMerchantStatuses
+            'arrayMerchantStatuses' => $arrayMerchantStatuses,
+            'codes'=>$mcc_codes
         ]);
+    }
+
+    public function update(UpdateMerchant $updateMerchant, int $id)
+    {
+        $this->merchants->updateOverall($updateMerchant, $id);
+
+        return redirect()->back()->with('success', 'Мерчант  с ID  ' . $id . ' успешно обновлен.');
+
     }
 
     public function anyData()
@@ -98,12 +116,6 @@ class MerchantController extends Controller
             ->make(true);
     }
 
-    public function update(UpdateMerchant $updateMerchant, int $id)
-    {
-        $this->merchants->updateOverall($updateMerchant, $id);
 
-        return redirect()->back()->with('success', 'Мерчант  с ID  ' . $id . ' успешно обновлен.');
-
-    }
 
 }

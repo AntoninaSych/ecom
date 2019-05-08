@@ -46,22 +46,21 @@ Route::group(['middleware' => ['auth', 'is.block.user']], function () {
         Route::match(['get'], '/getlistByName', 'MerchantController@getlistByName'); // роут используется в поиске платежей
 
         Route::group(['middleware' => 'can.view.merchants'], function () {
+            Route::match(['get'], '/{merchantId}/account/table', 'MerchantAccountController@getList');
             Route::match(['get'], '/', 'MerchantController@list');
             Route::match(['get'], '/datatable', 'MerchantController@anyData')->name('get.search.merchants');
-            Route::match(['get'], '/{id}', 'MerchantController@getOneById')->name('merchant.detail');
-            Route::match(['post'], '/{id}', 'MerchantController@update')->name('merchant.update');
-
+            Route::match(['get'], '/{merchantId}', 'MerchantController@getOneById')->name('merchant.detail');
+            Route::match(['post'], '/{merchantId}', 'MerchantController@update')->name('merchant.update');
+            Route::match(['get'],'/{merchantId}/account', 'MerchantAccountController@getList');
+            Route::match(['post'],'/{merchantId}/account', 'MerchantAccountController@store')->name('account.store');
+            Route::match(['get'],'/account/update', 'MerchantAccountController@update')->name('account.update');
+            Route::match(['post'],'/account/destroy', 'MerchantAccountController@destroy')->name('account.destroy');
         });
     });
 
     Route::resource('mcc', 'MccController')->only([
         'index', 'store', 'edit', 'update','create'
     ])->middleware('can.manage.mcc');
-
-
     Route::match(['get'], '/mcc/datatable', 'MccController@anyData')->name('get.search.mcc.codes')->middleware('can.manage.mcc');
-
     Route::match(['get'], '/mcc/remove', 'MccController@remove')->name('remove.mcc')->middleware('can.manage.mcc');
-
-
 });

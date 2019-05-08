@@ -1,5 +1,10 @@
 (function ($) {
     $(function () {
+
+        // loadAccounts();
+
+
+
         $.validator.addMethod(
             "url",
             function (value, element, regexp) {
@@ -8,6 +13,7 @@
             },
             "Пожалуйста, укажите корректный url"
         );
+
 
         $('#submit_btn').on('click', function (e) {
             let form = $("#merchant_update");
@@ -56,5 +62,101 @@
                 e.preventDefault();
             }
         });
+
+        var deferred = $.Deferred();
+
+
+
+        deferred.done(function(value) {
+            alert(value);
+        });
+
+
     });
 })(jQuery);
+
+function removeAccount(id) {
+    $("#hiddenValueIdAccount").val(id);
+}
+
+function editAccount(e) {
+    var el = $('#modal-edit-account');
+    el.find("input[name='mfo_code']").val($(e).data("mfo"));
+    el.find("input[name='edrpo_code']").val($(e).data("ed-rpo"));
+    el.find("input[name='payment_account']").val($(e).data("checking-account"));
+    el.find("input[name='id_account']").val($(e).data("id"));
+    el.find("input[name='merchant_id']").val($(e).data("merchant-id"));
+}
+
+function loadAccounts() {
+    $.ajax({
+        url: '' + merchant_id + '/account/table',
+        type: "GET",
+
+        success: function (data) {
+            $('#accounts').html(data);
+            //edit account begin
+            $('#payment_account_update').submit( function (e) {
+                e.preventDefault();
+                 var el = $('#modal-edit-account');
+                mfo_code = el.find("input[name='mfo_code']").val();
+                edrpo_code = el.find("input[name='edrpo_code']").val();
+                payment_account = el.find("input[name='payment_account']").val();
+                id_account = el.find("input[name='id_account']").val();
+                merchant = el.find("input[name='merchant_id']").val();
+                $.ajax({
+                    url: '/merchants/account/update',
+                    type: "get",
+                    data: {
+                        payment_account: payment_account,
+                        edrpo_code: edrpo_code,
+                        mfo_code: mfo_code,
+                        id_account: id_account,
+                        merchant_id: merchant
+                    },
+                    success: function () {
+                        $('#modal-edit-account').hide();
+                        $('body').removeClass('modal-open');
+                        $('.modal-backdrop').remove();
+                        loadAccounts();
+                    }, error: function (data) {
+                        var response = data.responseText;
+                        response = JSON.parse(response);
+                        console.log(response.data);
+                    }
+                });
+            });
+            //edit account end
+
+            //remove account begin
+            $('#modal-remove-account-form').submit( function (e) {
+                e.preventDefault();
+                var el = $('#modal-remove-account');
+                var id_account = el.find("input[name='accountId']").val();
+
+                $.ajax({
+                    url: '/merchants/account/destroy',
+                    type: "post",
+                    data: {
+                        id_account: id_account
+                    },
+                    success: function () {
+                        $('#modal-edit-account').hide();
+                        $('body').removeClass('modal-open');
+                        $('.modal-backdrop').remove();
+                        loadAccounts();
+                    }, error: function (data) {
+                        var response = data.responseText;
+                        response = JSON.parse(response);
+                        console.log(response.data);
+                    }
+                });
+            });
+            //remove account end
+        }, error: function (data) {
+            var response = data.responseText;
+            response = JSON.parse(response);
+            console.log(response.data);
+        }
+    });
+}

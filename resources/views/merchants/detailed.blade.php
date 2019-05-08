@@ -21,7 +21,7 @@
                 <li class=""><a href="#settings" data-toggle="tab" aria-expanded="false">Настройки</a></li>
             @endif
 
-            <li class=""><a href="#refound" data-toggle="tab" aria-expanded="false">Возмещение</a></li>
+            <li class=""><a href="#refound"  id="ref_a" data-toggle="tab" aria-expanded="false" onclick="loadAccounts()">Возмещение</a></li>
 
 
             <li class="pull-left header"><i class="fa fa-inbox"></i> Информация о мерчантe</li>
@@ -171,7 +171,8 @@
 
 
             {{--Refound detailsvend--}}
-            <div id="refound" class="tab-pane ">
+            @if( Auth::user()->can(PermissionHelper::MANAGE_MERCHANT) )
+            <div id="refound" class="tab-pane">
                 <div class="box">
                     <div class="box-header with-border">
                         <h3 class="box-title">{{$merchant->name}}</h3>
@@ -183,27 +184,29 @@
                         <!-- /.box-tools -->
                     </div>
                     <!-- /.box-header -->
-                    <div class="box-body">
-                        refound
+                    <div class="box-body" id="refound-box">
+                        @include('merchants.account', ['merchant' => $merchant])
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer">
-
                     </div>
                     <!-- box-footer -->
                 </div>
             </div>
-
+            @endif
             {{--Refound detailsvend--}}
 
         </div>
     </div>
 @stop
-<script src="{{ asset('/js/libraries/jquery.js') }}"></script>
-<script src="{{ asset('/js/libraries/jquery-validation/validation.js') }}"></script>
+<script src="{{ asset('/js/libraries/jquery-3.3.1.min.js') }}"></script>
+
+<script src="{{ asset('/js/libraries/jquery-ui.js') }}"></script>
+<script src="{{ asset('/js/libraries/jquery-validation/validation.js') }}"></script
 <script type="text/javascript" src="{{ asset('/js/libraries/jquery-validation/additional-methods.min.js') }}"></script>
 <script type="text/javascript"
         src="{{ asset('/js/libraries/jquery-validation/localization/messages_ru.min.js') }}"></script>
 <script src="{{ asset('js/merchants.js') }}"></script>
-
-
+<script>
+    var merchant_id ={!! $merchant->id !!};
+</script>

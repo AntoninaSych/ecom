@@ -105,4 +105,5 @@ class MerchantController extends Controller
         return redirect()->back()->with('success', 'Мерчант  с ID  ' . $id . ' успешно обновлен.');
 
     }
+
 }

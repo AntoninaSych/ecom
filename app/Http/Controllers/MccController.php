@@ -54,9 +54,8 @@ class MccController extends Controller
 
     public function store(UpdateMccRequest $request)
     {
-
         $this->codes->store($request);
-        return redirect()->back()->with('success', 'Mcc код успешно добавлен.');
+        return $request->back()->with('success', 'Mcc код успешно добавлен.');
     }
 
     /**
@@ -88,12 +87,10 @@ class MccController extends Controller
                 return '<a class="btn btn-default" href="' . route('mcc.edit', ['id' => intval($codes->id)]) . '"><i class="fa fa-fw fa-edit"></i></a>';
             })
             ->addColumn('remove', function ($codes) {
-                return '<a class="btn btn-danger remove-btn" onclick="loadInfo('. $codes->id .', \''.  $codes->name .'\' ,'. $codes->code .')" data-toggle="modal" data-target="#modal-remove-mcc" ><i class="fa fa-fw fa-remove"></i></a>';
+                return '<a class="btn btn-danger remove-btn" onclick="loadInfo('. $codes->id .', \''.  $codes->name .'\' ,'. $codes->code .')" data-toggle="modal" data-target="#modal-remove-mcc" >
+<i class="fa fa-fw fa-remove"></i></a>';
             })
             ->rawColumns(['view_details', 'remove'])
             ->make(true);
     }
-
 }
-
-//<!--     href="/mcc/destroy/' . $codes->id . '" -->

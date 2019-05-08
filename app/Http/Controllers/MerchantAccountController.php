@@ -24,10 +24,10 @@ class MerchantAccountController
         return redirect()->back()->with(['success' => 'Аккаунт успешно изменен.', 'accountsNew' => $accounts]);
     }
 
-    public function store(CreateAccount $request, int $merchantId)
+    public function store(CreateAccount $request)
     {
-        $this->accounts->save($request, $merchantId);
-        $accounts = $this->accounts->getList($merchantId);
+        $this->accounts->save($request);
+        $accounts = $this->accounts->getList($request->get('merchant_id'));
         return redirect()->back()->with(['success' => 'Аккаунт успешно добавлен.', 'accountsNew' => $accounts]);
     }
 

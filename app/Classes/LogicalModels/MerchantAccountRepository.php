@@ -20,9 +20,9 @@ class MerchantAccountRepository
         $this->merchants = $merchantsRepository;
     }
 
-    public function save(CreateAccount $request, int $merchantId)
+    public function save(CreateAccount $request)
     {
-        $merchant = $this->merchants->getOneById($merchantId);
+        $merchant = $this->merchants->getOneById($request->get('merchant_id'));
         $account = new MerchantAccount();
         $account->mfo = $request->get('mfo_code');
         $account->ed_rpo = $request->get('edrpo_code');

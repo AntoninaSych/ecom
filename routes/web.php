@@ -52,7 +52,7 @@ Route::group(['middleware' => ['auth', 'is.block.user']], function () {
             Route::match(['get'], '/{merchantId}', 'MerchantController@getOneById')->name('merchant.detail');
             Route::match(['post'], '/{merchantId}', 'MerchantController@update')->name('merchant.update');
             Route::match(['get'],'/{merchantId}/account', 'MerchantAccountController@getList');
-            Route::match(['post'],'/{merchantId}/account', 'MerchantAccountController@store')->name('account.store');
+            Route::match(['post'],'/account/add', 'MerchantAccountController@store')->name('account.store');
             Route::match(['get'],'/account/update', 'MerchantAccountController@update')->name('account.update');
             Route::match(['post'],'/account/destroy', 'MerchantAccountController@destroy')->name('account.destroy');
         });

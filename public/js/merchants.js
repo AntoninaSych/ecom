@@ -95,38 +95,7 @@ function loadAccounts() {
 
         success: function (data) {
             $('#accounts').html(data);
-                //add account begin
-                $('#payment-account-add').submit( function (e) {
-                    e.preventDefault();
-                    var el = $('#modal-add-account');
-                    mfo_code = el.find("input[name='mfo_code']").val();
-                    edrpo_code = el.find("input[name='edrpo_code']").val();
-                    payment_account = el.find("input[name='payment_account']").val();
-                    id_account = el.find("input[name='id_account']").val();
-                    merchant = el.find("input[name='merchant_id']").val();
-                    $.ajax({
-                        url: '/merchants/account/add',///{merchantId}/account
-                        type: "post",
-                        data: {
-                            payment_account: payment_account,
-                            edrpo_code: edrpo_code,
-                            mfo_code: mfo_code,
-                            id_account: id_account,
-                            merchant_id: merchant
-                        },
-                        success: function () {
-                            $('#modal-add-account').hide();
-                            $('body').removeClass('modal-open');
-                            $('.modal-backdrop').remove();
-                            loadAccounts();
-                        }, error: function (data) {
-                            var response = data.responseText;
-                            response = JSON.parse(response);
-                            console.log(response.data);
-                        }
-                    });
-                });
-                //addd account end
+
 
                 //edit account begin
                 $('#payment_account_update').submit( function (e) {
@@ -196,3 +165,42 @@ function loadAccounts() {
         }
     });
 }
+
+//add account begin
+function addAccount(){
+
+    var el = $('#modal-add-account');
+    mfo_code = el.find("input[name='mfo_code']").val();
+    edrpo_code = el.find("input[name='edrpo_code']").val();
+    payment_account = el.find("input[name='payment_account']").val();
+    id_account = el.find("input[name='id_account']").val();
+    merchant = el.find("input[name='merchant_id']").val();
+    $.ajax({
+        url: '/merchants/account/add',///{merchantId}/account
+        type: "post",
+        data: {
+            payment_account: payment_account,
+            edrpo_code: edrpo_code,
+            mfo_code: mfo_code,
+            id_account: id_account,
+            merchant_id: merchant
+        },
+        success: function () {
+            $('#modal-add-account').hide();
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+            loadAccounts();
+
+            el.find("input[name='mfo_code']").val('');
+            el.find("input[name='edrpo_code']").val('')
+            el.find("input[name='payment_account']").val('');
+            el.find("input[name='id_account']").val('');
+
+        }, error: function (data) {
+            var response = data.responseText;
+            response = JSON.parse(response);
+            console.log(response.data);
+        }
+    });
+};
+//addd account end

@@ -72,7 +72,9 @@ class MerchantsRepository
         }else{ $merchant->mcc_id = $request->get('mcc_id');}
         $user = new MerchantUser();
         $user =  $user->findOrFail($merchant->user->id);
+
         $user->email = $request->get('merchant_user_email');
+
         $user->username = $request->get('merchant_user_name');
 
         $user->save();

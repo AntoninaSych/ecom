@@ -35,7 +35,8 @@
                 </div>
 
                 <div style="margin-top: 15px">
-                    {{Form::submit('Добавить аккаунт',['class'=>'form-control btn btn-primary'])}}
+                    <input type="button" value="Добавить аккаунт" class="form-control" onclick="addAccount()">
+{{--                    {{Form::button('Добавить аккаунт',['class'=>'form-control btn btn-primary','id'=>])}}--}}
                 </div>
                 {!! Form::close() !!}
             </div>

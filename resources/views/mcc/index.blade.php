@@ -12,7 +12,8 @@
             <div class="box box-info">
                 <div class="box-header with-border">
                     <h3 class="box-title">Список MCC кодов</h3>
-                    <div class="pull-right"><a href="{{route('mcc.create')}}" class="btn-primary btn" style="margin-bottom: 15px"title="Добавить новый код"> <i
+                    <div class="pull-right"><a href="{{route('mcc.create')}}" class="btn-primary btn"
+                                               style="margin-bottom: 15px" title="Добавить новый код"> <i
                                     class="fa fa-fw fa-plus"></i>Добавить новый код</a></div>
                     <div class="box-body" id="mcc-codes">
                         @if ($errors->any())
@@ -54,26 +55,7 @@
         </div>
     </div>
 
-    <div class="modal fade in" id="modal-remove-mcc">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title">Удалить выбранный код</h4>
-                </div>
-                <div class="modal-body" id="remove-content" style="text-align: center">
-                    <p>One fine body…</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Зыкрыть</button>
-{{--                    <button type="button" class="btn btn-primary">Удалить</button>--}}
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
+    @include('mcc.remove-mcc-modal')
 @stop
 
 <script src="{{ asset('/js/libraries/jquery.js') }}"></script>
@@ -89,17 +71,42 @@
         src="{{ asset('/js/libraries/jquery-validation/localization/messages_ru.min.js') }}"></script>
 <script>
 
-    function loadInfo(id, name, code) {
+    function loadInfo(id) {
+        $.ajax({
+            url: '/mcc/' + id + '/merchants',///{merchantId}/account
+            type: "get",
+            success: function (response) {
 
-        var template = "<form method='get' action='{{route('remove.mcc')}}'> ";
-        template += "Вы действительно желаете удалить код: " + code + " <br>" +
-            "c названием: " + name + " <br>" +
-            "и ID: " + id;
+                if (response.data.merchants == null) {
+                    console.log('Нет мерчантов');
+                } else {
+                    // for (var i = 0; i < response.data.merchants.length; i++) {
+                        console.log(response.data );
+                    // }
 
-        template += "<input type='hidden' name='id' value='" + id + "'><br>";
-        template += "<input type='submit' class='btn-primary btn pull-right' value='Удалить' style='margin-top:45px'>";
-        template += "</form>";
-        $('#remove-content').html(template);
+                    $.each(response.data.merchants, function(){
+                        console.log("Имя мерчанта: " + this.name);
+
+                    });
+                }
+
+
+            }, error: function (response) {
+                var response = data.responseText;
+                response = JSON.parse(response);
+                console.log(response.data);
+            }
+        });
+
+        {{--var template = "<form method='get' action='{{route('remove.mcc')}}'> ";--}}
+        {{--template += "Вы действительно желаете удалить код: " + code + " <br>" +--}}
+        {{--    "c названием: " + name + " <br>" +--}}
+        {{--    "и ID: " + id;--}}
+
+        {{--template += "<input type='hidden' name='id' value='" + id + "'><br>";--}}
+        {{--template += "<input type='submit' class='btn-primary btn pull-right' value='Удалить' style='margin-top:45px'>";--}}
+        {{--template += "</form>";--}}
+        // $('#remove-content').html(template);
 
     }
 

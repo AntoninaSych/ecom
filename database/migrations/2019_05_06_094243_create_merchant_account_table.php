@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMccTable extends Migration
+class CreateMerchantAccountTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,12 +14,13 @@ class CreateMccTable extends Migration
      */
     public function up()
     {
-        Schema::create('mcc_code', function (Blueprint $table) {
+        Schema::create('merchant_account', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('code');
-            $table->string('name');
-            $table->boolean('apple_pay')->default(0);
-            $table->boolean('status');
+            $table->string('mfo');
+            $table->string('ed_rpo');
+            $table->string('checking_account');
+            $table->integer('merchant_id');
+            $table->foreign('merchant_id')->references('id')->on('merchants');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
 
@@ -33,6 +34,6 @@ class CreateMccTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mcc_code');
+        Schema::dropIfExists('merchant_account');
     }
 }

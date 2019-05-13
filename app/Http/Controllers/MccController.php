@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Classes\Helpers\ApiResponse;
 use App\Classes\LogicalModels\MccCodeRepository;
 use App\Http\Requests\Mcc\UpdateMccRequest;
 use Illuminate\Http\Request;
@@ -56,6 +57,13 @@ class MccController extends Controller
     {
         $this->codes->store($request);
         return redirect()->back()->with('success', 'Mcc код успешно добавлен.');
+    }
+
+    public function merchants(int $idCode)
+    {
+        $merchants = $this->codes->getOne($idCode);
+
+        return ApiResponse::goodResponse(['merchants'=>$merchants->merchants]);
     }
 
     /**

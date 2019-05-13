@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMccTable extends Migration
+class OrderFieldTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,16 +14,14 @@ class CreateMccTable extends Migration
      */
     public function up()
     {
-        Schema::create('mcc_code', function (Blueprint $table) {
+        Schema::create('order_field', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('code');
-            $table->string('name');
-            $table->boolean('apple_pay')->default(0);
-            $table->boolean('status');
-            $table->softDeletes();
+
+            $table->string('form_name',50);
+            $table->string('field_key',50);
+            $table->string('field_name',50);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
-
         });
     }
 
@@ -34,6 +32,6 @@ class CreateMccTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mcc_code');
+        Schema::dropIfExists('order_field');
     }
 }

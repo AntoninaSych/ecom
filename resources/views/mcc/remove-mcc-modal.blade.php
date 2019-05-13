@@ -7,11 +7,11 @@
                 <h4 class="modal-title">Удалить выбранный код</h4>
             </div>
             <div class="modal-body" id="remove-content" style="text-align: center">
-                <p>One fine body…</p>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Зыкрыть</button>
-                <button type="button" class="btn btn-primary">Удалить</button>
+
             </div>
         </div>
         <!-- /.modal-content -->

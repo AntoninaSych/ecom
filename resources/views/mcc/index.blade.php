@@ -72,41 +72,43 @@
 <script>
 
     function loadInfo(id) {
-        $.ajax({
-            url: '/mcc/' + id + '/merchants',///{merchantId}/account
-            type: "get",
-            success: function (response) {
+        // $.ajax({
+        //     url: '/mcc/' + id + '/merchants',///{merchantId}/account
+        //     type: "get",
+        //     success: function (response) {
+        //
+        //         if (response.data.merchants == null) {
+        //             console.log('Нет мерчантов');
+        //         } else {
+        //             // for (var i = 0; i < response.data.merchants.length; i++) {
+        //                 console.log(response.data );
+        //             // }
+        //
+        //             $.each(response.data.merchants, function(){
+        //                 console.log("Имя мерчанта: " + this.name);
+        //
+        //             });
+        //         }
+        //
+        //
+        //         $.ajax({
+        //             url: '/mcc/' + id + '/merchants'
+        //         });
+        //
+        //     }, error: function (response) {
+        //         var response = data.responseText;
+        //         response = JSON.parse(response);
+        //         console.log(response.data);
+        //     }
+        // });
 
-                if (response.data.merchants == null) {
-                    console.log('Нет мерчантов');
-                } else {
-                    // for (var i = 0; i < response.data.merchants.length; i++) {
-                        console.log(response.data );
-                    // }
+        var template = "<form method='get' action='{{route('remove.mcc')}}'> ";
+        template += "Вы действительно желаете удалить код:  ID: " + id;
 
-                    $.each(response.data.merchants, function(){
-                        console.log("Имя мерчанта: " + this.name);
-
-                    });
-                }
-
-
-            }, error: function (response) {
-                var response = data.responseText;
-                response = JSON.parse(response);
-                console.log(response.data);
-            }
-        });
-
-        {{--var template = "<form method='get' action='{{route('remove.mcc')}}'> ";--}}
-        {{--template += "Вы действительно желаете удалить код: " + code + " <br>" +--}}
-        {{--    "c названием: " + name + " <br>" +--}}
-        {{--    "и ID: " + id;--}}
-
-        {{--template += "<input type='hidden' name='id' value='" + id + "'><br>";--}}
-        {{--template += "<input type='submit' class='btn-primary btn pull-right' value='Удалить' style='margin-top:45px'>";--}}
-        {{--template += "</form>";--}}
-        // $('#remove-content').html(template);
+        template += "<input type='hidden' name='id' value='" + id + "'><br>";
+        template += "<input type='submit' class='btn-primary btn pull-right' value='Удалить' style='margin-top:45px'>";
+        template += "</form>";
+       $('#remove-content').html(template);
 
     }
 

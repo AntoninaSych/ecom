@@ -20,6 +20,7 @@ class CreateMerchantAccountTable extends Migration
             $table->string('ed_rpo');
             $table->string('checking_account');
             $table->integer('merchant_id');
+            $table->softDeletes();
             $table->foreign('merchant_id')->references('id')->on('merchants');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));

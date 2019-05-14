@@ -17,9 +17,8 @@ class OrderFieldTable extends Migration
         Schema::create('order_field', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->string('form_name',50);
+            $table->string('table_name',50);
             $table->string('field_key',50);
-            $table->string('field_name',50);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });

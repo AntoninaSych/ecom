@@ -18,12 +18,11 @@ class OrderFieldValuesTable extends Migration
             $table->increments('id');
 
             $table->integer('field_id')->unsigned();
-            $table->foreign('field_id')->references('id')->on('order_field');
+            $table->foreign('field_id')->references('id')->on('order_field')->onUpdate('cascade')->onDelete('cascade');
 
-
-            $table->integer('field_value');
+            $table->string('field_value');
             $table->integer('order_id')->unsigned();
-            $table->foreign('order_id')->references('id')->on('order');
+            $table->foreign('order_id')->references('id')->on('order')->onUpdate('cascade')->onDelete('cascade');
 
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));

@@ -18,7 +18,7 @@ class OrderTable extends Migration
             $table->increments('id');
 
             $table->integer('user_id');
-
+            $table->integer('merchant_id');
             $table->enum('order_status',['new','tested','active','blocked']);
 
             $table->boolean('security_check')->default(0);

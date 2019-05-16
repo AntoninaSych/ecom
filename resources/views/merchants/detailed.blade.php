@@ -19,11 +19,11 @@
 
             @if( Auth::user()->can(PermissionHelper::MANAGE_MERCHANT) )
                 <li class=""><a href="#settings" data-toggle="tab" aria-expanded="false">Настройки</a></li>
-            @endif
+
 
             <li class=""><a href="#refound" id="ref_a" data-toggle="tab" aria-expanded="false" onclick="loadAccounts()">Возмещение</a>
             </li>
-
+            @endif
 
             <li class="pull-left header"><i class="fa fa-inbox"></i> Информация о мерчантe</li>
         </ul>

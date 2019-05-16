@@ -33,9 +33,10 @@
 
                         <td>
                             <button class="btn btn-primary change-role-btn"
-                                    data-id="{{$user->id}}"
-                                    data-role-id={{$user->roles_relation[0]->id}}
-                                    data-name="{{$user->name}}"
+                                    onclick="changeRole('{{$user->id}}','{{$user->roles_relation[0]->id}}','{{$user->name}}')"
+{{--                                    data-id="{{$user->id}}"--}}
+{{--                                    data-role-id={{$user->roles_relation[0]->id}}--}}
+{{--                                    data-name="{{$user->name}}"--}}
                                     data-toggle="modal" data-target="#modal-attach-role">Изменить роль
                             </button>
                         </td>

@@ -6,6 +6,7 @@ var config = {
         statusUpdate: '/settings/statusUpdate', //изменение статуса пользователя
         processLog: '/payments/getProcessLog', //загрузка логов по платежу
         merchantAccounts: '/account/table', //загрузка аккаунтов по мерчанту
+        merchantInfoQueries: '/queries', //загрузка информации по мерчанту
     },
 
 };

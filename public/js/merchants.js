@@ -3,7 +3,7 @@
 
         // loadAccounts();
 
-
+        $('#mcc_id').select2();
 
         $.validator.addMethod(
             "url",

@@ -215,7 +215,7 @@
 <script src="{{ asset('/js/libraries/jquery-3.3.1.min.js') }}"></script>
 
 <script src="{{ asset('/js/libraries/jquery-ui.js') }}"></script>
-<script src="{{ asset('/js/libraries/jquery-validation/validation.js') }}"></script
+<script src="{{ asset('/js/libraries/jquery-validation/validation.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/js/libraries/jquery-validation/additional-methods.min.js') }}"></script>
 <script type="text/javascript"
         src="{{ asset('/js/libraries/jquery-validation/localization/messages_ru.min.js') }}"></script>

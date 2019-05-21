@@ -51,17 +51,20 @@ Route::group(['middleware' => ['auth', 'is.block.user']], function () {
             Route::match(['get'], '/datatable', 'MerchantController@anyData')->name('get.search.merchants');
             Route::match(['get'], '/{merchantId}', 'MerchantController@getOneById')->name('merchant.detail');
             Route::match(['post'], '/{merchantId}', 'MerchantController@update')->name('merchant.update');
-            Route::match(['get'],'/{merchantId}/account', 'MerchantAccountController@getList');
-            Route::match(['post'],'/account/add', 'MerchantAccountController@store')->name('account.store');
-            Route::match(['get'],'/account/update', 'MerchantAccountController@update')->name('account.update');
-            Route::match(['post'],'/account/destroy', 'MerchantAccountController@destroy')->name('account.destroy');
+            Route::match(['get'], '/{merchantId}/account', 'MerchantAccountController@getList');
+            Route::match(['post'], '/account/add', 'MerchantAccountController@store')->name('account.store');
+            Route::match(['get'], '/account/update', 'MerchantAccountController@update')->name('account.update');
+            Route::match(['post'], '/account/destroy', 'MerchantAccountController@destroy')->name('account.destroy');
         });
     });
 
+    Route::group(['middleware' => ['can.apply.merchants.request']], function () {
+        Route::match(['get'], '/queryList', 'MerchantInfoController@index');
 
+    });
 
     Route::resource('mcc', 'MccController')->only([
-        'index', 'store', 'edit', 'update','create'
+        'index', 'store', 'edit', 'update', 'create'
     ])->middleware('can.manage.mcc');
     Route::match(['get'], '/mcc/{id_code}/merchants', 'MccController@merchants')->middleware('can.manage.mcc');
 

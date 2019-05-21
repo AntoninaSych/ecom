@@ -153,10 +153,16 @@ return [
             'can'  => 'merchant-view',
         ],
         [
-            'text' => 'Mange MCC Codes',
+            'text' => 'Управление MCC кодами',
             'url'  => '/mcc',
             'icon' => ' fa-credit-card',
             'can'  => 'manage-mcc',
+        ],
+        [
+            'text' => 'Управление запросами',
+            'url'  => '/queryList',
+            'icon' => ' fa-credit-card',
+            'hasRole'  => 'apply-merchants-requests',
         ],
     ],
 //    'menu' => [

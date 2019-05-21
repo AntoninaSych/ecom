@@ -16,5 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PermissionTableSeeder::class);
         $this->call(MccCodesSeeder::class);
         $this->call(OrderFieldSeeder::class);
+        $this->call(RefOrderCheckStageSeeder::class);
+        $this->call(RefOrderStatusSeeder::class);
     }
 }

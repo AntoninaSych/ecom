@@ -7,9 +7,6 @@
                 <h4 class="modal-title">Изменение аккаунта</h4>
             </div>
             <div class="modal-body" id="edit-content" style="text-align: center">
-                <p>Изменение аккаунта</p>
-
-
                     {!! Form::open(array('url' => route('account.update'),'method' => 'post','id'=>'payment_account_update')) !!}
                     <div>
                         {{ Form::label('payment_account', "Расчетный счет" ) }}
@@ -32,10 +29,10 @@
                     </div>
                     {!! Form::close() !!}
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Зыкрыть</button>
-                    <input type="hidden" value=""  name="accountId" id="editHiddenValueIdAccount">
-            </div>
+{{--            <div class="modal-footer">--}}
+{{--                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Зыкрыть</button>--}}
+{{--                    <input type="hidden" value=""  name="accountId" id="editHiddenValueIdAccount">--}}
+{{--            </div>--}}
         </div>
         <!-- /.modal-content -->
     </div>

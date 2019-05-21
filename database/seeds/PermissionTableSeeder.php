@@ -35,5 +35,15 @@ class PermissionTableSeeder extends Seeder
         $permission->display_name = 'Manage merchants'; // optional
         $permission->description  = 'Manage merchants'; // optional
         $permission->save();
+
+
+        $permission = new Permission();
+        $permission->name         = 'apply-merchants-requests';
+        $permission->display_name = 'Apply merchants requests'; // optional
+        $permission->description  = 'Apply merchants requests'; // optional
+        $permission->save();
+
+
+
     }
 }

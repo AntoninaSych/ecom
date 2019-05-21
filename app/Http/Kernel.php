@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\CanApplyMerchantsRequest;
 use App\Http\Middleware\CanMccCodes;
 use App\Http\Middleware\CanViewMerchants;
 use App\Http\Middleware\CanViewPayments;
@@ -73,7 +74,8 @@ class Kernel extends HttpKernel
         'can.view.payments' => CanViewPayments::class,
         'is.block.user' => IsBlockUser::class,
         'can.view.merchants' =>CanViewMerchants::class,
-        'can.manage.mcc' => CanMccCodes::class
+        'can.manage.mcc' => CanMccCodes::class,
+        'can.apply.merchants.request' =>CanApplyMerchantsRequest::class
     ];
 
     /**

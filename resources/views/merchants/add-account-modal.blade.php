@@ -35,14 +35,14 @@
                 </div>
 
                 <div style="margin-top: 15px">
-                    <input type="button" value="Добавить аккаунт" class="form-control" onclick="addAccount()">
+                    <input type="button" value="Добавить аккаунт" class="form-control btn btn-primary" onclick="addAccount()">
 {{--                    {{Form::button('Добавить аккаунт',['class'=>'form-control btn btn-primary','id'=>])}}--}}
                 </div>
                 {!! Form::close() !!}
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Зыкрыть</button>
-            </div>
+{{--            <div class="modal-footer">--}}
+{{--                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Зыкрыть</button>--}}
+{{--            </div>--}}
         </div>
         <!-- /.modal-content -->
     </div>

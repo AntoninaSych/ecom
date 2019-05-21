@@ -12,10 +12,13 @@
         <thead>
         <tr role="row">
             <th> ID</th>
-            <th> Пользователь</th>
-            <th> Мерчант</th>
             <th> Создан</th>
             <th> Статус</th>
+            <th> Пользователь</th>
+            <th> Мерчант</th>
+             <th> Fraud</th>
+            <th> Security </th>
+             <th> Business</th>
             <th> Просмотр деталей</th>
         </tr>
         </thead>
@@ -25,11 +28,20 @@
 
         <tr>
             <td>{{$order['id']}}</td>
-            <td>{{$order['user']['username']}}</td>
-            <td>{{$order['merchant']['name']}}</td>
             <td>{{$order['created_at']}}</td>
-            <td>{{$order['order_status']}}</td>
-            <td><a href=""><i class="fa fa-fw fa-eye"></i> </a> </td>
+            <td>{{$order['status']['name']}}</td>
+            <td>{{$order['users']['username']}}</td>
+            <td>{{$order['merchant']['name']}}</td>
+             @if(OrderStatusHelper::checkDisplay($order['order_status'], $order['fraud_check'], $order['security_check'] ,$order['business_check']))
+            <td>{{$order['fraudStageCheck']}}</td>
+            <td>{{$order['securityStageCheck']}}</td>
+                @else
+                <td>Проверка не требуется</td>
+                <td>Проверка не требуется</td>
+            @endif
+            <td>{{$order['businessStageCheck']}}</td>
+
+            <td><a href="/queries/{{$order['id']}}"><i class="fa fa-fw fa-eye"></i> </a> </td>
         </tr>
             @endforeach
         </tbody>
@@ -37,10 +49,13 @@
         <tfoot>
         <tr role="row">
             <th> ID</th>
-            <th> Пользователь</th>
-            <th> Мерчант</th>
             <th> Создан</th>
             <th> Статус</th>
+            <th> Пользователь</th>
+            <th> Мерчант</th>
+            <th> Fraud</th>
+            <th> Security </th>
+            <th> Business</th>
             <th> Просмотр деталей</th>
         </tr>
         </tfoot>

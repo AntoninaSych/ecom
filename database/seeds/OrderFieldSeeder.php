@@ -49,7 +49,7 @@ class OrderFieldSeeder extends Seeder
 
         $field = new OrderField();
         $field->table_name  = 'merchant_info';
-        $field->field_key = 'ind_contact_email	';
+        $field->field_key = 'ind_contact_email';
         $field->save();
 
         $field = new OrderField();
@@ -84,11 +84,6 @@ class OrderFieldSeeder extends Seeder
 
         $field = new OrderField();
         $field->table_name  = 'merchant_info';
-        $field->field_key = 'ind_is_director';
-        $field->save();
-
-        $field = new OrderField();
-        $field->table_name  = 'merchant_info';
         $field->field_key = 'ind_fio';
         $field->save();
 
@@ -107,10 +102,6 @@ class OrderFieldSeeder extends Seeder
         $field->field_key = 'ind_phone';
         $field->save();
 
-        $field = new OrderField();
-        $field->table_name  = 'merchant_info';
-        $field->field_key = 'ind_phone';
-        $field->save();
 
         $field = new OrderField();
         $field->table_name  = 'merchant_info';

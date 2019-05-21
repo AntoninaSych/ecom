@@ -160,7 +160,7 @@ return [
         ],
         [
             'text' => 'Управление запросами',
-            'url'  => '/queryList',
+            'url'  => '/queries',
             'icon' => ' fa-credit-card',
             'hasRole'  => 'apply-merchants-requests',
         ],

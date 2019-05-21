@@ -9,14 +9,19 @@ class Merchants extends BaseModel
     protected $table = 'merchants';
     protected $dates = ['updated'];
     public $timestamps = false;
-    protected $with = ['status', 'user', 'compensationType', 'compensationTerm', 'merchantType'];
+    protected $with = ['merchant_status', 'status',  'user', 'compensationType', 'compensationTerm', 'merchantType'];
 
     public function payments()
     {
         return $this->hasMany(Payments::class, 'id', 'merchant_id');
     }
 
-    public function status()
+    public function merchant_status()
+    {
+        return $this->belongsTo(MerchantStatus::class, 'status', 'id');
+    }
+
+    public function status() //remove in future
     {
         return $this->belongsTo(MerchantStatus::class, 'status', 'id');
     }

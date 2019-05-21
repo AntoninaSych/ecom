@@ -234,7 +234,9 @@ return [
         'Form' => 'Collective\Html\FormFacade',
         'Html' => 'Collective\Html\HtmlFacade',
         'Datatables' => Yajra\Datatables\Facades\Datatables::class,
-        'PermissionHelper' => App\Classes\Helpers\PermissionHelper::class
+        'PermissionHelper' => App\Classes\Helpers\PermissionHelper::class,
+        'OrderStatusHelper' => App\Classes\Helpers\OrderStatusHelper::class,
+        'OrderFieldHelper' => App\Classes\Helpers\OrderFieldHelper::class
     ],
 
 ];

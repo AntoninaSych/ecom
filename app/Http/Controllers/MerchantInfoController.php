@@ -28,5 +28,13 @@ class MerchantInfoController
         return view('merchants.info.query-list')->with(['orders'=>$orders]);
     }
 
+    public function show(int $id)
+    {
+        $order = $this->orders->getOne($id);
+        $fieldValues = $this->orders->getFieldValues($order->id);
+
+        return view('merchants.info.query-details')->with(['order'=>$order,'fieldValues'=>$fieldValues]);
+    }
+
 
 }

@@ -9,10 +9,6 @@
 
 @section('content')
 
-
-
-
-
     <section class="invoice">
         <!-- title row -->
         <div class="row">
@@ -21,7 +17,7 @@
                     <i class="fa fa-globe"></i> Проверка данных мерчанта  ( Статус заказа: {{$order->status->name}} )
                     <small class="pull-right">{{$order->created_at}}</small>
                 </h2>
-                <button class="btn btn-warning pull-right">Взять в работу</button>
+                <button class="btn btn-warning pull-right" id="take-in-process">Взять в работу</button>
             </div>
             <!-- /.col -->
         </div>
@@ -71,9 +67,6 @@
                     <tr>
                         <th>Название поля</th>
                         <th>Значение</th>
-{{--                        <th>Serial #</th>--}}
-{{--                        <th>Description</th>--}}
-{{--                        <th>Subtotal</th>--}}
                     </tr>
                     </thead>
                     <tbody>
@@ -94,7 +87,8 @@
             <!-- accepted payments column -->
             <div class="col-xs-6">
                 <p class="lead">Добавить комментарий:</p>
-                <textarea placeholder="Оставить комментарий к заявке..." class="form-control" rows="4" cols="50"></textarea>
+                <textarea placeholder="Оставить комментарий к заявке..." class="form-control"
+                          rows="4" cols="50" id="leave_comment_textarea"></textarea>
 
                 <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
                     Данный комментарий будет добавлен к заявке автоматически.
@@ -133,11 +127,11 @@
         <div class="row no-print">
             <div class="col-xs-12">
 
-                <button type="button" class="btn btn-warning pull-right">
-                    <i class="fa fa-remove"></i> Отклонить
+                <button type="button" class="btn btn-warning pull-right" id="decline_btn" data-content="decline">
+                    <i class="fa fa-remove" ></i> Отклонить
                 </button>
 
-                <button type="button" class="btn btn-success pull-right"  style="margin-right: 5px;">
+                <button type="button" class="btn btn-success pull-right"  style="margin-right: 5px;" id="apply_btn" data-content="apply">
                     <i class="fa fa-check"></i> Согласовано
                 </button>
             </div>
@@ -150,5 +144,17 @@
 <script src="{{ asset('/js/libraries/jquery.js') }}"></script>
 <script src="{{ asset('js/libraries/datatables/datatables.min.js') }}"></script>
 <script src="{{ asset('js/libraries/datatables/dataTables.bootstrap.min.js') }}"></script>
+<script src="{{ asset('/js/merchant-request.js') }}"></script>
+
 <link rel="stylesheet" href="{{ asset('/css/libraries/datatables/dataTables.bootstrap.min.css') }}">
 
+
+<?php
+
+$assigned =  (!is_null($order->assigned))?$order->assigned: 0;
+?>
+<script>
+    var order_id = {!!  $order->id !!};
+    var assigned = {!!  $assigned !!};
+    var current_user = {!! auth()->user()->id  !!};
+</script>

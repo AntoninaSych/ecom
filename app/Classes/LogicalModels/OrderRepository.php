@@ -8,11 +8,13 @@ use App\Classes\Helpers\OrderStatusHelper;
 use App\Exceptions\NotFoundException;
 use App\Models\OrderFieldValues;
 use App\Models\Orders;
+use App\User;
 
 class OrderRepository
 {
     public $order;
-public $orderFieldValues;
+    public $orderFieldValues;
+
     public function __construct(Orders $order, OrderFieldValues $orderFieldValues)
     {
         $this->order = $order;
@@ -21,8 +23,6 @@ public $orderFieldValues;
 
 
     /**
-     *
-     *
      * Fraud monitoring
      * Security team
      * Business team
@@ -36,26 +36,28 @@ public $orderFieldValues;
         $allowedOrders = [];
 
         foreach ($allOrders as $order) {
-           if(OrderStatusHelper::checkDisplay($order->order_status, $order->fraud_check, $order->security_check, $order->business_check) )
-           {
-            $allowedOrders[] =  $order;
-           }
+            if (OrderStatusHelper::checkDisplay($order->order_status, $order->fraud_check, $order->security_check, $order->business_check)) {
+                $allowedOrders[] = $order;
+            }
         }
 
         return $allowedOrders;
     }
 
-    public function getOne(int $id)
+    /**
+     * @param int $id
+     * @return |null
+     * @throws NotFoundException
+     */
+    public function getOne(int $id): Orders
     {
         $order = $this->order->select()->where(['id' => $id])->first();
-        if(is_null($order))
-        {
+        if (is_null($order)) {
             throw new NotFoundException('Данный запрос недоступен для просмотра');
         }
         $allowedOrders = null;
-        if(OrderStatusHelper::checkDisplay($order->order_status, $order->fraud_check, $order->security_check, $order->business_check) )
-        {
-            $allowedOrders =  $order;
+        if (OrderStatusHelper::checkDisplay($order->order_status, $order->fraud_check, $order->security_check, $order->business_check)) {
+            $allowedOrders = $order;
         }
 
         return $allowedOrders;
@@ -68,4 +70,9 @@ public $orderFieldValues;
         return $fieldValues;
     }
 
+    public function assign(Orders $order, User $user): void
+    {
+        $order->assigned = $user->id;
+        $order->save();
+    }
 }

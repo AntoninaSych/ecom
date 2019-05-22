@@ -21,10 +21,10 @@ class CanApplyMerchantsRequest
     public function handle($request, Closure $next)
     {
         if (auth()->user() == null
-            ||  !auth()->user()->hasRole([RoleHelper::SECURITY,RoleHelper::BUSINESS,RoleHelper::FRAUD_MONITORING]) )
+            ||  !auth()->user()->hasRole([RoleHelper::SECURITY,RoleHelper::BUSINESS,RoleHelper::FRAUD_MONITORING, RoleHelper::DEVELOPER]) )
 
          {
-             dd('12');
+
             throw new PermissionException('У Вас недостаточно прав для просмотра этой страницы');
         }
         return $next($request);

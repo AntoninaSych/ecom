@@ -61,6 +61,10 @@ Route::group(['middleware' => ['auth', 'is.block.user']], function () {
     Route::group(['prefix' => 'queries', 'middleware' => ['can.apply.merchants.request']], function () {
         Route::match(['get'], '/', 'MerchantInfoController@index');
         Route::match(['get'], '/{id}', 'MerchantInfoController@show');
+        Route::match(['post'], '/assign', 'MerchantInfoController@assign');
+        Route::match(['post'], '/apply', 'MerchantInfoController@apply');
+
+
 
     });
 

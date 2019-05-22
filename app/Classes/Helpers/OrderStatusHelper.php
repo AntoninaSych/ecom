@@ -21,6 +21,11 @@ class OrderStatusHelper extends Facade
      */
     public static function checkDisplay($orderStatus, $fraudCheck, $securityCheck, $businessCheck): bool
     {
+        if(auth()->user()->hasRole(RoleHelper::DEVELOPER))
+        {
+            return true;
+        }
+
         if (auth()->user()->hasRole(RoleHelper::FRAUD_MONITORING)) {
             if ($orderStatus === OrderStatusHelper::STATUS_NEW) {
                 if (is_null($fraudCheck)) {

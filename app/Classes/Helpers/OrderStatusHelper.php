@@ -3,6 +3,7 @@
 
 namespace App\Classes\Helpers;
 
+use App\Models\Orders;
 use Illuminate\Support\Facades\Facade;
 
 class OrderStatusHelper extends Facade
@@ -19,10 +20,19 @@ class OrderStatusHelper extends Facade
      * @param $businessCheck
      * @return bool
      */
-    public static function checkDisplay($orderStatus, $fraudCheck, $securityCheck, $businessCheck): bool
+    public static function checkDisplay(Orders $order): bool
     {
-        if(auth()->user()->hasRole(RoleHelper::DEVELOPER))
-        {
+
+         [$orderStatus, $fraudCheck, $securityCheck, $businessCheck] =
+           [$order->order_status, $order->fraud_check, $order->security_check, $order->business_check];
+
+
+        if (!is_null($order->decline_user_id)) {
+            return false;
+        }
+
+
+        if (auth()->user()->hasRole(RoleHelper::DEVELOPER)) {
             return true;
         }
 
@@ -49,7 +59,7 @@ class OrderStatusHelper extends Facade
 
         if (auth()->user()->hasRole(RoleHelper::BUSINESS)) {
             if ($orderStatus === OrderStatusHelper::STATUS_NEW) {
-                if (!is_null($fraudCheck) && !is_null($securityCheck) && $businessCheck) {
+                if (!is_null($fraudCheck) && !is_null($securityCheck) && is_null($businessCheck)) {
                     return true;
                 }
                 return false;

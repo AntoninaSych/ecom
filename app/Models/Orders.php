@@ -3,14 +3,13 @@
 
 namespace App\Models;
 
-
-
 class Orders extends BaseModel
 {
-    protected $table = 'order';
-    protected $with = ['users','merchant','status','securityStageCheck','fraudStageCheck','businessStageCheck' ];
 
-    public function users()
+    protected $table = 'order';
+    protected $with = ['user','merchant','status','securityUser','fraudUser','businessUser','declineUser','assignedUser' ];
+
+    public function user()
     {
         return $this->hasOne(MerchantUser::class, 'id','user_id');
     }
@@ -25,18 +24,28 @@ class Orders extends BaseModel
         return $this->hasOne(RefOrderStatus::class, 'id','order_status');
     }
 
-    public function securityStageCheck()
+    public function securityUser()
     {
-        return $this->hasOne(RefOrderCheckStage::class, 'id','security_check');
+        return $this->hasOne(Users::class, 'id','security_check');
     }
 
-    public function fraudStageCheck()
+    public function fraudUser()
     {
-        return $this->hasOne(RefOrderCheckStage::class, 'id','fraud_check');
+        return $this->hasOne(Users::class, 'id','fraud_check');
     }
 
-    public function businessStageCheck()
+    public function businessUser()
     {
-        return $this->hasOne(RefOrderCheckStage::class, 'id','business_check');
+        return $this->hasOne(Users::class,  'id','business_check');
+    }
+
+    public function declineUser()
+    {
+        return $this->hasOne(Users::class,  'id','decline_user_id');
+    }
+
+    public function assignedUser()
+    {
+        return $this->hasOne(Users::class,  'id','assigned');
     }
 }

@@ -56,6 +56,9 @@ $(document).ready(function () {
             },
             success: function () {
                 location.reload();
+                if (e.currentTarget.dataset.content === 'decline') {
+                    window.location.replace("/queries");
+                }
 
             }, error: function () {
                 location.reload();

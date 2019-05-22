@@ -9,6 +9,7 @@ use App\Exceptions\NotFoundException;
 use App\Models\OrderFieldValues;
 use App\Models\Orders;
 use App\User;
+use Illuminate\Support\Collection;
 
 class OrderRepository
 {
@@ -33,11 +34,12 @@ class OrderRepository
     public function list()
     {
         $allOrders = $this->order->select()->get();
-        $allowedOrders = [];
+        $allowedOrders = new Collection();
 
         foreach ($allOrders as $order) {
-            if (OrderStatusHelper::checkDisplay($order->order_status, $order->fraud_check, $order->security_check, $order->business_check)) {
-                $allowedOrders[] = $order;
+            if (OrderStatusHelper::checkDisplay($order)) {
+//                $allowedOrders[] = $order;
+                $allowedOrders->push($order);
             }
         }
 
@@ -55,12 +57,18 @@ class OrderRepository
         if (is_null($order)) {
             throw new NotFoundException('Данный запрос недоступен для просмотра');
         }
-        $allowedOrders = null;
-        if (OrderStatusHelper::checkDisplay($order->order_status, $order->fraud_check, $order->security_check, $order->business_check)) {
-            $allowedOrders = $order;
-        }
+      //  $allowedOrders = null;
 
-        return $allowedOrders;
+//        if (OrderStatusHelper::checkDisplay($order)) {
+//            $allowedOrders = $order;
+//        }
+//
+//        if(empty($allowedOrders))
+//        {
+//            throw new NotFoundException('Заявка перемещена в архив или не существует');
+//        }
+
+        return $order;
     }
 
     public function getFieldValues(int $orderId)

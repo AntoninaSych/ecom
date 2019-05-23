@@ -155,8 +155,8 @@ class UserRole extends Seeder
         $adminRole = Role::where('name', '=', 'administrator')->first();
         $adminRole->attachPermission($permission);
 
-        $permission = Permission::where('name', '=', 'add-user')->first();
+        /*$permission = Permission::where('name', '=', 'add-user')->first();
         $adminRole = Role::where('name', '=', 'administrator')->first();
-        $adminRole->attachPermission($permission);
+        $adminRole->attachPermission($permission);*/
     }
 }

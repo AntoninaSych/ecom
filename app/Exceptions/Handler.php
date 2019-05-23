@@ -47,8 +47,7 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
 
-
-        if ($exception->getStatusCode()== '405')
+        /*if ($exception->getStatusCode()== '405')
         {
             return response()->view('errors.default',
                 ['message'=>"Воспользуйтесь стандартным интерфейсом для продолжения операции",'code'=>$exception->getStatusCode()] );
@@ -69,7 +68,7 @@ class Handler extends ExceptionHandler
 
             return response()->view('errors.default',
             ['message'=>$exception->getMessage(),'code'=>$exception->getCode()] );
-
+        */
 
            return parent::render($request, $exception);
     }

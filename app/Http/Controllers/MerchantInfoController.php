@@ -57,10 +57,10 @@ class MerchantInfoController
                 if (!is_null($order->assigned)) {
                     return " В работе у сотрудника:" . $order->assignedUser->name;
                 }
-                if (is_null($order->decline_user_id) && is_null($order->assigned)) {
+                if (is_null($order->decline_user_id) && is_null($order->assigned) && is_null($order->business_check)) {
                     return "В очереди на обработку";
                 }
-                return 'Не определен';
+                return 'Закрыта';
             })
             ->editColumn('merchant', function ($order) {
                 return $order->merchant->name;
@@ -119,7 +119,7 @@ class MerchantInfoController
         $comment = $this->request->get('comment');
         $order = $this->orders->getOne($this->request->get('order_id'));
 
-        if ($user->getAuthIdentifier() !== $order->assign) {
+        if ($user->getAuthIdentifier() !== $order->assigned) {
             throw new PermissionException('Данная заявка была закреплена ранее за другим сотрудником.');
         }
 
@@ -151,4 +151,58 @@ class MerchantInfoController
     }
 
 
+
+    public function archive()
+    {
+        $orders = $this->orders->archive();
+
+        return view('merchants.info.query-archive')->with(['orders' => $orders]);
+     }
+
+    public function archiveData()
+    {
+        $orders = $this->orders->archive();
+        return Datatables::of($orders)
+            ->addColumn('id', function ($orders) {
+                return $orders->id;
+            })
+            ->editColumn('created_at', function ($order) {
+                return $order->created_at;
+            })
+            ->editColumn('marchant_state', function ($order) {
+                return $order->status->name;
+            })
+            ->editColumn('order_state', function ($order) {
+                if (!is_null($order->decline_user_id)) {
+                    return "Отклонена сотрудником:" . $order->declineUser->name;
+                }
+                if (!is_null($order->assigned)) {
+                    return " В работе у сотрудника:" . $order->assignedUser->name;
+                }
+                if (is_null($order->decline_user_id) && is_null($order->assigned) && is_null($order->business_check)) {
+                    return "В очереди на обработку";
+                }
+                return 'Закрыта';
+            })
+            ->editColumn('merchant', function ($order) {
+                return $order->merchant->name;
+            })
+            ->editColumn('user_created', function ($order) {
+                return $order->user->username;
+            })
+            ->editColumn('fraud', function ($order) {
+                return (!is_null($order->fraudUser)) ? $order->fraudUser->name : '';
+            })
+            ->editColumn('security', function ($order) {
+                return (!is_null($order->securityUser)) ? $order->securityUser->name : '';
+            })
+            ->editColumn('business', function ($order) {
+                return (!is_null($order->businessUser)) ? $order->businessUser->name : '';
+            })
+            ->addColumn('view_details', function ($order) {
+                return '<a href="/queries/' . $order->id . '"><i class="fa fa-fw fa-eye"></i> </a>';
+            })
+            ->rawColumns(['view_details', 'order_state'])
+            ->make(true);
+    }
 }

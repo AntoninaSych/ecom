@@ -90,7 +90,9 @@
                                 @endforeach
                             </select>
                         </div>
-
+                        <div>
+                           <a href="/queries/archive-queries">Архив заявок</a>
+                        </div>
 
                         {{--                    <div class="wrap">--}}
                         {{--                        <input type="checkbox" id="allowed"--}}

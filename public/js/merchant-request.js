@@ -21,7 +21,6 @@ $(document).ready(function () {
             },
             success: function () {
                 unlock();
-
             }, error: function (data) {
                 lock();
                 var response = data.responseText;

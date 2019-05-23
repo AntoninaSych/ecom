@@ -4,44 +4,55 @@
 namespace App\Classes\LogicalModels;
 
 
+use App\Classes\Filters\CardFilter;
+use App\Classes\Filters\SearchMerchantRequestsFilter;
 use App\Classes\Helpers\OrderStatusHelper;
 use App\Exceptions\NotFoundException;
 use App\Models\OrderFieldValues;
 use App\Models\Orders;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class OrderRepository
 {
     public $order;
     public $orderFieldValues;
+    public $user;
 
-    public function __construct(Orders $order, OrderFieldValues $orderFieldValues)
+    public function __construct(Orders $order, OrderFieldValues $orderFieldValues, User $user)
     {
         $this->order = $order;
         $this->orderFieldValues = $orderFieldValues;
+        $this->user = $user;
     }
 
 
-    /**
-     * Fraud monitoring
-     * Security team
-     * Business team
-     * Please, use only OrderStatusHelper::checkDisplay to check display request or not
-     *
-     * @return mixed
-     */
-    public function list()
+    public function list(SearchMerchantRequestsFilter $filter)
     {
-        $allOrders = $this->order->select()->get();
+
+        $results = $this->order->select()->get();
+
         $allowedOrders = new Collection();
 
-        foreach ($allOrders as $order) {
-            if (OrderStatusHelper::checkDisplay($order)) {
-//                $allowedOrders[] = $order;
-                $allowedOrders->push($order);
+
+        if (isset($filter->department)) {
+            foreach ($results as $order) {
+                if (OrderStatusHelper::searchByDepart($order, $filter->department)) {
+                    $allowedOrders->push($order);
+                }
             }
         }
+
+        else {
+            foreach ($results as $order) {
+                if (OrderStatusHelper::checkByMyDepart($order)) {
+                    $allowedOrders->push($order);
+                }
+            }
+        }
+
 
         return $allowedOrders;
     }
@@ -57,20 +68,14 @@ class OrderRepository
         if (is_null($order)) {
             throw new NotFoundException('Данный запрос недоступен для просмотра');
         }
-      //  $allowedOrders = null;
-
-//        if (OrderStatusHelper::checkDisplay($order)) {
-//            $allowedOrders = $order;
-//        }
-//
-//        if(empty($allowedOrders))
-//        {
-//            throw new NotFoundException('Заявка перемещена в архив или не существует');
-//        }
 
         return $order;
     }
 
+    /**
+     * @param int $orderId
+     * @return mixed
+     */
     public function getFieldValues(int $orderId)
     {
         $fieldValues = $this->orderFieldValues->select()->where(['order_id' => $orderId])->get();
@@ -78,6 +83,10 @@ class OrderRepository
         return $fieldValues;
     }
 
+    /**
+     * @param Orders $order
+     * @param User $user
+     */
     public function assign(Orders $order, User $user): void
     {
         $order->assigned = $user->id;

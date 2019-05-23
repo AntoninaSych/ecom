@@ -4,6 +4,9 @@
 namespace App\Http\Controllers;
 
 
+use App\Classes\Filters\SearchMerchantRequestsFilter;
+use App\Classes\Filters\SearchPaymentsFilter;
+use App\Classes\Helpers\ApiResponse;
 use App\Classes\Helpers\RoleHelper;
 use App\Classes\LogicalModels\OrderRepository;
 use App\Exceptions\PermissionException;
@@ -26,16 +29,64 @@ class MerchantInfoController
 
     public function index()
     {
-        $orders = $this->orders->list();
+        $orders = $this->orders->list(SearchMerchantRequestsFilter::create($this->request->all()));
 
         return view('merchants.info.query-list')->with(['orders' => $orders]);
     }
 
+    /**
+     * for Datatables
+     */
     public function anyData()
     {
-       // $orders = $this->orders->list();
+        $orders = $this->orders->list(SearchMerchantRequestsFilter::create($this->request->all()));
+        return Datatables::of($orders)
+            ->addColumn('id', function ($orders) {
+                return $orders->id;
+            })
+            ->editColumn('created_at', function ($order) {
+                return $order->created_at;
+            })
+            ->editColumn('marchant_state', function ($order) {
+                return $order->status->name;
+            })
+            ->editColumn('order_state', function ($order) {
+                if (!is_null($order->decline_user_id)) {
+                    return "Отклонена сотрудником:" . $order->declineUser->name;
+                }
+                if (!is_null($order->assigned)) {
+                    return " В работе у сотрудника:" . $order->assignedUser->name;
+                }
+                if (is_null($order->decline_user_id) && is_null($order->assigned)) {
+                    return "В очереди на обработку";
+                }
+                return 'Не определен';
+            })
+            ->editColumn('merchant', function ($order) {
+                return $order->merchant->name;
+            })
+            ->editColumn('user_created', function ($order) {
+                return $order->user->username;
+            })
+            ->editColumn('fraud', function ($order) {
+                return (!is_null($order->fraudUser)) ? $order->fraudUser->name : '';
+            })
+            ->editColumn('security', function ($order) {
+                return (!is_null($order->securityUser)) ? $order->securityUser->name : '';
+            })
+            ->editColumn('business', function ($order) {
+                return (!is_null($order->businessUser)) ? $order->businessUser->name : '';
+            })
+            ->addColumn('view_details', function ($order) {
+
+                return '<a href="/queries/' . $order->id . '"><i class="fa fa-fw fa-eye"></i> </a>';
+            })
+            ->rawColumns(['view_details', 'order_state'])
+            ->make(true);
+
 
     }
+
 
     public function show(int $id)
     {
@@ -45,38 +96,45 @@ class MerchantInfoController
         return view('merchants.info.query-details')->with(['order' => $order, 'fieldValues' => $fieldValues]);
     }
 
-    //todo Log
-    public function assign(): void
+//todo Log
+    public function assign()
     {
         $user = Auth::user();
 
         $order = $this->orders->getOne($this->request->get('order_id'));
-        if (is_null($order->assign)) {
+        if (is_null($order->assigned)) {
             $this->orders->assign($order, $user);
-        } else {
-            throw new PermissionException('Пользователь уже назначен к заказу');
+            return ApiResponse::goodResponse('Пользователь успешно назначен к заказу');
+
         }
+        return ApiResponse::badResponse('Пользователь уже назначен к заказу', 500);
+
+
     }
 
-    //todo Log
+//todo Log
     public function apply()
     {
         $user = Auth::user();
         $comment = $this->request->get('comment');
         $order = $this->orders->getOne($this->request->get('order_id'));
 
-            if ($user->hasRole(RoleHelper::FRAUD_MONITORING)) {
-                $order->fraud_check = $user->id;
-                $order->fraud_comment = $comment;
-            }
-            if ($user->hasRole(RoleHelper::SECURITY)) {
-                $order->security_check = $user->id;
-                $order->security_comment = $comment;
-            }
-            if ($user->hasRole(RoleHelper::BUSINESS)) {
-                $order->business_check = $user->id;
-                $order->business_comment = $comment;
-            }
+        if ($user->getAuthIdentifier() !== $order->assign) {
+            throw new PermissionException('Данная заявка была закреплена ранее за другим сотрудником.');
+        }
+
+        if ($user->hasRole(RoleHelper::FRAUD_MONITORING)) {
+            $order->fraud_check = $user->id;
+            $order->fraud_comment = $comment;
+        }
+        if ($user->hasRole(RoleHelper::SECURITY)) {
+            $order->security_check = $user->id;
+            $order->security_comment = $comment;
+        }
+        if ($user->hasRole(RoleHelper::BUSINESS)) {
+            $order->business_check = $user->id;
+            $order->business_comment = $comment;
+        }
         if ($this->request->get('type') === 'decline') {
             $order->decline_user_id = $user->id;
             $order->decline_comment = $comment;
@@ -89,8 +147,8 @@ class MerchantInfoController
 
         return view('merchants.info.query-details')->with(['order' => $order, 'fieldValues' => $fieldValues]);
 
-    }
 
+    }
 
 
 }

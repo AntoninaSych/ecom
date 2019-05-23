@@ -17,8 +17,7 @@ class CreateMerchantInfoTable extends Migration
         Schema::create('merchant_info', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('merchant_id');
-            $table->softDeletes();
-            $table->foreign('merchant_id')->references('id')->on('merchants');
+             $table->foreign('merchant_id')->references('id')->on('merchants');
             $table->enum('personType',['ur', 'ind']);
             $table->string('ind_contact_name',100);
             $table->string('ind_contact_inn',20);

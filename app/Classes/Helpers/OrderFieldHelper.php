@@ -27,6 +27,7 @@ class OrderFieldHelper extends Facade
         $fieldLabels['ind_contact_mail_index'] = 'Индекс контактного лица';
         $fieldLabels['ind_is_director'] = 'Физ.лицо является директором';
         $fieldLabels['ind_inn'] = 'ИНН директора физ лица';
+        $fieldLabels['ind_fio'] = 'ФИО директора физ лица';
         $fieldLabels['ind_birthday'] = 'Дата рождения директора физ лица';
         $fieldLabels['ind_phone'] = 'Телефон директора физ лица';
         $fieldLabels['ind_email'] = 'Email директора физ лица';
@@ -42,6 +43,7 @@ class OrderFieldHelper extends Facade
         $fieldLabels['ur_fio_contact'] = 'ФИО юр контактного лица';
         $fieldLabels['ur_phone_contact'] = 'Телефон юр  контактного лица';
         $fieldLabels['ur_email_contact'] = 'Email юр контактного лица';
+        $fieldLabels['ur_address'] = 'Адрес юр лица';
 
         return $fieldLabels[$fieldName];
     }

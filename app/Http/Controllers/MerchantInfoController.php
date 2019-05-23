@@ -7,9 +7,13 @@ namespace App\Http\Controllers;
 use App\Classes\Filters\SearchMerchantRequestsFilter;
 use App\Classes\Filters\SearchPaymentsFilter;
 use App\Classes\Helpers\ApiResponse;
+use App\Classes\Helpers\MerchantStatusHelper;
 use App\Classes\Helpers\RoleHelper;
+use App\Classes\LogicalModels\MerchantInfoRepository;
+use App\Classes\LogicalModels\MerchantsRepository;
 use App\Classes\LogicalModels\OrderRepository;
 use App\Exceptions\PermissionException;
+use App\Models\MerchantStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
@@ -18,12 +22,19 @@ class MerchantInfoController
 {
     public $request;
     public $orders;
+    public $merchantInfo;
+    public $merchant;
 
     public function __construct(Request $request,
-                                OrderRepository $orderRepository)
+                                OrderRepository $orderRepository,
+                                MerchantInfoRepository $merchantInfoRepository,
+                                MerchantsRepository $merchantsRepository
+    )
     {
         $this->request = $request;
         $this->orders = $orderRepository;
+        $this->merchantInfo = $merchantInfoRepository;
+        $this->merchant = $merchantsRepository;
     }
 
 
@@ -139,6 +150,12 @@ class MerchantInfoController
             $order->decline_user_id = $user->id;
             $order->decline_comment = $comment;
         }
+        if ($this->request->get('type') === 'apply' && $user->hasRole(RoleHelper::BUSINESS)) {
+            $this->merchantInfo->save($order);
+            $merchant = $this->merchant->getOneById($order->merchant_id);
+            $this->merchant->updateStatus($merchant,MerchantStatus::ACTIVE_STATUS );
+
+        }
         $order->assigned = null;
         $order->save();
 
@@ -147,9 +164,7 @@ class MerchantInfoController
 
         return view('merchants.info.query-details')->with(['order' => $order, 'fieldValues' => $fieldValues]);
 
-
     }
-
 
 
     public function archive()
@@ -157,7 +172,7 @@ class MerchantInfoController
         $orders = $this->orders->archive();
 
         return view('merchants.info.query-archive')->with(['orders' => $orders]);
-     }
+    }
 
     public function archiveData()
     {

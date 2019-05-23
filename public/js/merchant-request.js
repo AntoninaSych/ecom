@@ -47,7 +47,7 @@ $(document).ready(function () {
         if(send){
         $.ajax({
             url: '/queries/apply',
-            type: "post",
+            type: "get",
             data: {
                 comment: leave_comment_textarea.val(),
                 order_id: order_id,

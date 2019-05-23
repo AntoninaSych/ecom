@@ -104,7 +104,13 @@ Behavior:
   - Only with 'merchant-view'  permission user can view merchants page and it details
   - Only with 'process-log-view'  permission user can view PaymentLog tabin payment's details page
   
-
+---------
+По мерчантам есть статусы:
+ - Новый   - мерчант создан 
+ - Тестовый - мерчант создан и заполнил анкету
+ - Активен - мерчант создан, заполнил анкету и прошел проверку сперва у фрод, безопасность и бизнес отделов
+ - Приостановлен - следует уточнить кто имеет право
+ - Заблокирован - следует уточнить кто имеет право
  
  
  

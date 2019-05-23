@@ -21,7 +21,7 @@ class UsersRepository
 
     public function getList(): Collection
     {
-        return $this->users->with('roles_relation')->get();
+        return $this->users->with('roles_relation')->orderBy('id')->get();
     }
 
     public function applyRole(int $role_id, int $user_id): void
@@ -31,5 +31,18 @@ class UsersRepository
         $user->roles_relation()->detach();
         $user->roles_relation()->attach($newRole);
     }
+
+    public function updateStatus($user_id, $status)
+    {
+        $user = $this->users->findOrFail($user_id);
+        $user->status = intval($status);
+        $user->save();
+    }
+
+    public function getOne($key,$value)
+    {
+        return $this->users->select()->where($key ,'=', $value)->first();
+    }
+
 }
 

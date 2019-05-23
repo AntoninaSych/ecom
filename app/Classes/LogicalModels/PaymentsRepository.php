@@ -7,9 +7,11 @@ namespace App\Classes\LogicalModels;
 use App\Classes\Filters\CardFilter;
 use App\Classes\Filters\SearchPaymentsFilter;
 use App\Exceptions\NotFoundException;
+use App\Models\Merchants;
 use App\Models\Payments;
 use App\Models\PaymentStatus;
 use App\Models\PaymentType;
+use App\Models\ProcessingLog;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use \Carbon\Carbon;
@@ -19,12 +21,14 @@ class PaymentsRepository
     protected $payments;
     protected $type;
     protected $status;
+    protected $merchants;
 
-    public function __construct(Payments $payments, PaymentStatus $status, PaymentType $type)
+    public function __construct(Payments $payments, PaymentStatus $status, PaymentType $type, Merchants $merchants)
     {
         $this->payments = $payments;
         $this->type = $type;
         $this->status = $status;
+        $this->merchants = $merchants;
     }
 
     public function getList()
@@ -57,8 +61,10 @@ class PaymentsRepository
                 'payments.merchant_id',
                 'payments.description',
                 'st.name  as  status',
-                'st.name  as  type'
+                'st.name  as  type',
+                'mer.name as merchant'
             )
+            ->leftjoin($this->merchants->getTable() . ' as mer', 'payments.merchant_id', '=', 'mer.id')
             ->leftjoin($this->status->getTable() . ' as st', 'payments.status', '=', 'st.id')
             ->leftjoin($this->type->getTable() . ' as tp', 'payments.type', '=', 'tp.id');
 
@@ -98,21 +104,20 @@ class PaymentsRepository
         }
 
 
-        if ($filter->createdTo != "" && $filter->createdFrom != "") {
-            $start_date = Carbon::createFromFormat('Y-m-d', $filter->createdFrom)->startOfDay()->toDateTimeString();
-            $end_date = Carbon::createFromFormat('Y-m-d', $filter->createdTo)->endOfDay()->toDateTimeString();
-            $query = $query->whereBetween('payments.created', [$start_date, $end_date]);
-        }
+//        if ($filter->createdTo != "" && $filter->createdFrom != "") {
+//            $start_date = Carbon::createFromFormat('Y-m-d', $filter->createdFrom)->startOfDay()->toDateTimeString();
+//            $end_date = Carbon::createFromFormat('Y-m-d', $filter->createdTo)->endOfDay()->toDateTimeString();
+//            $query = $query->whereBetween('payments.created', [$start_date, $end_date]);
+//        }
         if ($filter->updatedTo != "" && $filter->updatedFrom != "") {
             $start_date = Carbon::createFromFormat('Y-m-d', $filter->updatedFrom)->startOfDay()->toDateTimeString();
             $end_date = Carbon::createFromFormat('Y-m-d', $filter->updatedTo)->endOfDay()->toDateTimeString();
             $query = $query->whereBetween('payments.updated', [$start_date, $end_date]);
         }
 
-        $query = $query->orderBy('payments.created', 'DESC');
+        $query = $query->orderBy('payments.id', 'DESC');
         $results = $query->get();
         $results = CardFilter::filterCollection($results);
-
 
         return $results;
     }
@@ -124,7 +129,9 @@ class PaymentsRepository
     public function getOneById(int $id): Payments
     {
         $payment = $this->payments->whereId($id)->first();
-
+        if (is_null($payment)) {
+            throw new NotFoundException('Данный платеж не существует');
+        }
         $payment = CardFilter::filterModel($payment);
 
         if (empty($payment)) {
@@ -132,5 +139,26 @@ class PaymentsRepository
         }
 
         return $payment;
+    }
+
+    public function getProcessingLog($paymentId)
+    {
+        $processingLog = new ProcessingLog();
+
+        $processingLog = $processingLog->where('payment_id', $paymentId)->get();
+
+        foreach ($processingLog as $log) {
+            $log->request_body = json_decode($log->request_body, true);
+            if (isset($log->request_body['Request']['PAN'])) {
+                // $log->request_body['Request']['PAN'] =  CardFilter::filterString(    $log->request_body['Request']['PAN'] );
+                $temp = $log->request_body;
+                $temp['Request']['PAN'] = CardFilter::filterString($log->request_body['Request']['PAN']);
+                $log->request_body = $temp;
+            }
+
+            $log->request_body = json_encode($log->request_body);
+        }
+
+        return $processingLog;
     }
 }

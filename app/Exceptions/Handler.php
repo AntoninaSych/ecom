@@ -46,30 +46,20 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-
-        /*if ($exception->getStatusCode()== '405')
-        {
+        if ($exception instanceof NotFoundException) {
             return response()->view('errors.default',
-                ['message'=>"Воспользуйтесь стандартным интерфейсом для продолжения операции",'code'=>$exception->getStatusCode()] );
+                ['message' => $exception->getMessage(), 'code' => $exception->getStatusCode()]);
         }
 
-
-        if ($exception->getStatusCode()== '404')
-        {
-            return response()->view('errors.default',
-                ['message'=>"Страница не найдена",'code'=>$exception->getStatusCode()] );
+        if ($exception instanceof PermissionException) {
+            return response()->view('errors.custom',
+                ['message' => $exception->getMessage(), 'code' =>$exception->getStatusCode()]);
         }
 
-        if ($exception->getStatusCode()== '500')
-        {
-            return response()->view('errors.default',
-                ['message'=>"Произола ошибка",'code'=>$exception->getStatusCode()] );
-        }
+//        return response()->view('errors.default',
+//            ['message' => "Произошла ошибка", 'code' => '500']);
 
-            return response()->view('errors.default',
-            ['message'=>$exception->getMessage(),'code'=>$exception->getCode()] );
-        */
 
-           return parent::render($request, $exception);
+      return parent::render($request, $exception);
     }
 }

@@ -29,4 +29,12 @@ class CardFilter
 
         return $payment;
     }
+
+    public static function filterString( $payment)
+    {
+
+        $payment = substr_replace($payment, '******', -10, 6);
+
+        return $payment;
+    }
 }

@@ -2,7 +2,11 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\CanApplyMerchantsRequest;
+use App\Http\Middleware\CanMccCodes;
+use App\Http\Middleware\CanViewMerchants;
 use App\Http\Middleware\CanViewPayments;
+use App\Http\Middleware\IsBlockUser;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -34,7 +38,7 @@ class Kernel extends HttpKernel
             \Illuminate\Session\Middleware\StartSession::class,
             // \Illuminate\Session\Middleware\AuthenticateSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \App\Http\Middleware\VerifyCsrfToken::class,
+//            \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
 
@@ -64,10 +68,14 @@ class Kernel extends HttpKernel
         'role' => \Zizaco\Entrust\Middleware\EntrustRole::class,
         'permission' => \Zizaco\Entrust\Middleware\EntrustPermission::class,
         'ability' => \Zizaco\Entrust\Middleware\EntrustAbility::class,
-        'user.is.admin' => \App\Http\Middleware\RedirectIfNotAdmin::class,
+//        'user.is.admin' => \App\Http\Middleware\RedirectIfNotAdmin::class, //remove we use permissions
         'can.add.user' => \App\Http\Middleware\CanAddUser::class,
         'can.manage.roles' => \App\Http\Middleware\CanManageUsers::class,
-        'can.view.payments' => CanViewPayments::class
+        'can.view.payments' => CanViewPayments::class,
+        'is.block.user' => IsBlockUser::class,
+        'can.view.merchants' =>CanViewMerchants::class,
+        'can.manage.mcc' => CanMccCodes::class,
+        'can.apply.merchants.request' =>CanApplyMerchantsRequest::class
     ];
 
     /**

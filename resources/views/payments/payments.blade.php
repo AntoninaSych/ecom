@@ -37,17 +37,17 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-4">
-                                    <div>
-                                        <label class="control-label" for="request_period_created">Дата создания
-                                            платежа</label>
-                                        <div class="input-group input-daterange" style="width: 100%">
-                                            <input id="request_period_created" class="form-control valid"
-                                                   name="request_period_created" type="text"
-                                                   aria-invalid="false" style="width: 100%;">
-                                        </div>
-                                    </div>
-                                </div>
+{{--                                <div class="col-md-4">--}}
+{{--                                    <div>--}}
+{{--                                        <label class="control-label" for="request_period_created">Дата создания--}}
+{{--                                            платежа</label>--}}
+{{--                                        <div class="input-group input-daterange" style="width: 100%">--}}
+{{--                                            <input id="request_period_created" class="form-control valid"--}}
+{{--                                                   name="request_period_created" type="text"--}}
+{{--                                                   aria-invalid="false" style="width: 100%;">--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
                                 <div class="col-md-4">
                                     <label class="control-label" for="merchant_id">Мерчант
                                     </label>
@@ -146,11 +146,12 @@
                             <thead>
                             <tr role="row">
                                 <th> ID</th>
-                                <th> Дата создания</th>
+{{--                                <th> Дата создания</th>--}}
                                 <th> Дата платежа</th>
                                 <th> Сумма</th>
                                 <th> Комиссия</th>
                                 <th> Статус</th>
+                                <th> Мерчант</th>
                                 <th> Карта</th>
                                 <th> ID заказа</th>
                                 <th> Описание</th>
@@ -196,11 +197,12 @@
                 ajax: '{!! route('get.search.payment') !!}',
                 columns: [
                     {data: 'id', name: 'id'},
-                    {data: 'created', name: 'created'},
+                    // {data: 'created', name: 'created'},
                     {data: 'updated', name: 'updated'},
                     {data: 'amount', name: 'amount',},
                     {data: 'customer_fee', name: 'customer_fee'},
                     {data: 'status', name: 'status'},
+                    {data: 'merchant', name: 'merchant'},
                     {data: 'card_num', name: 'card_num'},
                     {data: 'order_id', name: 'order_id'},
                     {data: 'description', name: 'description'},
@@ -259,7 +261,7 @@
                             url: '{!! route('get.search.payment') !!}',
                             data: {
                                 id: $('#search-form').find("input[name*='id']").val(),
-                                created_date: $('#search-form').find("input[name*='created_date']").val(),
+                                // created_date: $('#search-form').find("input[name*='created_date']").val(),
                                 payment_type: $('#search-form').find("select[name*='payment_type']").val(),
                                 payment_status: $('#search-form').find("select[name*='payment_status']").val(),
                                 number_order: $('#search-form').find("input[name*='number_order']").val(),
@@ -269,8 +271,8 @@
                                 description: $('#search-form').find("input[name*='description']").val(),
                                 updated_from: $('#request_period_updated').val().split(delimiter)[0],//дата платежа
                                 updated_to: $('#request_period_updated').val().split(delimiter)[1],//дата платежа
-                                created_from: $('#request_period_created').val().split(delimiter)[0],//дата создания платежа
-                                created_to: $('#request_period_created').val().split(delimiter)[1]//дата создание платежа
+                                // created_from: $('#request_period_created').val().split(delimiter)[0],//дата создания платежа
+                                // created_to: $('#request_period_created').val().split(delimiter)[1]//дата создание платежа
                             },
                         },
                         success: function(result, status) {
@@ -284,11 +286,12 @@
                         error:function(data){console.log('success'+data)},
                         columns: [
                             {data: 'id', name: 'id'},
-                            {data: 'created', name: 'created'},
+                            // {data: 'created', name: 'created'},
                             {data: 'updated', name: 'updated'},
                             {data: 'amount', name: 'amount',},
                             {data: 'customer_fee', name: 'customer_fee'},
                             {data: 'status', name: 'status'},
+                            {data: 'merchant', name: 'merchant'},
                             {data: 'card_num', name: 'card_num'},
                             {data: 'order_id', name: 'order_id'},
                             {data: 'description', name: 'description'},
@@ -298,7 +301,6 @@
                     e.preventDefault();
                 }
             });
-
         });
     })(jQuery);
 

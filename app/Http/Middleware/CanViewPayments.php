@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Classes\Helpers\PermissionHelper;
 use App\Exceptions\PermissionException;
 use Closure;
 
@@ -17,7 +18,7 @@ class CanViewPayments
      */
     public function handle($request, Closure $next)
     {
-        if (auth()->user()==null || !auth()->user()->can('view-payments') ) {
+        if (auth()->user()==null || !auth()->user()->can(PermissionHelper::VIEW_PAYMENTS) ) {
             throw new PermissionException('У Вас недостаточно прав для просмотра этой страницы');
         }
         return $next($request);

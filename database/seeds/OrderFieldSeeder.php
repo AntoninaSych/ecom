@@ -205,9 +205,8 @@ class OrderFieldSeeder extends Seeder
 
         $field = new OrderField();
         $field->table_name  = 'merchant_account';
-        $field->field_key = 'merchant_id';
+        $field->field_key = 'account_id';
         $field->save();
-
 
 
 

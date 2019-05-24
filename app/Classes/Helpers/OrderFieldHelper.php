@@ -44,6 +44,10 @@ class OrderFieldHelper extends Facade
         $fieldLabels['ur_phone_contact'] = 'Телефон юр  контактного лица';
         $fieldLabels['ur_email_contact'] = 'Email юр контактного лица';
         $fieldLabels['ur_address'] = 'Адрес юр лица';
+        $fieldLabels['mfo'] = 'МФО';
+        $fieldLabels['ed_rpo'] = 'Код ЕДРПО';
+        $fieldLabels['checking_account'] = 'Расчетный счет';
+        $fieldLabels['account_id'] = 'ID аккаунта для изменения';
 
         return $fieldLabels[$fieldName];
     }

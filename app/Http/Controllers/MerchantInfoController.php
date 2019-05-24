@@ -152,8 +152,7 @@ class MerchantInfoController
         }
         if ($this->request->get('type') === 'apply' && $user->hasRole(RoleHelper::BUSINESS)) {
             $this->merchantInfo->save($order);
-            $merchant = $this->merchant->getOneById($order->merchant_id);
-            $this->merchant->updateStatus($merchant,MerchantStatus::ACTIVE_STATUS );
+
 
         }
         $order->assigned = null;

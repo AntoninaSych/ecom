@@ -11,6 +11,9 @@ class Merchants extends BaseModel
     public $timestamps = false;
     protected $with = ['merchant_status', 'status',  'user', 'compensationType', 'compensationTerm', 'merchantType'];
 
+
+    protected $fillable = ['mcc_id', 'url'];
+
     public function payments()
     {
         return $this->hasMany(Payments::class, 'id', 'merchant_id');

@@ -145,6 +145,9 @@ class MerchantInfoController
         if ($user->hasRole(RoleHelper::BUSINESS)) {
             $order->business_check = $user->id;
             $order->business_comment = $comment;
+            if ($this->request->get('type') === 'apply') {
+                $order->apply_user_id = $user->id;
+            }
         }
         if ($this->request->get('type') === 'decline') {
             $order->decline_user_id = $user->id;

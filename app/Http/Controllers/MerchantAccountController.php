@@ -17,6 +17,7 @@ class MerchantAccountController
         $this->accounts = $repository;
     }
 
+    //todo Log
     public function update(UpdateAccount $request)
     {
         $this->accounts->update($request);
@@ -24,6 +25,7 @@ class MerchantAccountController
         return redirect()->back()->with(['success' => 'Аккаунт успешно изменен.', 'accountsNew' => $accounts]);
     }
 
+    //todo log
     public function store(CreateAccount $request)
     {
         $this->accounts->save($request);
@@ -31,6 +33,7 @@ class MerchantAccountController
         return redirect()->back()->with(['success' => 'Аккаунт успешно добавлен.', 'accountsNew' => $accounts]);
     }
 
+    //todo Log
     public function destroy(Request $request)
     {
 

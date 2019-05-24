@@ -186,6 +186,29 @@ class OrderFieldSeeder extends Seeder
         $field->save();
 
 
+// Mechant Account
+        $field = new OrderField();
+        $field->table_name  = 'merchant_account';
+        $field->field_key = 'mfo';
+        $field->save();
+
+        $field = new OrderField();
+        $field->table_name  = 'merchant_account';
+        $field->field_key = 'ed_rpo';
+        $field->save();
+
+        $field = new OrderField();
+        $field->table_name  = 'merchant_account';
+        $field->field_key = 'checking_account';
+        $field->save();
+
+
+        $field = new OrderField();
+        $field->table_name  = 'merchant_account';
+        $field->field_key = 'merchant_id';
+        $field->save();
+
+
 
 
     }

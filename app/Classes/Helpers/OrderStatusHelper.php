@@ -34,6 +34,9 @@ class OrderStatusHelper extends Facade
             return false;
         }
 
+        if (!is_null($order->canceled)) {
+            return false;
+        }
 
         if (auth()->user()->hasRole(RoleHelper::DEVELOPER)) {
             return true;

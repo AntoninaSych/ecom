@@ -72,6 +72,19 @@ class OrderStatusHelper extends Facade
             }
         }
 
+        if ($orderStatus === OrderStatusHelper::STATUS_TESTED) {
+
+
+            if (auth()->user()->hasRole(RoleHelper::BUSINESS)) {
+
+                if ( is_null($businessCheck)) {
+                    return true;
+                }
+                return false;
+
+            }
+        }
+
         return false;
     }
 

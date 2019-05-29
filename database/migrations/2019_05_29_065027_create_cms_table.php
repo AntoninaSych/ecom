@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLogMerchantRequestsTable extends Migration
+class CreateCmsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,24 +14,9 @@ class CreateLogMerchantRequestsTable extends Migration
      */
     public function up()
     {
-        Schema::create('log_merchant_requests', function (Blueprint $table) {
+        Schema::create('ref_cms', function (Blueprint $table) {
             $table->increments('id');
-
-            $table->integer('back_user_id')->unsigned();
-            $table->foreign('back_user_id')->references('id')->on('users');
-
-
-            $table->integer('front_user_id');
-
-
-
-            $table->integer('merchant_id');
-            $table->foreign('merchant_id')->references('id')->on('merchants');
-
-            $table->jsonb('request');
-            $table->jsonb('response');
-
-
+            $table->string('name',50);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')
                 ->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
@@ -45,6 +30,6 @@ class CreateLogMerchantRequestsTable extends Migration
      */
     public function down()
     {
-           Schema::dropIfExists('log_merchant_requests');
+        Schema::dropIfExists('ref_cms');
     }
 }

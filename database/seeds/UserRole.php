@@ -155,5 +155,19 @@ class UserRole extends Seeder
         $adminRole = Role::where('name', '=', 'administrator')->first();
         $adminRole->attachPermission($permission);
 
+
+
+        $permission1 = Permission::where('name', '=', 'apply-merchants-requests')->first();
+        $adminRole1 = Role::where('name', '=', 'fraud_monitoring')->first();
+        $adminRole1->attachPermission($permission1);
+
+        $permission2 = Permission::where('name', '=', 'apply-merchants-requests')->first();
+        $adminRole2 = Role::where('name', '=', 'business')->first();
+        $adminRole2->attachPermission($permission2);
+
+        $permission3 = Permission::where('name', '=', 'apply-merchants-requests')->first();
+        $adminRole3 = Role::where('name', '=', 'security')->first();
+        $adminRole3->attachPermission($permission3);
+
     }
 }

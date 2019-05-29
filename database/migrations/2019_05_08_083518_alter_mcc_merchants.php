@@ -14,8 +14,8 @@ class AlterMccMerchants extends Migration
     public function up()
     {
         Schema::table('merchants', function (Blueprint $table) {
-            $table->integer('mcc_id')->nullable();
-
+            $table->integer('mcc')->nullable();
+            $table->integer('cms')->nullable();
         });
     }
 
@@ -27,7 +27,8 @@ class AlterMccMerchants extends Migration
     public function down()
     {
         Schema::table('merchants', function (Blueprint $table) {
-            $table->dropColumn('mcc_id');
+            $table->dropColumn('mcc');
+            $table->dropColumn('cms');
         });
     }
 }

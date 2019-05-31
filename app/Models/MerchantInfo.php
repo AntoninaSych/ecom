@@ -9,22 +9,26 @@ class MerchantInfo extends BaseModel
     protected $table = 'merchant_info';
 //    protected $dates = ['updated'];
     public $timestamps = false;
- //   protected $dateFormat = 'd-m-Y';
+   protected $dateFormat = 'Y-m-d';
     protected $dates = [
-        'created_at',
-        'updated_at',
+//        'created_at',
+//        'updated_at',
         'ind_birthday',
         'ur_birthday',
         'ind_contact_birthday'
 
     ];
 
-    protected $fillable = ['mcc_id', 'personType', 'ind_contact_name', 'ind_contact_inn', 'ind_contact_birthday',
-        'ind_contact_email', 'ind_contact_retail_name', 'ind_contact_city', 'ind_contact_address', 'ind_contact_region',
-        'ind_contact_mail_index', 'ind_is_director', 'ind_is_director', 'ind_fio', 'ind_inn', 'ind_birthday', 'ind_phone',
-        'ind_email', 'ur_retail_name', 'ur_city', 'ur_address', 'ur_region', 'ur_mail_index', 'ur_fio', 'ur_inn', 'ur_birthday',
-        'ur_phone', 'ur_email', 'ur_fio_contact', 'ur_phone_contact', 'ur_email_contact', 'ind_contact_phone', 'ind_contact_email'
-    ];
+    protected $fillable = [    'ind_contact_name' , 'ind_contact_phone' , 'ind_contact_email' ,
+        'name_retail_point_ukr', 'name_retail_point_en', 'ind_contact_name', 'category_description',
+        'ind_fio', 'ind_inn', 'ind_birthday', 'ind_phone', 'ind_email', 'ind_main_rate',
+        'ind_single_tax_rate','personType',
+        'ur_retail_name_ukr', 'ur_retail_name_en', 'ur_city', 'ur_address',
+        'ur_region', 'ur_fio', 'ur_inn', 'ur_birthday', 'ur_phone', 'ur_email', 'ur_contact_fio',
+        'ur_contact_phone', 'ur_contact_email', 'ur_actual_business_address', 'ur_actual_business_city',
+        'ur_actual_business_region', 'ur_actual_business_index', 'ur_type', 'ur_data_controllers', 'ur_buh_fio',
+        'ur_buh_phone', 'ur_buh_email'
+        ];
 
 
     protected $with = ['merchant_status',   'user', 'compensationType', 'compensationTerm', 'merchantType'];

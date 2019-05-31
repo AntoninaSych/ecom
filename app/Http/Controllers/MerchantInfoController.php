@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 
 
 use App\Classes\Filters\SearchMerchantRequestsFilter;
-use App\Classes\Filters\SearchPaymentsFilter;
 use App\Classes\Helpers\ApiResponse;
 use App\Classes\Helpers\MerchantStatusHelper;
 use App\Classes\Helpers\RoleHelper;
@@ -13,7 +12,6 @@ use App\Classes\LogicalModels\MerchantInfoRepository;
 use App\Classes\LogicalModels\MerchantsRepository;
 use App\Classes\LogicalModels\OrderRepository;
 use App\Exceptions\PermissionException;
-use App\Models\MerchantStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;

@@ -3,6 +3,7 @@
 
 namespace App\Classes\Helpers;
 
+use App\Models\MerchantStatus;
 use App\Models\Orders;
 use App\Models\Role;
 use Illuminate\Support\Facades\Auth;
@@ -72,7 +73,7 @@ class OrderStatusHelper extends Facade
             }
         }
 
-        if ($orderStatus === OrderStatusHelper::STATUS_TESTED) {
+        if ($orderStatus === OrderStatusHelper::STATUS_TESTED || $orderStatus === MerchantStatus::ACTIVE_STATUS) {
 
 
             if (auth()->user()->hasRole(RoleHelper::BUSINESS)) {

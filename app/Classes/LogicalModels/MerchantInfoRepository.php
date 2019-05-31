@@ -119,7 +119,7 @@ class MerchantInfoRepository
             $merchantInfo->save();
 
 
-            $merchant = $this->merchant->getOneById($order->merchant_id);
+           // $merchant = $this->merchant->getOneById($order->merchant_id);
             $this->merchant->updateStatus($merchant, MerchantStatus::ACTIVE_STATUS);
         }
 

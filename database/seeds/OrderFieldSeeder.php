@@ -14,17 +14,39 @@ class OrderFieldSeeder extends Seeder
      */
     public function run()
     {
-        //setup Fields witch merchant can update with moderation of Business role
-        $field = new OrderField();
+
+
+
+        ///----------------Общее для физ и юр лиц--------/////
+
+         $field = new OrderField();
         $field->table_name  = 'merchants';
         $field->field_key = 'merchant_website';
         $field->save();
 
-
-        //setup Fields witch merchant can update with moderation of Business role
-        $field = new OrderField();
+         $field = new OrderField();
         $field->table_name  = 'merchants';
         $field->field_key = 'mcc_id';
+        $field->save();
+
+         $field = new OrderField();
+        $field->table_name  = 'merchants';
+        $field->field_key = 'cms_id';
+        $field->save();
+
+        $field = new OrderField();
+        $field->table_name  = 'merchant_info';
+        $field->field_key = 'name_retail_point_ukr';
+        $field->save();
+
+        $field = new OrderField();
+        $field->table_name  = 'merchant_info';
+        $field->field_key = 'name_retail_point_en';
+        $field->save();
+
+        $field = new OrderField();
+        $field->table_name  = 'merchant_info';
+        $field->field_key = 'category_description';
         $field->save();
 
         $field = new OrderField();
@@ -34,17 +56,14 @@ class OrderFieldSeeder extends Seeder
 
         $field = new OrderField();
         $field->table_name  = 'merchant_info';
+        $field->field_key = 'cms_id';
+        $field->save();
+
+        /////----------------Физ  лицо--------/////
+        ///Данные контактного лица
+        $field = new OrderField();
+        $field->table_name  = 'merchant_info';
         $field->field_key = 'ind_contact_name';
-        $field->save();
-
-        $field = new OrderField();
-        $field->table_name  = 'merchant_info';
-        $field->field_key = 'ind_contact_inn';
-        $field->save();
-
-        $field = new OrderField();
-        $field->table_name  = 'merchant_info';
-        $field->field_key = 'ind_contact_birthday';
         $field->save();
 
         $field = new OrderField();
@@ -52,40 +71,19 @@ class OrderFieldSeeder extends Seeder
         $field->field_key = 'ind_contact_email';
         $field->save();
 
-        $field = new OrderField();
-        $field->table_name  = 'merchant_info';
-        $field->field_key = 'ind_contact_retail_name';
-        $field->save();
 
         $field = new OrderField();
         $field->table_name  = 'merchant_info';
-        $field->field_key = 'ind_contact_city';
+        $field->field_key = 'ind_contact_phone';
         $field->save();
 
-        $field = new OrderField();
-        $field->table_name  = 'merchant_info';
-        $field->field_key = 'ind_contact_address';
-        $field->save();
-
-        $field = new OrderField();
-        $field->table_name  = 'merchant_info';
-        $field->field_key = 'ind_contact_region';
-        $field->save();
-
-        $field = new OrderField();
-        $field->table_name  = 'merchant_info';
-        $field->field_key = 'ind_contact_mail_index';
-        $field->save();
-
-        $field = new OrderField();
-        $field->table_name  = 'merchant_info';
-        $field->field_key = 'ind_is_director';
-        $field->save();
+        //Данные директора
 
         $field = new OrderField();
         $field->table_name  = 'merchant_info';
         $field->field_key = 'ind_fio';
         $field->save();
+
 
         $field = new OrderField();
         $field->table_name  = 'merchant_info';
@@ -102,15 +100,32 @@ class OrderFieldSeeder extends Seeder
         $field->field_key = 'ind_phone';
         $field->save();
 
-
         $field = new OrderField();
         $field->table_name  = 'merchant_info';
         $field->field_key = 'ind_email';
         $field->save();
+        //Торговець є платником податку на прибуток:
+        $field = new OrderField();
+        $field->table_name  = 'merchant_info';
+        $field->field_key = 'ind_main_rate';
+        $field->save();
+
 
         $field = new OrderField();
         $field->table_name  = 'merchant_info';
-        $field->field_key = 'ur_retail_name';
+        $field->field_key = 'ind_single_tax_rate';
+        $field->save();
+/////----------------Юридическое лицо--------/////
+
+//Данные юридической особы
+        $field = new OrderField();
+        $field->table_name  = 'merchant_info';
+        $field->field_key = 'ur_retail_name_ukr';
+        $field->save();
+
+        $field = new OrderField();
+        $field->table_name  = 'merchant_info';
+        $field->field_key = 'ur_retail_name_en';
         $field->save();
 
         $field = new OrderField();
@@ -118,20 +133,19 @@ class OrderFieldSeeder extends Seeder
         $field->field_key = 'ur_city';
         $field->save();
 
+
         $field = new OrderField();
         $field->table_name  = 'merchant_info';
         $field->field_key = 'ur_address';
         $field->save();
+
 
         $field = new OrderField();
         $field->table_name  = 'merchant_info';
         $field->field_key = 'ur_region';
         $field->save();
 
-        $field = new OrderField();
-        $field->table_name  = 'merchant_info';
-        $field->field_key = 'ur_mail_index';
-        $field->save();
+//            //Данные директора юридической особы
 
         $field = new OrderField();
         $field->table_name  = 'merchant_info';
@@ -157,36 +171,69 @@ class OrderFieldSeeder extends Seeder
         $field->table_name  = 'merchant_info';
         $field->field_key = 'ur_email';
         $field->save();
-
+//            //Данные контактного лица
         $field = new OrderField();
         $field->table_name  = 'merchant_info';
-        $field->field_key = 'ur_fio_contact';
+        $field->field_key = 'ur_contact_fio';
         $field->save();
 
         $field = new OrderField();
         $field->table_name  = 'merchant_info';
-        $field->field_key = 'ur_phone_contact';
-        $field->save();
-
-
-        $field = new OrderField();
-        $field->table_name  = 'merchant_info';
-        $field->field_key = 'ur_email_contact';
-        $field->save();
-
-
-        $field = new OrderField();
-        $field->table_name  = 'merchant_info';
-        $field->field_key = 'ind_contact_phone';
+        $field->field_key = 'ur_contact_phone';
         $field->save();
 
         $field = new OrderField();
         $field->table_name  = 'merchant_info';
-        $field->field_key = 'ind_contact_email';
+        $field->field_key = 'ur_contact_email';
+        $field->save();
+//            //Фактична адреса ведення бізнесу:
+        $field = new OrderField();
+        $field->table_name  = 'merchant_info';
+        $field->field_key = 'ur_actual_business_address';
         $field->save();
 
+        $field = new OrderField();
+        $field->table_name  = 'merchant_info';
+        $field->field_key = 'ur_actual_business_city';
+        $field->save();
 
-// Mechant Account
+        $field = new OrderField();
+        $field->table_name  = 'merchant_info';
+        $field->field_key = 'ur_actual_business_region';
+        $field->save();
+
+        $field = new OrderField();
+        $field->table_name  = 'merchant_info';
+        $field->field_key = 'ur_actual_business_index';
+        $field->save();
+
+        $field = new OrderField();
+        $field->table_name  = 'merchant_info';
+        $field->field_key = 'ur_type';
+        $field->save();
+
+        $field = new OrderField();
+        $field->table_name  = 'merchant_info';
+        $field->field_key = 'ur_data_controllers';
+        $field->save();
+
+//            //Дані бухгалтера (за наявністю)
+        $field = new OrderField();
+        $field->table_name  = 'merchant_info';
+        $field->field_key = 'ur_buh_fio';
+        $field->save();
+
+        $field = new OrderField();
+        $field->table_name  = 'merchant_info';
+        $field->field_key = 'ur_buh_phone';
+        $field->save();
+
+        $field = new OrderField();
+        $field->table_name  = 'merchant_info';
+        $field->field_key = 'ur_buh_email';
+        $field->save();
+
+//// Mechant Account
         $field = new OrderField();
         $field->table_name  = 'merchant_account';
         $field->field_key = 'mfo';
@@ -207,8 +254,6 @@ class OrderFieldSeeder extends Seeder
         $field->table_name  = 'merchant_account';
         $field->field_key = 'account_id';
         $field->save();
-
-
 
     }
 }

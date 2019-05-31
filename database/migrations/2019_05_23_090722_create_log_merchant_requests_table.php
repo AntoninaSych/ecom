@@ -16,22 +16,13 @@ class CreateLogMerchantRequestsTable extends Migration
     {
         Schema::create('log_merchant_requests', function (Blueprint $table) {
             $table->increments('id');
-
             $table->integer('back_user_id')->unsigned();
             $table->foreign('back_user_id')->references('id')->on('users');
-
-
             $table->integer('front_user_id');
-
-
-
             $table->integer('merchant_id');
             $table->foreign('merchant_id')->references('id')->on('merchants');
-
             $table->jsonb('request');
             $table->jsonb('response');
-
-
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')
                 ->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
@@ -45,6 +36,6 @@ class CreateLogMerchantRequestsTable extends Migration
      */
     public function down()
     {
-           Schema::dropIfExists('log_merchant_requests');
+        Schema::dropIfExists('log_merchant_requests');
     }
 }

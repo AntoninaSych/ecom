@@ -9,10 +9,10 @@ class Merchants extends BaseModel
     protected $table = 'merchants';
     protected $dates = ['updated'];
     public $timestamps = false;
-    protected $with = ['merchant_status', 'status',  'user', 'compensationType', 'compensationTerm', 'merchantType'];
+    protected $with = ['merchant_status', 'status', 'user', 'compensationType', 'compensationTerm', 'merchantType'];
 
 
-    protected $fillable = ['mcc_id', 'url'];
+    protected $fillable  = ['mcc_id', 'url', 'cms_id' ];
 
     public function payments()
     {

@@ -60,13 +60,16 @@ class MerchantInfoController
                 return $order->status->name;
             })
             ->editColumn('order_state', function ($order) {
+                if (!is_null($order->canceled)) {
+                    return "Отменена и создана новая пользователем:" . $order->canceledUser->username;
+                }
                 if (!is_null($order->decline_user_id)) {
                     return "Отклонена сотрудником:" . $order->declineUser->name;
                 }
                 if (!is_null($order->assigned)) {
                     return " В работе у сотрудника:" . $order->assignedUser->name;
                 }
-                if (is_null($order->decline_user_id) && is_null($order->assigned) && is_null($order->business_check)) {
+                if (is_null($order->decline_user_id) && is_null($order->assigned) && is_null($order->business_check) && is_null($order->canceled)) {
                     return "В очереди на обработку";
                 }
                 return 'Закрыта';
@@ -188,13 +191,19 @@ class MerchantInfoController
                 return $order->status->name;
             })
             ->editColumn('order_state', function ($order) {
+                if (!is_null($order->canceled)) {
+                    return "Отменена и создана новая пользователем:" . $order->canceledUser->username;
+                }
                 if (!is_null($order->decline_user_id)) {
                     return "Отклонена сотрудником:" . $order->declineUser->name;
                 }
                 if (!is_null($order->assigned)) {
                     return " В работе у сотрудника:" . $order->assignedUser->name;
                 }
-                if (is_null($order->decline_user_id) && is_null($order->assigned) && is_null($order->business_check)) {
+                if (is_null($order->decline_user_id) &&
+                    is_null($order->assigned) &&
+                    is_null($order->business_check) &&
+                    is_null($order->canceled)) {
                     return "В очереди на обработку";
                 }
                 return 'Закрыта';

@@ -39,11 +39,6 @@ class OrderStatusHelper extends Facade
             return false;
         }
 
-        if (auth()->user()->hasRole(RoleHelper::DEVELOPER)) {
-            return true;
-        }
-
-
         if ($orderStatus === OrderStatusHelper::STATUS_NEW) {
             if (auth()->user()->hasRole(RoleHelper::FRAUD_MONITORING)) {
 

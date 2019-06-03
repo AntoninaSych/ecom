@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class MerchantUser extends Model
 {
-    //this user cames from dispatcher front
+    //this user comes from dispatcher front
 
     protected $table = 'user';
     public $timestamps =false;

@@ -1,6 +1,6 @@
 <div id="main-information" class="tab-pane active">
     <div class="box">
-        <div class="box-header with-border">
+        <div class="box-header  ">
             <h3 class="box-title">Имя мерчанта: {{$merchant->name}}</h3>
             <div class="box-tools pull-right">
             </div>
@@ -57,7 +57,7 @@
                         </li>
                     </ul>
 
-                    <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+
                 </div>
                 <!-- /.box-body -->
             </div>

@@ -11,6 +11,16 @@ class OrderFieldHelper extends Facade
     public static function getLabel(string $fieldName): string
     {
         $fieldLabels = [
+            'id' => 'ID',
+            'merchant_id' => 'ID мерчанта',
+            'created_at' => 'Создан',
+            'updated_at' => 'Обновлен',
+            'merchant_status' =>'Статус мерчанта',
+            'user'=>'Пользователь',
+            'compensation_type'=>'Тип компенсации',
+            'compensation_term' =>'Время компенсации',
+            'merchant_type'=>'Тип мерчанта',
+
 ///----------------Общее для физ и юр лиц--------/////
             'merchant_website' => 'Сайт',
             'mcc_id' => 'Mcc Код',

@@ -9,6 +9,7 @@ use App\Classes\Helpers\ApiResponse;
 use App\Classes\Helpers\ValidatorHelper;
 use App\Classes\LogicalModels\CallBackRepository;
 use App\Classes\LogicalModels\MccCodeRepository;
+use App\Classes\LogicalModels\MerchantInfoRepository;
 use App\Classes\LogicalModels\MerchantsRepository;
 use App\Classes\LogicalModels\MerchantStatusRepository;
 use App\Exceptions\NoDataFoundException;
@@ -24,15 +25,18 @@ class MerchantController extends Controller
     public $request;
     public $statuses;
     public $codes;
-
+public $merchantInfo;
     public function __construct(MerchantsRepository $merchantsRepository,
                                 Request $request,
-                                MerchantStatusRepository $statuses, MccCodeRepository $codes)
+                                MerchantStatusRepository $statuses,
+                                MccCodeRepository $codes,
+                                MerchantInfoRepository $merchantInfoRepository)
     {
         $this->merchants = $merchantsRepository;
         $this->request = $request;
         $this->statuses = $statuses;
         $this->codes = $codes;
+        $this->merchantInfo = $merchantInfoRepository;
     }
 
     public function getlistByName()
@@ -72,11 +76,13 @@ class MerchantController extends Controller
             return [$item['id'] => $item['name']];
         });
 
+        $merchantInfo = $this->merchantInfo->getMerchantInfo($merchant->id);
 
         return view('merchants.detailed')->with([
             'merchant' => $merchant,
             'arrayMerchantStatuses' => $arrayMerchantStatuses,
-            'codes'=>$mcc_codes
+            'codes'=>$mcc_codes,
+            'merchantInfo' => $merchantInfo
         ]);
     }
 

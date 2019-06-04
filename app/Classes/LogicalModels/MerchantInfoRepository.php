@@ -127,4 +127,11 @@ class MerchantInfoRepository
             $merchant->update();
         }
     }
+
+    public function getMerchantInfo(int $merchantId)
+    {
+        $merchantInfo = $this->merchantInfo->select()->where('merchant_id', $merchantId)->first();
+
+        return $merchantInfo;
+    }
 }

@@ -4,15 +4,13 @@
 namespace App\Http\Controllers;
 
 
-use App\Classes\Filters\SearchPaymentsFilter;
+
 use App\Classes\Helpers\ApiResponse;
 use App\Classes\Helpers\ValidatorHelper;
-use App\Classes\LogicalModels\CallBackRepository;
 use App\Classes\LogicalModels\MccCodeRepository;
 use App\Classes\LogicalModels\MerchantInfoRepository;
 use App\Classes\LogicalModels\MerchantsRepository;
 use App\Classes\LogicalModels\MerchantStatusRepository;
-use App\Exceptions\NoDataFoundException;
 use App\Exceptions\NotFoundException;
 use App\Http\Requests\Merchant\UpdateMerchant;
 use Illuminate\Http\Request;

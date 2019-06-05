@@ -9,6 +9,7 @@
 
 @section('content')
     <?php
+
     $relations = $merchant->getRelations();
     ?>
 

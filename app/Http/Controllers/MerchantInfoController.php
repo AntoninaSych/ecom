@@ -6,8 +6,8 @@ namespace App\Http\Controllers;
 
 use App\Classes\Filters\SearchMerchantRequestsFilter;
 use App\Classes\Helpers\ApiResponse;
-use App\Classes\Helpers\MerchantStatusHelper;
 use App\Classes\Helpers\RoleHelper;
+use App\Classes\LogicalModels\LogMerchantRequestsRepository;
 use App\Classes\LogicalModels\MerchantInfoRepository;
 use App\Classes\LogicalModels\MerchantsRepository;
 use App\Classes\LogicalModels\OrderRepository;
@@ -108,7 +108,7 @@ class MerchantInfoController
         return view('merchants.info.query-details')->with(['order' => $order, 'fieldValues' => $fieldValues]);
     }
 
-//todo Log
+
     public function assign()
     {
         $user = Auth::user();
@@ -116,15 +116,31 @@ class MerchantInfoController
         $order = $this->orders->getOne($this->request->get('order_id'));
         if (is_null($order->assigned)) {
             $this->orders->assign($order, $user);
+
+            LogMerchantRequestsRepository::log(
+                $order->merchant_id,
+                $this->request,
+                [  'action' => 'assign',
+                    'user' => $user,
+                    'status'=>'Пользователь успешно назначен к заказу'
+                    ]);
+
             return ApiResponse::goodResponse('Пользователь успешно назначен к заказу');
 
         }
+        LogMerchantRequestsRepository::log(
+            $order->merchant_id,
+            $this->request,
+            [  'action' => 'assign',
+                'user' => $user,
+                'status'=>'Ошибка.Пользователь уже назначен к заказу'
+            ]);
         return ApiResponse::badResponse('Пользователь уже назначен к заказу', 500);
 
 
     }
 
-//todo Log
+
     public function apply()
     {
         $user = Auth::user();
@@ -149,6 +165,7 @@ class MerchantInfoController
             if ($this->request->get('type') === 'apply') {
                 $order->apply_user_id = $user->id;
             }
+
         }
         if ($this->request->get('type') === 'decline') {
             $order->decline_user_id = $user->id;
@@ -156,11 +173,11 @@ class MerchantInfoController
         }
         if ($this->request->get('type') === 'apply' && $user->hasRole(RoleHelper::BUSINESS)) {
             $this->merchantInfo->save($order);
-
-
         }
         $order->assigned = null;
         $order->save();
+
+        LogMerchantRequestsRepository::log( $order->merchant_id, $this->request,[  'action' => 'apply', 'user' => $user, 'status'=>'Сохранение данных по заявке.']);
 
         $order = $this->orders->getOne($this->request->get('order_id'));
         $fieldValues = $this->orders->getFieldValues($order->id);

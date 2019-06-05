@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <h2 class="page-header">
-                    <i class="fa fa-globe"></i> Проверка данных мерчанта ( Статус заказа
+                    <i class="fa fa-globe"></i> Проверка данных мерчанта #ID {{$order->merchant_id}}( Статус заказа
                     мерчанта: {{$order->status->name}} )
                     @if(!is_null($order->assigned))<i style="color: #1d643b"> в работе у {{$order->assignedUser->name}} </i> @endif
                     <small class="pull-right">{{$order->created_at}}</small>
@@ -127,6 +127,10 @@
                         <tr>
                             <th>Идентификатор мерчанта:</th>
                             <td>{{$order->merchant->merchant_id}}</td>
+                        </tr>
+                        <tr>
+                            <th>ID мерчанта:</th>
+                            <td>{{$order->merchant_id}}</td>
                         </tr>
                         <tr>
                             <th>Статус мерчанта:</th>

@@ -11,13 +11,13 @@
 |
 */
 
-
 Auth::routes();
+
+Route::group(['middleware' => ['log.request']],function(){
 
 Route::get('/', function () {
     return redirect('/login');
 });
-
 
 Route::group(['middleware' => ['auth', 'is.block.user']], function () {
     Route::get('/home', 'HomeController@index')->name('home'); // default page for auth useres
@@ -78,4 +78,6 @@ Route::group(['middleware' => ['auth', 'is.block.user']], function () {
 
     Route::match(['get'], '/mcc/datatable', 'MccController@anyData')->name('get.search.mcc.codes')->middleware('can.manage.mcc');
     Route::match(['get'], '/mcc/remove', 'MccController@remove')->name('remove.mcc')->middleware('can.manage.mcc');
+});
+
 });

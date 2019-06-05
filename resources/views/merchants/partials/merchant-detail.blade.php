@@ -1,7 +1,7 @@
 <div id="main-information" class="tab-pane active">
     <div class="box">
-        <div class="box-header  ">
-            <h3 class="box-title">Имя мерчанта: {{$merchant->name}}</h3>
+        <div style="margin: 15px">
+
             <div class="box-tools pull-right">
             </div>
         </div>
@@ -9,7 +9,10 @@
 
 
 
-            <div class="box-body col-md-6">
+            <div class=" col-md-6">
+
+                <div class="box box-primary">
+                    <div class="box-body box-profile">
                 <table class="table">
                     @foreach( $merchantInfo->toArray() as $key => $value )
                         @if(!is_null($value))
@@ -20,6 +23,8 @@
                         @endif
                     @endforeach
                 </table>
+                    </div>
+                </div>
             </div>
 
         @endif

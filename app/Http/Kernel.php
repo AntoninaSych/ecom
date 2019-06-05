@@ -7,6 +7,7 @@ use App\Http\Middleware\CanMccCodes;
 use App\Http\Middleware\CanViewMerchants;
 use App\Http\Middleware\CanViewPayments;
 use App\Http\Middleware\IsBlockUser;
+use App\Http\Middleware\LogRequest;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -75,7 +76,8 @@ class Kernel extends HttpKernel
         'is.block.user' => IsBlockUser::class,
         'can.view.merchants' =>CanViewMerchants::class,
         'can.manage.mcc' => CanMccCodes::class,
-        'can.apply.merchants.request' =>CanApplyMerchantsRequest::class
+        'can.apply.merchants.request' =>CanApplyMerchantsRequest::class,
+        'log.request' => LogRequest::class
     ];
 
     /**

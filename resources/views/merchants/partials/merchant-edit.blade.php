@@ -11,8 +11,9 @@
         </div>
         <!-- /.box-header -->
 
-        <div class="box-body col-md-6">
-
+        <div class=" col-md-6">
+            <div class="box box-primary">
+                <div class="box-body box-profile">
             @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
@@ -30,37 +31,51 @@
             </div>
             @endif
 
-            {!! Form::open(array('url' => route('merchant.update',['id'=>$merchant->id]),'method' => 'POST','id'=>'merchant_update')) !!}
-            <div>
-                {{ Form::label('merchant_identifier',"Идентификатор мерчанта" ) }}
-                {{ Form::text("merchant_identifier",  $merchant->merchant_id,['class'=>'form-control','id'=>'merchant_identifier']) }}
+            {!! Form::open(array('url' => route('merchant.update',['id'=>$merchant->id]),'method' => 'POST','id'=>'merchant_update', 'class'=>'form-horizontal')) !!}
+
+
+            <div class="form-group">
+                {{ Form::label('merchant_identifier',"Идентификатор мерчанта",['class'=>'col-sm-2 control-label'] ) }}
+                <div class="col-sm-10">
+                    {{ Form::text("merchant_identifier",  $merchant->merchant_id,['class'=>'form-control','id'=>'merchant_identifier']) }}
+                </div>
             </div>
 
-            <div>
-                {{ Form::label('merchant_name',"Имя" ) }}
-                {{ Form::text("merchant_name",  $merchant->name,['class'=>'form-control']) }}
+              <div class="form-group">
+
+                {{ Form::label('merchant_name',"Имя" ,['class'=>'col-sm-2 control-label ']) }}
+                <div class="col-sm-10">
+                {{ Form::text("merchant_name",  $merchant->name,['class'=>'form-control','id'=>'merchant_name']) }}
+                </div>
             </div>
 
-            <div>
-                {{ Form::label("merchant_url", "URL" ) }}
-                {{ Form::text("merchant_url",  $merchant->url,['class'=>'form-control']) }}
+            <div class="form-group">
+                {{ Form::label("merchant_url", "URL" ,['class'=>'col-sm-2 control-label']) }}
+                <div class="col-sm-10">
+                {{ Form::text("merchant_url",  $merchant->url,['class'=>'form-control','id'=>'merchant_url']) }}
+                </div>
             </div>
 
-            <div>
-                {{ Form::label("merchant_status","Статус"  ) }}
-
+            <div class="form-group">
+                {{ Form::label("merchant_status","Статус" ,['class'=>'col-sm-2 control-label'] ) }}
+                <div class="col-sm-10">
                 {{ Form::select("merchant_status", $arrayMerchantStatuses->toArray(), $relations['status']->id ,
-                ['class'=>'form-control']) }}
+                ['class'=>'form-control','id'=>'merchant_status']) }}
+                </div>
             </div>
 
-            <div>
-                {{ Form::label("merchant_user_name", "Имя мерчанта" ) }}
+            <div class="form-group">
+                {{ Form::label("merchant_user_name", "Имя мерчанта",['class'=>'col-sm-2 control-label'] ) }}
+                <div class="col-sm-10">
                 {{ Form::text("merchant_user_name",  $relations['user']->username,['class'=>'form-control']) }}
+                </div>
             </div>
 
-            <div>
-                {{ Form::label("merchant_user_email", "Email мерчанта" ) }}
+            <div class="form-group">
+                {{ Form::label("merchant_user_email", "Email мерчанта" ,['class'=>'col-sm-2 control-label']) }}
+                <div class="col-sm-10">
                 {{ Form::text("merchant_user_email",  $relations['user']->email,['class'=>'form-control']) }}
+                </div>
             </div>
             <?php
             $new_arr = [0 => 'Пожалуйста сделайте выбор'];
@@ -70,9 +85,11 @@
             }
 
             ?>
-            <div>
-                {{ Form::label("mcc_id", "Mcc code" ) }}
+            <div class="form-group">
+                {{ Form::label("mcc_id", "Mcc code",['class'=>'col-sm-2 control-label']) }}
+                <div class="col-sm-10">
                 {{ Form::select("mcc_id",   $new_arr, $merchant->mcc_id , ['class'=>'form-control']) }}
+                </div>
             </div>
 
             <div>
@@ -80,6 +97,8 @@
             </div>
             {!! Form::close() !!}
 
+        </div>
+        </div>
         </div>
         <!-- /.box-body -->
         <div class="box-footer">

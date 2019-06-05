@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 
 use App\Classes\Helpers\ApiResponse;
 use App\Classes\Helpers\ValidatorHelper;
+use App\Classes\LogicalModels\LogMerchantRequestsRepository;
 use App\Classes\LogicalModels\MccCodeRepository;
 use App\Classes\LogicalModels\MerchantInfoRepository;
 use App\Classes\LogicalModels\MerchantsRepository;
@@ -14,6 +15,7 @@ use App\Classes\LogicalModels\MerchantStatusRepository;
 use App\Exceptions\NotFoundException;
 use App\Http\Requests\Merchant\UpdateMerchant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -87,6 +89,7 @@ public $merchantInfo;
     public function update(UpdateMerchant $updateMerchant, int $id)
     {
         $this->merchants->updateOverall($updateMerchant, $id);
+        LogMerchantRequestsRepository::log( $id, $updateMerchant,[  'action' => 'update', 'user' => Auth::user(), 'status'=>'Изменение данных мерчанта.']);
 
         return redirect()->back()->with('success', 'Мерчант  с ID  ' . $id . ' успешно обновлен.');
 

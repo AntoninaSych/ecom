@@ -16,13 +16,17 @@
     <div class="nav-tabs-custom" style="cursor: move;">
         <!-- Tabs within a box -->
         <ul class="nav nav-tabs pull-right ui-sortable-handle">
-            <li class="active"><a href="#main-information" data-toggle="tab" aria-expanded="true">Детали</a></li>
+            <li class="active"><a href="#main-information" data-toggle="tab" aria-expanded="false">Детали</a></li>
 
             @if( Auth::user()->can(PermissionHelper::MANAGE_MERCHANT) )
                 <li class=""><a href="#settings" data-toggle="tab" aria-expanded="false">Настройки</a></li>
 
 
             <li class=""><a href="#refound" id="ref_a" data-toggle="tab" aria-expanded="false" onclick="loadAccounts()">Возмещение</a>
+
+                @if( Auth::user()->can(PermissionHelper::MANAGE_MERCHANT_PAYMENT_TYPE) )
+                    <li class=""><a href="#payment-type" id="ref_a" data-toggle="tab" aria-expanded="true"  >Типы платежей</a>
+                @endif
             </li>
             @endif
 
@@ -31,10 +35,8 @@
         <div class="tab-content no-padding">
 
             {{--               Merchant's details begin--}}
-         @include('merchants.partials.merchant-detail')
+            @include('merchants.partials.merchant-detail')
             {{--               Merchant's detailsvend--}}
-
-
 
             {{--               Settings detailsvend--}}
             @if( Auth::user()->can(PermissionHelper::MANAGE_MERCHANT) )
@@ -48,6 +50,14 @@
                 @include('merchants.partials.merchant-account')
             @endif
             {{--Account details end--}}
+
+
+            {{--PaymentType details begin--}}
+            @if( Auth::user()->can(PermissionHelper::MANAGE_MERCHANT) && Auth::user()->can(PermissionHelper::MANAGE_MERCHANT_PAYMENT_TYPE))
+                @include('merchants.partials.payment-type.index')
+            @endif
+            {{--PaymentType details end--}}
+
 
         </div>
     </div>

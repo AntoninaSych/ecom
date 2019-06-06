@@ -43,8 +43,6 @@ class MerchantInfo extends BaseModel
         return $this->belongsTo(MerchantStatus::class, 'status', 'id');
     }
 
-
-
     public function user()
     {
         return $this->belongsTo(MerchantUser::class, 'user_id', 'id');

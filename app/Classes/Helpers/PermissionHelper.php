@@ -15,4 +15,5 @@ class PermissionHelper extends Facade
     const PROCESS_LOG_VIEW = 'process-log-view';
     const MANAGE_MCC =  'manage-mcc';
     const MANAGE_MERCHANT=  'manage-merchant';
+    const MANAGE_MERCHANT_PAYMENT_TYPE =  'manage-merchant-payment-type';
 }

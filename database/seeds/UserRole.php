@@ -169,5 +169,13 @@ class UserRole extends Seeder
         $adminRole3 = Role::where('name', '=', 'security')->first();
         $adminRole3->attachPermission($permission3);
 
+        $permission4 = Permission::where('name', '=', 'manage-merchant-payment-type')->first();
+        $adminRole4 = Role::where('name', '=', 'administrator')->first();
+        $adminRole4->attachPermission($permission4);
+
+        $permission5 = Permission::where('name', '=', 'manage-merchant-payment-type')->first();
+        $adminRole5 = Role::where('name', '=', 'developer')->first();
+        $adminRole5->attachPermission($permission5);
+
     }
 }

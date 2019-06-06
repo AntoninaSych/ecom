@@ -66,14 +66,18 @@ Route::group(['middleware' => ['auth', 'is.block.user']], function () {
         Route::match(['get'], '/', 'MerchantInfoController@index');
         Route::match(['get'], '/{id}', 'MerchantInfoController@show');
         Route::match(['post'], '/assign', 'MerchantInfoController@assign');
-
-
-
     });
+
+
+
+    Route::resource('payment-type', 'MerchantPaymentTypeController')->only([
+        'index', 'store', 'edit', 'update', 'create'
+    ])->middleware('can.manage.merchant.payment.type');
 
     Route::resource('mcc', 'MccController')->only([
         'index', 'store', 'edit', 'update', 'create'
     ])->middleware('can.manage.mcc');
+
     Route::match(['get'], '/mcc/{id_code}/merchants', 'MccController@merchants')->middleware('can.manage.mcc');
 
     Route::match(['get'], '/mcc/datatable', 'MccController@anyData')->name('get.search.mcc.codes')->middleware('can.manage.mcc');

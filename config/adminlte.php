@@ -163,7 +163,7 @@ return [
             'url'  => '/queries',
             'icon' => ' fa-credit-card',
             'hasRole'  => 'apply-merchants-requests',
-        ],
+        ]
     ],
 //    'menu' => [
 //        'MAIN NAVIGATION',

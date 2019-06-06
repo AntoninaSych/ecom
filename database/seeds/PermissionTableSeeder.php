@@ -45,5 +45,11 @@ class PermissionTableSeeder extends Seeder
 
 
 
+
+        $permission = new Permission();
+        $permission->name         = 'manage-merchant-payment-type';
+        $permission->display_name = 'Manage payment type';
+        $permission->description  = 'Manage payment type';
+        $permission->save();
     }
 }

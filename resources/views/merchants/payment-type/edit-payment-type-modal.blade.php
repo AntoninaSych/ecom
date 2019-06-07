@@ -36,7 +36,7 @@
                     </div>
                 </div>
                 <div style="margin-top: 15px">
-                 {{Form::submit('Изменить аккаунт',['class'=>'form-control btn btn-primary','id'=>'payment_type_update_submit'])}}
+                 {{Form::submit('Изменить тип платежа',['class'=>'form-control btn btn-primary','id'=>'payment_type_update_submit'])}}
 
                  </div>
                 {!! Form::close() !!}

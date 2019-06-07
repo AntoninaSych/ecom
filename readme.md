@@ -139,3 +139,7 @@ Behavior:
 payment_routes --  payment_type
 
 merchant_routes -- payment_routes
+
+fee_type
+1 комиссия с мерчента
+2 комиссия с клиента

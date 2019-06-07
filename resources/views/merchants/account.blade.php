@@ -5,9 +5,6 @@
         <i class="fa fa-fw fa-plus"></i> Добавить аккаунт </div>
     </div>
 
-
-
-
 <div id="accounts"></div>
 @include('merchants.add-account-modal')
 

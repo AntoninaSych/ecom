@@ -55,6 +55,13 @@ Route::group(['middleware' => ['auth', 'is.block.user']], function () {
             Route::match(['post'], '/account/add', 'MerchantAccountController@store')->name('account.store');
             Route::match(['get'], '/account/update', 'MerchantAccountController@update')->name('account.update');
             Route::match(['post'], '/account/destroy', 'MerchantAccountController@destroy')->name('account.destroy');
+
+            Route::group(['prefix' => 'payment-type','middleware'=>'can.manage.merchant.payment.type'], function () {
+                Route::match(['get'], '/{merchantId}/table', 'MerchantPaymentTypeController@getTable');
+                Route::match(['post'], '/store', 'MerchantPaymentTypeController@store')->name('payment-type.store');
+                Route::match(['get'], '/update', 'MerchantPaymentTypeController@update')->name('payment-type.update');
+            });
+
         });
     });
 
@@ -70,16 +77,13 @@ Route::group(['middleware' => ['auth', 'is.block.user']], function () {
 
 
 
-    Route::resource('payment-type', 'MerchantPaymentTypeController')->only([
-        'index', 'store', 'edit', 'update', 'create'
-    ])->middleware('can.manage.merchant.payment.type');
+
 
     Route::resource('mcc', 'MccController')->only([
         'index', 'store', 'edit', 'update', 'create'
     ])->middleware('can.manage.mcc');
 
     Route::match(['get'], '/mcc/{id_code}/merchants', 'MccController@merchants')->middleware('can.manage.mcc');
-
     Route::match(['get'], '/mcc/datatable', 'MccController@anyData')->name('get.search.mcc.codes')->middleware('can.manage.mcc');
     Route::match(['get'], '/mcc/remove', 'MccController@remove')->name('remove.mcc')->middleware('can.manage.mcc');
 });

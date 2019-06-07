@@ -66,8 +66,7 @@
         var deferred = $.Deferred();
 
 
-
-        deferred.done(function(value) {
+        deferred.done(function (value) {
             alert(value);
         });
 
@@ -97,65 +96,122 @@ function loadAccounts() {
             $('#accounts').html(data);
 
 
-                //edit account begin
-                $('#payment_account_update').submit( function (e) {
-                    e.preventDefault();
-                     var el = $('#modal-edit-account');
-                    mfo_code = el.find("input[name='mfo_code']").val();
-                    edrpo_code = el.find("input[name='edrpo_code']").val();
-                    payment_account = el.find("input[name='payment_account']").val();
-                    id_account = el.find("input[name='id_account']").val();
-                    merchant = el.find("input[name='merchant_id']").val();
-                    $.ajax({
-                        url: '/merchants/account/update',
-                        type: "get",
-                        data: {
-                            payment_account: payment_account,
-                            edrpo_code: edrpo_code,
-                            mfo_code: mfo_code,
-                            id_account: id_account,
-                            merchant_id: merchant
-                        },
-                        success: function () {
-                            $('#modal-edit-account').hide();
-                            $('body').removeClass('modal-open');
-                            $('.modal-backdrop').remove();
-                            loadAccounts();
-                        }, error: function (data) {
-                            var response = data.responseText;
-                            response = JSON.parse(response);
-                            console.log(response.data);
-                        }
-                    });
+            //edit account begin
+            $('#payment_account_update').submit(function (e) {
+                e.preventDefault();
+                var el = $('#modal-edit-account');
+                mfo_code = el.find("input[name='mfo_code']").val();
+                edrpo_code = el.find("input[name='edrpo_code']").val();
+                payment_account = el.find("input[name='payment_account']").val();
+                id_account = el.find("input[name='id_account']").val();
+                merchant = el.find("input[name='merchant_id']").val();
+                $.ajax({
+                    url: '/merchants/account/update',
+                    type: "get",
+                    data: {
+                        payment_account: payment_account,
+                        edrpo_code: edrpo_code,
+                        mfo_code: mfo_code,
+                        id_account: id_account,
+                        merchant_id: merchant
+                    },
+                    success: function () {
+                        $('#modal-edit-account').hide();
+                        $('body').removeClass('modal-open');
+                        $('.modal-backdrop').remove();
+                        loadAccounts();
+                    }, error: function (data) {
+                        var response = data.responseText;
+                        response = JSON.parse(response);
+                        console.log(response.data);
+                    }
                 });
-                //edit account end
+            });
+            //edit account end
 
 
-                //remove account begin
-                $('#modal-remove-account-form').submit( function (e) {
-                    e.preventDefault();
-                    var el = $('#modal-remove-account');
-                    var id_account = el.find("input[name='accountId']").val();
+            //remove account begin
+            $('#modal-remove-account-form').submit(function (e) {
+                e.preventDefault();
+                var el = $('#modal-remove-account');
+                var id_account = el.find("input[name='accountId']").val();
 
-                    $.ajax({
-                        url: '/merchants/account/destroy',
-                        type: "post",
-                        data: {
-                            id_account: id_account
-                        },
-                        success: function () {
-                            $('#modal-edit-account').hide();
-                            $('body').removeClass('modal-open');
-                            $('.modal-backdrop').remove();
-                            loadAccounts();
-                        }, error: function (data) {
-                            var response = data.responseText;
-                            response = JSON.parse(response);
-                            console.log(response.data);
-                        }
-                    });
+                $.ajax({
+                    url: '/merchants/account/destroy',
+                    type: "post",
+                    data: {
+                        id_account: id_account
+                    },
+                    success: function () {
+                        $('#modal-edit-account').hide();
+                        $('body').removeClass('modal-open');
+                        $('.modal-backdrop').remove();
+                        loadAccounts();
+                    }, error: function (data) {
+                        var response = data.responseText;
+                        response = JSON.parse(response);
+                        console.log(response.data);
+                    }
                 });
-                //remove account end
+            });
+            //remove account end
+
+
+        }, error: function (data) {
+            var response = data.responseText;
+            response = JSON.parse(response);
+            console.log(response.data);
+        }
+    });
+}
+
+function loadMerchantPaymentType() {
+    $.ajax({
+        url: '/merchants/payment-type/' + merchant_id + '/table',
+        type: "GET",
+
+        success: function (data) {
+            $('#merchant-payment-types').html(data);
+
+            // //edit account begin
+            $('#payment-type-update').submit(function (e) {
+                e.preventDefault();
+                var el = $('#modal-edit-payment-type');
+                var enabled = el.find("input[name='enabled']").val();
+                var payment_type = el.find("select[name='payment_type']").val();
+                var merchant_id = el.find("input[name='merchant_id']").val();
+                var fee_proc = el.find("input[name='fee_proc']").val();
+                var fee_fix = el.find("input[name='fee_fix']").val();
+                var fee_type = el.find("select[name='fee_type']").val();
+                var id = el.find("input[name='id']").val();
+
+
+
+                $.ajax({
+                    url: '/merchants/payment-type/update',
+                    type: "get",
+                    data: {
+                        id: id,
+                        enabled: enabled,
+                        payment_type: payment_type,
+                        merchant_id: merchant_id,
+                        fee_proc: fee_proc,
+                        fee_fix: fee_fix,
+                        fee_type:fee_type
+                    },
+                    success: function () {
+                        $('#modal-edit-payment-type').hide();
+                        $('body').removeClass('modal-open');
+                        $('.modal-backdrop').remove();
+                        loadMerchantPaymentType();
+                    }, error: function (data) {
+                        var response = data.responseText;
+                        response = JSON.parse(response);
+                        console.log(response.data);
+                    }
+                });
+            });
+            // //edit account end
 
 
         }, error: function (data) {
@@ -167,7 +223,7 @@ function loadAccounts() {
 }
 
 //add account begin
-function addAccount(){
+function addAccount() {
 
     var el = $('#modal-add-account');
     mfo_code = el.find("input[name='mfo_code']").val();
@@ -204,3 +260,94 @@ function addAccount(){
     });
 };
 //addd account end
+
+
+//add payment begin
+function addPaymentType() {
+    var el = $('#modal-add-payment-type');
+    var payment_type = el.find("select[name='payment_type']").val();
+    var fee_proc = el.find("input[name='fee_proc']").val();
+    var fee_fix = el.find("input[name='fee_fix']").val();
+    var fee_type = el.find("select[name='fee_type']").val();
+    var merchant_id = el.find("input[name='merchant_id']").val();
+    $.ajax({
+        url: '/merchants/payment-type/store',///{merchantId}/account
+        type: "post",
+        data: {
+            payment_type: payment_type,
+            fee_proc: fee_proc,
+            fee_fix: fee_fix,
+            fee_type: fee_type,
+            merchant_id: merchant_id
+        },
+        success: function () {
+            $('#modal-add-account').hide();
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+            loadMerchantPaymentType();
+
+            el.find("input[name='payment_type']").val('');
+            el.find("input[name='fee_proc']").val('')
+            el.find("input[name='fee_fix']").val('');
+            el.find("input[name='fee_type']").val('');
+            el.find("input[name='merchant_id']").val('');
+
+        }, error: function (data) {
+            var response = data.responseText;
+            response = JSON.parse(response);
+            console.log(response.data);
+        }
+    });
+}
+
+//add payment end
+
+//edit Payment Type
+function editPaymentType(e) {
+    var el = $('#modal-edit-payment-type');
+    var merchant_id = $(e).data("merchant-id");
+    var id = $(e).data("id");
+    var payment_type_id = $(e).data("payment-type-id");
+    var fee_proc = $(e).data("fee_proc");
+    var fee_fix = $(e).data("fee_fix");
+    var fee_type = $(e).data("fee_type");
+    var enabled = $(e).data("enabled");
+
+    var name = $(e).data("payment-type-name");
+    var temp = Object.assign({}, refPaymentTypes);
+    var refPaymentTypesAllowed = Object.assign(temp, {[payment_type_id]: name});
+    el.find("select[name='payment_type']").text('');
+    $.each(refPaymentTypesAllowed, function (key, value) {
+        el.find("select[name='payment_type']").append($("<option />").val(key).text(value));
+    });
+    el.find("select[name='payment_type']").val(payment_type_id);
+    el.find("input[name='merchant_id']").val(merchant_id);
+    el.find("input[name='fee_proc']").val(fee_proc);
+    el.find("input[name='fee_fix']").val(fee_fix);
+    el.find("input[name='id']").val(id);
+    el.find("select[name='fee_type']").val(fee_type);
+    // checked="checked"
+    console.log(enabled);
+
+    if (enabled === 1) {
+        $('#merchant_payment_type_status').prop({
+            "checked": true
+        }).val(1);
+    }
+    if (enabled === 0) {
+        $('#merchant_payment_type_status').prop({
+            "checked": false
+        }).val(0);
+
+    }
+
+
+    $('#label-checkbox').on('click', function () {
+        var status = $('#merchant_payment_type_status').val();
+        status = (parseInt(status) === 1) ? 0 : 1;
+        $('#merchant_payment_type_status').val(status);
+    })
+}
+
+//edit Payment Type
+

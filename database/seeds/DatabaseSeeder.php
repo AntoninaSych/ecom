@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
          $this->call(RefOrderStatusSeeder::class);
          $this->call(CmsTableSeeder::class);
         $this->call(UserRole::class);
+        $this->call(RefFeeTypeSeeder::class);
     }
 }

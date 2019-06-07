@@ -8,7 +8,6 @@ namespace App\Classes\LogicalModels;
 use App\Models\LogMerchantRequests;
 use Illuminate\Http\Request;
 
-
 /**
  * Class LogMerchantRequestsRepository
  * @package App\Classes\LogicalModels

@@ -43,13 +43,16 @@ class PermissionTableSeeder extends Seeder
         $permission->description  = 'Apply merchants requests'; // optional
         $permission->save();
 
-
-
-
         $permission = new Permission();
         $permission->name         = 'manage-merchant-payment-type';
         $permission->display_name = 'Manage payment type';
         $permission->description  = 'Manage payment type';
+        $permission->save();
+
+        $permission = new Permission();
+        $permission->name         = 'manage-merchant-route';
+        $permission->display_name = 'Manage merchant payment route';
+        $permission->description  = 'Manage merchant payment route';
         $permission->save();
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http;
 
 use App\Http\Middleware\CanApplyMerchantsRequest;
 use App\Http\Middleware\CanManageMerchantPaymentType;
+use App\Http\Middleware\CanManageMerchantRoute;
 use App\Http\Middleware\CanMccCodes;
 use App\Http\Middleware\CanViewMerchants;
 use App\Http\Middleware\CanViewPayments;
@@ -79,7 +80,8 @@ class Kernel extends HttpKernel
         'can.manage.mcc' => CanMccCodes::class,
         'can.apply.merchants.request' =>CanApplyMerchantsRequest::class,
         'log.request' => LogRequest::class,
-        'can.manage.merchant.payment.type' => CanManageMerchantPaymentType::class
+        'can.manage.merchant.payment.type' => CanManageMerchantPaymentType::class,
+        'can.manage.merchant.route'=>CanManageMerchantRoute::class
     ];
 
     /**

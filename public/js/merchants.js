@@ -185,8 +185,6 @@ function loadMerchantPaymentType() {
                 var fee_type = el.find("select[name='fee_type']").val();
                 var id = el.find("input[name='id']").val();
 
-
-
                 $.ajax({
                     url: '/merchants/payment-type/update',
                     type: "get",
@@ -197,7 +195,7 @@ function loadMerchantPaymentType() {
                         merchant_id: merchant_id,
                         fee_proc: fee_proc,
                         fee_fix: fee_fix,
-                        fee_type:fee_type
+                        fee_type: fee_type
                     },
                     success: function () {
                         $('#modal-edit-payment-type').hide();
@@ -281,6 +279,8 @@ function addPaymentType() {
             merchant_id: merchant_id
         },
         success: function () {
+            $('#type-errors').html();
+            $('#type-errors').hide();
             $('#modal-add-account').hide();
             $('body').removeClass('modal-open');
             $('.modal-backdrop').remove();
@@ -295,7 +295,8 @@ function addPaymentType() {
         }, error: function (data) {
             var response = data.responseText;
             response = JSON.parse(response);
-            console.log(response.data);
+            $('#type-errors').html(response.data);
+            $('#type-errors').show();
         }
     });
 }
@@ -312,7 +313,6 @@ function editPaymentType(e) {
     var fee_fix = $(e).data("fee_fix");
     var fee_type = $(e).data("fee_type");
     var enabled = $(e).data("enabled");
-
     var name = $(e).data("payment-type-name");
     var temp = Object.assign({}, refPaymentTypes);
     var refPaymentTypesAllowed = Object.assign(temp, {[payment_type_id]: name});
@@ -351,3 +351,92 @@ function editPaymentType(e) {
 
 //edit Payment Type
 
+//begin load Merchant Routes
+function loadMerchantRoutes() {
+    $.ajax({
+        url: '/merchants/route/table?merchantId=' + merchant_id,
+        type: "GET",
+
+        success: function (data) {
+            $('#merchant-payment-route').html(data);
+        }
+    });
+}
+
+//end load Merchant Routes
+
+
+//begin edit Merchant Routes
+function editPaymentRoute(e) {
+    console.log(e);
+}
+
+//begin edit Merchant Routes
+
+
+//begin create Merchant Routes
+function addPaymentRoute() {
+
+}
+
+//begin create Merchant Routes
+
+function getAllowedRotesByType(e) {
+
+    var el = $('#modal-add-payment-route');
+    var payment_type = el.find("select[name='payment_type']").val();
+      $.ajax({
+        url: '/merchants/route/getAllowedRoutes/' + payment_type,
+        type: "GET",
+        success: function (response) {
+            select = el.find("select[name='payment_route']");
+            select.text('');
+            select.append('<option    disabled>Выберите роут</option>');
+            $.each(response.data, function (key, value) {
+                el.find("select[name='payment_route']").append($("<option />").val(key).text(value));
+            });
+        }
+    });
+}
+
+function addMerchantPaymentRoute() {
+    var el = $('#modal-add-payment-route');
+    var payment_type = el.find("select[name='payment_type']").val();
+    var payment_route = el.find("select[name='payment_route']").val();
+    var card_system = el.find("select[name='card_system']").val();
+    var sum_max = el.find("input[name='sum_max']").val();
+    var sum_min = el.find("input[name='sum_min']").val();
+    var merchant_id = el.find("input[name='merchant_id']").val();
+    $.ajax({
+        url: '/merchants/route/store',
+        type: "post",
+        data: {
+            payment_type: payment_type,
+            payment_route_id: payment_route,
+            card_system: card_system,
+            sum_max: sum_max,
+            sum_min: sum_min,
+            merchant_id: merchant_id
+        },
+        success: function () {
+            $('#type-errors').html();
+            $('#type-errors').hide();
+            $('#modal-add-payment-route').hide();
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+            loadMerchantRoutes();
+            el.find("select[name='payment_type']").val('');
+            el.find("select[name='payment_route']").val('');
+            el.find("select[name='card_system']").val('');
+            el.find("input[name='sum_max']").val('');
+            el.find("input[name='sum_min']").val('');
+            el.find("input[name='merchant_id']").val('');
+
+        }, error: function (data) {
+            var response = data.responseText;
+            response = JSON.parse(response);
+            $('#type-errors').html(response.data);
+            $('#type-errors').show();
+        }
+    });
+}

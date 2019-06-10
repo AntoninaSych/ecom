@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 
 use App\Classes\Helpers\ApiResponse;
 use App\Classes\Helpers\ValidatorHelper;
+use App\Classes\LogicalModels\LogMerchantRequestsRepository;
 use App\Exceptions\NotFoundException;
 use App\Models\MerchantPaymentTypes;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Classes\LogicalModels\MerchantPaymentTypeRepository;
 use App\Models\RefFeeType;
@@ -63,6 +65,13 @@ class MerchantPaymentTypeController
                 $merchantPaymentTypes = new MerchantPaymentTypes();
                 $merchantPaymentTypes->fill($this->request->all());
                $this->merchantPaymentTypes->save($merchantPaymentTypes);
+                LogMerchantRequestsRepository::log(
+                    $this->request->get('merchant_id'),
+                    $this->request,
+                    [  'action' => 'store merchant payment type',
+                        'user' => Auth::user()->getAuthIdentifier(),
+                        'status'=>'Успешное добавление payment type для мерчанта'
+                    ]);
                 return ApiResponse::goodResponseSimple($this->merchantPaymentTypes);
             } catch (NotFoundException $e) {
                 return ApiResponse::badResponse($e->getMessage(), $e->getCode());
@@ -88,6 +97,13 @@ class MerchantPaymentTypeController
                 $merchantPaymentTypes = $this->merchantPaymentTypes->getOne($this->request->get('id'));
                 $merchantPaymentTypes->fill($this->request->all());
                 $this->merchantPaymentTypes->save($merchantPaymentTypes);
+                LogMerchantRequestsRepository::log(
+                    $this->request->get('merchant_id'),
+                    $this->request,
+                    [  'action' => 'store merchant payment type',
+                        'user' => Auth::user()->getAuthIdentifier(),
+                        'status'=>'Успешное изменение payment type для мерчанта'
+                    ]);
                 return ApiResponse::goodResponseSimple($this->merchantPaymentTypes);
             } catch (NotFoundException $e) {
                 return ApiResponse::badResponse($e->getMessage(), $e->getCode());

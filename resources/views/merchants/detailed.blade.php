@@ -81,8 +81,15 @@
 
                 @if( Auth::user()->can(PermissionHelper::MANAGE_MERCHANT_PAYMENT_TYPE) )
                     <li class=""><a href="#payment-type" id="ref_a" data-toggle="tab" aria-expanded="false"  onclick="loadMerchantPaymentType()" >Типы платежей</a>
+                    </li>
                 @endif
-            </li>
+
+                @if( Auth::user()->can(PermissionHelper::MANAGE_MERCHANT_ROUTE) )
+                    <li class=""><a href="#payment-route"   data-toggle="tab" aria-expanded="false"  onclick="loadMerchantRoutes()">Роут платежей</a>
+                    </li>
+                @endif
+
+
             @endif
 
             <li class="pull-left header"><i class="fa fa-inbox"></i> Информация о мерчантe</li>
@@ -113,6 +120,11 @@
             @endif
             {{--PaymentType details end--}}
 
+            {{--PaymentType details begin--}}
+            @if( Auth::user()->can(PermissionHelper::MANAGE_MERCHANT) && Auth::user()->can(PermissionHelper::MANAGE_MERCHANT_ROUTE))
+                @include('merchants.partials.merchant-route')
+            @endif
+            {{--PaymentType details end--}}
 
         </div>
     </div>

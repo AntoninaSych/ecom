@@ -14,7 +14,7 @@ class MerchantPaymentTypes extends BaseModel
 
     protected $fillable = ['merchant_id', 'payment_type', 'fee_proc', 'fee_fix', 'enabled', 'fee_type'];
 
-    protected $with = ['merchant', 'payment', 'feeType'];
+    protected $with = ['merchant', 'payment', 'feeType','paymentRoute'];
 
     public function merchant()
     {
@@ -31,4 +31,9 @@ class MerchantPaymentTypes extends BaseModel
         return $this->belongsTo(RefPaymentType::class, 'payment_type', 'id');
     }
     // merchant_id и payment_type  must be unique
+
+    public function paymentRoute()
+    {
+        return $this->hasOne(PaymentRoute::class,  'id','payment_type');
+    }
 }

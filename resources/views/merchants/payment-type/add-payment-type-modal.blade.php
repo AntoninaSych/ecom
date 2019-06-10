@@ -7,15 +7,11 @@
                 <h4 class="modal-title">Добавить тип платежа к выбранному мерчанту</h4>
             </div>
             <div class="modal-body" id="remove-content" style="text-align: center">
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
+
+                    <div class="alert alert-danger" id="type-errors" style="display: none">
+
                     </div>
-                @endif
+
 
                 {!! Form::open(array('url' => route('payment-type.store',['id'=>$merchantId]),'method' => 'post','id'=>'payment-type-add')) !!}
 

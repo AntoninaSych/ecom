@@ -1,7 +1,7 @@
-<div id="route"  class="tab-pane ">
+<div id="payment-route"  class="tab-pane ">
     <div class="content">
         <div class="row">
-            <div class="pull-right btn btn-primary" data-toggle="modal" data-target="#modal-add-payment-type" style="margin-bottom: 15px">
+            <div class="pull-right btn btn-primary" data-toggle="modal" data-target="#modal-add-payment-route" style="margin-bottom: 15px">
                 <i class="fa fa-fw fa-plus"></i> Добавить роут
             </div>
         </div>
@@ -12,7 +12,7 @@
                 </div>
             </div>
             <div class="box-body" id="refound-box">
-                <div id="merchant-payment-types">
+                <div id="merchant-payment-route">
                 </div>
             </div>
             <div class="box-footer">

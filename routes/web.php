@@ -62,13 +62,13 @@ Route::group(['middleware' => ['auth', 'is.block.user']], function () {
                 Route::match(['get'], '/update', 'MerchantPaymentTypeController@update')->name('payment-type.update');
             });
 
-            Route::group(['prefix' => 'route','middleware'=>'can.manage.merchant.route'], function () {
-                Route::match(['get'], '/{merchantId}/table', 'MerchantRoutesController@getTable');
-//                Route::match(['post'], '/store', 'MerchantPaymentTypeController@store')->name('payment-type.store');
-//                Route::match(['get'], '/update', 'MerchantPaymentTypeController@update')->name('payment-type.update');
+            Route::group(['prefix' => '/route','middleware'=>'can.manage.merchant.route'], function () {
+                Route::match(['get'], '/table', 'MerchantRoutesController@getTable');
+          Route::match(['post'], '/store', 'MerchantRoutesController@store')->name('payment-route.store');
+             //   Route::match(['get'], '/update', 'MerchantPaymentTypeController@update')->name('payment-type.update');
+                Route::match(['get'], '/getAllowedRoutes/{paymentTypeId}', 'MerchantRoutesController@getAllowedRoutes');
             });
-
-        });
+         });
     });
 
     Route::group(['prefix' => 'queries', 'middleware' => ['can.apply.merchants.request']], function () {

@@ -81,6 +81,13 @@ Route::group(['middleware' => ['log.request']], function () {
             Route::match(['post'], '/assign', 'MerchantInfoController@assign');
         });
 
+        Route::group(['prefix' => 'statistic', 'middleware' => ['can.view.statistics']], function () {
+            Route::match(['get'], '/', 'StatisticController@all');
+            Route::match(['get'], '/merchant/{id}', 'StatisticController@merchant');
+
+        });
+
+
 
         Route::resource('mcc', 'MccController')->only([
             'index', 'store', 'edit', 'update', 'create'

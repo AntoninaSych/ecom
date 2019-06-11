@@ -54,5 +54,12 @@ class PermissionTableSeeder extends Seeder
         $permission->display_name = 'Manage merchant payment route';
         $permission->description  = 'Manage merchant payment route';
         $permission->save();
+
+
+        $permission = new Permission();
+        $permission->name         = 'view-statistic';
+        $permission->display_name = 'View statistic';
+        $permission->description  = 'View statistic';
+        $permission->save();
     }
 }

@@ -17,4 +17,5 @@ class PermissionHelper extends Facade
     const MANAGE_MERCHANT = 'manage-merchant';
     const MANAGE_MERCHANT_PAYMENT_TYPE = 'manage-merchant-payment-type';
     const MANAGE_MERCHANT_ROUTE = 'manage-merchant-route';
+    const VIEW_STATISTIC = 'view-statistic';
 }

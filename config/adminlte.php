@@ -163,6 +163,12 @@ return [
             'url'  => '/queries',
             'icon' => ' fa-credit-card',
             'hasRole'  => 'apply-merchants-requests',
+        ],
+        [
+            'text' => 'Просмотр статистики',
+            'url'  => '/statistic',
+            'icon' => ' fa-credit-card',
+            'hasRole'  => 'view-statistic',
         ]
     ],
 //    'menu' => [

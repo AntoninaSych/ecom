@@ -70,7 +70,7 @@
                 <div class="row">
                     <div class="box-header"><h2>TOP 10 мерчантов</h2></div>
 
-        <div class="col-lg-3 col-xs-6">
+        <div class="col-lg-3 col-xs-12">
 
             <table class="table small-box bg-aqua ">
                 <caption> За все время</caption>
@@ -83,7 +83,7 @@
             </table>
 
         </div>
-        <div class="col-lg-3 col-xs-6">
+        <div class="col-lg-3 col-xs-12">
 
             <table class="table small-box bg-yellow">
                 <caption class="caption"> Сегодня</caption>
@@ -96,7 +96,7 @@
             </table>
 
         </div>
-        <div class="col-lg-3 col-xs-6">
+        <div class="col-lg-3 col-xs-12">
 
             <table class="table small-box bg-green">
                 <caption> Текущий месяц</caption>
@@ -109,7 +109,7 @@
             </table>
 
         </div>
-        <div class="col-lg-3 col-xs-6" >
+        <div class="col-lg-3 col-xs-12" >
 
             <table class="table small-box bg-red">
                 <caption> Предыдущий месяц</caption>

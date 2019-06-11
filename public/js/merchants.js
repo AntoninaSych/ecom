@@ -1,3 +1,5 @@
+var currentRouteForEditModal = null;
+var currentTypeForEditModal = null;
 (function ($) {
     $(function () {
 
@@ -351,7 +353,7 @@ function editPaymentType(e) {
 
 //edit Payment Type
 
-//begin load Merchant Routes
+//begin load Merchant Routes Table
 function loadMerchantRoutes() {
     $.ajax({
         url: '/merchants/route/table?merchantId=' + merchant_id,
@@ -363,29 +365,21 @@ function loadMerchantRoutes() {
     });
 }
 
-//end load Merchant Routes
-
-
-//begin edit Merchant Routes
-function editPaymentRoute(e) {
-    console.log(e);
-}
-
-//begin edit Merchant Routes
+//end load Merchant Routes Table
 
 
 //begin create Merchant Routes
-function addPaymentRoute() {
 
-}
+function getAllowedRotesByType(idElement) {
+    console.log('loadin routes');
+    var el = $(idElement);
 
-//begin create Merchant Routes
-
-function getAllowedRotesByType(e) {
-
-    var el = $('#modal-add-payment-route');
     var payment_type = el.find("select[name='payment_type']").val();
-      $.ajax({
+
+    if (idElement === '#modal-edit-payment-route') {
+        payment_type = currentTypeForEditModal;
+    }
+    $.ajax({
         url: '/merchants/route/getAllowedRoutes/' + payment_type,
         type: "GET",
         success: function (response) {
@@ -395,6 +389,9 @@ function getAllowedRotesByType(e) {
             $.each(response.data, function (key, value) {
                 el.find("select[name='payment_route']").append($("<option />").val(key).text(value));
             });
+            if (idElement === '#modal-edit-payment-route') {
+                $('#modal-edit-payment-route').find("select[name='payment_route']").val(currentRouteForEditModal);
+            }
         }
     });
 }
@@ -425,6 +422,78 @@ function addMerchantPaymentRoute() {
             $('body').removeClass('modal-open');
             $('.modal-backdrop').remove();
             loadMerchantRoutes();
+            el.find("select[name='payment_type']").val('');
+            el.find("select[name='payment_route']").val('');
+            el.find("select[name='card_system']").val('');
+            el.find("input[name='sum_max']").val('');
+            el.find("input[name='sum_min']").val('');
+            el.find("input[name='merchant_id']").val('');
+
+        }, error: function (data) {
+            var response = data.responseText;
+            response = JSON.parse(response);
+            $('#type-errors').html(response.data);
+            $('#type-errors').show();
+        }
+    });
+}
+
+
+//begin edit Merchant Routes
+function editPaymentRoute(e) {
+    var el = $('#modal-edit-payment-route');
+    var merchant_id = $(e).data("merchant-id");
+    var id = $(e).data("id");
+    var payment_type_id = $(e).data("payment-type-id");
+    var payment_route_id = $(e).data("payment-route-id");
+
+    currentTypeForEditModal = payment_type_id;
+    currentRouteForEditModal = payment_route_id;
+
+    var sum_min = $(e).data("sum_min");
+    var sum_max = $(e).data("sum_max");
+    var card_system = $(e).data("card-system");
+    getAllowedRotesByType('#modal-edit-payment-route');
+
+    el.find("select[name='payment_type']").val(payment_type_id);
+    el.find("input[name='merchant_id']").val(merchant_id);
+    el.find("select[name='payment_route']").val(payment_route_id);
+    el.find("input[name='sum_min']").val(sum_min);
+    el.find("input[name='id']").val(id);
+    el.find("input[name='sum_max']").val(sum_max);
+    el.find("select[name='card_system']").val(card_system);
+}
+
+//begin edit Merchant Routes
+function changeMerchantPaymentRoute() {
+    var el = $('#modal-edit-payment-route');
+    var id = el.find("input[name='id']").val()
+    var payment_type = el.find("select[name='payment_type']").val();
+    var sum_min = el.find("input[name='sum_min']").val();
+    var sum_max = el.find("input[name='sum_max']").val();
+    var card_system = el.find("select[name='card_system']").val();
+    var merchant_id = el.find("input[name='merchant_id']").val();
+    var payment_route = el.find("select[name='payment_route']").val();
+    $.ajax({
+        url: '/merchants/route/update',
+        type: "post",
+        data: {
+            id:id,
+            payment_type: payment_type,
+            payment_route_id: payment_route,
+            card_system: card_system,
+            sum_max: sum_max,
+            sum_min: sum_min,
+            merchant_id: merchant_id
+        },
+        success: function () {
+            $('#type-errors').html();
+            $('#type-errors').hide();
+            $('#modal-add-payment-route').hide();
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+            loadMerchantRoutes();
+            el.find("select[name='id']").val('');
             el.find("select[name='payment_type']").val('');
             el.find("select[name='payment_route']").val('');
             el.find("select[name='card_system']").val('');

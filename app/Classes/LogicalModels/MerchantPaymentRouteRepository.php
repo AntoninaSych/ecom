@@ -26,4 +26,9 @@ class MerchantPaymentRouteRepository
         $merchantPaymentRoute->save();
     }
 
+    public function getOne($id)
+    {
+        return $this->merchantPaymentRoutes->select()->where('id', $id)->first();
+    }
+
 }

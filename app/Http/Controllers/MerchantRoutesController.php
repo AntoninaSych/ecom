@@ -136,7 +136,7 @@ class MerchantRoutesController
                 LogMerchantRequestsRepository::log(
                     $this->request->get('merchant_id'),
                     $this->request,
-                    [  'action' => 'store success',
+                    [  'action' => 'update success',
                         'user' => Auth::user()->getAuthIdentifier(),
                         'status'=>'Роут успешно изменен'
                     ]);

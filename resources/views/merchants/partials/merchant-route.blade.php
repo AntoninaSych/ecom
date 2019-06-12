@@ -1,7 +1,7 @@
 <div id="payment-route"  class="tab-pane ">
     <div class="content">
         <div class="row">
-            <div class="pull-right btn btn-primary" data-toggle="modal" data-target="#modal-add-payment-route" style="margin-bottom: 15px">
+            <div class="pull-right btn btn-primary" data-toggle="modal" onclick="clearErrors('#route-add-errors')" data-target="#modal-add-payment-route" style="margin-bottom: 15px">
                 <i class="fa fa-fw fa-plus"></i> Добавить роут
             </div>
         </div>

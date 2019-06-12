@@ -71,8 +71,8 @@ class MerchantRoutesController
 
         $validator = Validator::make($this->request->all(), [
             'payment_route_id' => 'required|integer|exists:payment_routes,id',
-            'sum_min' => 'required|numeric',
-            'sum_max' => 'required|numeric',
+            'sum_min' => 'required|integer',
+            'sum_max' => 'required|integer',
             'card_system'=> 'required|integer|exists:cards_systems,id',
             'merchant_id' => 'required|integer|exists:merchants,id',
         ]);
@@ -112,8 +112,8 @@ class MerchantRoutesController
         $validator = Validator::make($this->request->all(), [
             'id' => 'required|integer|exists:merchant_routes,id',
             'payment_route_id' => 'required|integer|exists:payment_routes,id',
-            'sum_min' => 'required|numeric',
-            'sum_max' => 'required|numeric',
+            'sum_min' => 'required|integer',
+            'sum_max' => 'required|integer',
             'card_system'=> 'required|integer|exists:cards_systems,id',
             'merchant_id' => 'required|integer|exists:merchants,id',
         ]);

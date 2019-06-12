@@ -15,7 +15,7 @@ var currentTypeForEditModal = null;
             },
             "Пожалуйста, укажите корректный url"
         );
-
+ 
 
         $('#submit_btn').on('click', function (e) {
             let form = $("#merchant_update");
@@ -200,14 +200,18 @@ function loadMerchantPaymentType() {
                         fee_type: fee_type
                     },
                     success: function () {
+                        $('#type-edit-errors').html();
+                        $('#type-edit-errors').hide();
                         $('#modal-edit-payment-type').hide();
                         $('body').removeClass('modal-open');
                         $('.modal-backdrop').remove();
                         loadMerchantPaymentType();
+
                     }, error: function (data) {
                         var response = data.responseText;
                         response = JSON.parse(response);
-                        console.log(response.data);
+                        $('#type-edit-errors').html(response.data);
+                        $('#type-edit-errors').show();
                     }
                 });
             });
@@ -281,8 +285,8 @@ function addPaymentType() {
             merchant_id: merchant_id
         },
         success: function () {
-            $('#type-errors').html();
-            $('#type-errors').hide();
+            $('#type-add-errors').html();
+            $('#type-add-errors').hide();
             $('#modal-add-account').hide();
             $('body').removeClass('modal-open');
             $('.modal-backdrop').remove();
@@ -297,8 +301,8 @@ function addPaymentType() {
         }, error: function (data) {
             var response = data.responseText;
             response = JSON.parse(response);
-            $('#type-errors').html(response.data);
-            $('#type-errors').show();
+            $('#type-add-errors').html(response.data);
+            $('#type-add-errors').show();
         }
     });
 }
@@ -328,9 +332,6 @@ function editPaymentType(e) {
     el.find("input[name='fee_fix']").val(fee_fix);
     el.find("input[name='id']").val(id);
     el.find("select[name='fee_type']").val(fee_type);
-    // checked="checked"
-    console.log(enabled);
-
     if (enabled === 1) {
         $('#merchant_payment_type_status').prop({
             "checked": true
@@ -342,6 +343,8 @@ function editPaymentType(e) {
         }).val(0);
 
     }
+    $('#type-edit-errors').html();
+    $('#type-edit-errors').hide();
 
 
     $('#label-checkbox').on('click', function () {
@@ -428,12 +431,14 @@ function addMerchantPaymentRoute() {
             el.find("input[name='sum_max']").val('');
             el.find("input[name='sum_min']").val('');
             el.find("input[name='merchant_id']").val('');
-
-        }, error: function (data) {
-            var response = data.responseText;
+            $('#route-add-errors').html();
+            $('#route-add-errors').hide();
+        }, error: function (response) {
+            var response = response.responseText;
             response = JSON.parse(response);
-            $('#type-errors').html(response.data);
-            $('#type-errors').show();
+
+            $('#route-add-errors').html(response.data[0] );
+            $('#route-add-errors').show();
         }
     });
 }
@@ -454,7 +459,8 @@ function editPaymentRoute(e) {
     var sum_max = $(e).data("sum_max");
     var card_system = $(e).data("card-system");
     getAllowedRotesByType('#modal-edit-payment-route');
-
+    $('#route-edit-errors').html();
+    $('#route-edit-errors').hide();
     el.find("select[name='payment_type']").val(payment_type_id);
     el.find("input[name='merchant_id']").val(merchant_id);
     el.find("select[name='payment_route']").val(payment_route_id);
@@ -500,12 +506,19 @@ function changeMerchantPaymentRoute() {
             el.find("input[name='sum_max']").val('');
             el.find("input[name='sum_min']").val('');
             el.find("input[name='merchant_id']").val('');
-
-        }, error: function (data) {
-            var response = data.responseText;
+            $('#route-edit-errors').html();
+            $('#route-edit-errors').hide();
+        }, error: function (response) {
+          var response = response.responseText;
             response = JSON.parse(response);
-            $('#type-errors').html(response.data);
-            $('#type-errors').show();
+
+            $('#route-edit-errors').html(response.data[0] );
+            $('#route-edit-errors').show();
         }
     });
+}
+
+function clearErrors(id) {
+    $(id).html();
+    $(id).hide();
 }

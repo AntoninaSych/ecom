@@ -7,6 +7,10 @@
                 <h4 class="modal-title">Изменение типа платежа</h4>
             </div>
             <div class="modal-body" id="edit-content" style="text-align: center">
+                     <div class="alert alert-danger" id="type-edit-errors" style="display: none">
+
+
+                </div>
                 {!! Form::open(array('url' => route('payment-type.update',['id'=>$merchantId]),'method' => 'post','id'=>'payment-type-update')) !!}
                 <div>
                     {{ Form::label("payment_type", "Тип платежа" ) }}

@@ -7,6 +7,9 @@
                 <h4 class="modal-title">Изменение роута платежа</h4>
             </div>
             <div class="modal-body" id="edit-content" style="text-align: center">
+                <div class="alert alert-danger" id="route-edit-errors" style="display: none"></div>
+
+
                 {!! Form::open(array('url' => route('payment-route.update',['id'=>$merchantId]),'method' => 'post','id'=>'payment-type-update')) !!}
                 <div>
                     {{ Form::label("payment_type", "Тип платежа" ) }}
@@ -14,7 +17,6 @@
                         <option disabled selected>Выберите тип платежа</option>
                         @foreach ($merchantPaymentTypes as $paymentType)
                             <option value="{{$paymentType['key']}}">{{$paymentType['value']}}</option>
-
                         @endforeach
                     </select>
                 </div>

@@ -1,7 +1,7 @@
 <div id="payment-type"  class="tab-pane ">
     <div class="content">
         <div class="row">
-            <div class="pull-right btn btn-primary" data-toggle="modal" data-target="#modal-add-payment-type" style="margin-bottom: 15px">
+            <div class="pull-right btn btn-primary" data-toggle="modal" data-target="#modal-add-payment-type" style="margin-bottom: 15px" onclick="clearErrors('#type-add-errors')">
                 <i class="fa fa-fw fa-plus"></i> Добавить тип платежей
             </div>
         </div>

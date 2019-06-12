@@ -8,7 +8,7 @@
             </div>
             <div class="modal-body" id="remove-content" style="text-align: center">
 
-                    <div class="alert alert-danger" id="type-errors" style="display: none">
+                    <div class="alert alert-danger" id="type-add-errors" style="display: none">
 
                     </div>
 

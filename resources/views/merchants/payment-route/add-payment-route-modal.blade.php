@@ -10,7 +10,7 @@
 
                 <div class="alert alert-danger" id="route-errors" style="display: none">
                 </div>
-
+                <div class="alert alert-danger" id="route-add-errors" style="display: none"></div>
 
                 {!! Form::open(array('url' => route('payment-route.store',['id'=>$merchantId]),'method' => 'post','id'=>'payment-type-add')) !!}
 

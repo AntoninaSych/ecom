@@ -77,18 +77,24 @@
                 <li class=""><a href="#settings" data-toggle="tab" aria-expanded="false">Настройки</a></li>
 
 
-            <li class=""><a href="#refound" id="ref_a" data-toggle="tab" aria-expanded="false" onclick="loadAccounts()">Возмещение</a>
+                <li class=""><a href="#refound" id="ref_a" data-toggle="tab" aria-expanded="false"
+                                onclick="loadAccounts()">Возмещение</a>
 
                 @if( Auth::user()->can(PermissionHelper::MANAGE_MERCHANT_PAYMENT_TYPE) )
-                    <li class=""><a href="#payment-type" id="ref_a" data-toggle="tab" aria-expanded="false"  onclick="loadMerchantPaymentType()" >Типы платежей</a>
+                    <li class=""><a href="#payment-type" id="ref_a" data-toggle="tab" aria-expanded="false"
+                                    onclick="loadMerchantPaymentType()">Типы платежей</a>
                     </li>
                 @endif
 
                 @if( Auth::user()->can(PermissionHelper::MANAGE_MERCHANT_ROUTE) )
-                    <li class=""><a href="#payment-route"   data-toggle="tab" aria-expanded="false"  onclick="loadMerchantRoutes()">Роут платежей</a>
+                    <li class=""><a href="#payment-route" data-toggle="tab" aria-expanded="false"
+                                    onclick="loadMerchantRoutes()">Роут платежей</a>
                     </li>
                 @endif
 
+
+                <li class=""><a href="#attachments" data-toggle="tab" aria-expanded="false">Файлы</a>
+                </li>
 
             @endif
 
@@ -105,6 +111,12 @@
                 @include('merchants.partials.merchant-edit')
             @endif
             {{--Settings detailsvend--}}
+
+            {{--Attachments details begin--}}
+            @if( Auth::user()->can(PermissionHelper::MANAGE_MERCHANT) )
+                @include('merchants.partials.attachments')
+            @endif
+            {{--Attachments details end--}}
 
 
             {{--Account details begin--}}

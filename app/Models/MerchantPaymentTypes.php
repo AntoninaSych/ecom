@@ -30,7 +30,7 @@ class MerchantPaymentTypes extends BaseModel
     {
         return $this->belongsTo(RefPaymentType::class, 'payment_type', 'id');
     }
-    // merchant_id и payment_type  must be unique
+    // [merchant_id и payment_type]  must be unique - can't change DB to set unique
 
     public function paymentRoute()
     {

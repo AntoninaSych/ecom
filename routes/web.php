@@ -68,6 +68,12 @@ Route::group(['middleware' => ['log.request']], function () {
                     Route::match(['post'], '/update', 'MerchantRoutesController@update')->name('payment-route.update');
                     Route::match(['get'], '/getAllowedRoutes/{paymentTypeId}', 'MerchantRoutesController@getAllowedRoutes');
                 });
+
+                Route::group(['prefix' => '/limits', 'middleware' => 'can.manage.merchant.route'], function () {
+                    Route::match(['get'], '/table', 'MerchantLimitsController@getTable');
+                    Route::match(['post'], '/store', 'MerchantLimitsController@store')->name('payment-limit.store');
+                    Route::match(['post'], '/update', 'MerchantLimitsController@update')->name('payment-limit.update');
+                });
             });
         });
 
@@ -86,7 +92,6 @@ Route::group(['middleware' => ['log.request']], function () {
             Route::match(['get'], '/merchant/{id}', 'StatisticController@merchant');
 
         });
-
 
 
         Route::resource('mcc', 'MccController')->only([

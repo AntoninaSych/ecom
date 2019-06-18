@@ -8,7 +8,7 @@ class MerchantPaymentLimits extends BaseModel
 {
     public $table = 'merchant_limits';
 
-    protected $fillable = ['merchant_id', 'payment_type', 'fee_proc', 'fee_fix', 'enabled', 'fee_type'];
+    protected $fillable = ['merchant_id', 'amount', 'card_system', 'limit_types'];
 
     protected $with = ['merchant', 'cardSystem', 'limitTypes' ];
 
@@ -24,6 +24,7 @@ class MerchantPaymentLimits extends BaseModel
 
     public function limitTypes()
     {
-        return $this->belongsTo(CardSystems::class, 'card_system', 'id');
+        return $this->belongsTo(RefLimitType::class, 'limit_types', 'id');
     }
+    //['merchant_id', 'limit_types','card_system'] must be unique
 }

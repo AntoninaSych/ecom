@@ -92,6 +92,10 @@
                     </li>
                 @endif
 
+                    <li class=""><a href="#limits" data-toggle="tab" aria-expanded="false"
+                                    onclick="loadMerchantLimits()">Лимиты платежей</a>
+                    </li>
+
 
                 <li class=""><a href="#attachments" data-toggle="tab" aria-expanded="false">Файлы</a>
                 </li>
@@ -125,6 +129,11 @@
             @endif
             {{--Account details end--}}
 
+            {{--Account details begin--}}
+            @if( Auth::user()->can(PermissionHelper::MANAGE_MERCHANT) )
+                @include('merchants.partials.merchant-limits')
+            @endif
+            {{--Account details end--}}
 
             {{--PaymentType details begin--}}
             @if( Auth::user()->can(PermissionHelper::MANAGE_MERCHANT) && Auth::user()->can(PermissionHelper::MANAGE_MERCHANT_PAYMENT_TYPE))

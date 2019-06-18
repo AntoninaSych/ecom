@@ -19,7 +19,6 @@ class CreateMerchantLimits extends Migration
             $table->integer('merchant_id');
             $table->foreign('merchant_id')->references('id')->on('merchants');
             $table->string('amount');
-            $table->enum('limit',['min','max'])->default('min');
             $table->integer('card_system');
             $table->foreign('card_system')->references('id')->on('cards_systems');
             $table->integer('limit_types')->unsigned();

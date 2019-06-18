@@ -15,7 +15,7 @@ var currentTypeForEditModal = null;
             },
             "Пожалуйста, укажите корректный url"
         );
- 
+
 
         $('#submit_btn').on('click', function (e) {
             let form = $("#merchant_update");
@@ -437,7 +437,7 @@ function addMerchantPaymentRoute() {
             var response = response.responseText;
             response = JSON.parse(response);
 
-            $('#route-add-errors').html(response.data[0] );
+            $('#route-add-errors').html(response.data[0]);
             $('#route-add-errors').show();
         }
     });
@@ -484,7 +484,7 @@ function changeMerchantPaymentRoute() {
         url: '/merchants/route/update',
         type: "post",
         data: {
-            id:id,
+            id: id,
             payment_type: payment_type,
             payment_route_id: payment_route,
             card_system: card_system,
@@ -509,10 +509,10 @@ function changeMerchantPaymentRoute() {
             $('#route-edit-errors').html();
             $('#route-edit-errors').hide();
         }, error: function (response) {
-          var response = response.responseText;
+            var response = response.responseText;
             response = JSON.parse(response);
 
-            $('#route-edit-errors').html(response.data[0] );
+            $('#route-edit-errors').html(response.data[0]);
             $('#route-edit-errors').show();
         }
     });
@@ -521,4 +521,116 @@ function changeMerchantPaymentRoute() {
 function clearErrors(id) {
     $(id).html();
     $(id).hide();
+}
+
+//start loadMerchantLimits
+function loadMerchantLimits() {
+    $.ajax({
+        url: '/merchants/limits/table?merchantId=' + merchant_id,
+        type: "GET",
+
+        success: function (data) {
+            $('#merchant-payment-limits').html(data);
+        }
+    });
+}
+
+//end loadMerchantLimits
+function editPaymentLimit(e) {
+    var el = $('#modal-edit-payment-limit');
+    var merchant_id = $(e).data("merchant-id");
+    var id = $(e).data("id");
+    var payment_amount = $(e).data("payment-amount");
+    var limit_type = $(e).data("limit-type");
+    var card_system = $(e).data("card-system");
+
+    $('#limits-edit-errors').html();
+    $('#limits-edit-errors').hide();
+
+    el.find("select[name='limit_type']").val(limit_type);
+    el.find("input[name='merchant_id']").val(merchant_id);
+    el.find("input[name='amount']").val(payment_amount);
+    el.find("select[name='card_system']").val(card_system);
+    el.find("input[name='id']").val(id);
+
+}
+
+function changeMerchantPaymentLimit() {
+
+    var el = $('#modal-edit-payment-limit');
+    var id = el.find("input[name='id']").val()
+    var card_system = el.find("select[name='card_system']").val();
+    var amount = el.find("input[name='amount']").val();
+    var limit_types = el.find("select[name='limit_type']").val();
+    var merchant_id = el.find("input[name='merchant_id']").val();
+    $.ajax({
+        url: '/merchants/limits/update',
+        type: "post",
+        data: {
+            id: id,
+            card_system: card_system,
+            merchant_id: merchant_id,
+            amount: amount,
+            limit_types: limit_types
+        },
+        success: function () {
+            $('#limits-edit-errors').html('');
+            $('#limits-edit-errors').hide();
+            $('#modal-add-payment-limit').hide();
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+            loadMerchantLimits();
+            el.find("input[name='id']").val('');
+            el.find("select[name='card_system']").val('');
+            el.find("input[name='amount']").val('');
+            el.find("input[name='merchant_id']").val('');
+            el.find("select[name='limit_type']").val('');
+            $('#limits-edit-errors').html('');
+            $('#limits-edit-errors').hide();
+        }, error: function (response) {
+            var response = response.responseText;
+            response = JSON.parse(response);
+
+            $('#limits-edit-errors').html(response.data[0]);
+            $('#limits-edit-errors').show();
+        }
+    });
+}
+
+function addMerchantPaymentLimit() {
+    var el = $('#modal-add-payment-limit');
+    var card_system = el.find("select[name='card_system']").val();
+    var amount = el.find("input[name='amount']").val();
+    var limit_types = el.find("select[name='limit_type']").val();
+    var merchant_id = el.find("input[name='merchant_id']").val();
+    $.ajax({
+        url: '/merchants/limits/store',
+        type: "post",
+        data: {
+            card_system: card_system,
+            merchant_id: merchant_id,
+            amount: amount,
+            limit_types: limit_types
+        },
+        success: function () {
+            $('#limits-add-errors').html();
+            $('#limits-add-errors').hide();
+            $('#modal-add-payment-limit').hide();
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+            loadMerchantLimits();
+            el.find("select[name='card_system']").val('');
+            el.find("input[name='amount']").val('');
+            el.find("input[name='merchant_id']").val('');
+            el.find("select[name='limit_type']").val('');
+            $('#limits-add-errors').html();
+            $('#limits-add-errors').hide();
+        }, error: function (response) {
+            var response = response.responseText;
+            response = JSON.parse(response);
+
+            $('#limits-add-errors').html(response.data[0]);
+            $('#limits-add-errors').show();
+        }
+    });
 }

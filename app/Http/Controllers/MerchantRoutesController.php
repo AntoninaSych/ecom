@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 
 use App\Classes\Helpers\ApiResponse;
+use App\Classes\LogicalModels\CardSystemRepository;
 use App\Classes\LogicalModels\LogMerchantRequestsRepository;
 use App\Classes\LogicalModels\MerchantPaymentRouteRepository;
 use App\Classes\LogicalModels\MerchantPaymentTypeRepository;
@@ -24,11 +25,13 @@ class MerchantRoutesController
     protected $request;
     protected $merchantPaymentTypes;
     protected $paymentRoutes;
+    protected $cardSystemRepository;
 
     public function __construct(MerchantPaymentRouteRepository $repository,
                                 Request $request,
                                 MerchantPaymentTypeRepository $merchantPaymentTypes,
-                                PaymentRoutesRepository $paymentRoutesRepository
+                                PaymentRoutesRepository $paymentRoutesRepository,
+                                CardSystemRepository $cardSystemRepository
 
     )
     {
@@ -36,6 +39,7 @@ class MerchantRoutesController
         $this->merchantPaymentRoutes = $repository;
         $this->merchantPaymentTypes = $merchantPaymentTypes;
         $this->paymentRoutes = $paymentRoutesRepository;
+        $this->cardSystemRepository = $cardSystemRepository;
     }
 
     public function getTable()
@@ -49,7 +53,7 @@ class MerchantRoutesController
                 return ['key' => $item->payment->id, 'value' => $item->payment->name . "(" . $item->payment->code . ")"];
             }
         })->filter()->all();
-        $cardSystem = CardSystems::all()->pluck('name', 'id');
+        $cardSystem =  $this->cardSystemRepository->getList();
 
         $merchantPaymentRoutes = $this->merchantPaymentRoutes->list($merchantId);
         return view('merchants.payment-route.merchant-payment-route-list')->with([
@@ -73,7 +77,7 @@ class MerchantRoutesController
             'payment_route_id' => 'required|integer|exists:payment_routes,id',
             'sum_min' => 'required|integer',
             'sum_max' => 'required|integer',
-            'card_system'=> 'required|integer|exists:cards_systems,id',
+            'card_system' => 'required|integer|exists:cards_systems,id',
             'merchant_id' => 'required|integer|exists:merchants,id',
         ]);
 
@@ -81,9 +85,9 @@ class MerchantRoutesController
             LogMerchantRequestsRepository::log(
                 $this->request->get('merchant_id'),
                 $this->request,
-                [  'action' => 'store fail',
+                ['action' => 'store fail',
                     'user' => Auth::user()->getAuthIdentifier(),
-                    'status'=>'Неуспешная попытка добавить новый роут'
+                    'status' => 'Неуспешная попытка добавить новый роут'
                 ]);
 
             return ApiResponse::badResponseValidation(ValidatorHelper::toArray($validator));
@@ -95,9 +99,9 @@ class MerchantRoutesController
                 LogMerchantRequestsRepository::log(
                     $this->request->get('merchant_id'),
                     $this->request,
-                    [  'action' => 'store success',
+                    ['action' => 'store success',
                         'user' => Auth::user()->getAuthIdentifier(),
-                        'status'=>'Роут успешно добавлен'
+                        'status' => 'Роут успешно добавлен'
                     ]);
                 return ApiResponse::goodResponseSimple($this->merchantPaymentTypes);
             } catch (NotFoundException $e) {
@@ -114,7 +118,7 @@ class MerchantRoutesController
             'payment_route_id' => 'required|integer|exists:payment_routes,id',
             'sum_min' => 'required|integer',
             'sum_max' => 'required|integer',
-            'card_system'=> 'required|integer|exists:cards_systems,id',
+            'card_system' => 'required|integer|exists:cards_systems,id',
             'merchant_id' => 'required|integer|exists:merchants,id',
         ]);
 
@@ -122,23 +126,23 @@ class MerchantRoutesController
             LogMerchantRequestsRepository::log(
                 $this->request->get('merchant_id'),
                 $this->request,
-                [  'action' => 'update fail',
+                ['action' => 'update fail',
                     'user' => Auth::user()->getAuthIdentifier(),
-                    'status'=>'Неуспешная попытка добавить новый роут'
+                    'status' => 'Неуспешная попытка добавить новый роут'
                 ]);
 
             return ApiResponse::badResponseValidation(ValidatorHelper::toArray($validator));
         } else {
             try {
-                $MerchantPaymentRoute = $this->merchantPaymentRoutes->getOne($this->request->get('id')) ;
+                $MerchantPaymentRoute = $this->merchantPaymentRoutes->getOne($this->request->get('id'));
                 $MerchantPaymentRoute->fill($this->request->all());
                 $this->merchantPaymentRoutes->save($MerchantPaymentRoute);
                 LogMerchantRequestsRepository::log(
                     $this->request->get('merchant_id'),
                     $this->request,
-                    [  'action' => 'update success',
+                    ['action' => 'update success',
                         'user' => Auth::user()->getAuthIdentifier(),
-                        'status'=>'Роут успешно изменен'
+                        'status' => 'Роут успешно изменен'
                     ]);
                 return ApiResponse::goodResponseSimple($this->merchantPaymentTypes);
             } catch (NotFoundException $e) {

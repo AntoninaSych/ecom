@@ -156,3 +156,9 @@ fee_type
 
 По мерчантам успешные платежи Топ 10
  
+ 
+ DON't forget for magic things:
+ - php artisan migrate:refresh --seed
+ - composer dump-autoload
+ - php artisan config:cache  
+ - composer update

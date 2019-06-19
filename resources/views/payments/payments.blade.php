@@ -55,10 +55,11 @@
                                             multiple="multiple">
                                     </select>
                                 </div>
-                                <div class="col-md-4">
-                                    <label class="control-label" for="merchant_id">Сохранить данные
-                                    </label>
-                                    <button class="form-control btn-default"><i class="icon ion-ios-copy"></i> Скачать в файл CSV</button> </div>
+{{--                                <div class="col-md-4">--}}
+{{--                                    <label class="control-label" for="merchant_id">Сохранить данные--}}
+{{--                                    </label>--}}
+{{--                                    <button class="form-control btn-default"><i class="icon ion-ios-copy"></i> Скачать в файл CSV</button> --}}
+{{--                                </div>--}}
                             </div>
 
                             <div class="row">

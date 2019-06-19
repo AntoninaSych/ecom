@@ -1,5 +1,5 @@
-<table id="app_list" class="table table-bordered table-striped dataTable" role="grid"
-       aria-describedby="example1_info" style="display: none">
+<table id="app_list" class="table table-bordered table-striped dataTable  display nowrap"   role="grid"
+       aria-describedby="example1_info" style="display: none;width:100%">
     <thead>
     <tr role="row">
         <th> ID</th>

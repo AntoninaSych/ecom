@@ -19,7 +19,8 @@ class CreateLogMerchantRequestsTable extends Migration
             $table->increments('id');
             $table->integer('merchant_id')->unsigned()->nullable();
 
-
+            $table->longText('request_body')->nullable();
+            $table->longText('response_body')->nullable();
 
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')

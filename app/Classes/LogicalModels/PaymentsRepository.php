@@ -196,8 +196,10 @@ class PaymentsRepository
     public function top10ByMerchants(StatisticPaymentFilter $filter = null)
     {
         if (is_null($filter)) {
+
             $query = DB::select('select merchants.name,   sum(payments.amount) as summa from payments left JOIN merchants
 ON  merchants.id = payments.merchant_id   where payments.status = 7 group By payments.merchant_id  ORDER BY summa DESC   limit 10');
+
         } else {
             $query = DB::table($this->payments->getTable())
                 ->leftjoin($this->merchants->getTable(), 'payments.merchant_id', '=', 'merchants.id')

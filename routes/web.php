@@ -16,6 +16,7 @@ Auth::routes();
 Route::group(['middleware' => ['log.request']], function () {
 
     Route::get('/', function () {
+
         return redirect('/login');
     });
 

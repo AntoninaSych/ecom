@@ -15,13 +15,13 @@ Auth::routes();
 
 Route::group(['middleware' => ['log.request']], function () {
 
-
+    Route::get('/', function () {
+        return redirect('/login');
+    });
 
     Route::group(['middleware' => ['auth', 'is.block.user']], function () {
         Route::get('/home', 'HomeController@index')->name('home'); // default page for auth useres
-        Route::get('/', function () {
-            return redirect('/login');
-        });
+
         /**
          * Settings
          */

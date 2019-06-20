@@ -202,7 +202,6 @@ ON  merchants.id = payments.merchant_id   where payments.status = 7 group By pay
             $query = DB::table($this->payments->getTable())
                 ->leftjoin($this->merchants->getTable(), 'payments.merchant_id', '=', 'merchants.id')
                 ->select(DB::raw('merchants.name, sum(payments.amount) as summa'));
-
             $start_date = Carbon::createFromFormat('Y-m-d', $filter->updatedFrom)->startOfDay()->toDateTimeString();
             $end_date = Carbon::createFromFormat('Y-m-d', $filter->updatedTo)->endOfDay()->toDateTimeString();
             $query = $query->whereBetween('payments.updated', [$start_date, $end_date]);
@@ -210,7 +209,6 @@ ON  merchants.id = payments.merchant_id   where payments.status = 7 group By pay
             $query = $query->groupBy('payments.merchant_id');
             $query = $query->orderBy('summa', 'desc');
             $query = $query->limit(10)->get();
-
         }
 
         return $query;

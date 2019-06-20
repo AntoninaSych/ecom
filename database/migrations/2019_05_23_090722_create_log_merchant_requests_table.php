@@ -14,19 +14,15 @@ class CreateLogMerchantRequestsTable extends Migration
      */
     public function up()
     {
-
         Schema::create('log_merchant_requests', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('merchant_id')->unsigned()->nullable();
-
             $table->longText('request_body')->nullable();
             $table->longText('response_body')->nullable();
-
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')
                 ->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });
-
     }
 
     /**

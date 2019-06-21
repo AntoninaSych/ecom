@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Classes\Filters\CardFilter;
 use App\Classes\Filters\SearchPaymentsFilter;
 use App\Classes\Helpers\ApiResponse;
 use App\Classes\Helpers\PermissionHelper;
@@ -106,7 +107,8 @@ class PaymentsController extends Controller
     public function anyData()
     {
         $payments = $this->payments->getSearch(SearchPaymentsFilter::create($this->request->all()));
-        return Datatables::of($payments)
+
+        return Datatables::query($payments)
             ->addColumn('id', function ($payments) {
                 return $payments->id;
             })
@@ -129,7 +131,9 @@ class PaymentsController extends Controller
                 return $payments->merchant;
             })
             ->editColumn('card_num', function ($payments) {
-                return $payments->card_num;
+            if(!is_null($payments->card_num)){   return CardFilter::filterString($payments->card_num);}else{
+                return '';
+            }
             })
             ->editColumn('order_id', function ($payments) {
                 return $payments->order_id;

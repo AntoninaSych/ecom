@@ -54,7 +54,7 @@ class PaymentsRepository
                 'payments.id',
                 'payments.order_id',
                 'payments.updated',
-                'payments.created',
+//                'payments.created',
                 'payments.card_num',
                 'payments.created',
                 'payments.amount',
@@ -105,11 +105,7 @@ class PaymentsRepository
         }
 
 
-//        if ($filter->createdTo != "" && $filter->createdFrom != "") {
-//            $start_date = Carbon::createFromFormat('Y-m-d', $filter->createdFrom)->startOfDay()->toDateTimeString();
-//            $end_date = Carbon::createFromFormat('Y-m-d', $filter->createdTo)->endOfDay()->toDateTimeString();
-//            $query = $query->whereBetween('payments.created', [$start_date, $end_date]);
-//        }
+
         if ($filter->updatedTo != "" && $filter->updatedFrom != "") {
             $start_date = Carbon::createFromFormat('Y-m-d', $filter->updatedFrom)->startOfDay()->toDateTimeString();
             $end_date = Carbon::createFromFormat('Y-m-d', $filter->updatedTo)->endOfDay()->toDateTimeString();
@@ -117,10 +113,8 @@ class PaymentsRepository
         }
 
         $query = $query->orderBy('payments.id', 'DESC');
-        $results = $query->get();
-        $results = CardFilter::filterCollection($results);
 
-        return $results;
+        return $query;
     }
 
 

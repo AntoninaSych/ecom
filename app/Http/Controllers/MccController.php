@@ -88,6 +88,10 @@ class MccController extends Controller
 
                 return ($codes->apple_pay) ? 'Активен' : 'Не активен';
             })
+            ->editColumn('hightRisk', function ($codes) {
+
+                return ($codes->hight_risk) ? 'Да' : 'Нет';
+            })
             ->editColumn('updated', function ($codes) {
                 return $codes->updated_at;
             })

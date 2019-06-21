@@ -48,6 +48,7 @@
 
             $('#merchants-table').DataTable({
                 processing: true,
+                "pageLength": 50,
                 "language": {
                     "url": "/Russian.json"
                 },

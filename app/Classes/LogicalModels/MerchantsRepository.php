@@ -16,7 +16,7 @@ class MerchantsRepository
 {
     protected $merchants;
 
-    public function __construct(Merchants $merchants )
+    public function __construct(Merchants $merchants)
     {
         $this->merchants = $merchants;
 
@@ -60,24 +60,32 @@ class MerchantsRepository
         return $statuses->select()->get();
     }
 
-    public function updateOverall(UpdateMerchant $request, $id):void
+    public function updateOverall(UpdateMerchant $request, $id): void
     {
-        $merchant  = $this->getOneById($id);
+        $merchant = $this->getOneById($id);
         $merchant->merchant_id = $request->get('merchant_identifier');
         $merchant->name = $request->get('merchant_name');
         $merchant->url = $request->get('merchant_url');
         $merchant->status = $request->get('merchant_status');
-        if ($request->get('mcc_id')==0){
+        if ($request->get('mcc_id') == 0) {
             $merchant->mcc_id = null;
-        }else{ $merchant->mcc_id = $request->get('mcc_id');}
+        } else {
+            $merchant->mcc_id = $request->get('mcc_id');
+        }
         $user = new MerchantUser();
-        $user =  $user->findOrFail($merchant->user->id);
+        $user = $user->findOrFail($merchant->user->id);
 
         $user->email = $request->get('merchant_user_email');
 
         $user->username = $request->get('merchant_user_name');
 
         $user->save();
+        $merchant->save();
+    }
+
+    public function updateStatus(Merchants $merchant, int $status)
+    {
+        $merchant->status = $status;
         $merchant->save();
     }
 }

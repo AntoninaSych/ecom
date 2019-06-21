@@ -37,25 +37,30 @@
                                     </div>
                                 </div>
 
-{{--                                <div class="col-md-4">--}}
-{{--                                    <div>--}}
-{{--                                        <label class="control-label" for="request_period_created">Дата создания--}}
-{{--                                            платежа</label>--}}
-{{--                                        <div class="input-group input-daterange" style="width: 100%">--}}
-{{--                                            <input id="request_period_created" class="form-control valid"--}}
-{{--                                                   name="request_period_created" type="text"--}}
-{{--                                                   aria-invalid="false" style="width: 100%;">--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
+                                {{--                                <div class="col-md-4">--}}
+                                {{--                                    <div>--}}
+                                {{--                                        <label class="control-label" for="request_period_created">Дата создания--}}
+                                {{--                                            платежа</label>--}}
+                                {{--                                        <div class="input-group input-daterange" style="width: 100%">--}}
+                                {{--                                            <input id="request_period_created" class="form-control valid"--}}
+                                {{--                                                   name="request_period_created" type="text"--}}
+                                {{--                                                   aria-invalid="false" style="width: 100%;">--}}
+                                {{--                                        </div>--}}
+                                {{--                                    </div>--}}
+                                {{--                                </div>--}}
                                 <div class="col-md-4">
                                     <label class="control-label" for="merchant_id">Мерчант
                                     </label>
                                     <select class="merchant_id form-control" id="merchant_id" name="merchant_id"
+                                            style="width: 100%"
                                             multiple="multiple">
                                     </select>
                                 </div>
-
+                                {{--                                <div class="col-md-4">--}}
+                                {{--                                    <label class="control-label" for="merchant_id">Сохранить данные--}}
+                                {{--                                    </label>--}}
+                                {{--                                    <button class="form-control btn-default"><i class="icon ion-ios-copy"></i> Скачать в файл CSV</button> --}}
+                                {{--                                </div>--}}
                             </div>
 
                             <div class="row">
@@ -78,7 +83,8 @@
                                         </div>
                                     </div>
                                     <div style="margin-top: 25px">
-                                        <input type="button" class="btn btn-default" style="width: 100%" value="Очистить"
+                                        <input type="button" class="btn btn-default" style="width: 100%"
+                                               value="Очистить"
                                                onclick="setDateAfterReset()"
                                                id="empty-btn">
                                     </div>
@@ -146,7 +152,7 @@
                             <thead>
                             <tr role="row">
                                 <th> ID</th>
-{{--                                <th> Дата создания</th>--}}
+                                {{--                                <th> Дата создания</th>--}}
                                 <th> Дата платежа</th>
                                 <th> Сумма</th>
                                 <th> Комиссия</th>
@@ -167,14 +173,25 @@
 @stop
 <script src="{{ asset('/js/libraries/jquery.js') }}"></script>
 <script src="{{ asset('js/libraries/datatables/datatables.min.js') }}"></script>
+{{--<script src="https://code.jquery.com/jquery-3.3.1.js"></script>--}}
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
 <script src="{{ asset('js/libraries/datatables/dataTables.bootstrap.min.js') }}"></script>
+
+
 <link rel="stylesheet" href="{{ asset('/css/libraries/alertify/alertify.min.css') }}">
 <link rel="stylesheet" href="{{ asset('/css/libraries/alertify/default.min.css') }}">
 <link rel="stylesheet" href="{{ asset('/css/libraries/datatables/dataTables.bootstrap.min.css') }}">
 <script type="text/javascript" src="{{ asset('/js/libraries/jquery-validation/jquery.mask.min.js') }}"></script>
 <script src="{{ asset('/js/libraries/jquery-validation/validation.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/js/libraries/jquery-validation/additional-methods.min.js') }}"></script>
-<script type="text/javascript"  src="{{ asset('/js/libraries/jquery-validation/localization/messages_ru.min.js') }}"></script>
+<script type="text/javascript"
+        src="{{ asset('/js/libraries/jquery-validation/localization/messages_ru.min.js') }}"></script>
 <script src="{{ asset('js/payment.js') }}"></script>
 <script>
     (function ($) {
@@ -182,17 +199,23 @@
             $("#card_number").mask("000000******0000");
             $.validator.addMethod(
                 "regex",
-                function(value, element, regexp) {
+                function (value, element, regexp) {
                     var re = new RegExp(regexp);
                     return this.optional(element) || re.test(value);
                 },
                 "Введите первые 6 и последние 4 цифры карты"
             );
             $('#payment-table').DataTable({
+                dom: 'lBfrtip',
+                buttons: [
+                    'copy', 'csv', 'print',
+
+                ],
                 processing: true,
                 "language": {
                     "url": "/Russian.json"
                 },
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
                 serverSide: true,
                 ajax: '{!! route('get.search.payment') !!}',
                 columns: [
@@ -226,10 +249,10 @@
                             number: true,
                         },
                         description:
-                        {
+                            {
                                 minlength: 3
-                        },
-                        card_number:{
+                            },
+                        card_number: {
                             regex: "(\\d{6}([*]{6}|)\\d{4})"
                         }
 
@@ -249,13 +272,17 @@
                     }
                 });
                 if (form.valid() === true) {
-
                     $('#payment-table').dataTable().fnDestroy();
                     var oTable = $('#payment-table').DataTable({
+                        dom: 'lBfrtip',
+                        buttons: [
+                            'copy', 'csv', 'excel', 'print'
+                        ],
                         processing: true,
                         "language": {
                             "url": "/Russian.json"
                         },
+                        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
                         serverSide: true,
                         ajax: {
                             url: '{!! route('get.search.payment') !!}',
@@ -275,7 +302,7 @@
                                 // created_to: $('#request_period_created').val().split(delimiter)[1]//дата создание платежа
                             },
                         },
-                        success: function(result, status) {
+                        success: function (result, status) {
                             self.editing = false;
                             callback.apply(self, [result, settings]);
                             console.log('123');
@@ -283,7 +310,9 @@
                                 $(self).html(settings.placeholder);
                             }
                         },
-                        error:function(data){console.log('success'+data)},
+                        error: function (data) {
+                            console.log('success' + data)
+                        },
                         columns: [
                             {data: 'id', name: 'id'},
                             // {data: 'created', name: 'created'},

@@ -85,6 +85,16 @@
       <path value="$PROJECT_DIR$/vendor/jeroennoten/laravel-adminlte" />
     </include_path>
   </component>
+  <component name="PhpProjectServersManager">
+    <servers>
+      <server host="http://backoffice.loc/" id="d848fe27-3e14-4dfe-aed1-f852b96e1529" name="backoffice.loc" port="8000" use_path_mappings="true">
+        <path_mappings>
+          <mapping local-root="$PROJECT_DIR$" remote-root="/home/vagrant/concord/backoffice" />
+          <mapping local-root="$PROJECT_DIR$/public" remote-root="/home/vagrant/concord/backoffice/public" />
+        </path_mappings>
+      </server>
+    </servers>
+  </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.1" />
   <component name="PhpUnit">
     <phpunit_settings>

@@ -42,6 +42,7 @@
                                     <th> Название</th>
                                     <th> Код</th>
                                     <th> ApplePay</th>
+                                    <th> Hight Risk</th>
                                     <th> Дата изменения</th>
                                     <th> Изменить</th>
                                     <th> Удалить</th>
@@ -128,6 +129,7 @@
                     {data: 'name', name: 'merchant_id'},
                     {data: 'code', name: 'code',},
                     {data: 'applePay', name: 'applePay'},
+                    {data: 'hightRisk', name: 'hightRisk'},
                     {data: 'updated', name: 'updated'},
                     {data: 'view_details', name: 'view_details', searchable: false},
                     {data: 'remove', name: 'remove', searchable: false}

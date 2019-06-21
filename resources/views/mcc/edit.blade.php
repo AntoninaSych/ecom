@@ -31,18 +31,35 @@
                         @endif
                         {!! Form::open(array('url' => route('mcc.update',['id'=>$code->id]),'method' => 'Patch','id'=>'mcc_update')) !!}
                         <div>
-                            {{ Form::label('mcc_name',"Наименование кода" ) }}
-                            {{ Form::text("mcc_name",  $code->name,['class'=>'form-control','id'=>'merchant_identifier']) }}
-                        </div>
-
-                        <div>
                             {{ Form::label('mcc_code',"Код" ) }}
                             {{ Form::text("mcc_code",  $code->code,['class'=>'form-control']) }}
                         </div>
+                        <div>
+                            {{ Form::label('mcc_name',"Навание рус." ) }}
+                            {{ Form::text("mcc_name",  $code->name,['class'=>'form-control','id'=>'mcc_name']) }}
+                        </div>
+                        <div>
+                            {{ Form::label('mcc_name_uk',"Навание укр." ) }}
+                            {{ Form::text("mcc_name_uk",  $code->name_uk,['class'=>'form-control','id'=>'mcc_name_uk']) }}
+                        </div>
+                        <div>
+                            {{ Form::label('mcc_name_en',"Навание анг." ) }}
+                            {{ Form::text("mcc_name_en",  $code->name_en,['class'=>'form-control','id'=>'mcc_name_en']) }}
+                        </div>
+                        <div>
+                            {{ Form::label('mcc_description',"Описание" ) }}
+                            {{ Form::text("mcc_description",  $code->description,['class'=>'form-control','id'=>'mcc_description']) }}
+                        </div>
+
 
                         <div>
                             {{ Form::label('mcc_apple_pay',"Apple Pay status" ) }}
                             {{ Form::select("mcc_apple_pay",  ['1' => 'Активен', '0' => 'Не активен'], $code->apple_pay ,['class'=>'form-control']) }}
+                        </div>
+
+                        <div>
+                            {{ Form::label('mcc_hight_risk',"Hight Risk" ) }}
+                            {{ Form::select("mcc_hight_risk",  ['1' => 'Да', '0' => 'Нет'], $code->hight_risk ,['class'=>'form-control']) }}
                         </div>
 
 

@@ -41,10 +41,15 @@ class OrderTable extends Migration
             $table->integer('assigned')->unsigned()->nullable();
             $table->foreign('assigned')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
 
+            $table->integer('apply_user_id')->unsigned()->nullable();
+            $table->foreign('apply_user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
 
             $table->integer('decline_user_id')->unsigned()->nullable();
             $table->foreign('decline_user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->string('decline_comment',255)->nullable();
+
+            $table->integer('canceled')->nullable();
+
 
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));

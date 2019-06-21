@@ -3,6 +3,10 @@
 
 namespace App\Models;
 
+
+
+use Illuminate\Foundation\Auth\User;
+
 class Orders extends BaseModel
 {
 
@@ -47,5 +51,9 @@ class Orders extends BaseModel
     public function assignedUser()
     {
         return $this->hasOne(Users::class,  'id','assigned');
+    }
+    public function canceledUser()
+    {
+        return $this->hasOne(MerchantUser::class,  'id','canceled');
     }
 }

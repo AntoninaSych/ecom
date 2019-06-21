@@ -30,14 +30,31 @@
                             </div>
                         @endif
                         {!! Form::open(array('url' => route('mcc.store'),'method' => 'post','id'=>'mcc_create')) !!}
-                        <div>
-                            {{ Form::label('mcc_name',"Наименование кода" ) }}
-                            {{ Form::text("mcc_name",  null,['class'=>'form-control','id'=>'merchant_identifier']) }}
-                        </div>
 
                         <div>
                             {{ Form::label('mcc_code',"Код" ) }}
                             {{ Form::text("mcc_code",  null,['class'=>'form-control']) }}
+                        </div>
+                        <div>
+                            {{ Form::label('mcc_name',"Навание рус." ) }}
+                            {{ Form::text("mcc_name",  null,['class'=>'form-control','id'=>'mcc_name']) }}
+                        </div>
+                        <div>
+                            {{ Form::label('mcc_name_uk',"Навание укр." ) }}
+                            {{ Form::text("mcc_name_uk",  null,['class'=>'form-control','id'=>'mcc_name_uk']) }}
+                        </div>
+                        <div>
+                            {{ Form::label('mcc_name_en',"Навание анг." ) }}
+                            {{ Form::text("mcc_name_en", null,['class'=>'form-control','id'=>'mcc_name_en']) }}
+                        </div>
+                        <div>
+                            {{ Form::label('mcc_description',"Описание" ) }}
+                            {{ Form::text("mcc_description", null,['class'=>'form-control','id'=>'mcc_description']) }}
+                        </div>
+
+                        <div>
+                            {{ Form::label('mcc_hight_risk',"Hight Risk" ) }}
+                            {{ Form::select("mcc_hight_risk",  ['1' => 'Да', '0' => 'Нет'], null ,['class'=>'form-control']) }}
                         </div>
 
                         <div>

@@ -1,25 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="afc20378-0627-4734-8966-ca0293b7ee31" name="Default Changelist" comment="registration design updated">
-      <change afterPath="$PROJECT_DIR$/app/Classes/LogicalModels/MccCodeRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Middleware/CanMccCodes.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/Mcc/UpdateMccRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Models/MccCodes.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/mcc/edit.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/mcc/index.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/mcc/show.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/mcc/store.blade.php" afterDir="false" />
+    <list default="true" id="afc20378-0627-4734-8966-ca0293b7ee31" name="Default Changelist" comment="nedd to update with cansele">
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/CanAddUser.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/CanAddUser.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/CanManageUsers.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/CanManageUsers.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/CanViewMerchants.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/CanViewMerchants.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/CanViewPayments.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/CanViewPayments.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/adminlte.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/adminlte.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/merchants/detailed.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/merchants/detailed.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/merchants/view.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/merchants/view.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/payments/payments.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/payments/payments.blade.php" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/vendor/beyondcode/laravel-dump-server/" />
     <ignored path="$PROJECT_DIR$/vendor/composer/" />
@@ -110,6 +95,9 @@
   </component>
   <component name="ComposerSettings" doNotAsk="true">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
+    <execution>
+      <executable />
+    </execution>
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -128,91 +116,89 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MccController.php">
+        <entry file="file://$PROJECT_DIR$/app/Classes/Helpers/OrderStatusHelper.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="13" column="40" selection-start-line="13" selection-start-column="40" selection-end-line="13" selection-end-column="40" />
-              <folding>
-                <element signature="e#41#89#0#PHP" expanded="true" />
-              </folding>
+            <state relative-caret-position="17">
+              <caret line="11" column="23" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="23" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/mcc/store.blade.php">
+        <entry file="file://$PROJECT_DIR$/storage/logs/laravel-2019-06-20.log">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="214">
-              <caret line="31" column="70" selection-start-line="31" selection-start-column="65" selection-end-line="31" selection-end-column="70" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="191">
-              <caret line="553" column="35" selection-start-line="553" selection-start-column="30" selection-end-line="553" selection-end-column="35" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/merchants/detailed.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="458">
-              <caret line="120" column="34" selection-start-line="105" selection-start-column="27" selection-end-line="120" selection-end-column="34" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/mcc/edit.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="249">
-              <caret line="18" column="25" lean-forward="true" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
-              <folding>
-                <element signature="e#1378#1403#0#HTML" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/merchants/view.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="245">
-              <caret line="52" column="18" selection-start-line="52" selection-start-column="18" selection-end-line="52" selection-end-column="18" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Classes/LogicalModels/MccCodeRepository.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="551">
-              <caret line="63" selection-start-line="63" selection-end-line="63" />
-            </state>
+            <state relative-caret-position="-39680" />
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/web.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="449">
-              <caret line="57" column="50" selection-start-line="57" selection-start-column="50" selection-end-line="57" selection-end-column="50" />
-              <folding>
-                <element signature="e#7#389#0#PHP" expanded="true" />
-              </folding>
+            <state relative-caret-position="153">
+              <caret line="18" selection-start-line="18" selection-end-line="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Classes/Filters/StatisticPaymentFilter.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/StatisticController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="338">
+              <caret line="39" column="46" selection-start-line="39" selection-start-column="46" selection-end-line="39" selection-end-column="46" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/resources/views/mcc/index.blade.php">
+        <entry file="file://$PROJECT_DIR$/app/Classes/LogicalModels/PaymentsRepository.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="295">
-              <caret line="18" column="27" lean-forward="true" selection-start-line="18" selection-start-column="27" selection-end-line="18" selection-end-column="27" />
+            <state relative-caret-position="212">
+              <caret line="203" column="83" selection-start-line="203" selection-start-column="83" selection-end-line="203" selection-end-column="83" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Classes/LogicalModels/LogMerchantRequestsRepository.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="544">
+              <caret line="33" column="4" selection-start-line="33" selection-start-column="4" selection-end-line="34" selection-end-column="54" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MerchantInfoController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1853">
+              <caret line="119" column="43" selection-start-line="119" selection-start-column="43" selection-end-line="119" selection-end-column="43" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/database/migrations/2019_04_25_081957_update_with_block_users_table.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="16" column="54" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="54" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/database/migrations/2019_05_29_065027_create_cms_table.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="340">
+              <caret line="23" column="5" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -228,41 +214,46 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>calc</find>
-      <find>The footer of the box</find>
-      <find>getlistByName</find>
+      <find>$this-&gt;</find>
+      <find>each</find>
+      <find>fee_fix</find>
+      <find>refPaymentTypes</find>
+      <find>editPaymentRoute</find>
+      <find>currentRouteForEditModal</find>
+      <find>changeMerchantPaymentRoute</find>
+      <find>searchPayments</find>
+      <find>#modal-add-payment-route</find>
       <find>error</find>
-      <find>validation.required</find>
-      <find>fail</find>
-      <find>auth</find>
-      <find>search-form</find>
-      <find>created</find>
-      <find>merch</find>
+      <find>datatable</find>
+      <find>datata</find>
+      <find>modal-add-payment-route</find>
+      <find>selece</find>
+      <find>icon</find>
+      <find>&lt;i</find>
+      <find>enum</find>
+      <find>merchant_limits</find>
+      <find>merchant-payment-route</find>
+      <find>merchant-accounts-table</find>
+      <find>cardSystem</find>
+      <find>changeMerchantPaymentLimit</find>
+      <find>merchantPaymentTypes</find>
+      <find>ref_limit_types</find>
+      <find>modal-edit-payment-limit</find>
+      <find>add</find>
+      <find>users</find>
+      <find>json</find>
+      <find>jsonb</find>
       <find>request_body</find>
-      <find>moment</find>
-      <find>filterModel</find>
-      <find>Детали</find>
-      <find>getOneById</find>
-      <find>getProcessLog</find>
-      <find>$relations</find>
-      <find>merchant_name</find>
-      <find>merchant_status</find>
-      <find>merchant_user_name</find>
-      <find>getListMerchantStatuses</find>
-      <find>merchant_user_email</find>
-      <find>success</find>
-      <find>has-error</find>
-      <find>has</find>
-      <find>merchant_url</find>
-      <find>user.is.admin</find>
-      <find>Any</find>
-      <find>method</find>
-      <find>field</find>
     </findStrings>
     <dirStrings>
-      <dir>$PROJECT_DIR$/app/Models</dir>
       <dir>$PROJECT_DIR$/app/Http/Controllers/Auth</dir>
       <dir>$PROJECT_DIR$/public</dir>
+      <dir>$PROJECT_DIR$/app/Models</dir>
+      <dir>$PROJECT_DIR$/public/js</dir>
+      <dir>$PROJECT_DIR$/resources/views/merchants</dir>
+      <dir>$PROJECT_DIR$/resources/views/merchants/payment-route</dir>
+      <dir>$PROJECT_DIR$/resources/views/merchants/partials</dir>
+      <dir>$PROJECT_DIR$/database/migrations</dir>
       <dir>$PROJECT_DIR$</dir>
     </dirStrings>
   </component>
@@ -270,67 +261,85 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="update-users" />
       </map>
     </option>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/app/Http/Middleware/CanViewStatistic.php" />
         <option value="$PROJECT_DIR$/app/Classes/Filters/SearchPaymentsFilter.php" />
-        <option value="$PROJECT_DIR$/resources/views/payments/payments.blade.php" />
-        <option value="$PROJECT_DIR$/app/Models/ProcessingLog.php" />
-        <option value="$PROJECT_DIR$/app/Classes/Filters/CardFilter.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" />
-        <option value="$PROJECT_DIR$/config/app.php" />
-        <option value="$PROJECT_DIR$/public/js/config.js" />
-        <option value="$PROJECT_DIR$/resources/views/settings/index.blade.php" />
-        <option value="$PROJECT_DIR$/public/js/user-list.js" />
-        <option value="$PROJECT_DIR$/public/js/libraries/moment/moment.js" />
-        <option value="$PROJECT_DIR$/readme.md" />
-        <option value="$PROJECT_DIR$/database/seeds/PermissionTableSeeder.php" />
-        <option value="$PROJECT_DIR$/app/Classes/LogicalModels/PaymentsRepository.php" />
-        <option value="$PROJECT_DIR$/app/Classes/LogicalModels/CallBackRepository.php" />
-        <option value="$PROJECT_DIR$/app/Exceptions/NotFoundException.php" />
-        <option value="$PROJECT_DIR$/app/Classes/Helpers/PermissionHelper.php" />
-        <option value="$PROJECT_DIR$/app/Exceptions/Handler.php" />
-        <option value="$PROJECT_DIR$/resources/views/payments/view.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/PaymentsController.php" />
-        <option value="$PROJECT_DIR$/app/Http/Requests/Setting/UpdateSettingOverallRequest.php" />
-        <option value="$PROJECT_DIR$/app/Http/Requests/Role/StoreRoleRequest.php" />
-        <option value="$PROJECT_DIR$/app/Classes/LogicalModels/MerchantStatusRepository.php" />
-        <option value="$PROJECT_DIR$/app/Models/Permission.php" />
-        <option value="$PROJECT_DIR$/app/Models/Role.php" />
-        <option value="$PROJECT_DIR$/app/Models/Merchants.php" />
-        <option value="$PROJECT_DIR$/app/Models/MerchantUser.php" />
-        <option value="$PROJECT_DIR$/app/Classes/LogicalModels/MerchantsRepository.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/MerchantController.php" />
-        <option value="$PROJECT_DIR$/public/css/main.css" />
-        <option value="$PROJECT_DIR$/app/Http/Requests/Merchant/UpdateMerchant.php" />
-        <option value="$PROJECT_DIR$/public/js/merchants.js" />
-        <option value="$PROJECT_DIR$/app/Models/MccCodes.php" />
-        <option value="$PROJECT_DIR$/app/Classes/LogicalModels/MccCodesRepository.php" />
-        <option value="$PROJECT_DIR$/app/Http/Middleware/CanMccCodes.php" />
-        <option value="$PROJECT_DIR$/app/Http/Middleware/CanViewPayments.php" />
-        <option value="$PROJECT_DIR$/app/Http/Middleware/CanViewMerchants.php" />
-        <option value="$PROJECT_DIR$/app/Http/Middleware/CanManageUsers.php" />
-        <option value="$PROJECT_DIR$/app/Http/Middleware/CanAddUser.php" />
-        <option value="$PROJECT_DIR$/config/adminlte.php" />
-        <option value="$PROJECT_DIR$/resources/views/mcc/show.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/Kernel.php" />
-        <option value="$PROJECT_DIR$/resources/views/merchants/view.blade.php" />
+        <option value="$PROJECT_DIR$/app/Classes/Filters/StatisticPaymentFilter.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/StatisticController.php" />
+        <option value="$PROJECT_DIR$/resources/views/payments/statistic.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/merchants/payment-route/edit-payment-route-modal.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/merchants/payment-route/add-payment-route-modal.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Requests/Merchant/CreateAccount.php" />
+        <option value="$PROJECT_DIR$/resources/views/merchants/partials/merchant-route.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/merchants/partials/merchant-payment-type.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/merchants/payment-type/add-payment-type-modal.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/merchants/payment-type/edit-payment-type-modal.blade.php" />
+        <option value="$PROJECT_DIR$/database/migrations/2019_05_13_083626_order_field_table.php" />
+        <option value="$PROJECT_DIR$/database/migrations/2019_06_14_115827_create_merchants_attachments_table.php" />
+        <option value="$PROJECT_DIR$/app/Models/MerchantsAttachments.php" />
+        <option value="$PROJECT_DIR$/app/Classes/LogicalModels/MerchantsAttachmentsRepository.php" />
+        <option value="$PROJECT_DIR$/resources/views/merchants/partials/attachments.blade.php" />
+        <option value="$PROJECT_DIR$/database/migrations/2019_05_29_065027_create_cms_table.php" />
+        <option value="$PROJECT_DIR$/database/migrations/2019_06_18_071043_create_limit_types.php" />
+        <option value="$PROJECT_DIR$/database/migrations/2019_05_08_083518_alter_mcc_merchants.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_05_03_081927_create_mcc_table.php" />
-        <option value="$PROJECT_DIR$/app/Http/Requests/Mcc/UpdateMccRequest.php" />
+        <option value="$PROJECT_DIR$/database/seeds/LimitTypesSeeder.php" />
+        <option value="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" />
+        <option value="$PROJECT_DIR$/app/Models/RefLimitType.php" />
+        <option value="$PROJECT_DIR$/database/migrations/2019_06_18_083701_create_merchant_payment_types_unique.php" />
+        <option value="$PROJECT_DIR$/app/Models/MerchantPaymentTypes.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/MerchantLimits.php" />
+        <option value="$PROJECT_DIR$/app/Models/Merchants.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/MerchantController.php" />
         <option value="$PROJECT_DIR$/resources/views/merchants/detailed.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/mcc/edit.blade.php" />
+        <option value="$PROJECT_DIR$/app/Classes/LogicalModels/CardSystem.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/MerchantRoutesController.php" />
+        <option value="$PROJECT_DIR$/resources/views/merchants/payment-limits/payment-limit-list.blade.php" />
+        <option value="$PROJECT_DIR$/app/Classes/LogicalModels/CardSystemRepository.php" />
+        <option value="$PROJECT_DIR$/database/migrations/2019_06_18_071121_create_merchant_limits.php" />
+        <option value="$PROJECT_DIR$/app/Classes/LogicalModels/MerchantLimitsRepository.php" />
+        <option value="$PROJECT_DIR$/app/Models/MerchantPaymentLimits.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/MerchantLimitsController.php" />
+        <option value="$PROJECT_DIR$/resources/views/merchants/payment-limits/edit-payment-limit-modal.blade.php" />
+        <option value="$PROJECT_DIR$/public/js/merchants.js" />
+        <option value="$PROJECT_DIR$/resources/views/merchants/partials/merchant-limits.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/merchants/payment-limits/add-payment-limit-modal.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/payments/search-results.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/vendor/adminlte/master.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/payments/payments.blade.php" />
+        <option value="$PROJECT_DIR$/readme.md" />
+        <option value="$PROJECT_DIR$/app/Classes/LogicalModels/LogMerchantRequestsRepository.php" />
+        <option value="$PROJECT_DIR$/database/migrations/2019_05_23_090722_create_log_merchant_requests_table.php" />
+        <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/routes/web.php" />
-        <option value="$PROJECT_DIR$/resources/views/mcc/store.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/MccController.php" />
-        <option value="$PROJECT_DIR$/app/Classes/LogicalModels/MccCodeRepository.php" />
-        <option value="$PROJECT_DIR$/resources/views/mcc/index.blade.php" />
+        <option value="$PROJECT_DIR$/app/Classes/LogicalModels/PaymentsRepository.php" />
       </list>
     </option>
   </component>
+  <component name="PhpDebugGeneral" xdebug_debug_port="9001" hide_empty_superglobals="false" />
+  <component name="PhpServers">
+    <servers>
+      <server host="backoffice.loc" id="3c3cc89e-c104-4ea1-ba67-550468cbd777" name="backoffice.loc (1)" use_path_mappings="true">
+        <path_mappings>
+          <mapping local-root="$PROJECT_DIR$" remote-root="/home/vagrant/concord/backoffice" />
+          <mapping local-root="$PROJECT_DIR$/public" remote-root="/home/vagrant/concord/backoffice/public" />
+        </path_mappings>
+      </server>
+      <server host="http://backoffice.loc/" id="d848fe27-3e14-4dfe-aed1-f852b96e1529" name="backoffice.loc" port="8000" use_path_mappings="true">
+        <path_mappings>
+          <mapping local-root="$PROJECT_DIR$" remote-root="/home/vagrant/concord/backoffice" />
+          <mapping local-root="$PROJECT_DIR$/public" remote-root="/home/vagrant/concord/backoffice/public" />
+        </path_mappings>
+      </server>
+    </servers>
+  </component>
+  <component name="PhpWebServerValidation" path_to_validation_script="$PROJECT_DIR$" selected_validation_type="LOCAL" web_path_to_validation_script="http://backoffice.loc/:80" />
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/laravel/framework" />
@@ -416,10 +425,10 @@
       <path value="$PROJECT_DIR$/vendor/jeroennoten/laravel-adminlte" />
     </include_path>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
+  <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1680" />
-    <option name="height" value="959" />
+    <option name="height" value="955" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -427,7 +436,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -444,65 +452,7 @@
               <item name="backoffice" type="b2602c69:ProjectViewProjectNode" />
               <item name="backoffice" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="backoffice" type="b2602c69:ProjectViewProjectNode" />
-              <item name="backoffice" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="backoffice" type="b2602c69:ProjectViewProjectNode" />
-              <item name="backoffice" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-              <item name="Requests" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="backoffice" type="b2602c69:ProjectViewProjectNode" />
-              <item name="backoffice" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-              <item name="Requests" type="462c0819:PsiDirectoryNode" />
-              <item name="Merchant" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="backoffice" type="b2602c69:ProjectViewProjectNode" />
-              <item name="backoffice" type="462c0819:PsiDirectoryNode" />
-              <item name="database" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="backoffice" type="b2602c69:ProjectViewProjectNode" />
-              <item name="backoffice" type="462c0819:PsiDirectoryNode" />
-              <item name="database" type="462c0819:PsiDirectoryNode" />
-              <item name="migrations" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="backoffice" type="b2602c69:ProjectViewProjectNode" />
-              <item name="backoffice" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="backoffice" type="b2602c69:ProjectViewProjectNode" />
-              <item name="backoffice" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="backoffice" type="b2602c69:ProjectViewProjectNode" />
-              <item name="backoffice" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="mcc" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="backoffice" type="b2602c69:ProjectViewProjectNode" />
-              <item name="backoffice" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="merchants" type="462c0819:PsiDirectoryNode" />
+              <item name="Classes" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="backoffice" type="b2602c69:ProjectViewProjectNode" />
@@ -513,24 +463,30 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="mysql" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/mcc" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/merchants/payment-limits" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="settings.php.debug.servers" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/public/css/libraries/tree-view" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/resources/views/mcc" />
-      <recent name="$PROJECT_DIR$/app/Http/Requests/Mcc" />
-      <recent name="$PROJECT_DIR$/app/Http/Middleware" />
+      <recent name="$PROJECT_DIR$/resources/views/merchants/payment-limits" />
+      <recent name="$PROJECT_DIR$/resources/views/merchants/partials" />
+      <recent name="$PROJECT_DIR$/app/Models" />
+      <recent name="$PROJECT_DIR$/resources/views/merchants/payment-route" />
       <recent name="$PROJECT_DIR$/app/Classes/LogicalModels" />
-      <recent name="$PROJECT_DIR$/public/js/libraries/tree-view" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/views/merchants" />
+      <recent name="$PROJECT_DIR$/resources/views/merchants/partials/payment-type" />
+      <recent name="$PROJECT_DIR$/resources/views/merchants/partials" />
+      <recent name="$PROJECT_DIR$/public/css/libraries/tree-view" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -545,199 +501,18 @@
       </list>
     </option>
   </component>
+  <component name="RunManager">
+    <configuration name="Backoffice.loc" type="PhpRemoteDebugRunConfigurationType" factoryName="PHP Remote Debug" filter_connections="FILTER" server_name="backoffice.loc" session_id="PHPSHTORM">
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="PhpRemoteDebugRunConfigurationType" factoryName="PHP Remote Debug" filter_connections="FILTER" server_name="http://backoffice.loc" session_id="PHPSHTORM">
+      <method v="2" />
+    </configuration>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
-    <task id="LOCAL-00001" summary="merchants search by name">
-      <created>1554974985669</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1554974985669</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Search (back and front)">
-      <created>1555059290537</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1555059290537</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Payment Page Detailed">
-      <created>1555070041125</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1555070041125</updated>
-    </task>
-    <task id="LOCAL-00004" summary="redirect if not authorized">
-      <created>1555070926472</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1555070926472</updated>
-    </task>
-    <task id="LOCAL-00005" summary="redirect if logout">
-      <created>1555071103750</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1555071103750</updated>
-    </task>
-    <task id="LOCAL-00006" summary="update views&#10;add user-managers page&#10;added error page">
-      <created>1555074863334</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1555074863334</updated>
-    </task>
-    <task id="LOCAL-00007" summary="user page with roles and design">
-      <created>1555079371614</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1555079371614</updated>
-    </task>
-    <task id="LOCAL-00008" summary="user-role page&#10;logout redirect&#10;middlewares changes">
-      <created>1555315499066</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1555315499066</updated>
-    </task>
-    <task id="LOCAL-00009" summary="initial ajax load payments">
-      <created>1555330697325</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1555330697325</updated>
-    </task>
-    <task id="LOCAL-00010" summary="mail in readme">
-      <created>1556104073900</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1556104073900</updated>
-    </task>
-    <task id="LOCAL-00011" summary="icons">
-      <created>1556104493335</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1556104493335</updated>
-    </task>
-    <task id="LOCAL-00012" summary="readme">
-      <created>1556104707075</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1556104707075</updated>
-    </task>
-    <task id="LOCAL-00013" summary="removed register">
-      <created>1556104885846</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1556104885846</updated>
-    </task>
-    <task id="LOCAL-00014" summary="env">
-      <created>1556105240936</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1556105240936</updated>
-    </task>
-    <task id="LOCAL-00015" summary="readme">
-      <created>1556105293615</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1556105293615</updated>
-    </task>
-    <task id="LOCAL-00016" summary="fix">
-      <created>1556113260127</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1556113260127</updated>
-    </task>
-    <task id="LOCAL-00017" summary="added middleware for block_user">
-      <created>1556181385118</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1556181385118</updated>
-    </task>
-    <task id="LOCAL-00018" summary="updated / &#10;updated status user with it block">
-      <created>1556191910469</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1556191910470</updated>
-    </task>
-    <task id="LOCAL-00019" summary="updated /">
-      <created>1556192435748</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1556192435748</updated>
-    </task>
-    <task id="LOCAL-00020" summary="login block to user with 0 status">
-      <created>1556194176162</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1556194176162</updated>
-    </task>
-    <task id="LOCAL-00021" summary="created_date - removed">
-      <created>1556194487330</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1556194487330</updated>
-    </task>
-    <task id="LOCAL-00022" summary="registration design updated">
-      <created>1556195685859</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1556195685860</updated>
-    </task>
-    <task id="LOCAL-00023" summary="merchants in payments view">
-      <created>1556196626709</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1556196626709</updated>
-    </task>
-    <task id="LOCAL-00024" summary="registration design updated">
-      <created>1556196919206</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1556196919206</updated>
-    </task>
-    <task id="LOCAL-00025" summary="merchants">
-      <created>1556201558348</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1556201558348</updated>
-    </task>
-    <task id="LOCAL-00026" summary="details of merchant">
-      <created>1556262043109</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1556262043109</updated>
-    </task>
-    <task id="LOCAL-00027" summary="fix merchants">
-      <created>1556279536292</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1556279536292</updated>
-    </task>
     <task active="true" id="Default" summary="Default task">
       <changelist id="afc20378-0627-4734-8966-ca0293b7ee31" name="Default Changelist" comment="registration design updated" />
       <created>1556282187669</created>
@@ -747,120 +522,432 @@
       <workItem from="1556282192425" duration="6861000" />
       <workItem from="1556299051844" duration="57000" />
       <workItem from="1556778004275" duration="42544000" />
+      <workItem from="1558017323588" duration="752000" />
+      <workItem from="1558345258488" duration="71914000" />
+      <workItem from="1558615541757" duration="10000" />
+      <workItem from="1558621533941" duration="2912000" />
+      <workItem from="1558687462315" duration="22022000" />
+      <workItem from="1559294919988" duration="13164000" />
+      <workItem from="1559560794391" duration="19444000" />
+      <workItem from="1559717192778" duration="6546000" />
+      <workItem from="1559726962378" duration="3251000" />
+      <workItem from="1559735684341" duration="3812000" />
+      <workItem from="1559742311655" duration="42569000" />
+      <workItem from="1560149443767" duration="44449000" />
+      <workItem from="1560412090100" duration="179000" />
+      <workItem from="1560412330337" duration="202000" />
+      <workItem from="1560435810355" duration="17000" />
+      <workItem from="1560513078173" duration="933000" />
+      <workItem from="1560514436921" duration="242000" />
+      <workItem from="1560517791954" duration="3269000" />
+      <workItem from="1560841356538" duration="21427000" />
+      <workItem from="1560950038459" duration="531000" />
+      <workItem from="1560952965121" duration="267000" />
+      <workItem from="1561017236494" duration="602000" />
+      <workItem from="1561030055426" duration="3399000" />
+      <workItem from="1561035610455" duration="969000" />
     </task>
-    <task id="LOCAL-00028" summary="New design on merchant page">
-      <created>1556285567924</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
+    <task id="LOCAL-00041" summary="Отклонение завяки">
+      <created>1558518639371</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
       <option name="project" value="LOCAL" />
-      <updated>1556285567926</updated>
+      <updated>1558518639371</updated>
     </task>
-    <task id="LOCAL-00029" summary="fix date creted removed">
-      <created>1556286185385</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
+    <task id="LOCAL-00042" summary="updated migration">
+      <created>1558531104540</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
       <option name="project" value="LOCAL" />
-      <updated>1556286185385</updated>
+      <updated>1558531104540</updated>
     </task>
-    <task id="LOCAL-00030" summary="new permission&#10;payments log for administrator">
-      <created>1556778426463</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
+    <task id="LOCAL-00043" summary="updated migration">
+      <created>1558603323859</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
       <option name="project" value="LOCAL" />
-      <updated>1556778426463</updated>
+      <updated>1558603323859</updated>
     </task>
-    <task id="LOCAL-00031" summary="styles tabs in view detail payments">
-      <created>1556780513805</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
+    <task id="LOCAL-00044" summary="New status of orders (flow) done">
+      <created>1558609435159</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
       <option name="project" value="LOCAL" />
-      <updated>1556780513805</updated>
+      <updated>1558609435160</updated>
     </task>
-    <task id="LOCAL-00032" summary="payments details done">
-      <created>1556788467472</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
+    <task id="LOCAL-00045" summary="refactoring">
+      <created>1558622030986</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
       <option name="project" value="LOCAL" />
-      <updated>1556788467472</updated>
+      <updated>1558622030986</updated>
     </task>
-    <task id="LOCAL-00033" summary="Date in detail payments with parsing">
-      <created>1556789720446</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
+    <task id="LOCAL-00046" summary="updated mcc table with new columns">
+      <created>1558686372587</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
       <option name="project" value="LOCAL" />
-      <updated>1556789720446</updated>
+      <updated>1558686372587</updated>
     </task>
-    <task id="LOCAL-00034" summary="readme updated">
-      <created>1556793633951</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
+    <task id="LOCAL-00047" summary="updated">
+      <created>1558686477535</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
       <option name="project" value="LOCAL" />
-      <updated>1556793633951</updated>
+      <updated>1558686477535</updated>
     </task>
-    <task id="LOCAL-00035" summary="update Merchant information">
-      <created>1556867200903</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
+    <task id="LOCAL-00048" summary="update account">
+      <created>1558697658042</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
       <option name="project" value="LOCAL" />
-      <updated>1556867200903</updated>
+      <updated>1558697658042</updated>
     </task>
-    <task id="LOCAL-00036" summary="update merchant info">
-      <created>1556871101389</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
+    <task id="LOCAL-00049" summary="updated migration">
+      <created>1558708368065</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
       <option name="project" value="LOCAL" />
-      <updated>1556871101389</updated>
+      <updated>1558708368065</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00050" summary="update account">
+      <created>1558940519346</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1558940519356</updated>
+    </task>
+    <task id="LOCAL-00051" summary="update new flow for existed forms data">
+      <created>1559030281381</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1559030281381</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Add Cms migration and LogRequests Migration&#10;Created new seeds">
+      <created>1559115329953</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1559115329954</updated>
+    </task>
+    <task id="LOCAL-00053" summary="update info">
+      <created>1559313901231</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1559313901232</updated>
+    </task>
+    <task id="LOCAL-00054" summary="fix">
+      <created>1559570469858</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1559570469858</updated>
+    </task>
+    <task id="LOCAL-00055" summary="nedd to update with cansele">
+      <created>1559637976843</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1559637976843</updated>
+    </task>
+    <task id="LOCAL-00056" summary="details merchant">
+      <created>1559638528035</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1559638528035</updated>
+    </task>
+    <task id="LOCAL-00057" summary="log merchant changes into database">
+      <created>1559721707339</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1559721707340</updated>
+    </task>
+    <task id="LOCAL-00058" summary="log other actions into DB">
+      <created>1559722458973</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1559722458973</updated>
+    </task>
+    <task id="LOCAL-00059" summary="temp commit">
+      <created>1559808931616</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1559808931617</updated>
+    </task>
+    <task id="LOCAL-00060" summary="crud Merchant Payment Type">
+      <created>1559916488914</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1559916488914</updated>
+    </task>
+    <task id="LOCAL-00061" summary="nedd to update with cansele">
+      <created>1559916884795</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1559916884795</updated>
+    </task>
+    <task id="LOCAL-00062" summary="fix button value btn">
+      <created>1559917014485</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1559917014485</updated>
+    </task>
+    <task id="LOCAL-00063" summary="fix">
+      <created>1559917084675</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1559917084675</updated>
+    </task>
+    <task id="LOCAL-00064" summary="Temp">
+      <created>1559917953432</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1559917953432</updated>
+    </task>
+    <task id="LOCAL-00065" summary="Роуты платежей добавление ( для мерчанта)&#10;Типы платежей добавление ( для мерчанта)">
+      <created>1560175181962</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1560175181962</updated>
+    </task>
+    <task id="LOCAL-00066" summary="update merchant routes">
+      <created>1560237421359</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1560237421360</updated>
+    </task>
+    <task id="LOCAL-00067" summary="updated">
+      <created>1560237458757</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1560237458757</updated>
+    </task>
+    <task id="LOCAL-00068" summary="statistic">
+      <created>1560254963392</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1560254963392</updated>
+    </task>
+    <task id="LOCAL-00069" summary="design updated">
+      <created>1560256463249</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1560256463249</updated>
+    </task>
+    <task id="LOCAL-00070" summary="nedd to update with cansele">
+      <created>1560257029938</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1560257029938</updated>
+    </task>
+    <task id="LOCAL-00071" summary="statistics">
+      <created>1560257782467</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1560257782467</updated>
+    </task>
+    <task id="LOCAL-00072" summary="for mobile updated">
+      <created>1560258197937</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1560258197937</updated>
+    </task>
+    <task id="LOCAL-00073" summary="updated errors">
+      <created>1560325592822</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1560325592822</updated>
+    </task>
+    <task id="LOCAL-00074" summary="view attachments">
+      <created>1560523037703</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1560523037703</updated>
+    </task>
+    <task id="LOCAL-00075" summary="updates for limits">
+      <created>1560845117493</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1560845117494</updated>
+    </task>
+    <task id="LOCAL-00076" summary="seed updated">
+      <created>1560845966832</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1560845966832</updated>
+    </task>
+    <task id="LOCAL-00077" summary="payment limits must be unique">
+      <created>1560846944509</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1560846944509</updated>
+    </task>
+    <task id="LOCAL-00078" summary="payment_type and merchant_id must be unique">
+      <created>1560847409474</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1560847409474</updated>
+    </task>
+    <task id="LOCAL-00079" summary="nedd to update with cansele">
+      <created>1560865050675</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1560865050675</updated>
+    </task>
+    <task id="LOCAL-00080" summary="save csv">
+      <created>1560925365331</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1560925365331</updated>
+    </task>
+    <task id="LOCAL-00081" summary="nedd to update with cansele">
+      <created>1560926822101</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1560926822101</updated>
+    </task>
+    <task id="LOCAL-00082" summary="some tips">
+      <created>1560953201455</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1560953201455</updated>
+    </task>
+    <task id="LOCAL-00083" summary="long text">
+      <created>1561031223434</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1561031223434</updated>
+    </task>
+    <task id="LOCAL-00084" summary="update with spaces">
+      <created>1561032746129</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1561032746129</updated>
+    </task>
+    <task id="LOCAL-00085" summary="removed">
+      <created>1561032917809</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1561032917809</updated>
+    </task>
+    <task id="LOCAL-00086" summary="add">
+      <created>1561032942727</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1561032942727</updated>
+    </task>
+    <task id="LOCAL-00087" summary="redirect">
+      <created>1561034145647</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1561034145647</updated>
+    </task>
+    <task id="LOCAL-00088" summary="max in query statistics">
+      <created>1561036186177</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1561036186177</updated>
+    </task>
+    <task id="LOCAL-00089" summary="max in query">
+      <created>1561036207571</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1561036207571</updated>
+    </task>
+    <option name="localTasksCounter" value="90" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="147111000" />
+    <option name="totallyTimeSpent" value="422207000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1680" height="1050" extended-state="6" />
-    <editor active="true" />
+    <frame x="0" y="23" width="1680" height="955" extended-state="0" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26434678" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26678878" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32959184" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.6135531" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32959184" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32959184" />
-      <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.3377551" />
-      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.34530708" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.3864469" side_tool="true" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="right" id="Database" order="3" weight="0.32967034" />
     </layout>
     <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25274727" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25152627" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32959184" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.6135531" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32959184" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" />
-      <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info anchor="bottom" id="Terminal" order="10" />
-      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.32959184" />
+      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.30408162" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.3864469" side_tool="true" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="right" id="Database" order="3" weight="0.32967034" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -883,32 +970,32 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="mail in readme" />
-    <MESSAGE value="icons" />
-    <MESSAGE value="removed register" />
-    <MESSAGE value="env" />
-    <MESSAGE value="readme" />
     <MESSAGE value="fix" />
-    <MESSAGE value="added middleware for block_user" />
-    <MESSAGE value="updated / &#10;updated status user with it block" />
-    <MESSAGE value="updated /" />
-    <MESSAGE value="login block to user with 0 status" />
-    <MESSAGE value="created_date - removed" />
-    <MESSAGE value="merchants in payments view" />
-    <MESSAGE value="registration design updated" />
-    <MESSAGE value="merchants" />
-    <MESSAGE value="details of merchant" />
-    <MESSAGE value="fix merchants" />
-    <MESSAGE value="New design on merchant page" />
-    <MESSAGE value="fix date creted removed" />
-    <MESSAGE value="new permission&#10;payments log for administrator" />
-    <MESSAGE value="styles tabs in view detail payments" />
-    <MESSAGE value="payments details done" />
-    <MESSAGE value="Date in detail payments with parsing" />
-    <MESSAGE value="readme updated" />
-    <MESSAGE value="update Merchant information" />
-    <MESSAGE value="update merchant info" />
-    <option name="LAST_COMMIT_MESSAGE" value="update merchant info" />
+    <MESSAGE value="Temp" />
+    <MESSAGE value="Роуты платежей добавление ( для мерчанта)&#10;Типы платежей добавление ( для мерчанта)" />
+    <MESSAGE value="update merchant routes" />
+    <MESSAGE value="updated" />
+    <MESSAGE value="statistic" />
+    <MESSAGE value="design updated" />
+    <MESSAGE value="statistics" />
+    <MESSAGE value="for mobile updated" />
+    <MESSAGE value="updated errors" />
+    <MESSAGE value="view attachments" />
+    <MESSAGE value="updates for limits" />
+    <MESSAGE value="seed updated" />
+    <MESSAGE value="payment limits must be unique" />
+    <MESSAGE value="payment_type and merchant_id must be unique" />
+    <MESSAGE value="save csv" />
+    <MESSAGE value="nedd to update with cansele" />
+    <MESSAGE value="some tips" />
+    <MESSAGE value="long text" />
+    <MESSAGE value="update with spaces" />
+    <MESSAGE value="removed" />
+    <MESSAGE value="add" />
+    <MESSAGE value="redirect" />
+    <MESSAGE value="max in query statistics" />
+    <MESSAGE value="max in query" />
+    <option name="LAST_COMMIT_MESSAGE" value="max in query" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -920,403 +1007,398 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/resources/views/mcc/index.blade.php</url>
-          <line>25</line>
+          <line>43</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/resources/views/mcc/index.blade.php</url>
-          <line>38</line>
-          <option name="timeStamp" value="3" />
+          <url>file://$PROJECT_DIR$/app/Http/Controllers/SettingsController.php</url>
+          <line>44</line>
+          <option name="timeStamp" value="36" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Http/Controllers/SettingsController.php</url>
+          <line>45</line>
+          <option name="timeStamp" value="37" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="evaluateExpression">
+      <expression>
+        <expression-string>$_COOKIE</expression-string>
+        <language-id>PHP</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/Models/PaymentType.php">
+    <entry file="file://$PROJECT_DIR$/database/migrations/2019_06_18_083701_create_merchant_payment_types_unique.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Models/PaymentStatus.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Models/Payments.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="8" column="6" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Models/MerchantType.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Classes/LogicalModels/MerchantStatusRepository.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="466">
-          <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
-          <folding>
-            <element signature="e#47#84#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="510">
+          <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Models/MerchantUser.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/vendor/adminlte/register.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="16" lean-forward="true" selection-start-line="8" selection-end-line="14" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/UsersController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="142">
-          <caret line="15" column="18" lean-forward="true" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Models/Users.php">
-      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
-          <caret line="6" column="18" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Models/MerchantStatus.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="5" lean-forward="true" selection-start-column="5" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/css/app.css">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/css/main.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/payment.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/payments/search-results.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-44">
-          <caret line="1" column="47" lean-forward="true" selection-start-line="1" selection-start-column="47" selection-end-line="1" selection-end-column="47" />
-          <folding>
-            <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/payments/view.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="217" column="20" lean-forward="true" selection-start-line="217" selection-start-column="20" selection-end-line="217" selection-end-column="20" />
+          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Models/Merchants.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="21" column="5" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
+        <state relative-caret-position="187">
+          <caret line="11" column="115" selection-start-line="11" selection-start-column="115" selection-end-line="11" selection-end-column="115" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Classes/LogicalModels/MerchantsRepository.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MerchantController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="534">
-          <caret line="78" column="1" lean-forward="true" selection-start-line="78" selection-start-column="1" selection-end-line="78" selection-end-column="1" />
+        <state relative-caret-position="288">
+          <caret line="74" column="55" selection-start-line="74" selection-start-column="55" selection-end-line="74" selection-end-column="55" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Requests/Merchant/UpdateMerchant.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/merchants/detailed.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="32" column="43" selection-start-line="32" selection-start-column="43" selection-end-line="32" selection-end-column="43" />
-          <folding>
-            <element signature="e#46#87#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="373">
+          <caret line="95" column="63" selection-start-line="95" selection-start-column="45" selection-end-line="95" selection-end-column="63" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/merchants.js">
+    <entry file="file://$PROJECT_DIR$/resources/views/merchants/payment-route/merchant-payment-route-list.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="30" column="39" lean-forward="true" selection-start-line="30" selection-start-column="39" selection-end-line="30" selection-end-column="39" />
+        <state relative-caret-position="374">
+          <caret line="22" column="42" selection-start-line="22" selection-start-column="19" selection-end-line="22" selection-end-column="42" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/merchants/partials/merchant-route.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="23" column="11" lean-forward="true" selection-start-line="15" selection-start-column="7" selection-end-line="23" selection-end-column="11" />
+        <state relative-caret-position="255">
+          <caret line="15" column="22" lean-forward="true" selection-start-line="14" selection-start-column="12" selection-end-line="15" selection-end-column="22" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Models/CallbackLog.php">
+    <entry file="file://$PROJECT_DIR$/storage/framework/views/4d62776686b90e4c9fdf046121b0bc413fb9e438.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="1" lean-forward="true" selection-start-line="6" selection-start-column="18" selection-end-line="9" selection-end-column="1" />
+        <state relative-caret-position="819">
+          <caret line="159" column="8" selection-start-line="159" selection-start-column="8" selection-end-line="159" selection-end-column="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Models/MccCodes.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Middleware/CanMccCodes.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
-          <folding>
-            <element signature="e#39#80#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Middleware/CanManageUsers.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="87" selection-start-line="21" selection-start-column="87" selection-end-line="21" selection-end-column="87" />
-          <folding>
-            <element signature="e#39#80#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Middleware/CanAddUser.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
-          <folding>
-            <element signature="e#39#80#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Middleware/CanViewPayments.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="88" selection-start-line="20" selection-start-column="88" selection-end-line="20" selection-end-column="88" />
-          <folding>
-            <element signature="e#39#80#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Middleware/CheckForMaintenanceMode.php">
+    <entry file="file://$PROJECT_DIR$/app/Models/CardSystems.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Middleware/IsBlockUser.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/merchants/payment-route/edit-payment-route-modal.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+        <state relative-caret-position="543">
+          <caret line="32" column="44" selection-end-line="61" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Middleware/RedirectIfAuthenticated.php">
+    <entry file="file://$PROJECT_DIR$/app/Models/MerchantPaymentRoute.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
-          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
+          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Middleware/RedirectIfNotAdmin.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/merchants/partials/merchant-payment-type.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="7" column="16" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
+        <state relative-caret-position="34">
+          <caret line="2" column="1" selection-start-line="2" selection-start-column="1" selection-end-line="6" selection-end-column="14" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Middleware/CanViewMerchants.php">
+    <entry file="file://$PROJECT_DIR$/app/Classes/LogicalModels/CardSystemRepository.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="5" lean-forward="true" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
-          <folding>
-            <element signature="e#39#80#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="221">
+          <caret line="13" column="5" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Classes/Helpers/PermissionHelper.php">
+    <entry file="file://$PROJECT_DIR$/database/migrations/2019_06_18_071121_create_merchant_limits.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="36" lean-forward="true" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/adminlte.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="103">
-          <caret line="140" column="40" lean-forward="true" selection-start-line="140" selection-start-column="40" selection-end-line="140" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/mcc/show.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/mcc/show.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="4" lean-forward="true" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Kernel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="75" column="23" selection-start-line="75" selection-start-column="9" selection-end-line="75" selection-end-column="23" />
-          <folding>
-            <element signature="e#28#64#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_04_08_112927_entrust_setup_tables.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_04_25_081957_update_with_block_users_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_05_03_081927_create_mcc_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="25" column="5" lean-forward="true" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
+        <state relative-caret-position="357">
+          <caret line="21" selection-start-line="21" selection-end-line="21" />
           <folding>
             <element signature="e#7#41#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/payments/payments.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/Models/MerchantPaymentTypes.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1315">
-          <caret line="165" column="10" lean-forward="true" selection-start-line="10" selection-end-line="165" selection-end-column="10" />
+        <state relative-caret-position="544">
+          <caret line="32" column="51" selection-start-line="32" selection-start-column="51" selection-end-line="32" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MerchantPaymentTypeController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="921">
+          <caret line="82" column="5" selection-start-line="82" selection-start-column="5" selection-end-line="82" selection-end-column="5" />
           <folding>
-            <element signature="n#div#0;n#!!top" />
-            <element signature="n#div#1;n#!!top" />
+            <element signature="e#41#77#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/merchants/view.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/Classes/LogicalModels/MerchantPaymentTypeRepository.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
-          <caret line="52" column="18" selection-start-line="52" selection-start-column="18" selection-end-line="52" selection-end-column="18" />
+        <state relative-caret-position="71">
+          <caret line="12" column="6" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MerchantController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="449">
-          <caret line="104" column="99" selection-start-line="104" selection-start-column="7" selection-end-line="104" selection-end-column="99" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="553" column="35" selection-start-line="553" selection-start-column="30" selection-end-line="553" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Requests/Mcc/UpdateMccRequest.php">
+    <entry file="file://$PROJECT_DIR$/app/Classes/LogicalModels/MerchantPaymentRouteRepository.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
-          <caret line="24" column="26" selection-start-line="24" selection-start-column="26" selection-end-line="24" selection-end-column="26" />
+          <caret line="23" selection-start-line="23" selection-end-line="27" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/merchants/detailed.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/Classes/LogicalModels/MerchantLimitsRepository.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="458">
-          <caret line="120" column="34" selection-start-line="105" selection-start-column="27" selection-end-line="120" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/mcc/edit.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="18" column="25" lean-forward="true" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
+        <state relative-caret-position="612">
+          <caret line="36" column="34" selection-start-line="36" selection-start-column="34" selection-end-line="36" selection-end-column="34" />
           <folding>
-            <element signature="e#1378#1403#0#HTML" expanded="true" />
+            <element signature="e#47#84#0#PHP" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Models/RefLimitType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="39" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Models/MerchantPaymentLimits.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="29" column="1" selection-start-line="29" selection-start-column="1" selection-end-line="29" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MerchantRoutesController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="760">
+          <caret line="110" column="5" selection-start-line="72" selection-start-column="1" selection-end-line="110" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MerchantLimitsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="559">
+          <caret line="120" column="88" selection-start-line="120" selection-start-column="88" selection-end-line="120" selection-end-column="88" />
+          <folding>
+            <element signature="e#42#78#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/merchants/payment-limits/edit-payment-limit-modal.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="70" selection-start-line="9" selection-start-column="70" selection-end-line="9" selection-end-column="70" />
+          <folding>
+            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/merchants/payment-limits/payment-limit-list.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="428">
+          <caret line="34" column="62" selection-start-line="34" selection-start-column="52" selection-end-line="34" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/merchants.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="599" column="36" selection-start-line="599" selection-start-column="36" selection-end-line="599" selection-end-column="36" />
+          <folding>
+            <element signature="n#!!block;n#loadAccounts#0" />
+            <element signature="n#!!block;n#loadMerchantPaymentType#0" />
+            <element signature="n#!!block;n#addAccount#0" />
+            <element signature="n#!!block;n#addPaymentType#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/merchants/partials/merchant-limits.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="93" selection-start-line="7" selection-start-column="93" selection-end-line="7" selection-end-column="93" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/merchants/payment-limits/add-payment-limit-modal.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="680">
+          <caret line="40" column="18" selection-start-line="40" selection-start-column="18" selection-end-line="40" selection-end-column="18" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/payments/payments.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3927">
+          <caret line="231" column="32" selection-start-line="231" selection-start-column="32" selection-end-line="231" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/vendor/adminlte/page.blade.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/payments/search-results.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="9" selection-start-line="13" selection-start-column="9" selection-end-line="13" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/layouts/app.blade.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/vendor/adminlte/master.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PaymentsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1700">
+          <caret line="114" column="16" selection-start-line="114" selection-start-column="16" selection-end-line="114" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/readme.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="845">
+            <caret line="162" column="2" selection-start-line="162" selection-start-column="2" selection-end-line="162" selection-end-column="28" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/composer-develop.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/composer.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-318" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="25" selection-start-line="25" selection-end-line="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="36" selection-start-line="36" selection-end-line="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/app.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="782">
+          <caret line="46" column="18" selection-start-line="46" selection-start-column="18" selection-end-line="46" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2019_05_23_090722_create_log_merchant_requests_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="27" column="11" selection-start-line="27" selection-start-column="11" selection-end-line="27" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Classes/LogicalModels/LogMerchantRequestsRepository.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="33" column="4" selection-start-line="33" selection-start-column="4" selection-end-line="34" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MerchantInfoController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1853">
+          <caret line="119" column="43" selection-start-line="119" selection-start-column="43" selection-end-line="119" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2019_04_25_081957_update_with_block_users_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="16" column="54" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2019_05_29_065027_create_cms_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="23" column="5" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Classes/Helpers/OrderStatusHelper.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="11" column="23" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/storage/logs/laravel-2019-06-20.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-39680" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Classes/Filters/StatisticPaymentFilter.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/StatisticController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="338">
+          <caret line="39" column="46" selection-start-line="39" selection-start-column="46" selection-end-line="39" selection-end-column="46" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/web.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="449">
-          <caret line="57" column="50" selection-start-line="57" selection-start-column="50" selection-end-line="57" selection-end-column="50" />
-          <folding>
-            <element signature="e#7#389#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="153">
+          <caret line="18" selection-start-line="18" selection-end-line="18" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/mcc/store.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/Classes/LogicalModels/PaymentsRepository.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="31" column="70" selection-start-line="31" selection-start-column="65" selection-end-line="31" selection-end-column="70" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Classes/LogicalModels/MccCodeRepository.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="551">
-          <caret line="63" selection-start-line="63" selection-end-line="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MccController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="13" column="40" selection-start-line="13" selection-start-column="40" selection-end-line="13" selection-end-column="40" />
-          <folding>
-            <element signature="e#41#89#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/mcc/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="18" column="27" lean-forward="true" selection-start-line="18" selection-start-column="27" selection-end-line="18" selection-end-column="27" />
+        <state relative-caret-position="212">
+          <caret line="203" column="83" selection-start-line="203" selection-start-column="83" selection-end-line="203" selection-end-column="83" />
         </state>
       </provider>
     </entry>

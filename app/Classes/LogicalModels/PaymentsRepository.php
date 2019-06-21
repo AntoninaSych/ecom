@@ -6,6 +6,7 @@ namespace App\Classes\LogicalModels;
 
 use App\Classes\Filters\CardFilter;
 use App\Classes\Filters\SearchPaymentsFilter;
+use App\Classes\Filters\StatisticPaymentFilter;
 use App\Exceptions\NotFoundException;
 use App\Models\Merchants;
 use App\Models\Payments;
@@ -160,5 +161,58 @@ class PaymentsRepository
         }
 
         return $processingLog;
+    }
+
+    public function getStatistic(StatisticPaymentFilter $filter = null)
+    {
+
+        $query = DB::table($this->payments->getTable() . ' as payments')
+            ->select(
+                'payments.id',
+                'payments.updated',
+                'payments.amount',
+                'payments.status',
+                'payments.merchant_id',
+                'mer.name'
+            )
+            ->leftjoin($this->merchants->getTable() . ' as mer', 'payments.merchant_id', '=', 'mer.id');
+
+        if (!is_null($filter)) {
+            if ($filter->updatedTo != null && $filter->updatedFrom != null) {
+                $start_date = Carbon::createFromFormat('Y-m-d', $filter->updatedFrom)->startOfDay()->toDateTimeString();
+                $end_date = Carbon::createFromFormat('Y-m-d', $filter->updatedTo)->endOfDay()->toDateTimeString();
+                $query = $query->whereBetween('payments.updated', [$start_date, $end_date]);
+            }
+        }
+
+
+        $query = $query->where('payments.status', 7);
+
+
+        $results = $query->sum('payments.amount');
+        return $results;
+    }
+
+    public function top10ByMerchants(StatisticPaymentFilter $filter = null)
+    {
+        if (is_null($filter)) {
+
+            $query = DB::select('select merchants.name,   sum(payments.amount) as summa from payments left JOIN merchants
+ON  merchants.id = payments.merchant_id   where payments.status = 7 group By payments.merchant_id  ORDER BY summa DESC   limit 10');
+
+        } else {
+            $query = DB::table($this->payments->getTable())
+                ->leftjoin($this->merchants->getTable(), 'payments.merchant_id', '=', 'merchants.id')
+                ->select(DB::raw('merchants.name, sum(payments.amount) as summa'));
+            $start_date = Carbon::createFromFormat('Y-m-d', $filter->updatedFrom)->startOfDay()->toDateTimeString();
+            $end_date = Carbon::createFromFormat('Y-m-d', $filter->updatedTo)->endOfDay()->toDateTimeString();
+            $query = $query->whereBetween('payments.updated', [$start_date, $end_date]);
+            $query = $query->where('payments.status', 7);
+            $query = $query->groupBy('payments.merchant_id');
+            $query = $query->orderBy('summa', 'desc');
+            $query = $query->limit(10)->get();
+        }
+
+        return $query;
     }
 }

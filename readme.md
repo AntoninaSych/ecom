@@ -104,8 +104,61 @@ Behavior:
   - Only with 'merchant-view'  permission user can view merchants page and it details
   - Only with 'process-log-view'  permission user can view PaymentLog tabin payment's details page
   
+---------
+По мерчантам есть статусы:
+ - Новый   - мерчант создан 
+ - Тестовый - мерчант создан и заполнил анкету
+ - Активен - мерчант создан, заполнил анкету и прошел проверку сперва у фрод, безопасность и бизнес отделов
+ - Приостановлен - следует уточнить кто имеет право
+ - Заблокирован - следует уточнить кто имеет право
+ 
+----------------------- 
+ Прилетает ордер с TESTED статутусом проходит FLOW:
+ - Fraud отдел(роль)
+ - Secure отдел(роль)
+ - Business отдел(роль)
+ После прохождения проверки статус меняется на ACTIVE
+ 
+ 
+Прилетает ордер с Active статусом проходит FLOW:
+  - Business отдел (роль) и отображается только в этом отделе
+После прохождения проверки статус меняется на ACTIVE  
 
- 
- 
- 
+Есть архив для просмотра всех заявок
 
+Разделы доступны по роли ( бизнес, фрод и безопасность)
+----------
+
+Админ может добавлять в merchant_pament_types
+где free_proc - процентная комиссия за платеж
+где free_fix - фиксированная комиссия за платеж
+связка merchant_id и payment_type уникальная связка
+
+Отображать роуты из таблицы `payment_routes` ref_payment_types
+
+payment_routes --  payment_type
+
+merchant_routes -- payment_routes
+
+fee_type
+1 комиссия с мерчента
+2 комиссия с клиента
+
+-------
+раздел статистика доступен для пермишена view-statistic
+общая сумма платежей в разрезе ref_payment_type успешного
+Успешный считается тот у которго статус 7 и если payment_type = 4 и payment_status = 4 тоже считается успешным
+это Verify
+Статистика отображает 
+за все время по всем
+за день по всем
+за месяц ( текущий, прошлый)
+
+По мерчантам успешные платежи Топ 10
+ 
+ 
+ DON't forget for magic things:
+ - php artisan migrate:refresh --seed
+ - composer dump-autoload
+ - php artisan config:cache  
+ - composer update

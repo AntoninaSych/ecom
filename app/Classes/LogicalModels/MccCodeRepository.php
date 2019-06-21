@@ -49,8 +49,12 @@ class MccCodeRepository
         $code = $this->getOne($id);
 
         $code->name = $request->get('mcc_name');
+        $code->name_uk = $request->get('mcc_name_uk');
+        $code->name_en = $request->get('mcc_name_en');
+        $code->description = $request->get('mcc_description');
         $code->code = $request->get('mcc_code');
         $code->apple_pay = $request->get('mcc_apple_pay');
+        $code->hight_risk = $request->get('mcc_hight_risk');
         $code->save();
     }
 
@@ -58,8 +62,12 @@ class MccCodeRepository
     {
         $code = new MccCodes();
         $code->name = $request->get('mcc_name');
+        $code->name_uk = $request->get('mcc_name_uk');
+        $code->name_en = $request->get('mcc_name_en');
+        $code->description = $request->get('mcc_description');
         $code->code = $request->get('mcc_code');
         $code->apple_pay = $request->get('mcc_apple_pay');
+        $code->hight_risk = $request->get('mcc_hight_risk');
         $code->save();
 
     }

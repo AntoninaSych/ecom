@@ -11,6 +11,8 @@ class MerchantAccount extends BaseModel
     protected $table = 'merchant_account';
     public $timestamps = false;
     protected $with = ['merchant'];
+    protected $fillable = ['mfo', 'ed_rpo', 'checking_account', 'merchant_id'];
+
 
     public function merchant()
     {

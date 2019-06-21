@@ -5,10 +5,66 @@
 @section('content_header')
     <h1>Информация о мерчантe</h1>
 @stop
+<style>
 
+    .wrap {
+        position: relative;
+        /*width: 33.33%;*/
+        /*margin: -72px 0;*/
+        /*top: 50%;*/
+        /*float: left;*/
+    }
+
+    input[type="checkbox"] + label {
+        margin: 1.5em auto;
+    }
+
+    input[type="checkbox"] {
+        display: none;
+        /*position: absolute;*/
+        /*left: -9999px;*/
+    }
+
+    .slider-v2::after {
+        position: absolute;
+        content: '';
+        width: 2em;
+        height: 2em;
+        top: 0.5em;
+        left: 0.5em;
+        border-radius: 50%;
+        transition: 250ms ease-in-out;
+        background: linear-gradient(#f5f5f5 10%, #eeeeee);
+        box-shadow: 0 0.1em 0.15em -0.05em rgba(255, 255, 255, 0.9) inset, 0 0.2em 0.2em -0.12em rgba(0, 0, 0, 0.5);
+    }
+
+    .slider-v2::before {
+        position: absolute;
+        content: '';
+        width: 4em;
+        height: 1.5em;
+        top: 0.75em;
+        left: 0.75em;
+        border-radius: 0.75em;
+        transition: 250ms ease-in-out;
+        background: linear-gradient(rgba(0, 0, 0, 0.07), rgba(255, 255, 255, 0.1)), #d0d0d0;
+        box-shadow: 0 0.08em 0.15em -0.1em rgba(0, 0, 0, 0.5) inset, 0 0.05em 0.08em -0.01em rgba(255, 255, 255, 0.7), 0 0 0 0 rgba(68, 204, 102, 0.7) inset;
+    }
+
+    input:checked + .slider-v2::before {
+        box-shadow: 0 0.08em 0.15em -0.1em rgba(0, 0, 0, 0.5) inset, 0 0.05em 0.08em -0.01em rgba(255, 255, 255, 0.7), 3em 0 0 0 rgba(68, 204, 102, 0.7) inset;
+    }
+
+    input:checked + .slider-v2::after {
+        left: 3em;
+    }
+
+
+</style>
 
 @section('content')
     <?php
+
     $relations = $merchant->getRelations();
     ?>
 
@@ -21,193 +77,75 @@
                 <li class=""><a href="#settings" data-toggle="tab" aria-expanded="false">Настройки</a></li>
 
 
-            <li class=""><a href="#refound" id="ref_a" data-toggle="tab" aria-expanded="false" onclick="loadAccounts()">Возмещение</a>
-            </li>
+                <li class=""><a href="#refound" id="ref_a" data-toggle="tab" aria-expanded="false"
+                                onclick="loadAccounts()">Возмещение</a>
+
+                @if( Auth::user()->can(PermissionHelper::MANAGE_MERCHANT_PAYMENT_TYPE) )
+                    <li class=""><a href="#payment-type" id="ref_a" data-toggle="tab" aria-expanded="false"
+                                    onclick="loadMerchantPaymentType()">Типы платежей</a>
+                    </li>
+                @endif
+
+                @if( Auth::user()->can(PermissionHelper::MANAGE_MERCHANT_ROUTE) )
+                    <li class=""><a href="#payment-route" data-toggle="tab" aria-expanded="false"
+                                    onclick="loadMerchantRoutes()">Роут платежей</a>
+                    </li>
+                @endif
+
+                    <li class=""><a href="#limits" data-toggle="tab" aria-expanded="false"
+                                    onclick="loadMerchantLimits()">Лимиты платежей</a>
+                    </li>
+
+
+                <li class=""><a href="#attachments" data-toggle="tab" aria-expanded="false">Файлы</a>
+                </li>
+
             @endif
 
             <li class="pull-left header"><i class="fa fa-inbox"></i> Информация о мерчантe</li>
         </ul>
         <div class="tab-content no-padding">
+
             {{--               Merchant's details begin--}}
-            <div id="main-information" class="tab-pane active">
-                <div class="box">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">{{$merchant->name}}</h3>
-                        <div class="box-tools pull-right">
-                            <!-- Buttons, labels, and many other things can be placed here! -->
-                            <!-- Here is a label for example -->
-                         </div>
-                        <!-- /.box-tools -->
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body col-md-6">
-                        <table class="table">
-                            <tr>
-                                <td>Идентификатор мерчанта</td>
-                                <td>{{$merchant->merchant_id}}</td>
-                            </tr>
-                            <tr>
-                                <td>Имя</td>
-                                <td>{{$merchant->name}}</td>
-                            </tr>
-                            <tr>
-                                <td>URL</td>
-                                <td><a href="{{$merchant->url}}">{{$merchant->url}}</a></td>
-                            </tr>
-                            <tr>
-                                <td>Статус</td>
-                                <td>{{$relations['status']->name}}</td>
-                            </tr>
-                            <tr>
-                                <td>Имя мерчанта</td>
-                                <td>
-                                    {{$relations['user']->username}}<br>
-
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Email</td>
-                                <td>
-                                    {{$relations['user']->email}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Дата обновления</td>
-                                <td>{{$merchant->updated}}</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <!-- /.box-body -->
-                    <div class="box-footer">
-
-                    </div>
-                    <!-- box-footer -->
-                </div>
-            </div>
+            @include('merchants.partials.merchant-detail')
             {{--               Merchant's detailsvend--}}
-
-
 
             {{--               Settings detailsvend--}}
             @if( Auth::user()->can(PermissionHelper::MANAGE_MERCHANT) )
-                <div id="settings" class="tab-pane ">
-                    <div class="box">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">{{$merchant->name}}</h3>
-                            <div class="box-tools pull-right">
-                                <!-- Buttons, labels, and many other things can be placed here! -->
-                                <!-- Here is a label for example -->
-
-                            </div>
-                            <!-- /.box-tools -->
-                        </div>
-                        <!-- /.box-header -->
-
-                        <div class="box-body col-md-6">
-
-                            @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
-                            @if (\Session::has('success'))
-                                <div class="alert alert-success">
-                                    <ul>
-                                        <li>{!! \Session::get('success') !!}</li>
-                                    </ul>
-                                </div>
-                            @endif
-
-                            {!! Form::open(array('url' => route('merchant.update',['id'=>$merchant->id]),'method' => 'POST','id'=>'merchant_update')) !!}
-                            <div>
-                                {{ Form::label('merchant_identifier',"Идентификатор мерчанта" ) }}
-                                {{ Form::text("merchant_identifier",  $merchant->merchant_id,['class'=>'form-control','id'=>'merchant_identifier']) }}
-                            </div>
-
-                            <div>
-                                {{ Form::label('merchant_name',"Имя" ) }}
-                                {{ Form::text("merchant_name",  $merchant->name,['class'=>'form-control']) }}
-                            </div>
-
-                            <div>
-                                {{ Form::label("merchant_url", "URL" ) }}
-                                {{ Form::text("merchant_url",  $merchant->url,['class'=>'form-control']) }}
-                            </div>
-
-                            <div>
-                                {{ Form::label("merchant_status","Статус"  ) }}
-
-                                {{ Form::select("merchant_status", $arrayMerchantStatuses->toArray(), $relations['status']->id ,
-                                ['class'=>'form-control']) }}
-                            </div>
-
-                            <div>
-                                {{ Form::label("merchant_user_name", "Имя мерчанта" ) }}
-                                {{ Form::text("merchant_user_name",  $relations['user']->username,['class'=>'form-control']) }}
-                            </div>
-
-                            <div>
-                                {{ Form::label("merchant_user_email", "Email мерчанта" ) }}
-                                {{ Form::text("merchant_user_email",  $relations['user']->email,['class'=>'form-control']) }}
-                            </div>
-                            <?php
-                            $new_arr = [0 => 'Пожалуйста сделайте выбор'];
-
-                            foreach ($codes as $key => $value) {
-                             $new_arr[$key] = $value;
-                            }
-
-                            ?>
-                            <div>
-                                {{ Form::label("mcc_id", "Mcc code" ) }}
-                                {{ Form::select("mcc_id",   $new_arr, $merchant->mcc_id , ['class'=>'form-control']) }}
-                            </div>
-
-                            <div>
-                                {{Form::submit('Обновить данные мерчанта',['class'=>'form-control btn btn-primary','id'=>'submit_btn'])}}
-                            </div>
-                            {!! Form::close() !!}
-
-                        </div>
-                        <!-- /.box-body -->
-                        <div class="box-footer">
-
-                        </div>
-                        <!-- box-footer -->
-                    </div>
-                </div>
+                @include('merchants.partials.merchant-edit')
             @endif
             {{--Settings detailsvend--}}
 
-
-            {{--Refound detailsvend--}}
+            {{--Attachments details begin--}}
             @if( Auth::user()->can(PermissionHelper::MANAGE_MERCHANT) )
-                <div id="refound" class="tab-pane">
-                    <div class="box">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">{{$merchant->name}}</h3>
-                            <div class="box-tools pull-right">
-                                <!-- Buttons, labels, and many other things can be placed here! -->
-                                <!-- Here is a label for example -->
-                             </div>
-                            <!-- /.box-tools -->
-                        </div>
-                        <!-- /.box-header -->
-                        <div class="box-body" id="refound-box">
-                            @include('merchants.account', ['merchant' => $merchant])
-                        </div>
-                        <!-- /.box-body -->
-                        <div class="box-footer">
-                        </div>
-                        <!-- box-footer -->
-                    </div>
-                </div>
+                @include('merchants.partials.attachments')
             @endif
-            {{--Refound detailsvend--}}
+            {{--Attachments details end--}}
+
+
+            {{--Account details begin--}}
+            @if( Auth::user()->can(PermissionHelper::MANAGE_MERCHANT) )
+                @include('merchants.partials.merchant-account')
+            @endif
+            {{--Account details end--}}
+
+            {{--Account details begin--}}
+            @if( Auth::user()->can(PermissionHelper::MANAGE_MERCHANT) )
+                @include('merchants.partials.merchant-limits')
+            @endif
+            {{--Account details end--}}
+
+            {{--PaymentType details begin--}}
+            @if( Auth::user()->can(PermissionHelper::MANAGE_MERCHANT) && Auth::user()->can(PermissionHelper::MANAGE_MERCHANT_PAYMENT_TYPE))
+                @include('merchants.partials.merchant-payment-type')
+            @endif
+            {{--PaymentType details end--}}
+
+            {{--PaymentType details begin--}}
+            @if( Auth::user()->can(PermissionHelper::MANAGE_MERCHANT) && Auth::user()->can(PermissionHelper::MANAGE_MERCHANT_ROUTE))
+                @include('merchants.partials.merchant-route')
+            @endif
+            {{--PaymentType details end--}}
 
         </div>
     </div>

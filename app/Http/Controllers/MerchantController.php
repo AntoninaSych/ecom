@@ -4,17 +4,19 @@
 namespace App\Http\Controllers;
 
 
-use App\Classes\Filters\SearchPaymentsFilter;
 use App\Classes\Helpers\ApiResponse;
 use App\Classes\Helpers\ValidatorHelper;
-use App\Classes\LogicalModels\CallBackRepository;
+use App\Classes\LogicalModels\LogMerchantRequestsRepository;
 use App\Classes\LogicalModels\MccCodeRepository;
+use App\Classes\LogicalModels\MerchantInfoRepository;
+use App\Classes\LogicalModels\MerchantsAttachmentsRepository;
 use App\Classes\LogicalModels\MerchantsRepository;
 use App\Classes\LogicalModels\MerchantStatusRepository;
-use App\Exceptions\NoDataFoundException;
 use App\Exceptions\NotFoundException;
 use App\Http\Requests\Merchant\UpdateMerchant;
+use App\Models\MerchantsAttachments;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -24,15 +26,22 @@ class MerchantController extends Controller
     public $request;
     public $statuses;
     public $codes;
+    public $merchantInfo;
+    public $attachments;
 
     public function __construct(MerchantsRepository $merchantsRepository,
                                 Request $request,
-                                MerchantStatusRepository $statuses, MccCodeRepository $codes)
+                                MerchantStatusRepository $statuses,
+                                MccCodeRepository $codes,
+                                MerchantInfoRepository $merchantInfoRepository,
+                                MerchantsAttachmentsRepository $attachments)
     {
         $this->merchants = $merchantsRepository;
         $this->request = $request;
         $this->statuses = $statuses;
         $this->codes = $codes;
+        $this->merchantInfo = $merchantInfoRepository;
+        $this->attachments = $attachments;
     }
 
     public function getlistByName()
@@ -73,16 +82,22 @@ class MerchantController extends Controller
         });
 
 
+        $attachments = $this->attachments->getList($id);
+        $merchantInfo = $this->merchantInfo->getMerchantInfo($merchant->id);
+
         return view('merchants.detailed')->with([
             'merchant' => $merchant,
             'arrayMerchantStatuses' => $arrayMerchantStatuses,
-            'codes'=>$mcc_codes
+            'codes' => $mcc_codes,
+            'merchantInfo' => $merchantInfo,
+            'attachments' => $attachments
         ]);
     }
 
     public function update(UpdateMerchant $updateMerchant, int $id)
     {
         $this->merchants->updateOverall($updateMerchant, $id);
+        LogMerchantRequestsRepository::log($id, $updateMerchant, ['action' => 'update', 'user' => Auth::user(), 'status' => 'Изменение данных мерчанта.']);
 
         return redirect()->back()->with('success', 'Мерчант  с ID  ' . $id . ' успешно обновлен.');
 
@@ -115,7 +130,6 @@ class MerchantController extends Controller
             ->rawColumns(['view_details', 'url'])
             ->make(true);
     }
-
 
 
 }

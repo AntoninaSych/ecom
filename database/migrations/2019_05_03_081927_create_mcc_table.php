@@ -18,8 +18,12 @@ class CreateMccTable extends Migration
             $table->increments('id');
             $table->string('code');
             $table->string('name');
+            $table->string('name_uk')->nullable();
+            $table->string('name_en')->nullable();
+            $table->string('description')->nullable();
+
             $table->boolean('apple_pay')->default(0);
-            $table->boolean('status');
+            $table->boolean('status')->default(1);
             $table->softDeletes();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));

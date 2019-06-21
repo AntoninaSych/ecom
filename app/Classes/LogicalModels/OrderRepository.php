@@ -57,6 +57,13 @@ class OrderRepository
         return $allowedOrders;
     }
 
+    public function archive()
+    {
+        $results = $this->order->select()->get();
+
+        return $results;
+    }
+
     /**
      * @param int $id
      * @return |null

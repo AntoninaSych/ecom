@@ -3,6 +3,7 @@
 
 namespace App\Classes\Helpers;
 
+use App\Models\MerchantStatus;
 use App\Models\Orders;
 use App\Models\Role;
 use Illuminate\Support\Facades\Auth;
@@ -34,11 +35,9 @@ class OrderStatusHelper extends Facade
             return false;
         }
 
-
-        if (auth()->user()->hasRole(RoleHelper::DEVELOPER)) {
-            return true;
+        if (!is_null($order->canceled)) {
+            return false;
         }
-
 
         if ($orderStatus === OrderStatusHelper::STATUS_NEW) {
             if (auth()->user()->hasRole(RoleHelper::FRAUD_MONITORING)) {
@@ -62,6 +61,19 @@ class OrderStatusHelper extends Facade
             if (auth()->user()->hasRole(RoleHelper::BUSINESS)) {
 
                 if (!is_null($fraudCheck) && !is_null($securityCheck) && is_null($businessCheck)) {
+                    return true;
+                }
+                return false;
+
+            }
+        }
+
+        if ($orderStatus === OrderStatusHelper::STATUS_TESTED || $orderStatus === MerchantStatus::ACTIVE_STATUS) {
+
+
+            if (auth()->user()->hasRole(RoleHelper::BUSINESS)) {
+
+                if ( is_null($businessCheck)) {
                     return true;
                 }
                 return false;

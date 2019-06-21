@@ -90,7 +90,9 @@
                                 @endforeach
                             </select>
                         </div>
-
+                        <div>
+                           <a href="/queries/archive-queries">Архив заявок</a>
+                        </div>
 
                         {{--                    <div class="wrap">--}}
                         {{--                        <input type="checkbox" id="allowed"--}}
@@ -134,8 +136,8 @@
                 <tr role="row">
                     <th> ID</th>
                     <th> Создан</th>
-                    <th> Статус мерчанта</th>
-                    <th> Статус заявки</th>
+                    <th> Статус  заявки</th>
+                    <th> Процесс обработки</th>
                     <th> Пользователь</th>
                     <th> Мерчант</th>
                     <th> Fraud</th>

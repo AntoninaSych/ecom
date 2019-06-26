@@ -52,6 +52,7 @@ Route::group(['middleware' => ['log.request']], function () {
                 Route::match(['get'], '/datatable', 'MerchantController@anyData')->name('get.search.merchants');
                 Route::match(['get'], '/{merchantId}', 'MerchantController@getOneById')->name('merchant.detail');
                 Route::match(['post'], '/{merchantId}', 'MerchantController@update')->name('merchant.update');
+                Route::match(['post'], '/', 'MerchantController@store')->name('merchant.create');
                 Route::match(['get'], '/{merchantId}/account', 'MerchantAccountController@getList');
                 Route::match(['post'], '/account/add', 'MerchantAccountController@store')->name('account.store');
                 Route::match(['get'], '/account/update', 'MerchantAccountController@update')->name('account.update');

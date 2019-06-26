@@ -64,19 +64,19 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                {{ Form::label("merchant_user_name", "Имя мерчанта",['class'=>'col-sm-2 control-label'] ) }}
-                <div class="col-sm-10">
-                {{ Form::text("merchant_user_name",  $relations['user']->username,['class'=>'form-control']) }}
-                </div>
-            </div>
+{{--            <div class="form-group">--}}
+{{--                {{ Form::label("merchant_user_name", "Имя мерчанта",['class'=>'col-sm-2 control-label'] ) }}--}}
+{{--                <div class="col-sm-10">--}}
+{{--                {{ Form::text("merchant_user_name",  $relations['user']->username,['class'=>'form-control']) }}--}}
+{{--                </div>--}}
+{{--            </div>--}}
 
-            <div class="form-group">
-                {{ Form::label("merchant_user_email", "Email мерчанта" ,['class'=>'col-sm-2 control-label']) }}
-                <div class="col-sm-10">
-                {{ Form::text("merchant_user_email",  $relations['user']->email,['class'=>'form-control']) }}
-                </div>
-            </div>
+{{--            <div class="form-group">--}}
+{{--                {{ Form::label("merchant_user_email", "Email мерчанта" ,['class'=>'col-sm-2 control-label']) }}--}}
+{{--                <div class="col-sm-10">--}}
+{{--                {{ Form::text("merchant_user_email",  $relations['user']->email,['class'=>'form-control']) }}--}}
+{{--                </div>--}}
+{{--            </div>--}}
             <?php
             $new_arr = [0 => 'Пожалуйста сделайте выбор'];
 

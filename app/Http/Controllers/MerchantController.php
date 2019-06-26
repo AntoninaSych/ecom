@@ -12,11 +12,14 @@ use App\Classes\LogicalModels\MerchantInfoRepository;
 use App\Classes\LogicalModels\MerchantsAttachmentsRepository;
 use App\Classes\LogicalModels\MerchantsRepository;
 use App\Classes\LogicalModels\MerchantStatusRepository;
+use App\Classes\LogicalModels\MerchantUserRepository;
 use App\Exceptions\NotFoundException;
+use App\Http\Requests\Merchant\CreateMerchant;
 use App\Http\Requests\Merchant\UpdateMerchant;
 use App\Models\MerchantsAttachments;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -28,13 +31,16 @@ class MerchantController extends Controller
     public $codes;
     public $merchantInfo;
     public $attachments;
+    public $merchantsUser;
 
     public function __construct(MerchantsRepository $merchantsRepository,
                                 Request $request,
                                 MerchantStatusRepository $statuses,
                                 MccCodeRepository $codes,
                                 MerchantInfoRepository $merchantInfoRepository,
-                                MerchantsAttachmentsRepository $attachments)
+                                MerchantsAttachmentsRepository $attachments,
+                                MerchantUserRepository $merchantsUser
+    )
     {
         $this->merchants = $merchantsRepository;
         $this->request = $request;
@@ -42,6 +48,7 @@ class MerchantController extends Controller
         $this->codes = $codes;
         $this->merchantInfo = $merchantInfoRepository;
         $this->attachments = $attachments;
+        $this->merchantsUser = $merchantsUser;
     }
 
     public function getlistByName()
@@ -67,7 +74,18 @@ class MerchantController extends Controller
 
     public function list()
     {
-        return view('merchants.view');
+        $arrayMerchantStatuses = $this->statuses->getListMerchantStatuses()->mapWithKeys(function ($item) {
+            return [$item['id'] => $item['name']];
+        });
+
+        $mcc_codes = $this->codes->getList()->mapWithKeys(function ($item) {
+            return [$item['id'] => $item['name']];
+        });
+
+        $usersFront = $this->merchantsUser->list()->pluck('username', 'id');
+
+        return view('merchants.view')->with(['arrayMerchantStatuses' => $arrayMerchantStatuses,
+            'codes' => $mcc_codes, 'usersFront' => $usersFront]);
     }
 
     public function getOneById(int $id)
@@ -97,10 +115,26 @@ class MerchantController extends Controller
     public function update(UpdateMerchant $updateMerchant, int $id)
     {
         $this->merchants->updateOverall($updateMerchant, $id);
-        LogMerchantRequestsRepository::log($id, $updateMerchant, ['action' => 'update', 'user' => Auth::user(), 'status' => 'Изменение данных мерчанта.']);
+        LogMerchantRequestsRepository::log($id, $updateMerchant, ['action' => 'update from backoffice', 'user' => Auth::user(), 'status' => 'Изменение данных мерчанта.']);
 
         return redirect()->back()->with('success', 'Мерчант  с ID  ' . $id . ' успешно обновлен.');
 
+    }
+
+    public function store(CreateMerchant $request)
+    {
+        $merchant = $this->merchants->store($request);
+        LogMerchantRequestsRepository::log($merchant->id, $request, ['action' => 'store merchant from backoffice', 'user' => Auth::user(), 'status' => 'Добавление нового мерчанта.']);
+        $merchant_id = $merchant->id;
+        $terminal_id = ($this->request->get('terminal_id')) ? $this->request->get('terminal_id') : null;
+
+        try {
+            DB::select('call createMerchant(?,?,@result,@error)', [$merchant_id, $terminal_id]);
+        } catch (\Throwable $exception) {
+            return redirect()->back()->with('errors', $exception->getMessage());
+        }
+
+        return redirect()->back()->with('success', 'Мерчант  с ID  ' . $merchant->id . ' успешно создан.');
     }
 
     public function anyData()

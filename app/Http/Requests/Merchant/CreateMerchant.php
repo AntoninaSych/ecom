@@ -5,7 +5,7 @@ namespace App\Http\Requests\Merchant;
 use App\Classes\Helpers\PermissionHelper;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateMerchant extends FormRequest
+class CreateMerchant extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,12 +25,11 @@ class UpdateMerchant extends FormRequest
     public function rules()
     {
         return [
-            'mcc_id' =>'nullable|integer',
-            'merchant_identifier' => 'required|string|max:50',
+            'user_id' =>'integer',
+            'terminal_id' => 'sometimes:integer',
             'merchant_name' => 'required|string|max:50',
             'merchant_url' => 'nullable|url',
             'merchant_status' => 'required|integer|exists:ref_merchant_statuses,id',
-            'merchant_user_email' => 'email|max:50',
         ];
     }
 

@@ -8,12 +8,31 @@
 
 
 @section('content')
+    @if(!empty($errors->first()))
+        <div class="row col-lg-12">
+            <div class="alert alert-danger">
+                <span>{{ $errors->first() }}</span>
+            </div>
+        </div>
+    @endif
     <div class="row">
         <div class="col-md-12">
             <div class="box box-info">
                 <div class="box-header with-border">
                     <h3 class="box-title">Список всех мерчантов</h3>
-                    <div class="box-body" id="merchants-search-results">
+                    <div class="box-tools " style="margin: 15px!important" >
+
+                        <div class="row">
+                            <div class="pull-right btn btn-primary" data-toggle="modal" data-target="#modal-add-merchant"
+                                 style="margin-bottom: 15px"  >
+                                <i class="fa fa-fw fa-plus"></i> Добавить мерчанта
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    <div class="box-body" id="merchants-search-results" style="margin-top: 15px!important">
+
+
                         <table class="table table-hover" id="merchants-table">
                             <thead>
                             <tr role="row">
@@ -30,7 +49,9 @@
                 </div>
             </div>
         </div>
-    </div>
+
+    @include('merchants.modal-add-merchant')
+
 @stop
 <script src="{{ asset('/js/libraries/jquery.js') }}"></script>
 <script src="{{ asset('js/libraries/datatables/datatables.min.js') }}"></script>

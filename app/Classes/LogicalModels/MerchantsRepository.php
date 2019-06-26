@@ -5,6 +5,7 @@ namespace App\Classes\LogicalModels;
 
 
 use App\Exceptions\NotFoundException;
+use App\Http\Requests\Merchant\CreateMerchant;
 use App\Http\Requests\Merchant\UpdateMerchant;
 use App\Models\Merchants;
 use App\Models\MerchantStatus;
@@ -19,7 +20,6 @@ class MerchantsRepository
     public function __construct(Merchants $merchants)
     {
         $this->merchants = $merchants;
-
     }
 
     public function getOneByName(string $merchantName)
@@ -72,15 +72,27 @@ class MerchantsRepository
         } else {
             $merchant->mcc_id = $request->get('mcc_id');
         }
-        $user = new MerchantUser();
-        $user = $user->findOrFail($merchant->user->id);
 
-        $user->email = $request->get('merchant_user_email');
-
-        $user->username = $request->get('merchant_user_name');
-
-        $user->save();
         $merchant->save();
+    }
+
+
+    public function store(CreateMerchant $request)
+    {
+        $merchant = new Merchants();
+        $merchant->merchant_id = 'BO_'.substr(md5(mt_rand()), 10, 15);
+        $merchant->name = $request->get('merchant_name');
+        $merchant->url = $request->get('merchant_url');
+        $merchant->status = $request->get('merchant_status');
+        $merchant->apple_merchant_id = '';
+        if ($request->get('mcc_id') == 0) {
+            $merchant->mcc_id = null;
+        } else {
+            $merchant->mcc_id = $request->get('mcc_id');
+        }
+        $merchant->user_id = $request->get('user_id');
+        $merchant->save();
+        return $merchant;
     }
 
     public function updateStatus(Merchants $merchant, int $status)
@@ -88,4 +100,7 @@ class MerchantsRepository
         $merchant->status = $status;
         $merchant->save();
     }
+
+
+
 }

@@ -54,7 +54,7 @@ class PaymentsRepository
                 'payments.id',
                 'payments.order_id',
                 'payments.updated',
-//                'payments.created',
+
                 'payments.card_num',
                 'payments.created',
                 'payments.amount',
@@ -82,7 +82,7 @@ class PaymentsRepository
         }
 
         if (!is_null($filter->paymentStatus)) {
-            $query = $query->where('status', $filter->paymentStatus);
+            $query = $query->where('st.id', $filter->paymentStatus);
         }
 
         if (!is_null($filter->paymentType)) {
@@ -103,7 +103,6 @@ class PaymentsRepository
         if (!is_null($filter->amount)) {
             $query = $query->where('payments.amount', $filter->amount);
         }
-
 
 
         if ($filter->updatedTo != "" && $filter->updatedFrom != "") {

@@ -111,12 +111,6 @@ return [
     'menu' => [
 
         [
-            'text' => 'Добавить пользователя',
-            'url'  => 'register',
-            'icon' => ' fa-credit-card',
-            'can'  => 'add-user',
-        ],
-        [
             'text' => 'Менеджер ролей',
             'url'  => 'settings',
             'icon' => ' fa-credit-card',

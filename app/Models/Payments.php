@@ -25,9 +25,4 @@ class Payments extends BaseModel
     {
         return $this->hasOne(PaymentType::class, 'id', 'type');
     }
-
-
-
-
-
 }

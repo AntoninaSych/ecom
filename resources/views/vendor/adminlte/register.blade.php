@@ -1,26 +1,44 @@
-@extends('adminlte::page')
+{{--@extends('adminlte::page')--}}
 
 
-@section('content_header')
-    <h1>Регистрация нового пользователя</h1>
-@stop
+{{--@section('content_header')--}}
+{{--    <h1>Регистрация нового пользователя</h1>--}}
+{{--@stop--}}
 
-@section('content')
-    @if (\Session::has('success'))
-        <div class="alert alert-success">
-            <ul>
-                <li>{!! \Session::get('success') !!}</li>
-            </ul>
-        </div>
-    @endif
+{{--@section('content')--}}
+
+<div class="modal fade in" id="modal-add-user">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">Добавление пользователя</h4>
+            </div>
+            <div class="modal-body" id="edit-content" style="text-align: center">
+
+
+{{--    @if (\Session::has('success'))--}}
+{{--        <div class="alert alert-success">--}}
+{{--            <ul>--}}
+{{--                <li>{!! \Session::get('success') !!}</li>--}}
+{{--            </ul>--}}
+{{--        </div>--}}
+{{--    @endif--}}
+
+            <div class="alert alert-error"  id='error-user-add'  style="display: none">
+                <ul>
+                    <li>{!! \Session::get('errors') !!}</li>
+                </ul>
+            </div>
+
     <div class="row">
-    <div class="col-md-4">
-    <div class="box col-md-4">
-        <div class="box-body">
+    <div class="col-md-12">
+
             <div class="row">
                 <div class="col-lg-12">
                     <p class="login-box-msg">Введите данные для регистрации нового пользователя:</p>
-                    <form action="{{ url(config('adminlte.register_url', 'register')) }}" method="post">
+                    <form action="{{ url(config('adminlte.register_url', 'register')) }}" id="register-user" method="post">
                         {!! csrf_field() !!}
 
                         <div class="form-group has-feedback {{ $errors->has('name') ? 'has-error' : '' }}">
@@ -74,15 +92,19 @@
                         </span>
                             @endif
                         </div>
-                        <button type="submit"
+                        <button type="submit" id="register_new_user"
                                 class="btn btn-primary btn-block btn-flat"
                         >Зарегистрировать</button>
                     </form>
                 </div>
             </div>
         </div>
+
     </div>
+            </div>
+        </div>
     </div>
-    </div>
-@stop
+</div>
+
+{{--@stop--}}
 

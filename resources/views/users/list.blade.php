@@ -62,8 +62,33 @@
 
 </style>
 @section('content')
+    {{--    @if (\Session::has('success'))--}}
+    <div class="alert alert-success" id='success-mess-user' style="display: none">
+        <ul>
+            <li>{!! \Session::get('success') !!}</li>
+        </ul>
+    </div>
+    {{--    @endif--}}
+
+{{--    @if (\Session::has('error'))--}}
+        <div class="alert alert-error" id='errors-mess-user' style="display: none">
+            <ul>
+                <li>{!! \Session::get('error') !!}</li>
+            </ul>
+        </div>
+{{--    @endif--}}
     <div class="box">
         <div class="box-header">
+
+            <div class="row">
+                <div class="pull-right btn btn-primary" data-toggle="modal" data-target="#modal-add-user"
+                     style="margin: 15px" onclick="clearErrors('#limits-add-errors')">
+                    <i class="fa fa-fw fa-plus"></i> Добавить пользователя
+                </div>
+            </div>
+        </div>
+        <div id="load_user">
+            @include('vendor.adminlte.register')
         </div>
 
         <div class="box-body">
@@ -76,6 +101,7 @@
                     <th>Текущая роль</th>
                     <th>Выбрать другую роль</th>
                     <th>Активный</th>
+                    <th>Отправить ссылку</th>
                 </tr>
                 </thead>
                 <tbody id='list-of-users-with-roles'>
@@ -83,7 +109,7 @@
                     <tr>
                         <td>{{$user->id}}</td>
                         <td>{{$user->name}}</td>
-                        <td> {{$user->email}}</td>
+                        <td>{{$user->email}}</td>
                         <td>{{$user->roles_relation[0]->display_name}}</td>
 
                         <td>
@@ -93,15 +119,18 @@
                             </button>
                         </td>
                         <td>
-
                             <div class="wrap">
                                 <input type="checkbox" id="s{{$user->id}}"
                                        @if(intval($user->status) == 1) checked="checked" @endif />
                                 <label class="slider-v2" for="s{{$user->id}}"
-                                       onclick="changeUserStatus('{{$user->id}}', '<?php echo $val = (intval($user->status) == 1) ? '1' : '0' ?>')"
+                                       onclick="changeUserStatus('{{$user->id}}',
+                                               '<?php echo $val = (intval($user->status) == 1) ? '1' : '0' ?>')"
 
                                 ></label>
                             </div>
+                        </td>
+                        <td>
+                            <button   class="btn btn-default" onclick="sendLink({{$user->id}})">Отправить</button>
                         </td>
                     </tr>
 
@@ -115,6 +144,7 @@
                     <th>Текущая роль</th>
                     <th>Выбрать другую роль</th>
                     <th>Активный</th>
+                    <th>Отправить ссылку</th>
                 </tr>
                 </tfoot>
             </table>
@@ -149,7 +179,42 @@
         <!-- /.modal-dialog -->
     </div>
     <script>
+        function clearErrors() {
+
+        }
+
         var roles_all = {!! json_encode($roles->toArray()) !!};
+        $('#register_new_user').on('click', function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: '/register',
+                type: "POST",
+                data: {
+                    name: $('#register-user').find("input[name='name']").val(),
+                    email: $('#register-user').find("input[name='email']").val(),
+                    role: $('#register-user').find("select[name='role']").val(),
+                    password: 'generate',
+                    password_confirmation: 'generate'
+                },
+                success: function (data) {
+                    $('#modal-add-user').fadeOut();
+                    location.reload();
+                    $('#success-mess-user').fadeIn();
+                    $('#success-mess-user').text(data.data.success);
+
+                },
+                error: function (data) {
+                    var response = data.responseText;
+                    response = JSON.parse(response);
+                    jQuery.each(response.errors, function (key, value) {
+                        $('#error-user-add').fadeIn();
+                        $('#error-user-add').text(value);
+                    });
+
+                }
+            });
+        });
+
     </script>
 @stop
 

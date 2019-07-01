@@ -162,3 +162,5 @@ fee_type
  - composer dump-autoload
  - php artisan config:cache  
  - composer update
+ 
+Для пермишена can.add.user добавлена возможность отправки сообщений на почту для восстановления пароля

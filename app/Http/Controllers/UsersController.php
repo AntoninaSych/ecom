@@ -8,11 +8,16 @@ use App\Classes\Filters\SearchPaymentsFilter;
 use App\Classes\Helpers\ApiResponse;
 use App\Classes\LogicalModels\RoleRepository;
 use App\Classes\LogicalModels\UsersRepository;
+use App\Models\Users;
+use Couchbase\Exception;
+use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
 class UsersController extends Controller
 {
+    use SendsPasswordResetEmails;
+
     public $users;
     public $roles;
     public $request;
@@ -56,6 +61,24 @@ class UsersController extends Controller
         return ApiResponse::goodResponse(['users' => $users]);
     }
 
+    public function sendLink($id)
+    {
+
+        try{
+        $user = $this->users->getOne('id', $id);
+
+        $request = new Request($user->toArray());
+
+        $this->sendResetLinkEmail($request);
+
+        return ApiResponse::goodResponse();
+        }
+        catch (\Exception $exception)
+        {
+            return ApiResponse::badResponse();
+
+        }
+    }
 
 
 }

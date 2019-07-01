@@ -21,7 +21,7 @@ class UsersRepository
 
     public function getList(): Collection
     {
-        return $this->users->with('roles_relation')->orderBy('id')->get();
+        return $this->users->with('roles_relation')->orderBy('id','desc')->get();
     }
 
     public function applyRole(int $role_id, int $user_id): void

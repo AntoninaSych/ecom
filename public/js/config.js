@@ -7,6 +7,7 @@ var config = {
         processLog: '/payments/getProcessLog', //загрузка логов по платежу
         merchantAccounts: '/account/table', //загрузка аккаунтов по мерчанту
         merchantInfoQueries: '/queries', //загрузка информации по мерчанту
+
     },
 
 };

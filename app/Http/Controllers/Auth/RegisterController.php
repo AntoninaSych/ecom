@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Classes\Helpers\ApiResponse;
 use App\Models\Role;
 use App\User;
 use App\Http\Controllers\Controller;
@@ -82,6 +83,7 @@ class RegisterController extends Controller
 
        $this->validator($request->all())->validate();
 
+
         event(new Registered($user = $this->create($request->all())));
 
 
@@ -93,7 +95,8 @@ class RegisterController extends Controller
 
 
         $this->sendResetLinkEmail($request);
-        return redirect()->back()->with('success', 'User with email ' . $user->email . ' was successfully registred');
+        return ApiResponse::goodResponse(['success'=>  'User with email ' . $user->email . ' was successfully registred']);
+//        return  back()->with('success', 'User with email ' . $user->email . ' was successfully registred');
     }
 
     public function showRegistrationForm()

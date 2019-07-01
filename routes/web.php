@@ -30,6 +30,10 @@ Route::group(['middleware' => ['log.request']], function () {
             Route::patch('/permissionsUpdate', 'SettingsController@permissionsUpdate');
             Route::patch('/overall', 'SettingsController@updateOverall');
             Route::match(['get'], '/users', 'UsersController@getList')->name('user.list');
+            Route::group(['middleware' => ['can.add.user']], function () {
+                Route::match(['get'], '/sendLink/{id}', 'UsersController@sendLink')->name('sendLink');
+            });
+
             Route::match(['get'], '/applyRole', 'UsersController@applyRole');
             Route::match(['get'], '/statusUpdate', 'UsersController@statusUpdate');
 

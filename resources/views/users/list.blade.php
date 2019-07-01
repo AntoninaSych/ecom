@@ -70,13 +70,13 @@
     </div>
     {{--    @endif--}}
 
-    @if (\Session::has('error'))
-        <div class="alert alert-error">
+{{--    @if (\Session::has('error'))--}}
+        <div class="alert alert-error" id='errors-mess-user' style="display: none">
             <ul>
                 <li>{!! \Session::get('error') !!}</li>
             </ul>
         </div>
-    @endif
+{{--    @endif--}}
     <div class="box">
         <div class="box-header">
 
@@ -101,6 +101,7 @@
                     <th>Текущая роль</th>
                     <th>Выбрать другую роль</th>
                     <th>Активный</th>
+                    <th>Отправить ссылку</th>
                 </tr>
                 </thead>
                 <tbody id='list-of-users-with-roles'>
@@ -118,15 +119,18 @@
                             </button>
                         </td>
                         <td>
-
                             <div class="wrap">
                                 <input type="checkbox" id="s{{$user->id}}"
                                        @if(intval($user->status) == 1) checked="checked" @endif />
                                 <label class="slider-v2" for="s{{$user->id}}"
-                                       onclick="changeUserStatus('{{$user->id}}', '<?php echo $val = (intval($user->status) == 1) ? '1' : '0' ?>')"
+                                       onclick="changeUserStatus('{{$user->id}}',
+                                               '<?php echo $val = (intval($user->status) == 1) ? '1' : '0' ?>')"
 
                                 ></label>
                             </div>
+                        </td>
+                        <td>
+                            <button   class="btn btn-default" onclick="sendLink({{$user->id}})">Отправить</button>
                         </td>
                     </tr>
 
@@ -140,6 +144,7 @@
                     <th>Текущая роль</th>
                     <th>Выбрать другую роль</th>
                     <th>Активный</th>
+                    <th>Отправить ссылку</th>
                 </tr>
                 </tfoot>
             </table>

@@ -34,7 +34,19 @@ $(document).ready(function () {
         });
     })
 });
-
+function sendLink(id) {
+    $.ajax({
+        url: '/settings/sendLink/'+id,
+        type: "GET",
+        success: function (data) {
+            $('#success-mess-user').fadeIn();
+            $('#success-mess-user').text("Сообщение успешно отправлено");
+        }, error: function (data) {
+            $('#errors-mess-user').fadeIn();
+            $('#errors-mess-user').text('Произошла ошибка при отправке почты. Свяжитесь с администратором.');
+        }
+    });
+}
 function changeUserStatus(id, status) {
     status = (parseInt(status) === 1) ? 0 : 1;
     return $.ajax({

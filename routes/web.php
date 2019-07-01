@@ -14,15 +14,14 @@
 Auth::routes();
 
 Route::group(['middleware' => ['log.request']], function () {
-
-
-
     Route::group(['middleware' => ['auth', 'is.block.user']], function () {
         Route::get('/home', 'HomeController@index')->name('home'); // default page for auth useres
         Route::get('/', function () {
 
             return redirect('/login');
         });
+//        Route::get('/changePassword','HomeController@showChangePasswordForm');
+
         /**
          * Settings
          */
@@ -30,7 +29,7 @@ Route::group(['middleware' => ['log.request']], function () {
             Route::get('/', 'SettingsController@index')->name('settings.index');
             Route::patch('/permissionsUpdate', 'SettingsController@permissionsUpdate');
             Route::patch('/overall', 'SettingsController@updateOverall');
-            Route::match(['get'], '/users', 'UsersController@getList');
+            Route::match(['get'], '/users', 'UsersController@getList')->name('user.list');
             Route::match(['get'], '/applyRole', 'UsersController@applyRole');
             Route::match(['get'], '/statusUpdate', 'UsersController@statusUpdate');
 

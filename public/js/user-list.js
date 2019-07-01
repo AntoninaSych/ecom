@@ -5,7 +5,12 @@ var options = {
 };
 $(document).ready(function () {
 
-    $('#user_list_table').DataTable(options);
+    $('#user_list_table').DataTable({
+        "order": [0, 'desc'],
+        "language": {
+            "url": "/js/libraries/datatables/Russian.json"
+        }
+    });
 
     $('#apply-new-role').on('click', function () {
 

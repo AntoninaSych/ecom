@@ -109,7 +109,6 @@ return [
     |
     */
     'menu' => [
-
         [
             'text' => 'Менеджер ролей',
             'url'  => 'settings',

@@ -9,6 +9,7 @@ use App\Classes\Helpers\ValidatorHelper;
 use App\Classes\LogicalModels\LogMerchantRequestsRepository;
 use App\Classes\LogicalModels\MccCodeRepository;
 use App\Classes\LogicalModels\MerchantInfoRepository;
+use App\Classes\LogicalModels\MerchantKeysRepository;
 use App\Classes\LogicalModels\MerchantsAttachmentsRepository;
 use App\Classes\LogicalModels\MerchantsRepository;
 use App\Classes\LogicalModels\MerchantStatusRepository;
@@ -32,6 +33,7 @@ class MerchantController extends Controller
     public $merchantInfo;
     public $attachments;
     public $merchantsUser;
+    public $keys;
 
     public function __construct(MerchantsRepository $merchantsRepository,
                                 Request $request,
@@ -39,7 +41,8 @@ class MerchantController extends Controller
                                 MccCodeRepository $codes,
                                 MerchantInfoRepository $merchantInfoRepository,
                                 MerchantsAttachmentsRepository $attachments,
-                                MerchantUserRepository $merchantsUser
+                                MerchantUserRepository $merchantsUser,
+                                MerchantKeysRepository $keys
     )
     {
         $this->merchants = $merchantsRepository;
@@ -49,6 +52,7 @@ class MerchantController extends Controller
         $this->merchantInfo = $merchantInfoRepository;
         $this->attachments = $attachments;
         $this->merchantsUser = $merchantsUser;
+        $this->keys = $keys;
     }
 
     public function getlistByName()
@@ -103,7 +107,10 @@ class MerchantController extends Controller
         $attachments = $this->attachments->getList($id);
         $merchantInfo = $this->merchantInfo->getMerchantInfo($merchant->id);
 
+        $merchantTerminal = $this->keys->getGeneratedKeyByMerchantId($merchant->id);
+
         return view('merchants.detailed')->with([
+            'terminal'=>$merchantTerminal,
             'merchant' => $merchant,
             'arrayMerchantStatuses' => $arrayMerchantStatuses,
             'codes' => $mcc_codes,

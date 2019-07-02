@@ -6,11 +6,7 @@
             </div>
         </div>
         @if(isset($merchantInfo))
-
-
-
             <div class=" col-md-6">
-
                 <div class="box box-primary">
                     <div class="box-body box-profile">
                 <table class="table">
@@ -29,7 +25,6 @@
 
         @endif
         <div class=" col-md-6">
-
             <div class="box box-primary">
                 <div class="box-body box-profile">
                     <img class="profile-user-img img-responsive img-circle" src="/images/shop-icon.png"  >
@@ -45,6 +40,11 @@
                         <li class="list-group-item">
                             <b>Имя мерчанта</b> <span class="pull-right">{{$merchant->name}}</span>
                         </li>
+                        @if(isset($terminal))
+                        <li class="list-group-item">
+                            <b>Терминал</b> <span class="pull-right"> {{$terminal->merchant_login}}</span>
+                        </li>
+                        @endif
                         <li class="list-group-item">
                             <b>URL</b> <a href="{{$merchant->url}}" class="pull-right">{{$merchant->url}}</a>
                         </li>

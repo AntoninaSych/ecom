@@ -45,6 +45,17 @@
                             <b>Терминал</b> <span class="pull-right"> {{$terminal->merchant_login}}</span>
                         </li>
                         @endif
+                        @if(!is_null($merchant->mcc_id))
+                            <li class="list-group-item">
+                                <b>MCC Код</b>   <span class="pull-right"> {{ OrderFieldHelper::getMcc($merchant->mcc_id)}}</span>
+                            </li>
+                        @endif
+
+                        @if(!is_null($merchant->cms_id))
+                            <li class="list-group-item">
+                                <b>CMS</b>   <span class="pull-right"> {{ OrderFieldHelper::getCms($merchant->cms_id)}}</span>
+                            </li>
+                        @endif
                         <li class="list-group-item">
                             <b>URL</b> <a href="{{$merchant->url}}" class="pull-right">{{$merchant->url}}</a>
                         </li>
@@ -69,13 +80,7 @@
 
 
         </div>
-
         <div class="box-footer">
         </div>
     </div>
-
-
-
-
-
 </div>

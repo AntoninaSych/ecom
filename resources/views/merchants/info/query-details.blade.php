@@ -85,8 +85,22 @@
                     <tbody>
                     @foreach($fieldValues as $fieldValue)
                         <tr>
-                            <td>{{OrderFieldHelper::getLabel($fieldValue->field->field_key)}}</td>
-                            <td> {{$fieldValue->field_value}}</td>
+                            @switch($fieldValue->field->field_key)
+                                @case('mcc_id')
+                                <td>{{OrderFieldHelper::getLabel($fieldValue->field->field_key)}}</td>
+                                <td>
+                                    {{ OrderFieldHelper::getMcc($fieldValue->field_value) }}
+                                </td>
+                                @break
+                                @case('cms_id')
+                                <td>{{OrderFieldHelper::getLabel($fieldValue->field->field_key)}}</td>
+                                <td>  {{ OrderFieldHelper::getCms($fieldValue->field_value) }}</td>
+                                @break
+
+                                @default
+                                <td>{{OrderFieldHelper::getLabel($fieldValue->field->field_key)}}</td>
+                                <td> {{$fieldValue->field_value}}</td>
+                            @endswitch
                         </tr>
                     @endforeach
                     </tbody>

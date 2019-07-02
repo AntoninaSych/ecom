@@ -164,3 +164,50 @@ fee_type
  - composer update
  
 Для пермишена can.add.user добавлена возможность отправки сообщений на почту для восстановления пароля
+
+Логика перемещения заявки между отделами Фрод, Секьюрити, Бизнес 
+
+
+————————————————
+Отправлять FRAUD
+
+order_status = 1
+fraud_check = null
+security_check = null
+fraud_check = null
+decline_user_id = null
+canceled = null
+
+
+———————————————
+Отправлять SECURITY
+
+order_status = 1
+fraud_check = !null
+security_check = null
+business_check = null
+
+decline_user_id = null
+canceled = null
+
+
+ ————————————————
+Отправлять BUSINESS
+
+order_status = 1
+business_check = null
+fraud_check = !null
+security_check = !null
+decline_user_id = null
+canceled = null
+
+——————————————
+Отправлять BUSINESS
+
+order_status = 2  
+business_check = null
+fraud_check = null
+security_check = null
+decline_user_id = null
+canceled = null
+ -----  эта логика подана для отправки email

@@ -3,6 +3,9 @@
 
 namespace App\Classes\Helpers;
 
+
+use App\Models\Cms;
+use App\Models\MccCodes;
 use Illuminate\Support\Facades\Facade;
 
 class OrderFieldHelper extends Facade
@@ -15,11 +18,11 @@ class OrderFieldHelper extends Facade
             'merchant_id' => 'ID мерчанта',
             'created_at' => 'Создан',
             'updated_at' => 'Обновлен',
-            'merchant_status' =>'Статус мерчанта',
-            'user'=>'Пользователь',
-            'compensation_type'=>'Тип компенсации',
-            'compensation_term' =>'Время компенсации',
-            'merchant_type'=>'Тип мерчанта',
+            'merchant_status' => 'Статус мерчанта',
+            'user' => 'Пользователь',
+            'compensation_type' => 'Тип компенсации',
+            'compensation_term' => 'Время компенсации',
+            'merchant_type' => 'Тип мерчанта',
 
 ///----------------Общее для физ и юр лиц--------/////
             'merchant_website' => 'Сайт',
@@ -73,13 +76,24 @@ class OrderFieldHelper extends Facade
             'ur_buh_phone' => 'Телефон бухгалтера (юр)',
             'ur_buh_email' => 'Email бухгалтера (юр)',
             //account
-            'mfo'=>'МФО  (юр)',
-            'ed_rpo'=>'ЕД РПО (юр)',
-            'checking_account'=>'Расчетный счет (юр)',
-            'account_id'=>'ID аккаунта (юр)'
+            'mfo' => 'МФО  (юр)',
+            'ed_rpo' => 'ЕД РПО (юр)',
+            'checking_account' => 'Расчетный счет (юр)',
+            'account_id' => 'ID аккаунта (юр)'
         ];
 
         return $fieldLabels[$fieldName];
+    }
+
+
+    public static function getMcc($id)
+    {
+        return MccCodes::select()->where('id', $id)->first()->name;
+    }
+
+    public static function getCms($id)
+    {
+        return Cms::select()->where('id', $id)->first()->name;
     }
 }
 

@@ -61,13 +61,10 @@
 
 
 </style>
-
 @section('content')
     <?php
-
     $relations = $merchant->getRelations();
     ?>
-
     <div class="nav-tabs-custom" style="cursor: move;">
         <!-- Tabs within a box -->
         <ul class="nav nav-tabs pull-right ui-sortable-handle">

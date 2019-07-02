@@ -21,7 +21,7 @@
                             {{$attachment->created_at}}
                         </td>
                         <td>
-                            <a href='https://ecom.local/uploads/{{$merchant->id}}/{{$attachment->attachment}}.{{$attachment->ext}}'  class="btn">
+                            <a href='{{env("URL_CONCORDPAY")}}/uploads/{{$merchant->id}}/{{$attachment->attachment}}.{{$attachment->ext}}'  class="btn">
                                 <i class="fa fa-fw fa-download"></i>
                             </a>
                         </td>

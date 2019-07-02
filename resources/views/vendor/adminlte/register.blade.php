@@ -34,7 +34,6 @@
 
     <div class="row">
     <div class="col-md-12">
-
             <div class="row">
                 <div class="col-lg-12">
                     <p class="login-box-msg">Введите данные для регистрации нового пользователя:</p>

@@ -21,7 +21,8 @@ Route::group(['middleware' => ['log.request']], function () {
             return redirect('/login');
         });
 //        Route::get('/changePassword','HomeController@showChangePasswordForm');
-
+        Route::get('/user/password', 'SettingsController@changePassword');
+        Route::post('/user/password/change', 'SettingsController@updatePassword');
         /**
          * Settings
          */

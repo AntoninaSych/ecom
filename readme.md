@@ -211,3 +211,8 @@ security_check = null
 decline_user_id = null
 canceled = null
  -----  эта логика подана для отправки email
+ 
+ 
+ ------------------------------------------
+ add poermission into DB
+ view-reestrs 

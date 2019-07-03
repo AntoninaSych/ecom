@@ -100,6 +100,11 @@ Route::group(['middleware' => ['log.request']], function () {
         });
 
 
+        Route::group(['prefix' => 'reestrs', 'middleware' => ['can.view.reestrs']], function () {
+            Route::match(['get'], '/', 'ReestrController@index');
+            Route::match(['get'], '/getReestr', 'ReestrController@getReestr');
+        });
+
         Route::resource('mcc', 'MccController')->only([
             'index', 'store', 'edit', 'update', 'create'
         ])->middleware('can.manage.mcc');

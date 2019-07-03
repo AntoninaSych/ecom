@@ -31,9 +31,8 @@ class ReestrController extends Controller
         $sig = $this->signature($date[2] . $date[1] . $date[0]);
 
         $client = new \GuzzleHttp\Client();
-
         $result = $client->get(
-            env('URL_MONOBANK_REESTR') . '/journalByWithdrawalPan/csv?&bank=CB&year=' . $date[2] . '&month=' . $date[1] . '&date=' . $date[0] . '&sig=' . $sig
+            env('URL_MONOBANK_REESTR') . '/journal/csv?&bank=CB&year=' . $date[2] . '&month=' . $date[1] . '&date=' . $date[0] . '&sig=' . $sig
 
         );
 

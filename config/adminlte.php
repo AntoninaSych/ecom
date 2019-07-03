@@ -110,6 +110,12 @@ return [
     */
     'menu' => [
         [
+            'text' => 'Реестры',
+            'url'  => 'reestrs',
+            'icon' => ' fa-credit-card',
+            'can'  => 'view-reestrs',
+        ],
+        [
             'text' => 'Менеджер ролей',
             'url'  => 'settings',
             'icon' => ' fa-credit-card',

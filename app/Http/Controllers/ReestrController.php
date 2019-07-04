@@ -6,11 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Classes\LogicalModels\Reestrs\MonobankRepository;
 use Illuminate\Http\Request;
-use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Hash;
 
-use ParseCsv\Csv;
-use SimpleXMLElement;
 
 class ReestrController extends Controller
 {
@@ -36,10 +32,10 @@ class ReestrController extends Controller
                 $reestr = new MonobankRepository();
                 break;
             case 1:
-                echo "i равно 1";
+//                echo "i равно 1";
                 break;
             case 2:
-                echo "i равно 2";
+//                echo "i равно 2";
                 break;
         }
 

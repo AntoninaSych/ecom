@@ -28,9 +28,7 @@ class MailPostmanRepository
         $mail->recipients = json_encode([
             'from' => [
                 'pay@concord.ua',
-                'Concord Pay',
-                'mailer@somehost.com',
-                'Mailer'],
+                'Concord Pay'],
             'to' => [$order->user->email]]);
 
         $mail->save();
@@ -51,9 +49,7 @@ class MailPostmanRepository
         $mail->recipients = json_encode([
             'from' => [
                 'pay@concord.ua',
-                'Concord Pay',
-                'mailer@somehost.com',
-                'Mailer'],
+                'Concord Pay'],
             'to' => [$order->user->email]]);
 
         $mail->save();

@@ -215,5 +215,5 @@ canceled = null
  
  ------------------------------------------
  add poermission into DB
- view-reestrs 
- view-routes
+ view-reestrs просмотр реестров для пермишена
+ view-routes просмотр для перпимешна страницы роутов без 

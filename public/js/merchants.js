@@ -407,6 +407,8 @@ function addMerchantPaymentRoute() {
     var sum_max = el.find("input[name='sum_max']").val();
     var sum_min = el.find("input[name='sum_min']").val();
     var merchant_id = el.find("input[name='merchant_id']").val();
+    var bins = el.find("input[name='bins']").val();
+    var priority = el.find("input[name='priority']").val();
     $.ajax({
         url: '/merchants/route/store',
         type: "post",
@@ -416,7 +418,9 @@ function addMerchantPaymentRoute() {
             card_system: card_system,
             sum_max: sum_max,
             sum_min: sum_min,
-            merchant_id: merchant_id
+            merchant_id: merchant_id,
+            bins:bins,
+            priority:priority
         },
         success: function () {
             $('#type-errors').html();
@@ -451,6 +455,8 @@ function editPaymentRoute(e) {
     var id = $(e).data("id");
     var payment_type_id = $(e).data("payment-type-id");
     var payment_route_id = $(e).data("payment-route-id");
+    var bins = $(e).data("bins");
+    var priority = $(e).data("priority");
 
     currentTypeForEditModal = payment_type_id;
     currentRouteForEditModal = payment_route_id;
@@ -468,6 +474,9 @@ function editPaymentRoute(e) {
     el.find("input[name='id']").val(id);
     el.find("input[name='sum_max']").val(sum_max);
     el.find("select[name='card_system']").val(card_system);
+    el.find("input[name='bins']").val(bins);
+    el.find("input[name='priority']").val(priority);
+
 }
 
 //begin edit Merchant Routes
@@ -480,6 +489,8 @@ function changeMerchantPaymentRoute() {
     var card_system = el.find("select[name='card_system']").val();
     var merchant_id = el.find("input[name='merchant_id']").val();
     var payment_route = el.find("select[name='payment_route']").val();
+    var bins = el.find("input[name='bins']").val();
+    var priority = el.find("input[name='priority']").val();
     $.ajax({
         url: '/merchants/route/update',
         type: "post",
@@ -490,7 +501,9 @@ function changeMerchantPaymentRoute() {
             card_system: card_system,
             sum_max: sum_max,
             sum_min: sum_min,
-            merchant_id: merchant_id
+            merchant_id: merchant_id,
+            bins:bins,
+            priority:priority
         },
         success: function () {
             $('#type-errors').html();
@@ -506,6 +519,8 @@ function changeMerchantPaymentRoute() {
             el.find("input[name='sum_max']").val('');
             el.find("input[name='sum_min']").val('');
             el.find("input[name='merchant_id']").val('');
+            el.find("input[name='bins']").val('');
+            el.find("input[name='priority']").val('');
             $('#route-edit-errors').html();
             $('#route-edit-errors').hide();
         }, error: function (response) {

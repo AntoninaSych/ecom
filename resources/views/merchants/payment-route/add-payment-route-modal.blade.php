@@ -49,6 +49,16 @@
                     {{Form::hidden('merchant_id',  $merchantId)}}
                 </div>
 
+                <div>
+                    {{ Form::label('bins', "Bin" ) }}
+                    {{ Form::text("bins",  null,['class'=>'form-control']) }}
+                </div>
+
+                <div>
+                    {{ Form::label('priority', "Приоритет" ) }}
+                    {{ Form::text("priority",  null,['class'=>'form-control']) }}
+                </div>
+
                 <div style="margin-top: 15px">
                     <input type="button" value="Добавить роут" class="form-control btn btn-primary"
                            onclick="addMerchantPaymentRoute()">

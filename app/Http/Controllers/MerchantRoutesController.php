@@ -79,6 +79,8 @@ class MerchantRoutesController
             'sum_max' => 'required|integer',
             'card_system' => 'required|integer|exists:cards_systems,id',
             'merchant_id' => 'required|integer|exists:merchants,id',
+            'bins' => 'string|nullable',
+            'priority' => 'integer|nullable',
         ]);
 
         if ($validator->fails()) {
@@ -118,6 +120,8 @@ class MerchantRoutesController
             'payment_route_id' => 'required|integer|exists:payment_routes,id',
             'sum_min' => 'required|integer',
             'sum_max' => 'required|integer',
+            'bins' => 'string|nullable',
+            'priority' => 'integer|nullable',
             'card_system' => 'required|integer|exists:cards_systems,id',
             'merchant_id' => 'required|integer|exists:merchants,id',
         ]);

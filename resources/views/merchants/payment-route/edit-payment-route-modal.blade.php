@@ -49,6 +49,15 @@
                 <div>
                     {{Form::hidden('merchant_route_id',  null)}}
                 </div>
+                <div>
+                    {{ Form::label('bins', "Bin" ) }}
+                    {{ Form::text("bins",  null,['class'=>'form-control']) }}
+                </div>
+
+                <div>
+                    {{ Form::label('priority', "Приоритет" ) }}
+                    {{ Form::text("priority",  null,['class'=>'form-control']) }}
+                </div>
                 <div style="margin-top: 15px">
                     <input type="button" value="Изменить роут платежа" class="form-control btn btn-primary"
                            onclick="changeMerchantPaymentRoute()">

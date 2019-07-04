@@ -82,22 +82,23 @@
                                     onclick="loadMerchantPaymentType()">Типы платежей</a>
                     </li>
                 @endif
+                <li class=""><a href="#limits" data-toggle="tab" aria-expanded="false"
+                                onclick="loadMerchantLimits()">Лимиты платежей</a>
+                </li>
 
-                @if( Auth::user()->can(PermissionHelper::MANAGE_MERCHANT_ROUTE) )
+                <li class=""><a href="#attachments" data-toggle="tab" aria-expanded="false">Файлы</a>
+                </li>
+
+             @endif
+
+                @if( Auth::user()->can(PermissionHelper::MANAGE_MERCHANT_ROUTE) || Auth::user()->can(PermissionHelper::VIEW_ROUTES))
                     <li class=""><a href="#payment-route" data-toggle="tab" aria-expanded="false"
                                     onclick="loadMerchantRoutes()">Роут платежей</a>
                     </li>
                 @endif
 
-                    <li class=""><a href="#limits" data-toggle="tab" aria-expanded="false"
-                                    onclick="loadMerchantLimits()">Лимиты платежей</a>
-                    </li>
 
 
-                <li class=""><a href="#attachments" data-toggle="tab" aria-expanded="false">Файлы</a>
-                </li>
-
-            @endif
 
             <li class="pull-left header"><i class="fa fa-inbox"></i> Информация о мерчантe</li>
         </ul>
@@ -139,7 +140,7 @@
             {{--PaymentType details end--}}
 
             {{--PaymentType details begin--}}
-            @if( Auth::user()->can(PermissionHelper::MANAGE_MERCHANT) && Auth::user()->can(PermissionHelper::MANAGE_MERCHANT_ROUTE))
+            @if(   Auth::user()->can(PermissionHelper::MANAGE_MERCHANT_ROUTE) || Auth::user()->can(PermissionHelper::VIEW_ROUTES))
                 @include('merchants.partials.merchant-route')
             @endif
             {{--PaymentType details end--}}

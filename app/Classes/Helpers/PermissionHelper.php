@@ -19,5 +19,6 @@ class PermissionHelper extends Facade
     const MANAGE_MERCHANT_ROUTE = 'manage-merchant-route';
     const VIEW_STATISTIC = 'view-statistic';
     const VIEW_REESTRS = 'view-reestrs';
+    const VIEW_ROUTES = 'view-routes';
 
 }

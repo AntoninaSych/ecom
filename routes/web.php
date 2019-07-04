@@ -69,10 +69,12 @@ Route::group(['middleware' => ['log.request']], function () {
                 });
 
                 Route::group(['prefix' => '/route', 'middleware' => 'can.manage.merchant.route'], function () {
-                    Route::match(['get'], '/table', 'MerchantRoutesController@getTable');
                     Route::match(['post'], '/store', 'MerchantRoutesController@store')->name('payment-route.store');
                     Route::match(['post'], '/update', 'MerchantRoutesController@update')->name('payment-route.update');
                     Route::match(['get'], '/getAllowedRoutes/{paymentTypeId}', 'MerchantRoutesController@getAllowedRoutes');
+                });
+                Route::group(['prefix' => '/route', 'middleware' => 'can.view.routes'], function () {
+                    Route::match(['get'], '/table', 'MerchantRoutesController@getTable');
                 });
 
                 Route::group(['prefix' => '/limits', 'middleware' => 'can.manage.merchant.route'], function () {

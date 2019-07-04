@@ -15,7 +15,7 @@
             <th> Payment type (display ony)</th>
             <th> Создан</th>
             <th> Обновлен</th>
-            <th> Изменить</th>
+            @if(Auth::user()->can(PermissionHelper::MANAGE_MERCHANT_ROUTE))  <th> Изменить</th> @endif
         </tr>
         </thead>
 
@@ -32,7 +32,7 @@
                 <td>{{$merchantPaymentRoute->created}}</td>
                 <td>{{$merchantPaymentRoute->created}}</td>
                 <td>{{$merchantPaymentRoute->updated}}</td>
-                <td>
+                @if(Auth::user()->can(PermissionHelper::MANAGE_MERCHANT_ROUTE))    <td>
                     <div class="btn btn-default" data-target="#modal-edit-payment-route" data-toggle="modal"
                          data-id="{{$merchantPaymentRoute->id}}"
                          data-merchant-id="{{$merchantPaymentRoute->merchant_id}}"
@@ -44,6 +44,7 @@
                          onclick="editPaymentRoute(this)">
                         <i class="fa fa-edit"></i></div>
                 </td>
+                @endif
             </tr>
         @endforeach
         </tbody>
@@ -59,11 +60,15 @@
             <th> Payment type (display ony)</th>
             <th> Создан</th>
             <th> Обновлен</th>
-            <th> Изменить</th>
+            @if(Auth::user()->can(PermissionHelper::MANAGE_MERCHANT_ROUTE))   <th> Изменить</th>@endif
         </tr>
         </tfoot>
     </table>
 
-    @include('merchants.payment-route.edit-payment-route-modal')
+    @if(Auth::user()->can(PermissionHelper::MANAGE_MERCHANT_ROUTE))
+        @include('merchants.payment-route.edit-payment-route-modal')
+    @endif
 @endif
+@if(Auth::user()->can(PermissionHelper::MANAGE_MERCHANT_ROUTE))
 @include('merchants.payment-route.add-payment-route-modal')
+@endif

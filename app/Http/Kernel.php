@@ -9,6 +9,7 @@ use App\Http\Middleware\CanMccCodes;
 use App\Http\Middleware\CanViewMerchants;
 use App\Http\Middleware\CanViewPayments;
 use App\Http\Middleware\CanViewReestrs;
+use App\Http\Middleware\CanViewRoutes;
 use App\Http\Middleware\CanViewStatistic;
 use App\Http\Middleware\IsBlockUser;
 use App\Http\Middleware\LogRequest;
@@ -85,7 +86,8 @@ class Kernel extends HttpKernel
         'can.manage.merchant.payment.type' => CanManageMerchantPaymentType::class,
         'can.manage.merchant.route'=>CanManageMerchantRoute::class,
         'can.view.statistics' => CanViewStatistic::class,
-        'can.view.reestrs' => CanViewReestrs::class
+        'can.view.reestrs' => CanViewReestrs::class,
+        'can.view.routes' => CanViewRoutes::class
     ];
 
     /**

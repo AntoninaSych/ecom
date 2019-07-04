@@ -216,3 +216,4 @@ canceled = null
  ------------------------------------------
  add poermission into DB
  view-reestrs 
+ view-routes

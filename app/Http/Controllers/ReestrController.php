@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Classes\LogicalModels\Reestrs\MonobankRepository;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Hash;
@@ -27,34 +28,24 @@ class ReestrController extends Controller
 
     public function getReestr()
     {
-        $date = explode("-", $this->request->get('date_reestr'));
-        $sig = $this->signature($date[2] . $date[1] . $date[0]);
+        $reestrKey = $this->request->get('type_reestr');
+        $reestrDate = $this->request->get('date_reestr');
 
-        $client = new \GuzzleHttp\Client();
-        $result = $client->get(
-            env('URL_MONOBANK_REESTR') . '/journal/csv?&bank=CB&year=' . $date[2] . '&month=' . $date[1] . '&date=' . $date[0] . '&sig=' . $sig
+        switch ($reestrKey) {
+            case 'mono':
+                $reestr = new MonobankRepository();
+                break;
+            case 1:
+                echo "i равно 1";
+                break;
+            case 2:
+                echo "i равно 2";
+                break;
+        }
 
-        );
-
-        $response = $result->getBody()->getContents();
-
-        header('Content-Type: application/csv');
-        header('Content-Disposition: attachment; filename="text.csv";');
-
-
-        print str_replace('EOF', '', $response);
-        return;
-
+        return $reestr->getReestr($reestrDate);
 
     }
 
-    public function signature($data)
-    {
-        $pkeyid = openssl_pkey_get_private(file_get_contents(base_path().env('MONOBANK_KEY_PATH')));
 
-        $signature = null;
-        openssl_sign($data, $signature, $pkeyid);
-        openssl_free_key($pkeyid);
-        return bin2hex($signature);
-    }
 }

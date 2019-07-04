@@ -6,14 +6,19 @@ namespace App\Http\Controllers;
 
 use App\Classes\Filters\SearchMerchantRequestsFilter;
 use App\Classes\Helpers\ApiResponse;
+use App\Classes\Helpers\MailFormatter;
 use App\Classes\Helpers\RoleHelper;
 use App\Classes\LogicalModels\LogMerchantRequestsRepository;
+use App\Classes\LogicalModels\MailPostmanRepository;
 use App\Classes\LogicalModels\MerchantInfoRepository;
 use App\Classes\LogicalModels\MerchantsRepository;
 use App\Classes\LogicalModels\OrderRepository;
 use App\Exceptions\PermissionException;
+use App\Models\MailerPostman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
 
 class MerchantInfoController
@@ -23,16 +28,19 @@ class MerchantInfoController
     public $merchantInfo;
     public $merchant;
 
+
     public function __construct(Request $request,
                                 OrderRepository $orderRepository,
                                 MerchantInfoRepository $merchantInfoRepository,
                                 MerchantsRepository $merchantsRepository
+
     )
     {
         $this->request = $request;
         $this->orders = $orderRepository;
         $this->merchantInfo = $merchantInfoRepository;
         $this->merchant = $merchantsRepository;
+
     }
 
 
@@ -120,10 +128,10 @@ class MerchantInfoController
             LogMerchantRequestsRepository::log(
                 $order->merchant_id,
                 $this->request,
-                [  'action' => 'assign',
+                ['action' => 'assign',
                     'user' => $user,
-                    'status'=>'Пользователь успешно назначен к заказу'
-                    ]);
+                    'status' => 'Пользователь успешно назначен к заказу'
+                ]);
 
             return ApiResponse::goodResponse('Пользователь успешно назначен к заказу');
 
@@ -131,9 +139,9 @@ class MerchantInfoController
         LogMerchantRequestsRepository::log(
             $order->merchant_id,
             $this->request,
-            [  'action' => 'assign',
+            ['action' => 'assign',
                 'user' => $user,
-                'status'=>'Ошибка.Пользователь уже назначен к заказу'
+                'status' => 'Ошибка.Пользователь уже назначен к заказу'
             ]);
         return ApiResponse::badResponse('Пользователь уже назначен к заказу', 500);
 
@@ -170,14 +178,17 @@ class MerchantInfoController
         if ($this->request->get('type') === 'decline') {
             $order->decline_user_id = $user->id;
             $order->decline_comment = $comment;
+            $mail = new MailPostmanRepository();
+            $mail->decline($order, $this->merchant->getOneById($order->merchant_id));
         }
         if ($this->request->get('type') === 'apply' && $user->hasRole(RoleHelper::BUSINESS)) {
-            $this->merchantInfo->save($order);
+            $mail = new MailPostmanRepository();
+            $mail->apply($order, $this->merchant->getOneById($order->merchant_id));
         }
         $order->assigned = null;
         $order->save();
 
-        LogMerchantRequestsRepository::log( $order->merchant_id, $this->request,[  'action' => 'apply', 'user' => $user, 'status'=>'Сохранение данных по заявке.']);
+        LogMerchantRequestsRepository::log($order->merchant_id, $this->request, ['action' => 'apply', 'user' => $user, 'status' => 'Сохранение данных по заявке.']);
 
         $order = $this->orders->getOne($this->request->get('order_id'));
         $fieldValues = $this->orders->getFieldValues($order->id);

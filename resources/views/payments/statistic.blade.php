@@ -73,48 +73,62 @@
                     <div class="box-header"><h2>TOP 10 мерчантов</h2></div>
 
                     <div class="col-lg-3 col-xs-12">
+                        <!-- small box -->
+                        <div class="small-box bg-aqua">
+                            <div class="inner">
+                                <p>За все время</p>
 
-                        <table class="table small-box bg-aqua ">
-                            <caption> За все время</caption>
-                            @foreach($top10 as $merchant)
-                                <tr>
-                                    <td>{{$merchant->name}}</td>
-                                    <td>{{number_format($merchant->summa, 2, ',', ' ')}}</td>
-                                </tr>
-                            @endforeach
-                        </table>
+                                <table class="table small-box bg-aqua ">
 
-                    </div>
-                    <div class="col-lg-3 col-xs-12">
-
-                        <table class="table small-box bg-yellow">
-                            <caption class="caption"> Сегодня</caption>
-                            @foreach($top10Today as $merchant)
-                                <tr>
-                                    <td>{{$merchant->name}}</td>
-                                    <td>{{number_format($merchant->summa, 2, ',', ' ')}}</td>
-                                </tr>
-                            @endforeach
-                        </table>
+                                    @foreach($top10 as $merchant)
+                                        <tr>
+                                            <td>{{$merchant->name}}</td>
+                                            <td>{{number_format($merchant->summa, 2, ',', ' ')}}</td>
+                                        </tr>
+                                    @endforeach
+                                </table>
+                            </div>
+                        </div>
 
                     </div>
                     <div class="col-lg-3 col-xs-12">
-
-                        <table class="table small-box bg-green">
-                            <caption> Текущий месяц</caption>
-                            @foreach($top10currentMonth as $merchant)
-                                <tr>
-                                    <td>{{$merchant->name}}</td>
-                                    <td>{{number_format($merchant->summa, 2, ',', ' ')}}</td>
-                                </tr>
-                            @endforeach
-                        </table>
+                        <!-- small box -->
+                        <div class="small-box bg-yellow">
+                            <div class="inner">
+                                <p>Сегодня</p>
+                                <table class="table ">
+                                    @foreach($top10Today as $merchant)
+                                        <tr>
+                                            <td>{{$merchant->name}}</td>
+                                            <td>{{number_format($merchant->summa, 2, ',', ' ')}}</td>
+                                        </tr>
+                                    @endforeach
+                                </table>
+                            </div>
+                        </div>
 
                     </div>
                     <div class="col-lg-3 col-xs-12">
-
+                        <div class=" small-box bg-green">
+                            <div class="inner">
+                                <p>Текущий месяц</p>
+                                <table class="table">
+                                    @foreach($top10currentMonth as $merchant)
+                                        <tr>
+                                            <td>{{$merchant->name}}</td>
+                                            <td>{{number_format($merchant->summa, 2, ',', ' ')}}</td>
+                                        </tr>
+                                    @endforeach
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-xs-12">
+                        <div class="small-box bg-red">
+                            <div class="inner">
+                                <p>Предыдущий месяц</p>
                         <table class="table small-box bg-red">
-                            <caption> Предыдущий месяц</caption>
+
                             @foreach($top10previousMonth as $merchant)
                                 <tr>
                                     <td>{{$merchant->name}}</td>
@@ -122,6 +136,8 @@
                                 </tr>
                             @endforeach
                         </table>
+                            </div>
+                        </div>
 
                     </div>
                 </div>
@@ -138,7 +154,7 @@
                             <!-- small box -->
                             <div class="small-box bg-aqua">
                                 <div class="inner">
-                                     <p>За все время</p>
+                                    <p>За все время</p>
                                     <table class="table">
                                         @foreach($allPaymentsByRoutes as $data)
                                             <tr>
@@ -197,7 +213,7 @@
                             <!-- small box -->
                             <div class="small-box bg-red">
                                 <div class="inner">
-                                     <p> Предыдущий месяц</p>
+                                    <p> Предыдущий месяц</p>
                                     <table class="table">
                                         @foreach($previousMonthByRoutes as $data)
                                             <tr>

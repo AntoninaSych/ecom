@@ -43,16 +43,13 @@ class StatisticController extends Controller
         $top10previousMonth = $this->payments->top10ByMerchants($filterPreviousMonth);
 
 
-        $filterToday->groupBy = 'route';
-        $filterCurrentMonth->groupBy = 'route';
-        $filterPreviousMonth->groupBy = 'route';
-        $filterAll  = StatisticPaymentFilter::create([]);
-        $filterAll->groupBy = 'route';
 
-        $allPaymentsByRoutes = $this->payments->getStatistic($filterAll);
-        $todayPaymentsByRoutes = $this->payments->getStatistic($filterToday);
-        $currentMonthByRoutes = $this->payments->getStatistic($filterCurrentMonth);
-        $previousMonthByRoutes = $this->payments->getStatistic($filterPreviousMonth);
+
+
+        $allPaymentsByRoutes = $this->payments->getStatisticByRoute();
+        $todayPaymentsByRoutes = $this->payments->getStatisticByRoute($filterToday);
+        $currentMonthByRoutes = $this->payments->getStatisticByRoute($filterCurrentMonth);
+        $previousMonthByRoutes = $this->payments->getStatisticByRoute($filterPreviousMonth);
 
 
         return view('payments.statistic')->with([

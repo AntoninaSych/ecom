@@ -156,10 +156,12 @@
                                 <div class="inner">
                                     <p>За все время</p>
                                     <table class="table">
+
                                         @foreach($allPaymentsByRoutes as $data)
                                             <tr>
                                                 <td>{{$data->name}}</td>
-                                                <td>{{number_format($data->amount, 2, ',', ' ')}}</td>
+                                                <td>{{$data->sc_name}}</td>
+                                                <td>{{number_format($data->summa, 2, ',', ' ')}}</td>
                                             </tr>
                                         @endforeach
                                     </table>
@@ -179,7 +181,8 @@
                                         @foreach($todayPaymentsByRoutes as $data)
                                             <tr>
                                                 <td>{{$data->name}}</td>
-                                                <td>{{number_format($data->amount, 2, ',', ' ')}}</td>
+                                                <td>{{$data->sc_name}}</td>
+                                                <td>{{number_format($data->summa, 2, ',', ' ')}}</td>
                                             </tr>
                                         @endforeach
                                     </table>
@@ -199,7 +202,8 @@
                                         @foreach($currentMonthByRoutes as $data)
                                             <tr>
                                                 <td>{{$data->name}}</td>
-                                                <td>{{number_format($data->amount, 2, ',', ' ')}}</td>
+                                                <td>{{$data->sc_name}}</td>
+                                                <td>{{number_format($data->summa, 2, ',', ' ')}}</td>
                                             </tr>
                                         @endforeach
                                     </table>
@@ -218,7 +222,8 @@
                                         @foreach($previousMonthByRoutes as $data)
                                             <tr>
                                                 <td>{{$data->name}}</td>
-                                                <td>{{number_format($data->amount, 2, ',', ' ')}}</td>
+                                                <td>{{$data->sc_name}}</td>
+                                                <td>{{number_format($data->summa, 2, ',', ' ')}}</td>
                                             </tr>
                                         @endforeach
                                     </table>

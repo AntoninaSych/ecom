@@ -4,6 +4,8 @@
 @stop
 
 @section('content')
+
+
     <div>
         <div class="box">
             <div class="box-header"><h2>Общая статистика</h2></div>
@@ -13,7 +15,7 @@
                         <!-- small box -->
                         <div class="small-box bg-aqua">
                             <div class="inner">
-                                <h3 style="font-size: 24px">{{$all}} UAH</h3>
+                                <h3 style="font-size: 24px">{{number_format($all, 2, ',', ' ')}} UAH</h3>
                                 <p>За все время</p>
                             </div>
                             <div class="icon">
@@ -25,7 +27,7 @@
                         <!-- small box -->
                         <div class="small-box bg-yellow">
                             <div class="inner">
-                                <h3 style="font-size: 24px">   {{$todayPayments}} UAH</h3>
+                                <h3 style="font-size: 24px">  {{number_format($todayPayments, 2, ',', ' ')}} UAH</h3>
                                 <p>Сегодня</p>
                             </div>
                             <div class="icon">
@@ -37,7 +39,7 @@
                         <!-- small box -->
                         <div class="small-box bg-green">
                             <div class="inner">
-                                <h3 style="font-size: 24px">{{$currentMonth}} UAH</h3>
+                                <h3 style="font-size: 24px">{{number_format($currentMonth, 2, ',', ' ')}} UAH</h3>
                                 <p> Текущий месяц</p>
                             </div>
                             <div class="icon">
@@ -49,7 +51,7 @@
                         <!-- small box -->
                         <div class="small-box bg-red">
                             <div class="inner">
-                                <h3 style="font-size: 24px">{{$previousMonth}} UAH</h3>
+                                <h3 style="font-size: 24px">{{number_format($previousMonth, 2, ',', ' ')}} UAH</h3>
                                 <p> Предыдущий месяц</p>
                             </div>
                             <div class="icon">
@@ -77,7 +79,7 @@
                 @foreach($top10 as $merchant)
                     <tr>
                         <td>{{$merchant->name}}</td>
-                        <td>{{$merchant->summa}}</td>
+                        <td>{{number_format($merchant->summa, 2, ',', ' ')}}</td>
                     </tr>
                 @endforeach
             </table>
@@ -90,7 +92,7 @@
                 @foreach($top10Today as $merchant)
                     <tr>
                         <td>{{$merchant->name}}</td>
-                        <td>{{$merchant->summa}}</td>
+                        <td>{{number_format($merchant->summa, 2, ',', ' ')}}</td>
                     </tr>
                 @endforeach
             </table>
@@ -103,7 +105,7 @@
                 @foreach($top10currentMonth as $merchant)
                     <tr>
                         <td>{{$merchant->name}}</td>
-                        <td>{{$merchant->summa}}</td>
+                        <td>{{number_format($merchant->summa, 2, ',', ' ')}}</td>
                     </tr>
                 @endforeach
             </table>

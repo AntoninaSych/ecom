@@ -38,9 +38,21 @@ class StatisticController extends Controller
         $previousMonth = $this->payments->getStatistic($filterPreviousMonth);
 
         $top10 = $this->payments->top10ByMerchants();
-        $top10Today= $this->payments->top10ByMerchants($filterToday);
-        $top10currentMonth= $this->payments->top10ByMerchants($filterCurrentMonth);
-        $top10previousMonth= $this->payments->top10ByMerchants($filterPreviousMonth);
+        $top10Today = $this->payments->top10ByMerchants($filterToday);
+        $top10currentMonth = $this->payments->top10ByMerchants($filterCurrentMonth);
+        $top10previousMonth = $this->payments->top10ByMerchants($filterPreviousMonth);
+
+
+        $filterToday->groupBy = 'route';
+        $filterCurrentMonth->groupBy = 'route';
+        $filterPreviousMonth->groupBy = 'route';
+        $filterAll  = StatisticPaymentFilter::create([]);
+        $filterAll->groupBy = 'route';
+
+        $allPaymentsByRoutes = $this->payments->getStatistic($filterAll);
+        $todayPaymentsByRoutes = $this->payments->getStatistic($filterToday);
+        $currentMonthByRoutes = $this->payments->getStatistic($filterCurrentMonth);
+        $previousMonthByRoutes = $this->payments->getStatistic($filterPreviousMonth);
 
 
         return view('payments.statistic')->with([
@@ -49,11 +61,13 @@ class StatisticController extends Controller
             'previousMonth' => $previousMonth,
             'currentMonth' => $currentMonth,
             'top10' => $top10,
-            'top10Today'=> $top10Today,
-            'top10currentMonth'=> $top10currentMonth,
-            'top10previousMonth'=>$top10previousMonth
+            'top10Today' => $top10Today,
+            'top10currentMonth' => $top10currentMonth,
+            'top10previousMonth' => $top10previousMonth,
+            'allPaymentsByRoutes' => $allPaymentsByRoutes,
+            'todayPaymentsByRoutes' => $todayPaymentsByRoutes,
+            'currentMonthByRoutes' => $currentMonthByRoutes,
+            'previousMonthByRoutes' => $previousMonthByRoutes
         ]);
-
-
     }
 }

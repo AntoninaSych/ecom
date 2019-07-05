@@ -9,6 +9,7 @@ use App\Classes\Filters\SearchPaymentsFilter;
 use App\Classes\Filters\StatisticPaymentFilter;
 use App\Exceptions\NotFoundException;
 use App\Models\Merchants;
+use App\Models\PaymentRoute;
 use App\Models\Payments;
 use App\Models\PaymentStatus;
 use App\Models\PaymentType;
@@ -23,13 +24,15 @@ class PaymentsRepository
     protected $type;
     protected $status;
     protected $merchants;
+    private $route;
 
-    public function __construct(Payments $payments, PaymentStatus $status, PaymentType $type, Merchants $merchants)
+    public function __construct(Payments $payments, PaymentStatus $status, PaymentType $type, Merchants $merchants, PaymentRoute $route)
     {
         $this->payments = $payments;
         $this->type = $type;
         $this->status = $status;
         $this->merchants = $merchants;
+        $this->route = $route;
     }
 
     public function getList()
@@ -162,13 +165,16 @@ class PaymentsRepository
         $query = DB::table($this->payments->getTable() . ' as payments')
             ->select(
                 'payments.id',
+                'payments.route',
                 'payments.updated',
                 'payments.amount',
                 'payments.status',
                 'payments.merchant_id',
-                'mer.name'
+                'mer.name',
+                'rt.name'
             )
-            ->leftjoin($this->merchants->getTable() . ' as mer', 'payments.merchant_id', '=', 'mer.id');
+            ->leftjoin($this->merchants->getTable() . ' as mer', 'payments.merchant_id', '=', 'mer.id')
+            ->leftjoin($this->route->getTable() . ' as rt', 'payments.route', '=', 'rt.id');
 
         if (!is_null($filter)) {
             if ($filter->updatedTo != null && $filter->updatedFrom != null) {
@@ -181,8 +187,11 @@ class PaymentsRepository
 
         $query = $query->where('payments.status', 7);
 
-
-        $results = $query->sum('payments.amount');
+        if (!is_null($filter) && $filter->groupBy !== null && $filter->groupBy =='route') {
+            $results = $query->groupBy('route')->get();
+        } else {
+            $results = $query->sum('payments.amount');
+        }
         return $results;
     }
 

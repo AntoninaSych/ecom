@@ -10,7 +10,7 @@ class StatisticPaymentFilter
     public $merchantId = array();
     public $updatedFrom = null;//дата платежа
     public $updatedTo = null;//дата платежа
-
+    public $groupBy = null;
 
     public static function create(array $requestArray): StatisticPaymentFilter
     {

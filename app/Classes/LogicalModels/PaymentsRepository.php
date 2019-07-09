@@ -178,7 +178,7 @@ class PaymentsRepository
             if ($filter->updatedTo != null && $filter->updatedFrom != null) {
                 $start_date = Carbon::createFromFormat('Y-m-d', $filter->updatedFrom)->startOfDay()->toDateTimeString();
                 $end_date = Carbon::createFromFormat('Y-m-d', $filter->updatedTo)->endOfDay()->toDateTimeString();
-                $query = $query->whereBetween('payments.updated', [$start_date, $end_date]);
+                $query = $query->whereBetween('payments.created', [$start_date, $end_date]);
             }
         }
 
@@ -202,7 +202,7 @@ ON  merchants.id = payments.merchant_id   where payments.status = 7 group By pay
                 ->select(DB::raw('merchants.name, sum(payments.amount) as summa'));
             $start_date = Carbon::createFromFormat('Y-m-d', $filter->updatedFrom)->startOfDay()->toDateTimeString();
             $end_date = Carbon::createFromFormat('Y-m-d', $filter->updatedTo)->endOfDay()->toDateTimeString();
-            $query = $query->whereBetween('payments.updated', [$start_date, $end_date]);
+            $query = $query->whereBetween('payments.created', [$start_date, $end_date]);
             $query = $query->where('payments.status', 7);
             $query = $query->groupBy('payments.merchant_id');
             $query = $query->orderBy('summa', 'desc');
@@ -215,14 +215,6 @@ ON  merchants.id = payments.merchant_id   where payments.status = 7 group By pay
 
     public function getStatisticByRoute(StatisticPaymentFilter $filter=null)
     {
-//        select  `rt`.`name`,cs.name, sum(payments.amount) as sm
-//        from `payments` as `payments`
-//        left join `payment_routes` as `rt` on `payments`.`route` = `rt`.`id`
-//        inner join cards_systems as cs on payments.card_system=cs.id
-//       where `payments`.`updated` between '2019-07-01 00:00:00' and '2019-07-31 23:59:59'
-//    and `payments`.`status` = 7
-//        group by rt.name,cs.name
-
         $query = DB::table($this->payments->getTable() . ' as payments')
             ->select(DB::raw( 'rt.name, cs.name as sc_name,   rt.name, sum(payments.amount) as summa')
             )
@@ -235,13 +227,13 @@ ON  merchants.id = payments.merchant_id   where payments.status = 7 group By pay
             if ($filter->updatedTo != null && $filter->updatedFrom != null) {
                 $start_date = Carbon::createFromFormat('Y-m-d', $filter->updatedFrom)->startOfDay()->toDateTimeString();
                 $end_date = Carbon::createFromFormat('Y-m-d', $filter->updatedTo)->endOfDay()->toDateTimeString();
-                $query = $query->whereBetween('payments.updated', [$start_date, $end_date]);
+                $query = $query->whereBetween('payments.created', [$start_date, $end_date]);
             }
         }
         $query = $query->where('payments.status', 7);
         $query =  $query->groupBy('rt.name', 'cs.name');
         $result = $query->get();
 
-return $result;
+        return $result;
     }
 }

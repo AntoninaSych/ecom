@@ -4,140 +4,64 @@
 @stop
 
 @section('content')
-
-
     <div>
         <div class="box">
-            <div class="box-header"><h2>Общая статистика</h2></div>
+            <div class="box-header"><h2>Общая статистика</h2>
+                <div class="box-tools">
+                    <div class="col-xs-12">
+                    <div class="pull-right">
+                        <button class="btn btn-danger" style="margin-top: 25px;"
+                                onclick="loadStatistic('over-all-statistic-btn','loader1','main-stat','/statistic/overAll')"
+                                id="over-all-statistic-btn"><i class="icon ion-arrow-down-a"></i>
+                        </button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="box-body">
-                <div class="row">
-                    <div class="col-lg-3 col-xs-6">
-                        <!-- small box -->
-                        <div class="small-box bg-aqua">
-                            <div class="inner">
-                                <h3 style="font-size: 24px">{{number_format($all, 2, ',', ' ')}} UAH</h3>
-                                <p>За все время</p>
-                            </div>
-                            <div class="icon">
-                                <i class="ion ion-stats"></i>
-                            </div>
-                        </div>
+                <div class="row " id="main-statistic">
+                    <div class="container" id='loader1' style="display: none">
+                        <div class="item-1"></div>
+                        <div class="item-2"></div>
+                        <div class="item-3"></div>
+                        <div class="item-4"></div>
+                        <div class="item-5"></div>
                     </div>
-                    <div class="col-lg-3 col-xs-6">
-                        <!-- small box -->
-                        <div class="small-box bg-yellow">
-                            <div class="inner">
-                                <h3 style="font-size: 24px">  {{number_format($todayPayments, 2, ',', ' ')}} UAH</h3>
-                                <p>Сегодня</p>
-                            </div>
-                            <div class="icon">
-                                <i class="ion ion-stats"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-xs-6">
-                        <!-- small box -->
-                        <div class="small-box bg-green">
-                            <div class="inner">
-                                <h3 style="font-size: 24px">{{number_format($currentMonth, 2, ',', ' ')}} UAH</h3>
-                                <p> Текущий месяц</p>
-                            </div>
-                            <div class="icon">
-                                <i class="ion ion-stats"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-xs-6">
-                        <!-- small box -->
-                        <div class="small-box bg-red">
-                            <div class="inner">
-                                <h3 style="font-size: 24px">{{number_format($previousMonth, 2, ',', ' ')}} UAH</h3>
-                                <p> Предыдущий месяц</p>
-                            </div>
-                            <div class="icon">
-                                <i class="ion ion-stats"></i>
-                            </div>
-                        </div>
+                    <div id="main-stat" style="display: none">
+
                     </div>
                     <hr>
                 </div>
             </div>
         </div>
     </div>
-
-
     <div>
         <div class="box">
             <div class="box-body">
                 <div class="row">
-                    <div class="box-header"><h2>TOP 10 мерчантов</h2></div>
-
-                    <div class="col-lg-3 col-xs-12">
-                        <!-- small box -->
-                        <div class="small-box bg-aqua">
-                            <div class="inner">
-                                <p>За все время</p>
-
-                                <table class="table small-box bg-aqua ">
-
-                                    @foreach($top10 as $merchant)
-                                        <tr>
-                                            <td>{{$merchant->name}}</td>
-                                            <td>{{number_format($merchant->summa, 2, ',', ' ')}}</td>
-                                        </tr>
-                                    @endforeach
-                                </table>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="col-lg-3 col-xs-12">
-                        <!-- small box -->
-                        <div class="small-box bg-yellow">
-                            <div class="inner">
-                                <p>Сегодня</p>
-                                <table class="table ">
-                                    @foreach($top10Today as $merchant)
-                                        <tr>
-                                            <td>{{$merchant->name}}</td>
-                                            <td>{{number_format($merchant->summa, 2, ',', ' ')}}</td>
-                                        </tr>
-                                    @endforeach
-                                </table>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="col-lg-3 col-xs-12">
-                        <div class=" small-box bg-green">
-                            <div class="inner">
-                                <p>Текущий месяц</p>
-                                <table class="table">
-                                    @foreach($top10currentMonth as $merchant)
-                                        <tr>
-                                            <td>{{$merchant->name}}</td>
-                                            <td>{{number_format($merchant->summa, 2, ',', ' ')}}</td>
-                                        </tr>
-                                    @endforeach
-                                </table>
+                    <div class="box-header"><h2>TOP 10 мерчантов</h2>
+                        <div class="box-tools">
+                            <div class="col-xs-12">
+                                <div class="pull-right">
+                                    <button class="btn btn-warning" style="margin-top: 25px;"
+                                            onclick="loadStatistic('top-ten-statistic-btn','loader2','top-10-stat','/statistic/topTen')"
+                                            id="top-ten-statistic-btn"><i class="icon ion-arrow-down-a"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-xs-12">
-                        <div class="small-box bg-red">
-                            <div class="inner">
-                                <p>Предыдущий месяц</p>
-                        <table class="table small-box bg-red">
 
-                            @foreach($top10previousMonth as $merchant)
-                                <tr>
-                                    <td>{{$merchant->name}}</td>
-                                    <td>{{number_format($merchant->summa, 2, ',', ' ')}}</td>
-                                </tr>
-                            @endforeach
-                        </table>
-                            </div>
-                        </div>
+                    <div class="container" id='loader2' style="display: none">
+                        <div class="item-1"></div>
+                        <div class="item-2"></div>
+                        <div class="item-3"></div>
+                        <div class="item-4"></div>
+                        <div class="item-5"></div>
+                    </div>
+
+                    <div id="top-10-stat" style="display: none">
 
                     </div>
                 </div>
@@ -147,95 +71,37 @@
         {{--    Статистика по роутам--}}
         <div>
             <div class="box">
-                <div class="box-header"><h2>По роутам платежей</h2></div>
-                <div class="box-body">
+                <div class="box-header"><h2>По роутам платежей</h2>
+                    <div class="box-tools">
+                        <div class="col-xs-12">
+                            <div class="pull-right">
+                                <button class="btn btn-success" style="margin-top: 25px;"
+                                        onclick="loadStatistic('by-routes','loader3','by-routes','/statistic/byRoutes')"
+                                        id="by-routes-statistic-btn"><i class="icon ion-arrow-down-a"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div></div>
+
+
                     <div class="row">
-                        <div class="col-lg-3 col-xs-6">
-                            <!-- small box -->
-                            <div class="small-box bg-aqua">
-                                <div class="inner">
-                                    <p>За все время</p>
-                                    <table class="table">
-
-                                        @foreach($allPaymentsByRoutes as $data)
-                                            <tr>
-                                                <td>{{$data->name}}</td>
-                                                <td>{{$data->sc_name}}</td>
-                                                <td>{{number_format($data->summa, 2, ',', ' ')}}</td>
-                                            </tr>
-                                        @endforeach
-                                    </table>
-                                </div>
-                                <div class="icon">
-                                    <i class="ion ion-stats"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-xs-6">
-                            <!-- small box -->
-                            <div class="small-box bg-yellow">
-                                <div class="inner">
-
-                                    <p>Сегодня</p>
-                                    <table class="table">
-                                        @foreach($todayPaymentsByRoutes as $data)
-                                            <tr>
-                                                <td>{{$data->name}}</td>
-                                                <td>{{$data->sc_name}}</td>
-                                                <td>{{number_format($data->summa, 2, ',', ' ')}}</td>
-                                            </tr>
-                                        @endforeach
-                                    </table>
-                                </div>
-                                <div class="icon">
-                                    <i class="ion ion-stats"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-xs-6">
-                            <!-- small box -->
-                            <div class="small-box bg-green">
-                                <div class="inner">
-
-                                    <p> Текущий месяц</p>
-                                    <table class="table">
-                                        @foreach($currentMonthByRoutes as $data)
-                                            <tr>
-                                                <td>{{$data->name}}</td>
-                                                <td>{{$data->sc_name}}</td>
-                                                <td>{{number_format($data->summa, 2, ',', ' ')}}</td>
-                                            </tr>
-                                        @endforeach
-                                    </table>
-                                </div>
-                                <div class="icon">
-                                    <i class="ion ion-stats"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-xs-6">
-                            <!-- small box -->
-                            <div class="small-box bg-red">
-                                <div class="inner">
-                                    <p> Предыдущий месяц</p>
-                                    <table class="table">
-                                        @foreach($previousMonthByRoutes as $data)
-                                            <tr>
-                                                <td>{{$data->name}}</td>
-                                                <td>{{$data->sc_name}}</td>
-                                                <td>{{number_format($data->summa, 2, ',', ' ')}}</td>
-                                            </tr>
-                                        @endforeach
-                                    </table>
-                                </div>
-                                <div class="icon">
-                                    <i class="ion ion-stats"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
+                    <div class="container" id='loader3' style="display: none">
+                        <div class="item-1"></div>
+                        <div class="item-2"></div>
+                        <div class="item-3"></div>
+                        <div class="item-4"></div>
+                        <div class="item-5"></div>
                     </div>
-                </div>
+                    <div id="by-routes">
+                    </div>
+
             </div>
         </div>
+    </div>
 @stop
+
+<script src="{{ asset('/js/libraries/jquery.js') }}"></script>
+
+<script src="{{ asset('/js/libraries/jquery-ui.js') }}"></script>
+
+<script src="{{ asset('js/statistics.js') }}"></script>

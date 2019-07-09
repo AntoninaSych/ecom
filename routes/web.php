@@ -104,7 +104,10 @@ Route::group(['middleware' => ['log.request']], function () {
         Route::group(['prefix' => 'statistic', 'middleware' => ['can.view.statistics']], function () {
             Route::match(['get'], '/', 'StatisticController@all');
             Route::match(['get'], '/merchant/{id}', 'StatisticController@merchant');
-
+            Route::match(['get'], '/merchant/{id}', 'StatisticController@merchant');
+            Route::match(['get'], '/overAll', 'StatisticController@overAll');
+            Route::match(['get'], '/topTen', 'StatisticController@topTen');
+            Route::match(['get'], '/byRoutes', 'StatisticController@byRoutes');
         });
 
 

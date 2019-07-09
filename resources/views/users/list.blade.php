@@ -110,15 +110,27 @@
                         <td>{{$user->id}}</td>
                         <td>{{$user->name}}</td>
                         <td>{{$user->email}}</td>
-                        <td>{{$user->roles_relation[0]->display_name}}</td>
+                        @if(isset($user->roles_relation[0]))
+                                <td>{{$user->roles_relation[0]->display_name}}</td>
 
-                        <td>
-                            <button class="btn btn-primary change-role-btn"
-                                    onclick="changeRole('{{$user->id}}','{{$user->roles_relation[0]->id}}','{{$user->name}}')"
-                                    data-toggle="modal" data-target="#modal-attach-role">Изменить роль
-                            </button>
-                        </td>
-                        <td>
+                                <td>
+                                    <button class="btn btn-primary change-role-btn"
+                                            onclick="changeRole('{{$user->id}}','{{$user->roles_relation[0]->id}}','{{$user->name}}')"
+                                            data-toggle="modal" data-target="#modal-attach-role">Изменить роль
+                                    </button>
+                                </td>
+                                <td>
+                                    @else
+                            <td bgcolor="red">Роль не назначена</td>
+
+                            <td>
+                                <button class="btn btn-primary change-role-btn"
+                                        onclick="changeRole('{{$user->id}}','null','{{$user->name}}')"
+                                        data-toggle="modal" data-target="#modal-attach-role">Изменить роль
+                                </button>
+                            </td>
+                            <td>
+                            @endif
                             <div class="wrap">
                                 <input type="checkbox" id="s{{$user->id}}"
                                        @if(intval($user->status) == 1) checked="checked" @endif />
@@ -129,6 +141,7 @@
                                 ></label>
                             </div>
                         </td>
+
                         <td>
                             <button   class="btn btn-default" onclick="sendLink({{$user->id}})">Отправить</button>
                         </td>

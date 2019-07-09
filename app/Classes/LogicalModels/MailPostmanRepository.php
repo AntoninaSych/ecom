@@ -40,7 +40,7 @@ class MailPostmanRepository
     {
 
         $mail = new MailerPostman();
-        $mail->subject = "Ваш магазин не прошел проверку.";
+        $mail->subject = "Нам нужна дополнительная информация по Вашему магазину.";
         $mail->body = view('email.decline')->with(
             [   'user' => $order->user,
                 'url' => $merchant->url]);

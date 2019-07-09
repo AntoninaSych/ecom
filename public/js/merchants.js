@@ -419,8 +419,8 @@ function addMerchantPaymentRoute() {
             sum_max: sum_max,
             sum_min: sum_min,
             merchant_id: merchant_id,
-            bins:bins,
-            priority:priority
+            bins: bins,
+            priority: priority
         },
         success: function () {
             $('#type-errors').html();
@@ -502,8 +502,8 @@ function changeMerchantPaymentRoute() {
             sum_max: sum_max,
             sum_min: sum_min,
             merchant_id: merchant_id,
-            bins:bins,
-            priority:priority
+            bins: bins,
+            priority: priority
         },
         success: function () {
             $('#type-errors').html();
@@ -640,6 +640,188 @@ function addMerchantPaymentLimit() {
             el.find("select[name='limit_type']").val('');
             $('#limits-add-errors').html();
             $('#limits-add-errors').hide();
+        }, error: function (response) {
+            var response = response.responseText;
+            response = JSON.parse(response);
+
+            $('#limits-add-errors').html(response.data[0]);
+            $('#limits-add-errors').show();
+        }
+    });
+}
+
+function loadMerchantUserAlias() {
+    $.ajax({
+        url: '/merchants/user-alias/table/' + merchant_id,
+        type: "GET",
+
+        success: function (data) {
+            $('#merchant-user-alias-table').html(data);
+        }
+    });
+}
+
+
+//begin edit Merchant User Alias
+function editMerchantUserAlias(e) {
+    var el = $('#modal-edit-merchant-user-alias');
+    var merchant_id = $(e).data("merchant-id");
+    var id = $(e).data("id");
+    var user_id = $(e).data("user_id");
+    var role_id = $(e).data("role_id");
+
+    el.find("select[name='user_id']").val(user_id);
+    el.find("input[name='merchant_id']").val(merchant_id);
+    el.find("input[name='id']").val(id);
+    el.find("input[name='user_id']").val(user_id);
+    el.find("select[name='merchant_alias_role_id']").val(role_id);
+
+}
+
+//end Merchant User Alias
+
+function removeMerchantUserAlias(e) {
+
+}
+
+function addMerchantUserAlias(input) {
+    $("#merchant_user_id_alias").select2({
+        language: "ru",
+        placeholder: "Username",
+        // allowClear: false,
+        data: input,
+        ajax: {
+            delay: 250,
+            url: config.services.getMerchantsUserAlias,
+            data: function (params) {
+                var queryParameters = {
+                    name: params.term,
+                    merchant_id: merchant_id
+                };
+
+                return queryParameters;
+            },
+            processResults: function (json) {
+                users = [];
+                $.each(json, function (key, value) {
+                    "use strict";
+
+
+                        users.push({'id': parseInt(key), 'text': value});
+
+                });
+                return {
+                    results: users
+                };
+
+            },
+        }
+    });
+}
+
+
+function storeMerchantUserAlias() {
+
+    var el = $('#modal-add-merchant-user-alias');
+
+
+    var user_id = el.find("select[name='user_id']").val();
+    var merchant_id = el.find("input[name='merchant_id']").val();
+    var role_id = el.find("select[name='role_id']").val();
+    console.log(user_id);
+    console.log(role_id);
+    $.ajax({
+        url: '/merchants/user-alias/store',
+        type: "post",
+        data: {
+            user_id: user_id,
+            merchant_id: merchant_id,
+            role_id: role_id
+        },
+        success: function () {
+
+            $('#modal-add-merchant-user-alias').hide();
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+            loadMerchantUserAlias();
+
+        }, error: function (response) {
+            var response = response.responseText;
+            response = JSON.parse(response);
+
+            $('#limits-add-errors').html(response.data[0]);
+            $('#limits-add-errors').show();
+        }
+    });
+
+}
+
+
+function updateMerchantUserAlias() {
+
+    var el = $('#modal-edit-merchant-user-alias');
+
+
+    var user_id = el.find("input[name='user_id']").val();
+    var merchant_id = el.find("input[name='merchant_id']").val();
+    var id = el.find("input[name='id']").val();
+    var role_id = el.find("select[name='merchant_alias_role_id']").val();
+    console.log(user_id);
+    console.log(role_id);
+    $.ajax({
+        url: '/merchants/user-alias/update',
+        type: "post",
+        data: {
+            id:id,
+            user_id: user_id,
+            merchant_id: merchant_id,
+            role_id: role_id
+        },
+        success: function () {
+
+            $('#modal-edit-merchant-user-alias').hide();
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+            loadMerchantUserAlias();
+
+        }, error: function (response) {
+            var response = response.responseText;
+            response = JSON.parse(response);
+
+            $('#limits-add-errors').html(response.data[0]);
+            $('#limits-add-errors').show();
+        }
+    });
+
+}
+function prepareDelete(e) {
+
+    var id = $(e).data("id");
+
+    var username = $(e).data("username");
+    var el = $('#modal-remove-merchant-user-alias');
+
+    el.find("input[name='id']").val(id);
+    $('#alias-merchant-question').html('Вы действительно желаете удалить связь пользователя <b> '+username +' </b> с мерчантом?');
+}
+
+function removeMerchantUserAlias() {
+    var el = $('#modal-remove-merchant-user-alias');
+    var id = el.find("input[name='id']").val();
+
+    $.ajax({
+        url: '/merchants/user-alias/remove',
+        type: "post",
+        data: {
+            id:id
+        },
+        success: function () {
+
+            $('#modal-remove-merchant-user-alias').hide();
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+            loadMerchantUserAlias();
+
         }, error: function (response) {
             var response = response.responseText;
             response = JSON.parse(response);

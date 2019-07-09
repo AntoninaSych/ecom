@@ -96,7 +96,11 @@
                                     onclick="loadMerchantRoutes()">Роут платежей</a>
                     </li>
                 @endif
-
+            @if( Auth::user()->can(Auth::user()->can(PermissionHelper::MERCHANT_USER_ALIAS)))
+                <li class=""><a href="#merchant-user-alias" data-toggle="tab" aria-expanded="false"
+                                onclick="loadMerchantUserAlias()">Alias Merchant User</a>
+                </li>
+            @endif
 
 
 
@@ -145,13 +149,21 @@
             @endif
             {{--PaymentType details end--}}
 
+
+{{--        start    merchant-user-alias--}}
+            @if(Auth::user()->can(PermissionHelper::MERCHANT_USER_ALIAS))
+                @include('merchants.partials.merchant-user-alias')
+            @endif
+{{--        end    merchant-user-alias--}}
         </div>
     </div>
 @stop
-<script src="{{ asset('/js/libraries/jquery-3.3.1.min.js') }}"></script>
+{{--<script src="{{ asset('/js/libraries/jquery-3.3.1.min.js') }}"></script>--}}
+<script src="{{ asset('/js/libraries/jquery.js') }}"></script>
 
 <script src="{{ asset('/js/libraries/jquery-ui.js') }}"></script>
-<script src="{{ asset('/js/libraries/jquery-validation/validation.js') }}"></script>
+{{--<script src="{{ asset('/js/libraries/select2/select2.full.min.js') }}"></script>--}}
+ <script src="{{ asset('/js/libraries/jquery-validation/validation.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/js/libraries/jquery-validation/additional-methods.min.js') }}"></script>
 <script type="text/javascript"
         src="{{ asset('/js/libraries/jquery-validation/localization/messages_ru.min.js') }}"></script>

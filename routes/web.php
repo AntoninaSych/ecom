@@ -61,13 +61,11 @@ Route::group(['middleware' => ['log.request']], function () {
                 Route::match(['post'], '/account/add', 'MerchantAccountController@store')->name('account.store');
                 Route::match(['get'], '/account/update', 'MerchantAccountController@update')->name('account.update');
                 Route::match(['post'], '/account/destroy', 'MerchantAccountController@destroy')->name('account.destroy');
-
                 Route::group(['prefix' => 'payment-type', 'middleware' => 'can.manage.merchant.payment.type'], function () {
                     Route::match(['get'], '/{merchantId}/table', 'MerchantPaymentTypeController@getTable');
                     Route::match(['post'], '/store', 'MerchantPaymentTypeController@store')->name('payment-type.store');
                     Route::match(['get'], '/update', 'MerchantPaymentTypeController@update')->name('payment-type.update');
                 });
-
                 Route::group(['prefix' => '/route', 'middleware' => 'can.manage.merchant.route'], function () {
                     Route::match(['post'], '/store', 'MerchantRoutesController@store')->name('payment-route.store');
                     Route::match(['post'], '/update', 'MerchantRoutesController@update')->name('payment-route.update');
@@ -81,6 +79,14 @@ Route::group(['middleware' => ['log.request']], function () {
                     Route::match(['get'], '/table', 'MerchantLimitsController@getTable');
                     Route::match(['post'], '/store', 'MerchantLimitsController@store')->name('payment-limit.store');
                     Route::match(['post'], '/update', 'MerchantLimitsController@update')->name('payment-limit.update');
+                });
+
+                Route::group(['prefix' => '/user-alias', 'middleware' => 'merchant.user.alias'], function () {
+                    Route::match(['get'], '/table/{id}', 'MerchantUserAliasController@getTable');
+                    Route::match(['post'], '/store', 'MerchantUserAliasController@store')->name('merchant-user-alias.store');
+                    Route::match(['post'], '/update', 'MerchantUserAliasController@update')->name('merchant-user-alias.update');
+                    Route::match(['post'], '/remove', 'MerchantUserAliasController@remove')->name('merchant-user-alias.remove');
+                    Route::match(['get'], '/getMerchantsUserAlias', 'MerchantUserAliasController@getMerchantsUserAlias') ;
                 });
             });
         });

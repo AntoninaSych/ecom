@@ -5,6 +5,7 @@ namespace App\Http;
 use App\Http\Middleware\CanApplyMerchantsRequest;
 use App\Http\Middleware\CanManageMerchantPaymentType;
 use App\Http\Middleware\CanManageMerchantRoute;
+use App\Http\Middleware\CanManageMerchantUserAlias;
 use App\Http\Middleware\CanMccCodes;
 use App\Http\Middleware\CanViewMerchants;
 use App\Http\Middleware\CanViewPayments;
@@ -87,7 +88,8 @@ class Kernel extends HttpKernel
         'can.manage.merchant.route'=>CanManageMerchantRoute::class,
         'can.view.statistics' => CanViewStatistic::class,
         'can.view.reestrs' => CanViewReestrs::class,
-        'can.view.routes' => CanViewRoutes::class
+        'can.view.routes' => CanViewRoutes::class,
+        'merchant.user.alias'=>CanManageMerchantUserAlias::class
     ];
 
     /**

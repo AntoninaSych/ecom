@@ -217,3 +217,5 @@ canceled = null
  add poermission into DB
  view-reestrs просмотр реестров для пермишена
  view-routes просмотр для перпимешна страницы роутов без 
+ merchant-user-alias  User Merchant Alias добавление/удаление связи доступов юзеров к мерчантам concordPay
+  

@@ -1,6 +1,7 @@
 @extends('adminlte::master')
 
 @section('adminlte_css')
+    <link href="/css/select2/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet"
           href="{{ asset('vendor/adminlte/dist/css/skins/skin-' . config('adminlte.skin', 'blue') . '.min.css')}} ">
     @stack('css')

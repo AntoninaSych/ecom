@@ -10,7 +10,6 @@ class Users extends BaseModel
 {
     protected $table = 'users';
 
-
     public function roles_relation(): BelongsToMany
     {
         return $this->belongsToMany(Role::class,

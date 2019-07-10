@@ -220,7 +220,7 @@
                 columns: [
                     {data: 'id', name: 'id'},
                     // {data: 'created', name: 'created'},
-                    {data: 'updated', name: 'updated'},
+                    {data: 'created', name: 'created'},
                     {data: 'amount', name: 'amount',},
                     {data: 'customer_fee', name: 'customer_fee'},
                     {data: 'status', name: 'status'},
@@ -317,7 +317,7 @@
                         columns: [
                             {data: 'id', name: 'id'},
                             // {data: 'created', name: 'created'},
-                            {data: 'updated', name: 'updated'},
+                            {data: 'created', name: 'created'},
                             {data: 'amount', name: 'amount',},
                             {data: 'customer_fee', name: 'customer_fee'},
                             {data: 'status', name: 'status'},

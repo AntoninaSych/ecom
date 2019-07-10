@@ -56,8 +56,7 @@ class PaymentsRepository
             ->select(
                 'payments.id',
                 'payments.order_id',
-                'payments.updated',
-
+                'payments.created',
                 'payments.card_num',
                 'payments.created',
                 'payments.amount',
@@ -111,7 +110,7 @@ class PaymentsRepository
         if ($filter->updatedTo != "" && $filter->updatedFrom != "") {
             $start_date = Carbon::createFromFormat('Y-m-d', $filter->updatedFrom)->startOfDay()->toDateTimeString();
             $end_date = Carbon::createFromFormat('Y-m-d', $filter->updatedTo)->endOfDay()->toDateTimeString();
-            $query = $query->whereBetween('payments.updated', [$start_date, $end_date]);
+            $query = $query->whereBetween('payments.created', [$start_date, $end_date]);
         }
 
 //        $query = $query->orderBy('payments.id', 'DESC'); //filters do not applies in this case

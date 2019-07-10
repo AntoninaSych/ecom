@@ -205,8 +205,8 @@
                 },
                 "Введите первые 6 и последние 4 цифры карты"
             );
-            $('#payment-table').DataTable({
-                dom: 'lBfrtip',
+            var oTable = $('#payment-table').DataTable({
+                dom: 'rBltp',
                 buttons: [
                     'copy', 'csv', 'print',
 
@@ -232,7 +232,7 @@
                     {data: 'view_details', name: 'view_details', searchable: false}
                 ]
             });
-
+            oTable.order([[1, 'desc']]).draw();
 
             $('#payment-search-button').on('click', function (e) {
 
@@ -273,12 +273,14 @@
                 });
                 if (form.valid() === true) {
                     $('#payment-table').dataTable().fnDestroy();
-                    var oTable = $('#payment-table').DataTable({
-                        dom: 'lBfrtip',
+                    oTable = $('#payment-table').DataTable({
+                        dom: 'lBrtip',
+
                         buttons: [
                             'copy', 'csv', 'excel', 'print'
                         ],
                         processing: true,
+
                         "language": {
                             "url": "/Russian.json"
                         },
@@ -327,6 +329,7 @@
                             {data: 'view_details', name: 'view_details', searchable: false}
                         ]
                     });
+                    oTable.order([[1, 'desc']]).draw();
                     e.preventDefault();
                 }
             });

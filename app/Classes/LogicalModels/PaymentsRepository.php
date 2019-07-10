@@ -114,7 +114,7 @@ class PaymentsRepository
             $query = $query->whereBetween('payments.updated', [$start_date, $end_date]);
         }
 
-        $query = $query->orderBy('payments.id', 'DESC');
+//        $query = $query->orderBy('payments.id', 'DESC'); //filters do not applies in this case
 
         return $query;
     }

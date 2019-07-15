@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class MerchantStatus extends Model
+class MerchantStatus extends BaseModel
 {
     protected $table = 'ref_merchant_statuses';
 

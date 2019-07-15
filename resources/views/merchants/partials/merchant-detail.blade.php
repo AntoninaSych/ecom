@@ -31,7 +31,7 @@
 
                     <h3 class="profile-username text-center">{{$merchant->name}}</h3>
 
-                    <p class="text-muted text-center">{{$relations['status']->name}}</p>
+                    <p class="text-muted text-center">{{$relations['merchant_status']->name}}</p>
 
                     <ul class="list-group list-group-unbordered">
                         <li class="list-group-item">
@@ -60,7 +60,7 @@
                             <b>URL</b> <a href="{{$merchant->url}}" class="pull-right">{{$merchant->url}}</a>
                         </li>
                         <li class="list-group-item">
-                            <b>Статус</b> <span   class="pull-right">{{$relations['status']->name}}</span>
+                            <b>Статус</b> <span   class="pull-right">{{$relations['merchant_status']->name}}</span>
                         </li>
                         <li class="list-group-item">
                             <b>Создал (имя пользователя в dispatcher)</b> <span   class="pull-right">  {{$relations['user']->username}}</span>

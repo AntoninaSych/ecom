@@ -15,6 +15,7 @@ use App\Classes\LogicalModels\MerchantsRepository;
 use App\Classes\LogicalModels\OrderRepository;
 use App\Exceptions\PermissionException;
 use App\Models\MailerPostman;
+use App\Models\MerchantStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -184,11 +185,18 @@ class MerchantInfoController
         if ($this->request->get('type') === 'apply' && $user->hasRole(RoleHelper::BUSINESS)) {
             $mail = new MailPostmanRepository();
             $mail->apply($order, $this->merchant->getOneById($order->merchant_id));
+
+            $merchant = $this->merchant->getOneById($order->merchant_id);
+            $merchant->status = MerchantStatus::ACTIVE_STATUS;
+            $merchant->save();
         }
         $order->assigned = null;
         $order->save();
 
-        LogMerchantRequestsRepository::log($order->merchant_id, $this->request, ['action' => 'apply', 'user' => $user, 'status' => 'Сохранение данных по заявке.']);
+        LogMerchantRequestsRepository::log($order->merchant_id, $this->request,
+            ['action' => $this->request->get('type'),
+                'user' => $user,
+                'status' => 'Сохранение данных по заявке.']);
 
         $order = $this->orders->getOne($this->request->get('order_id'));
         $fieldValues = $this->orders->getFieldValues($order->id);

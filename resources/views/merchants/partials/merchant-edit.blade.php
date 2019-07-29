@@ -35,9 +35,9 @@
 
 
             <div class="form-group">
-                {{ Form::label('merchant_identifier',"Идентификатор мерчанта",['class'=>'col-sm-2 control-label'] ) }}
+{{--                {{ Form::label('merchant_identifier',"Идентификатор мерчанта",['class'=>'col-sm-2 control-label'] ) }}--}}
                 <div class="col-sm-10">
-                    {{ Form::text("merchant_identifier",  $merchant->merchant_id,['class'=>'form-control','id'=>'merchant_identifier']) }}
+                    {{ Form::hidden("merchant_identifier",  $merchant->merchant_id,['class'=>'form-control','id'=>'merchant_identifier']) }}
                 </div>
             </div>
 

@@ -20,6 +20,7 @@ class PermissionHelper extends Facade
     const VIEW_STATISTIC = 'view-statistic';
     const VIEW_REESTRS = 'view-reestrs';
     const VIEW_ROUTES = 'view-routes';
-    const MERCHANT_USER_ALIAS= "merchant-user-alias";
+    const MERCHANT_USER_ALIAS= 'merchant-user-alias';
+    const VIEW_FRONT_USERS = 'view-front-users';
 
 }

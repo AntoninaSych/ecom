@@ -121,8 +121,11 @@ class MerchantController extends Controller
 
     public function update(UpdateMerchant $updateMerchant, int $id)
     {
+        $merchant = $this->merchants->getOneById($id);
+        $oldStatus = $merchant->status;
         $this->merchants->updateOverall($updateMerchant, $id);
-        LogMerchantRequestsRepository::log($id, $updateMerchant, ['action' => 'update from backoffice', 'user' => Auth::user(), 'status' => 'Изменение данных мерчанта.']);
+        $log = new Request(array_merge(['old merchant'=>$merchant],['new data for merchant'=>$updateMerchant->all()]));
+        LogMerchantRequestsRepository::log($id, $log, ['action' => 'update from backoffice', 'user' => Auth::user(), 'status' => 'Изменение данных мерчанта.']);
 
         return redirect()->back()->with('success', 'Мерчант  с ID  ' . $id . ' успешно обновлен.');
 
@@ -195,10 +198,17 @@ class MerchantController extends Controller
                 return $merchants->id;
             })
             ->addColumn('merchant_id', function ($merchants) {
-                return $merchants->merchant_id;
+                return $merchants->terminalId;
             })
             ->editColumn('name', function ($merchants) {
                 return $merchants->name;
+            })
+            ->editColumn('type', function ($merchants) {
+           $type=   $merchants->type;
+              if(!is_null($type)){
+                  $type = ($type == 'ind') ? 'Физ лицо': "Юр лицо";
+              }
+              return $type;
             })
             ->editColumn('url', function ($merchants) {
                 return '<a class="btn btn-black" href="' . $merchants->url . '">' . $merchants->url . '</a>';

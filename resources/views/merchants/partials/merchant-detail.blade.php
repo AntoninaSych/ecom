@@ -35,14 +35,14 @@
 
                     <ul class="list-group list-group-unbordered">
                         <li class="list-group-item">
-                            <b>Идентификатор мерчанта</b> <span class="pull-right">{{$merchant->merchant_id}}</span>
+                            <b>ID мерчанта</b> <span class="pull-right">{{$merchant->merchant_id}}</span>
                         </li>
                         <li class="list-group-item">
                             <b>Имя мерчанта</b> <span class="pull-right">{{$merchant->name}}</span>
                         </li>
                         @if(isset($terminal))
                         <li class="list-group-item">
-                            <b>Терминал</b> <span class="pull-right"> {{$terminal->merchant_login}}</span>
+                            <b>ID терминала</b> <span class="pull-right"> {{$terminal->merchant_login}}</span>
                         </li>
                         @endif
                         @if(!is_null($merchant->mcc_id))
@@ -71,6 +71,17 @@
                         <li class="list-group-item">
                             <b>Дата обновления</b> <span   class="pull-right">  {{$merchant->updated}}</span>
                         </li>
+                        @if(!is_null($merchantInfo))
+                            <li class="list-group-item">
+                                <b>Тип мерчанта</b> <span   class="pull-right"> {{($merchantInfo->type=='ind')?"Физ лицо": "Юр лицо"}}  </span>
+                            </li>
+                            @else
+                            <li class="list-group-item">
+                                <b>Тип мерчанта</b> <span   class="pull-right">
+                                    Невозможно определить - клиент не заполнил форму "Информация" <br>
+                                   </span>
+                            </li>
+                        @endif
                     </ul>
 
 

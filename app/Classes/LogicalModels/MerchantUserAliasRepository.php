@@ -98,4 +98,12 @@ class MerchantUserAliasRepository
         }
     }
 
+   public function getMerchants($userId)
+{
+    $list = new MerchantsUserAlias();
+    $list = $list::select()->where('user_id', $userId)->get();
+
+    return $list;
+}
+
 }

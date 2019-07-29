@@ -16,8 +16,6 @@ class MailPostmanRepository
 {
     public function apply(Orders $order, Merchants $merchant)
     {
-
-
         $mail = new MailerPostman();
         $mail->subject = "Ваш магазин активирован.";
         $mail->body = view('email.approved')->with(

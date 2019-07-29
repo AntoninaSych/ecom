@@ -118,6 +118,13 @@ Route::group(['middleware' => ['log.request']], function () {
             Route::match(['get'], '/getReestr', 'ReestrController@getReestr');
         });
 
+
+        Route::group(['prefix' => 'front', 'middleware' => ['can.view.front.users']], function () {
+            Route::match(['get'], '/users', 'FrontUsersController@index');
+            Route::match(['get'], '/user/{id}', 'FrontUsersController@show');
+        });
+
+
         Route::resource('mcc', 'MccController')->only([
             'index', 'store', 'edit', 'update', 'create'
         ])->middleware('can.manage.mcc');

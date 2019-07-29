@@ -87,8 +87,9 @@
                             <thead>
                             <tr role="row">
                                 <th> ID</th>
-                                <th> Идентификатор Мерчанта</th>
+                                <th> ID Терминала</th>
                                 <th> Имя</th>
+                                <th> Тип</th>
                                 <th> URL</th>
                                 <th> Статус</th>
                                 <th> Детали</th>
@@ -134,6 +135,7 @@
                     {data: 'id', name: 'id'},
                     {data: 'merchant_id', name: 'merchant_id'},
                     {data: 'name', name: 'name'},
+                    {data: 'type', name: 'type'},
                     {data: 'url', name: 'url',},
                     {data: 'status', name: 'status'},
                     {data: 'view_details', name: 'view_details', searchable: false}
@@ -184,6 +186,7 @@
                         {data: 'id', name: 'id'},
                         {data: 'merchant_id', name: 'merchant_id'},
                         {data: 'name', name: 'name'},
+                        {data: 'type', name: 'type'},
                         {data: 'url', name: 'url',},
                         {data: 'status', name: 'status'},
                         {data: 'view_details', name: 'view_details', searchable: false}

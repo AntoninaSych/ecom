@@ -8,6 +8,7 @@ use App\Classes\Filters\MerchantSearchFilter;
 use App\Exceptions\NotFoundException;
 use App\Http\Requests\Merchant\CreateMerchant;
 use App\Http\Requests\Merchant\UpdateMerchant;
+use App\Models\MerchantInfo;
 use App\Models\MerchantKeys;
 use App\Models\Merchants;
 use App\Models\MerchantStatus;
@@ -22,16 +23,19 @@ class MerchantsRepository
     protected $merchantStatus;
     protected $merchantKeys;
     protected $merchantUser;
+    protected $merchantInfo;
 
     public function __construct(Merchants $merchants,
                                 MerchantStatus $merchantStatus,
                                 MerchantKeys $merchantKeys,
-                                MerchantsUserAlias $merchantUser)
+                                MerchantsUserAlias $merchantUser,
+                                MerchantInfo $merchantInfo)
     {
         $this->merchants = $merchants;
         $this->merchantStatus = $merchantStatus;
         $this->merchantKeys = $merchantKeys;
         $this->merchantUser = $merchantUser;
+        $this->merchantInfo = $merchantInfo;
     }
 
     public function getQuickSearch(array $params)
@@ -59,18 +63,19 @@ class MerchantsRepository
                 'merchants.url',
                 'merchants_status.name as status',
                 'terminal.key_types',
-                'terminal.merchant_login'
+                'terminal.merchant_login as terminalId',
+                'merchant_info.personType as type'
 
             )
             ->leftjoin($this->merchantStatus->getTable() . ' as merchants_status', 'merchants.status', '=', 'merchants_status.id')
             ->leftjoin($this->merchantKeys->getTable() . ' as terminal', 'merchants.id', '=', 'terminal.merchant_id')
-            ->leftjoin($this->merchantUser->getTable() . ' as merchants_users', 'merchants.id', '=', 'merchants_users.merchant_id');
-
-
+            ->leftjoin($this->merchantUser->getTable() . ' as merchants_users', 'merchants.id', '=', 'merchants_users.merchant_id')
+            ->leftjoin($this->merchantInfo->getTable() , 'merchants.id', '=',  'merchant_info.merchant_id')
+         ;
         $query = $query->where('terminal.key_types', '=', 5);
 
         if (!is_null($filter->terminal)) {
-            $query = $query->where('terminal.merchant_login', $filter->terminal);
+            $query = $query->where('terminal.merchant_login',  $filter->terminal );
         }
         if (!is_null($filter->merchant_id)) {
             $query = $query->where('merchants.id', $filter->merchant_id);
@@ -79,14 +84,14 @@ class MerchantsRepository
             $query = $query->where('merchants.user_id', $filter->merchant_creator_user);
         }
         if (!is_null($filter->identifier)) {
-        $query = $query->where('merchants.id',  $filter->identifier);
-    }
+            $query = $query->where('merchants.id', $filter->identifier);
+        }
         if (!is_null($filter->concordpay_user)) {
             $query = $query->where('merchants_users.user_id', $filter->concordpay_user);
         }
-
-
-        return $query;
+        $query = $query->groupBy('merchants.id');
+ return $query;
+   //  return dd( $query->get()) ;
     }
 
     /**

@@ -31,7 +31,7 @@ class LogMerchantRequestsRepository
     {
         $log = new LogMerchantRequests();
         $log->merchant_id = $merchantId;
-        $log->request_body	 = json_encode($request->all() );
+        $log->request_body	 = json_encode($request->all());
         $log->response_body =  json_encode($response);
         $log->save();
     }

@@ -31,4 +31,6 @@ class MerchantUserRepository
 
         return $query->limit(10)->get();
     }
+
+
 }

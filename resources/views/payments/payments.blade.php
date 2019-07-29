@@ -242,7 +242,7 @@
                             number: true,
                         },
                         number_order: {
-                            number: true,
+                            minlength: 1,
                         },
                         amount: {
                             number: true,

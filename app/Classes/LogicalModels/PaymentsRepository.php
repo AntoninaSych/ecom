@@ -76,7 +76,7 @@ class PaymentsRepository
         }
 
         if (!is_null($filter->numberOrder)) {
-            $query = $query->where('payments.order_id', '=', $filter->numberOrder);
+            $query = $query->where('payments.order_id', 'like', '%' . $filter->numberOrder . "%");
         }
 
         if (!is_null($filter->merchantId) && !empty($filter->merchantId)) {

@@ -131,9 +131,9 @@ class PaymentsController extends Controller
                 return $payments->merchant;
             })
             ->editColumn('card_num', function ($payments) {
-            if(!is_null($payments->card_num)){   return CardFilter::filterString($payments->card_num);}else{
-                return '';
-            }
+                if(!is_null($payments->card_num)){   return CardFilter::filterString($payments->card_num);}else{
+                    return '';
+                }
             })
             ->editColumn('order_id', function ($payments) {
                 return $payments->order_id;

@@ -9,7 +9,7 @@ class Merchants extends BaseModel
     protected $table = 'merchants';
     protected $dates = ['updated'];
     public $timestamps = false;
-    protected $with = ['merchant_status', 'status', 'user', 'compensationType', 'compensationTerm', 'merchantType' ];
+    protected $with = [ 'merchant_status', 'user', 'compensationType', 'compensationTerm', 'merchantType' ];
 
 
     protected $fillable  = ['mcc_id', 'url', 'cms_id', 'cms_id' ];
@@ -20,11 +20,6 @@ class Merchants extends BaseModel
     }
 
     public function merchant_status()
-    {
-        return $this->belongsTo(MerchantStatus::class, 'status', 'id');
-    }
-
-    public function status() //remove in future
     {
         return $this->belongsTo(MerchantStatus::class, 'status', 'id');
     }
@@ -48,6 +43,4 @@ class Merchants extends BaseModel
     {
         return $this->belongsTo(MerchantType::class, 'compensation_term', 'id');
     }
-
-
 }

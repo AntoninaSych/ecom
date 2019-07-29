@@ -4,31 +4,94 @@
 namespace App\Classes\LogicalModels;
 
 
+use App\Classes\Filters\MerchantSearchFilter;
 use App\Exceptions\NotFoundException;
 use App\Http\Requests\Merchant\CreateMerchant;
 use App\Http\Requests\Merchant\UpdateMerchant;
+use App\Models\MerchantInfo;
+use App\Models\MerchantKeys;
 use App\Models\Merchants;
 use App\Models\MerchantStatus;
+use App\Models\MerchantsUserAlias;
 use App\Models\MerchantUser;
-use App\User;
-use mysql_xdevapi\Collection;
+use Illuminate\Support\Facades\DB;
+
 
 class MerchantsRepository
 {
     protected $merchants;
+    protected $merchantStatus;
+    protected $merchantKeys;
+    protected $merchantUser;
+    protected $merchantInfo;
 
-    public function __construct(Merchants $merchants)
+    public function __construct(Merchants $merchants,
+                                MerchantStatus $merchantStatus,
+                                MerchantKeys $merchantKeys,
+                                MerchantsUserAlias $merchantUser,
+                                MerchantInfo $merchantInfo)
     {
         $this->merchants = $merchants;
+        $this->merchantStatus = $merchantStatus;
+        $this->merchantKeys = $merchantKeys;
+        $this->merchantUser = $merchantUser;
+        $this->merchantInfo = $merchantInfo;
     }
 
-    public function getOneByName(string $merchantName)
+    public function getQuickSearch(array $params)
     {
-        $merchants = Merchants::select()->where('name', 'LIKE', '%' . $merchantName . '%')->limit(4)->get();
+        $merchants = Merchants::select();
+
+        if (!is_null($params['name'])) {
+            $merchants = $merchants->where('name', 'LIKE', '%' . $params['name'] . '%');
+        }
+        $merchants = $merchants->limit(10)->get();
         if (empty($merchants->toArray())) {
             throw new NotFoundException("Мерчанты не найдены.");
         }
         return $merchants;
+    }
+
+
+    public function getDeepSearch(MerchantSearchFilter $filter)
+    {
+        $query = DB::table($this->merchants->getTable() . ' as merchants')
+            ->select(
+                'merchants.id',
+                'merchants.merchant_id',
+                'merchants.name',
+                'merchants.url',
+                'merchants_status.name as status',
+                'terminal.key_types',
+                'terminal.merchant_login as terminalId',
+                'merchant_info.personType as type'
+
+            )
+            ->leftjoin($this->merchantStatus->getTable() . ' as merchants_status', 'merchants.status', '=', 'merchants_status.id')
+            ->leftjoin($this->merchantKeys->getTable() . ' as terminal', 'merchants.id', '=', 'terminal.merchant_id')
+            ->leftjoin($this->merchantUser->getTable() . ' as merchants_users', 'merchants.id', '=', 'merchants_users.merchant_id')
+            ->leftjoin($this->merchantInfo->getTable() , 'merchants.id', '=',  'merchant_info.merchant_id')
+         ;
+        $query = $query->where('terminal.key_types', '=', 5);
+
+        if (!is_null($filter->terminal)) {
+            $query = $query->where('terminal.merchant_login',  $filter->terminal );
+        }
+        if (!is_null($filter->merchant_id)) {
+            $query = $query->where('merchants.id', $filter->merchant_id);
+        }
+        if (!is_null($filter->merchant_creator_user)) {
+            $query = $query->where('merchants.user_id', $filter->merchant_creator_user);
+        }
+        if (!is_null($filter->identifier)) {
+            $query = $query->where('merchants.id', $filter->identifier);
+        }
+        if (!is_null($filter->concordpay_user)) {
+            $query = $query->where('merchants_users.user_id', $filter->concordpay_user);
+        }
+        $query = $query->groupBy('merchants.id');
+ return $query;
+   //  return dd( $query->get()) ;
     }
 
     /**
@@ -42,6 +105,15 @@ class MerchantsRepository
         }
         return Merchants::with('status:id,name')->get();
     }
+
+    public function getListForDatatable($limit = null)
+    {
+        if (!is_null($limit)) {
+            return $collection = $this->merchants->select()->limit($limit);
+        }
+        return Merchants::with('merchant_status:id,name');
+    }
+
 
     public function getOneById(int $id)
     {
@@ -80,7 +152,7 @@ class MerchantsRepository
     public function store(CreateMerchant $request)
     {
         $merchant = new Merchants();
-        $merchant->merchant_id = 'BO_'.substr(md5(mt_rand()), 10, 15);
+        $merchant->merchant_id = 'BO_' . substr(md5(mt_rand()), 10, 15);
         $merchant->name = $request->get('merchant_name');
         $merchant->url = $request->get('merchant_url');
         $merchant->status = $request->get('merchant_status');
@@ -101,6 +173,25 @@ class MerchantsRepository
         $merchant->save();
     }
 
+    public function getMerchantsIdentifier($merchantId = null)
+    {
+        $merchant = new Merchants();
+        $query = $merchant->select();
+        if (!is_null($merchantId)) {
+            $query = $query->where('merchants.merchant_id', 'like', '%' . $merchantId . '%');
+        }
 
+        return $query->limit(10)->get();
+    }
 
+    public function getByterminalId($merchantId = null)
+    {
+        $merchant = new Merchants();
+        $query = $merchant->select();
+        if (!is_null($merchantId)) {
+            $query = $query->where('merchants.merchant_id', 'like', '%' . $merchantId . '%');
+        }
+
+        return $query->limit(10)->get();
+    }
 }

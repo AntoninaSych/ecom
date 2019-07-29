@@ -72,7 +72,7 @@ $(document).ready(function () {
             data: function (params) {
                 var queryParameters = {
                     name: params.term
-                }
+                };
 
                 return queryParameters;
             },
@@ -93,7 +93,7 @@ $(document).ready(function () {
 
 function setDateAfterReset() {
 
-    $("#merchant_id").empty().trigger('change')
+   $("#merchant_id").empty().trigger('change')
    $('#search-form').trigger("reset");
    $('#request_period_updated').val(moment().subtract(1, 'days').format('YYYY-MM-DD') + " - " + moment().format('YYYY-MM-DD'));
 }

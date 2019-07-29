@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Classes\Filters\MerchantSearchFilter;
 use App\Classes\Helpers\ApiResponse;
 use App\Classes\Helpers\ValidatorHelper;
 use App\Classes\LogicalModels\LogMerchantRequestsRepository;
@@ -67,8 +68,7 @@ class MerchantController extends Controller
             return ApiResponse::badResponseValidation(ValidatorHelper::toArray($validator));
         } else {
             try {
-                $name = $this->request->get('name');
-                return ApiResponse::goodResponseSimple($this->merchants->getOneByName($name));
+                return ApiResponse::goodResponseSimple($this->merchants->getQuickSearch(['name'=>$this->request->get('name')]));
             } catch (NotFoundException $e) {
                 return ApiResponse::badResponse($e->getMessage(), $e->getCode());
             }
@@ -121,8 +121,11 @@ class MerchantController extends Controller
 
     public function update(UpdateMerchant $updateMerchant, int $id)
     {
+        $merchant = $this->merchants->getOneById($id);
+        $oldStatus = $merchant->status;
         $this->merchants->updateOverall($updateMerchant, $id);
-        LogMerchantRequestsRepository::log($id, $updateMerchant, ['action' => 'update from backoffice', 'user' => Auth::user(), 'status' => 'Изменение данных мерчанта.']);
+        $log = new Request(array_merge(['old merchant'=>$merchant],['new data for merchant'=>$updateMerchant->all()]));
+        LogMerchantRequestsRepository::log($id, $log, ['action' => 'update from backoffice', 'user' => Auth::user(), 'status' => 'Изменение данных мерчанта.']);
 
         return redirect()->back()->with('success', 'Мерчант  с ID  ' . $id . ' успешно обновлен.');
 
@@ -144,26 +147,74 @@ class MerchantController extends Controller
         return redirect()->back()->with('success', 'Мерчант  с ID  ' . $merchant->id . ' успешно создан.');
     }
 
+//    public function anyData()
+//    {
+//        $merchants = $this->merchants->getListForDatatable() ;
+//
+//        return Datatables::eloquent($merchants)
+//            ->addColumn('id', function ($merchants) {
+//                return $merchants->id;
+//            })
+//            ->addColumn('merchant_id', function ($merchants) {
+//                return $merchants->merchant_id;
+//            })
+//            ->editColumn('name', function ($merchants) {
+//                return $merchants->name;
+//            })
+//            ->editColumn('url', function ($merchants) {
+//                return '<a class="btn btn-black" href="' . $merchants->url . '">' . $merchants->url . '</a>';
+//            })
+//            ->editColumn('status', function ($merchants) {
+//                return $merchants->merchant_status->name;
+//            })
+//            ->addColumn('view_details', function ($merchants) {
+//                return '<a class="btn btn-black" href="' . route('merchant.detail', ['id' => $merchants->id]) . '"><i class="fa fa-fw fa-eye"></i></a>';
+//            })
+//            ->rawColumns(['view_details', 'url'])
+//            ->make(true);
+//    }
+
+
+    public function getMerchantsIdentifier()
+    {
+        return  $this->merchants->getMerchantsIdentifier($this->request->get('name')) ;
+    }
+
+    public function getByterminalId()
+    {
+        return $this->merchants->getByTerminalId($this->request->get('name'));
+    }
+
+    public function getConcordPayUserName()
+    {
+       return $this->merchantsUser->getSearch(['username'=>$this->request->get('name')])->pluck('username','id');
+    }
+
     public function anyData()
     {
-        $merchants = $this->merchants->getList();
-        return Datatables::of($merchants)
+        $merchants = $this->merchants->getDeepSearch(MerchantSearchFilter::create($this->request->all()));
+        return Datatables::query($merchants)
             ->addColumn('id', function ($merchants) {
                 return $merchants->id;
             })
             ->addColumn('merchant_id', function ($merchants) {
-                return $merchants->merchant_id;
+                return $merchants->terminalId;
             })
             ->editColumn('name', function ($merchants) {
                 return $merchants->name;
             })
+            ->editColumn('type', function ($merchants) {
+           $type=   $merchants->type;
+              if(!is_null($type)){
+                  $type = ($type == 'ind') ? 'Физ лицо': "Юр лицо";
+              }
+              return $type;
+            })
             ->editColumn('url', function ($merchants) {
-
                 return '<a class="btn btn-black" href="' . $merchants->url . '">' . $merchants->url . '</a>';
-
             })
             ->editColumn('status', function ($merchants) {
-                return $merchants->getRelations()['status']->name;
+                return $merchants->status;
             })
             ->addColumn('view_details', function ($merchants) {
                 return '<a class="btn btn-black" href="' . route('merchant.detail', ['id' => $merchants->id]) . '"><i class="fa fa-fw fa-eye"></i></a>';
@@ -171,6 +222,4 @@ class MerchantController extends Controller
             ->rawColumns(['view_details', 'url'])
             ->make(true);
     }
-
-
 }

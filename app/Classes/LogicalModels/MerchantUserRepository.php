@@ -20,5 +20,17 @@ class MerchantUserRepository
         return $this->user->select('id','username')->get();
     }
 
+    public function getSearch(array $params)
+    {
+        $query =  $this->user->select();
+
+        if(!is_null($params['username']))
+        {
+          $query= $query->where('username','like','%'.$params['username']."%");
+        }
+
+        return $query->limit(10)->get();
+    }
+
 
 }

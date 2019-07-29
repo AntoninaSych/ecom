@@ -35,9 +35,9 @@
 
 
             <div class="form-group">
-                {{ Form::label('merchant_identifier',"Идентификатор мерчанта",['class'=>'col-sm-2 control-label'] ) }}
+{{--                {{ Form::label('merchant_identifier',"Идентификатор мерчанта",['class'=>'col-sm-2 control-label'] ) }}--}}
                 <div class="col-sm-10">
-                    {{ Form::text("merchant_identifier",  $merchant->merchant_id,['class'=>'form-control','id'=>'merchant_identifier']) }}
+                    {{ Form::hidden("merchant_identifier",  $merchant->merchant_id,['class'=>'form-control','id'=>'merchant_identifier']) }}
                 </div>
             </div>
 
@@ -59,7 +59,7 @@
             <div class="form-group">
                 {{ Form::label("merchant_status","Статус" ,['class'=>'col-sm-2 control-label'] ) }}
                 <div class="col-sm-10">
-                {{ Form::select("merchant_status", $arrayMerchantStatuses->toArray(), $relations['status']->id ,
+                {{ Form::select("merchant_status", $arrayMerchantStatuses->toArray(), $relations['merchant_status']->id ,
                 ['class'=>'form-control','id'=>'merchant_status']) }}
                 </div>
             </div>

@@ -7,6 +7,7 @@ use App\Http\Middleware\CanManageMerchantPaymentType;
 use App\Http\Middleware\CanManageMerchantRoute;
 use App\Http\Middleware\CanManageMerchantUserAlias;
 use App\Http\Middleware\CanMccCodes;
+use App\Http\Middleware\CanViewFrontUsers;
 use App\Http\Middleware\CanViewMerchants;
 use App\Http\Middleware\CanViewPayments;
 use App\Http\Middleware\CanViewReestrs;
@@ -80,16 +81,17 @@ class Kernel extends HttpKernel
         'can.manage.roles' => \App\Http\Middleware\CanManageUsers::class,
         'can.view.payments' => CanViewPayments::class,
         'is.block.user' => IsBlockUser::class,
-        'can.view.merchants' =>CanViewMerchants::class,
+        'can.view.merchants' => CanViewMerchants::class,
         'can.manage.mcc' => CanMccCodes::class,
-        'can.apply.merchants.request' =>CanApplyMerchantsRequest::class,
+        'can.apply.merchants.request' => CanApplyMerchantsRequest::class,
         'log.request' => LogRequest::class,
         'can.manage.merchant.payment.type' => CanManageMerchantPaymentType::class,
-        'can.manage.merchant.route'=>CanManageMerchantRoute::class,
+        'can.manage.merchant.route' => CanManageMerchantRoute::class,
         'can.view.statistics' => CanViewStatistic::class,
         'can.view.reestrs' => CanViewReestrs::class,
         'can.view.routes' => CanViewRoutes::class,
-        'merchant.user.alias'=>CanManageMerchantUserAlias::class
+        'merchant.user.alias' => CanManageMerchantUserAlias::class,
+        'can.view.front.users' => CanViewFrontUsers::class
     ];
 
     /**

@@ -49,6 +49,8 @@ Route::group(['middleware' => ['log.request']], function () {
 
         Route::group(['prefix' => 'merchants'], function () {
             Route::match(['get'], '/getlistByName', 'MerchantController@getlistByName'); // роут используется в поиске платежей
+            Route::match(['get'], '/getMerchantsIdentifier', 'MerchantController@getMerchantsIdentifier'); // роут используется в поиске мерчантов
+            Route::match(['get'], '/getConcordPayUserName', 'MerchantController@getConcordPayUserName'); // роут используется в поиске мерчантов
 
             Route::group(['middleware' => 'can.view.merchants'], function () {
                 Route::match(['get'], '/{merchantId}/account/table', 'MerchantAccountController@getList');
@@ -115,6 +117,13 @@ Route::group(['middleware' => ['log.request']], function () {
             Route::match(['get'], '/', 'ReestrController@index');
             Route::match(['get'], '/getReestr', 'ReestrController@getReestr');
         });
+
+
+        Route::group(['prefix' => 'front', 'middleware' => ['can.view.front.users']], function () {
+            Route::match(['get'], '/users', 'FrontUsersController@index');
+            Route::match(['get'], '/user/{id}', 'FrontUsersController@show');
+        });
+
 
         Route::resource('mcc', 'MccController')->only([
             'index', 'store', 'edit', 'update', 'create'

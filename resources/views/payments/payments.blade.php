@@ -245,7 +245,7 @@
                             minlength: 1,
                         },
                         amount: {
-                            number: true,
+                            minlength: 1
                         },
                         description:
                             {

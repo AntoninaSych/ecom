@@ -61,6 +61,7 @@ class PaymentsRepository
                 'payments.created',
                 'payments.amount',
                 'payments.customer_fee',
+                'payments.merchant_fee',
                 'payments.merchant_id',
                 'payments.description',
                 'st.name  as  status',

@@ -34,7 +34,7 @@ final class SearchPaymentsFilter
         $searchPayments->paymentStatus = (isset($requestArray['payment_status'])) ? $requestArray['payment_status'] : null;
 
         $searchPayments->numberOrder = (isset($requestArray['number_order'])) ? $requestArray['number_order'] : null;
-        $searchPayments->amount = (isset($requestArray['amount'])) ? $requestArray['amount'] : null;
+        $searchPayments->amount = (isset($requestArray['amount'])) ? str_replace(',','.',$requestArray['amount']) : null;
 
         $searchPayments->cardNumber = (isset($requestArray['card_number'])) ? $requestArray['card_number'] : null;
 

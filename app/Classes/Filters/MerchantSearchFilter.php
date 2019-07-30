@@ -12,10 +12,19 @@ final class MerchantSearchFilter
     public $concordpay_user = false;
     public $merchant_id = false;
 
+    public $order = null;
 
     public static function create(array $requestArray): MerchantSearchFilter
     {
         $requestFilter = new self();
+
+        if(count($requestArray['order'])!=0)
+        {
+            if($requestArray['order'][0]['column']==0) {
+                $requestFilter->order[]=['column'=>'merchants.id','dir'=>$requestArray['order'][0]['dir']];
+            }
+        }
+
         $requestFilter->terminal = (isset($requestArray['terminal'])) ? $requestArray['terminal'] : null;
         $requestFilter->identifier = (isset($requestArray['identifier'])) ? $requestArray['identifier'] : null;
 

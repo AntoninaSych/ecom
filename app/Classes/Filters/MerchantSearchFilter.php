@@ -23,6 +23,9 @@ final class MerchantSearchFilter
             if($requestArray['order'][0]['column']==0) {
                 $requestFilter->order[]=['column'=>'merchants.id','dir'=>$requestArray['order'][0]['dir']];
             }
+            if($requestArray['order'][0]['column']==1) {
+                $requestFilter->order[]=['column'=>'terminal.merchant_login','dir'=>$requestArray['order'][0]['dir']];
+            }
         }
 
         $requestFilter->terminal = (isset($requestArray['terminal'])) ? $requestArray['terminal'] : null;

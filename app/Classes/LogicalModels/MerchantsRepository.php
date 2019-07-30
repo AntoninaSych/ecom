@@ -90,8 +90,12 @@ class MerchantsRepository
             $query = $query->where('merchants_users.user_id', $filter->concordpay_user);
         }
         $query = $query->groupBy('merchants.id');
- return $query;
-   //  return dd( $query->get()) ;
+        if(!is_null($filter->order))
+        {
+          $query = $query->orderBy($filter->order[0]['column'],$filter->order[0]['dir']);
+        }
+
+        return $query;
     }
 
     /**

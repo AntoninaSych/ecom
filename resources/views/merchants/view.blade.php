@@ -121,7 +121,7 @@
 <script>
     (function ($) {
         $(function () {
-            $('#merchants-table').DataTable({
+           var table= $('#merchants-table').DataTable({
                 dom: 'lBctp',
                 processing: true,
                 "pageLength": 10,
@@ -141,6 +141,7 @@
                     {data: 'view_details', name: 'view_details', searchable: false}
                 ]
             });
+            table.order([[0,'desc']]).draw();
 
             $('#merchant-search-button').on('click', function (e) {
                 e.preventDefault();
@@ -148,7 +149,7 @@
 
                 $('#merchants-table').dataTable().fnDestroy();
 
-                oTable = $('#merchants-table').DataTable({
+               var oTable = $('#merchants-table').DataTable({
                     dom: 'lBrtip',
 
                     buttons: [
@@ -192,7 +193,7 @@
                         {data: 'view_details', name: 'view_details', searchable: false}
                     ]
                 });
-                // oTable.order([[1, 'desc']]).draw();
+               oTable.order([[0, 'desc']]).draw();
                 // }
 
             });

@@ -380,8 +380,10 @@ function loadMerchantRoutes() {
                             objUpdate.push({ id: id, priority:priority++});
                         }
                         });
-                   //ajax to sdave priority
-                   console.log(objUpdate);
+                   //ajax to save priority  and reload table
+
+                    // console.log(objUpdate);
+                    updateRoutePriority(objUpdate);
                 }
             });
 
@@ -395,8 +397,23 @@ function loadMerchantRoutes() {
         }
     });
 }
-
 //end load Merchant Routes Table
+
+
+// //start updateRoutePriority
+function updateRoutePriority(objUpdate) {
+    $.ajax({
+        url: '/merchants/route/update-priority',
+        type: "POST",
+        data: {
+            objUpdate:objUpdate
+        },
+        success: function () {
+            loadMerchantRoutes();
+        }
+    });
+}
+// //end updateRoutePriority
 
 
 //begin create Merchant Routes

@@ -18,7 +18,7 @@ class MerchantPaymentRouteRepository
 
     public function list($merchantId)
     {
-        return $this->merchantPaymentRoutes->select()->where('merchant_id', $merchantId)->get();
+        return $this->merchantPaymentRoutes->select()->where('merchant_id', $merchantId)->orderBy('priority')->get();
     }
 
     public function save(MerchantPaymentRoute $merchantPaymentRoute)

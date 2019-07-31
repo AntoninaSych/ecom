@@ -53,7 +53,7 @@ class MerchantRoutesController
                 return ['key' => $item->payment->id, 'value' => $item->payment->name . "(" . $item->payment->code . ")"];
             }
         })->filter()->all();
-        $cardSystem =  $this->cardSystemRepository->getList();
+        $cardSystem = $this->cardSystemRepository->getList();
 
         $merchantPaymentRoutes = $this->merchantPaymentRoutes->list($merchantId);
         return view('merchants.payment-route.merchant-payment-route-list')->with([
@@ -114,7 +114,6 @@ class MerchantRoutesController
 
     public function update()
     {
-
         $validator = Validator::make($this->request->all(), [
             'id' => 'required|integer|exists:merchant_routes,id',
             'payment_route_id' => 'required|integer|exists:payment_routes,id',
@@ -152,6 +151,15 @@ class MerchantRoutesController
             } catch (NotFoundException $e) {
                 return ApiResponse::badResponse($e->getMessage(), $e->getCode());
             }
+        }
+    }
+
+    public function updatePriority(): void
+    {
+        foreach ($this->request->get('objUpdate') as $data) {
+            $merchantRoute = $this->merchantPaymentRoutes->getOne($data['id']);
+            $merchantRoute->priority = $data['priority'];
+            $merchantRoute->save();
         }
     }
 

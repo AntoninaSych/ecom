@@ -82,6 +82,7 @@ class MerchantRoutesController
             'merchant_id' => 'required|integer|exists:merchants,id',
             'bins' => 'string|nullable',
             'priority' => 'integer|nullable',
+            'final'=> 'integer|required'
         ]);
 
         if ($validator->fails()) {
@@ -124,6 +125,7 @@ class MerchantRoutesController
             'priority' => 'integer|nullable',
             'card_system' => 'required|integer|exists:cards_systems,id',
             'merchant_id' => 'required|integer|exists:merchants,id',
+            'final'=> 'integer|required'
         ]);
 
         if ($validator->fails()) {

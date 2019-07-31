@@ -13,8 +13,8 @@
             <th> Сумма min</th>
             <th> Сумма max</th>
             <th> Card system</th>
-
             <th> Bin</th>
+            <th> Final</th>
             <th> Priority</th>
             <th> Создан</th>
             <th> Обновлен</th>
@@ -39,6 +39,7 @@
                     <td>{{$merchantPaymentRoute->sum_max}}</td>
                     <td>{{$merchantPaymentRoute->cardSystem->name}}</td>
                     <td>{{$merchantPaymentRoute->bins}}</td>
+                    <td>{{$merchantPaymentRoute->final}}</td>
                     <td>{{$merchantPaymentRoute->priority}}</td>
                     <td>{{$merchantPaymentRoute->created}}</td>
                     <td>{{$merchantPaymentRoute->updated}}</td>
@@ -53,6 +54,7 @@
                                  data-sum_max="{{$merchantPaymentRoute->sum_max}}"
                                  data-bins="{{$merchantPaymentRoute->bins}}"
                                  data-priority="{{$merchantPaymentRoute->priority}}"
+                                 data-final="{{$merchantPaymentRoute->final}}"
                                  data-card-system="{{$merchantPaymentRoute->cardSystem->id}}"
                                  onclick="editPaymentRoute(this)">
                                 <i class="fa fa-edit"></i></div>
@@ -72,9 +74,11 @@
             <th> Сумма max</th>
             <th> Card system</th>
             <th> Bin</th>
+            <th> Final</th>
             <th> Priority</th>
             <th> Создан</th>
             <th> Обновлен</th>
+
             @if(Auth::user()->can(PermissionHelper::MANAGE_MERCHANT_ROUTE))
                 <th> Изменить</th>@endif
         </tr>
@@ -92,8 +96,8 @@
             <th> Сумма min</th>
             <th> Сумма max</th>
             <th> Card system</th>
-
             <th> Bin</th>
+            <th> Final</th>
             <th> Priority</th>
             <th> Создан</th>
             <th> Обновлен</th>
@@ -118,6 +122,7 @@
                     <td>{{$merchantPaymentRoute->sum_max}}</td>
                     <td>{{$merchantPaymentRoute->cardSystem->name}}</td>
                     <td>{{$merchantPaymentRoute->bins}}</td>
+                    <td>{{$merchantPaymentRoute->final}}</td>
                     <td>{{$merchantPaymentRoute->priority}}</td>
                     <td>{{$merchantPaymentRoute->created}}</td>
                     <td>{{$merchantPaymentRoute->updated}}</td>
@@ -132,6 +137,7 @@
                                  data-sum_max="{{$merchantPaymentRoute->sum_max}}"
                                  data-bins="{{$merchantPaymentRoute->bins}}"
                                  data-priority="{{$merchantPaymentRoute->priority}}"
+                                 data-final="{{$merchantPaymentRoute->final}}"
                                  data-card-system="{{$merchantPaymentRoute->cardSystem->id}}"
                                  onclick="editPaymentRoute(this)">
                                 <i class="fa fa-edit"></i></div>
@@ -151,6 +157,7 @@
             <th> Сумма max</th>
             <th> Card system</th>
             <th> Bin</th>
+            <th> Final</th>
             <th> Priority</th>
             <th> Создан</th>
             <th> Обновлен</th>

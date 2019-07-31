@@ -341,7 +341,6 @@ function editPaymentType(e) {
         $('#merchant_payment_type_status').prop({
             "checked": false
         }).val(0);
-
     }
     $('#type-edit-errors').html();
     $('#type-edit-errors').hide();
@@ -367,6 +366,12 @@ function loadMerchantRoutes() {
         },
         success: function (data) {
             $('#merchant-payment-route').html(data);
+            $('#final1').on('click', function () {
+                var final1 = $('#final1').val();
+                final1 = (parseInt(final1) === 1) ? 0 : 1;
+                $('#final1').val(final1);
+                console.log(  $('#final1').val());
+            });
 
         }
     });
@@ -458,6 +463,8 @@ function addMerchantPaymentRoute() {
     var merchant_id = el.find("input[name='merchant_id']").val();
     var bins = el.find("input[name='bins']").val();
     var priority = el.find("input[name='priority']").val();
+    var final=Number($('#final1').val());
+
     $.ajax({
         url: '/merchants/route/store',
         type: "post",
@@ -469,7 +476,8 @@ function addMerchantPaymentRoute() {
             sum_min: sum_min,
             merchant_id: merchant_id,
             bins: bins,
-            priority: priority
+            priority: priority,
+            final:final
         },
         success: function () {
             $('#type-errors').html();
@@ -506,16 +514,33 @@ function editPaymentRoute(e) {
     var payment_route_id = $(e).data("payment-route-id");
     var bins = $(e).data("bins");
     var priority = $(e).data("priority");
+    var final = $(e).data("final");
 
     currentTypeForEditModal = payment_type_id;
     currentRouteForEditModal = payment_route_id;
-
+    $('#final').on('click', function () {
+        var final = $('#final').val();
+        final = (parseInt(final) === 1) ? 0 : 1;
+        $('#final').val(final);
+    });
     var sum_min = $(e).data("sum_min");
     var sum_max = $(e).data("sum_max");
     var card_system = $(e).data("card-system");
     getAllowedRotesByType('#modal-edit-payment-route');
     $('#route-edit-errors').html();
     $('#route-edit-errors').hide();
+    //final
+    if (final === 1) {
+        $('#final').prop({
+            "checked": true
+        }).val(1);
+    }
+    if (final === 0) {
+        $('#final').prop({
+            "checked": false
+        }).val(0);
+    }
+    el.find("checkbox[name='final']").val(final);//проверку
     el.find("select[name='payment_type']").val(payment_type_id);
     el.find("input[name='merchant_id']").val(merchant_id);
     el.find("select[name='payment_route']").val(payment_route_id);
@@ -531,7 +556,9 @@ function editPaymentRoute(e) {
 //begin edit Merchant Routes
 function changeMerchantPaymentRoute() {
     var el = $('#modal-edit-payment-route');
-    var id = el.find("input[name='id']").val()
+    var id = el.find("input[name='id']").val();
+    var final = $('#final').val();
+    console.log("final"+final);
     var payment_type = el.find("select[name='payment_type']").val();
     var sum_min = el.find("input[name='sum_min']").val();
     var sum_max = el.find("input[name='sum_max']").val();
@@ -552,7 +579,8 @@ function changeMerchantPaymentRoute() {
             sum_min: sum_min,
             merchant_id: merchant_id,
             bins: bins,
-            priority: priority
+            priority: priority,
+            final:final
         },
         success: function () {
             $('#type-errors').html();

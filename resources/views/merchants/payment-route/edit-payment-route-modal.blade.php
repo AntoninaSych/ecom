@@ -58,6 +58,20 @@
                     {{ Form::label('priority', "Приоритет" ) }}
                     {{ Form::text("priority",  null,['class'=>'form-control']) }}
                 </div>
+
+                <div>
+                    <div class="col-xs-6" style=" text-align: right; margin-top: 10px;  font-weight: 700;">
+                        Final
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="wrap ">
+                            <input type="checkbox" id="final" name="final"/>
+                            <label class="slider-v2" for="final" id="label-checkbox"></label>
+                        </div>
+                    </div>
+
+                </div>
+
                 <div style="margin-top: 15px">
                     <input type="button" value="Изменить роут платежа" class="form-control btn btn-primary"
                            onclick="changeMerchantPaymentRoute()">

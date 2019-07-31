@@ -13,7 +13,7 @@ class MerchantPaymentRoute extends BaseModel
     const UPDATED_AT = 'updated';
 
     protected $fillable = ['payment_route_id',  'sum_min', 'sum_max', 'merchant_id','card_system',
-        'bins', 'priority'];
+        'bins', 'priority','final'];
 
     protected $with = ['merchant', 'paymentRoute', 'cardSystem'];
 

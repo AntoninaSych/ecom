@@ -359,46 +359,50 @@ function editPaymentType(e) {
 //begin load Merchant Routes Table
 function loadMerchantRoutes() {
     $.ajax({
-        url: '/merchants/route/table?merchantId=' + merchant_id,
+        url: '/merchants/route/table',
         type: "GET",
-
+        data:{
+            merchantId:merchant_id,
+            // card_system:1
+        },
         success: function (data) {
             $('#merchant-payment-route').html(data);
-        //    drag and drop
-            var sortOrder = [];
-            var sortableTable  = $("#merchant-route-table-tb");
-
-
-             sortableTable.sortable({
-                stop: function(event, element) {
-                    var objUpdate =[];
-                    var id =null;
-                    var priority = 1;
-                    $.each($('tr [name]',  sortableTable), function(index, element){
-                        if(element.className =='id'){
-                        id = element.value;
-                            objUpdate.push({ id: id, priority:priority++});
-                        }
-                        });
-                   //ajax to save priority  and reload table
-
-                    // console.log(objUpdate);
-                    updateRoutePriority(objUpdate);
-                }
-            });
-
-             sortableTable.disableSelection();
-
-            $('tr [name^=prioprity]',  sortableTable).on('keydown', function(){
-                $(this).closest('tr').data()
-            });
-            //    drag and drop
 
         }
     });
 }
 //end load Merchant Routes Table
 
+function dragAndDrop(id) {
+    console.log(id);
+    //    drag and drop
+    var sortOrder = [];
+    //сортировка приоритетов
+    var sortableTable  = $("#"+id);
+    sortableTable.sortable({
+        stop: function(event, element) {
+            var objUpdate =[];
+            var id =null;
+            var priority = 1;
+            $.each($('tr [name]',  sortableTable), function(index, element){
+                if(element.className =='id'){
+                    id = element.value;
+                    objUpdate.push({ id: id, priority:priority++});
+                }
+            });
+            // console.log(objUpdate);
+            updateRoutePriority(objUpdate);
+        }
+    });
+
+    sortableTable.disableSelection();
+
+    // $('tr [name^=prioprity]',  sortableTable).on('keydown', function(){
+    //     $(this).closest('tr').data()
+    // });
+    //    drag and drop
+
+}
 
 // //start updateRoutePriority
 function updateRoutePriority(objUpdate) {

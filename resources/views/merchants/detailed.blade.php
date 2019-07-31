@@ -93,7 +93,7 @@
 
                 @if( Auth::user()->can(PermissionHelper::MANAGE_MERCHANT_ROUTE) || Auth::user()->can(PermissionHelper::VIEW_ROUTES))
                     <li class=""><a href="#payment-route" data-toggle="tab" aria-expanded="false"
-                                    onclick="loadMerchantRoutes()">Роут платежей</a>
+                                    onclick="loadMerchantRoutes()" id="test_id_rem">Роут платежей</a>
                     </li>
                 @endif
             @if( Auth::user()->can(Auth::user()->can(PermissionHelper::MERCHANT_USER_ALIAS)))
@@ -167,6 +167,10 @@
 <script type="text/javascript" src="{{ asset('/js/libraries/jquery-validation/additional-methods.min.js') }}"></script>
 <script type="text/javascript"
         src="{{ asset('/js/libraries/jquery-validation/localization/messages_ru.min.js') }}"></script>
+
+<!--  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css" rel="stylesheet">-->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.css" rel="stylesheet">
+
 <script src="{{ asset('js/merchants.js') }}"></script>
 <script>
     var merchant_id ={!! $merchant->id !!};

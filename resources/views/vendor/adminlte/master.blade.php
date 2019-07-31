@@ -46,7 +46,14 @@
 @endif
 
 @yield('adminlte_js')
-<script src="{{ asset('/js/libraries/jquery-3.3.1.min.js') }}"></script>
+
+<script src="{{ asset('/js/libraries/jquery.v.1.12.4.js') }}"></script>
+<script src="{{ asset('/js/libraries/jquery-ui.js') }}"></script>
+{{--<script src="https://code.jquery.com/jquery-1.12.4.js"></script>--}}
+{{--<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>--}}
+{{--<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">--}}
+<link rel="stylesheet" href="{{ asset('/css/libraries/jquery-ui/jquery-ui.v.1.12.1.css') }}">
+
 <script src="{{ asset('js/libraries/datatables/datatables.min.js') }}"></script>
 <script src="{{ asset('/js/libraries/moment/moment.js') }}"></script>
 <script src="{{ asset('/js/libraries/datarangepicker/daterangepicker.min.js') }}"></script>

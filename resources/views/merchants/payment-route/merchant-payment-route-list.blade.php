@@ -22,9 +22,11 @@
         </thead>
 
 
-        <tbody id="merchant-accounts-table">
+        <tbody id="merchant-route-table-tb">
         @foreach($merchantPaymentRoutes as $merchantPaymentRoute)
-            <tr>
+            <tr class="ui-state-default">
+                <input type="hidden" class="id" name="id{{$merchantPaymentRoute->id}}" value="{{$merchantPaymentRoute->id}}">
+                <input type="hidden" class="priority" name="prioprity{{$merchantPaymentRoute->id}}" value="{{$merchantPaymentRoute->priority}}">
                 <td>{{$merchantPaymentRoute->id}}</td>
                 <td>{{$merchantPaymentRoute->paymentRoute->paymentType->name}}</td>
                 <td>{{$merchantPaymentRoute->paymentRoute->name}}</td>

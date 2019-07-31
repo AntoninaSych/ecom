@@ -4,7 +4,7 @@ var currentTypeForEditModal = null;
     $(function () {
 
         // loadAccounts();
-
+$('#test_id_rem').click();
         // $('#mcc_id').select2();
 
         $.validator.addMethod(
@@ -364,6 +364,34 @@ function loadMerchantRoutes() {
 
         success: function (data) {
             $('#merchant-payment-route').html(data);
+        //    drag and drop
+            var sortOrder = [];
+            var sortableTable  = $("#merchant-route-table-tb");
+
+
+             sortableTable.sortable({
+                stop: function(event, element) {
+                    var objUpdate =[];
+                    var id =null;
+                    var priority = 1;
+                    $.each($('tr [name]',  sortableTable), function(index, element){
+                        if(element.className =='id'){
+                        id = element.value;
+                            objUpdate.push({ id: id, priority:priority++});
+                        }
+                        });
+                   //ajax to sdave priority
+                   console.log(objUpdate);
+                }
+            });
+
+             sortableTable.disableSelection();
+
+            $('tr [name^=prioprity]',  sortableTable).on('keydown', function(){
+                $(this).closest('tr').data()
+            });
+            //    drag and drop
+
         }
     });
 }

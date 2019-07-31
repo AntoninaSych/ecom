@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 
 use App\Classes\Helpers\ApiResponse;
+use App\Classes\Helpers\PermissionHelper;
 use App\Classes\LogicalModels\CardSystemRepository;
 use App\Classes\LogicalModels\LogMerchantRequestsRepository;
 use App\Classes\LogicalModels\MerchantPaymentRouteRepository;
@@ -156,11 +157,13 @@ class MerchantRoutesController
 
     public function updatePriority(): void
     {
-        foreach ($this->request->get('objUpdate') as $data) {
-            $merchantRoute = $this->merchantPaymentRoutes->getOne($data['id']);
-            $merchantRoute->priority = $data['priority'];
-            $merchantRoute->save();
-        }
+
+            foreach ($this->request->get('objUpdate') as $data) {
+                $merchantRoute = $this->merchantPaymentRoutes->getOne($data['id']);
+                $merchantRoute->priority = $data['priority'];
+                $merchantRoute->save();
+            }
+
     }
 
 }

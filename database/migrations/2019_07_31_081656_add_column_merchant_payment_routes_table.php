@@ -11,24 +11,24 @@ class AddColumnMerchantPaymentRoutesTable extends Migration
      *
      * @return void
      */
-    public function up()
-    {
-        Schema::table('merchant_routes', function (Blueprint $table) {
-            //
-            $table->tinyInteger('final')->default(0)->comment('1-final, 0-not final');
-        });
-    }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('merchants', function (Blueprint $table) {
-            $table->dropColumn('final');
-
-        });
-    }
+//    public function up()
+//    {
+//        Schema::table('merchant_routes', function (Blueprint $table) {
+//            //
+//            $table->tinyInteger('final')->default(0)->comment('1-final, 0-not final');
+//        });
+//    }
+//
+//    /**
+//     * Reverse the migrations.
+//     *
+//     * @return void
+//     */
+//    public function down()
+//    {
+//        Schema::table('merchants', function (Blueprint $table) {
+//            $table->dropColumn('final');
+//
+////        });
+//    }
 }

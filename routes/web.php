@@ -38,7 +38,6 @@ Route::group(['middleware' => ['log.request']], function () {
             Route::match(['get'], '/applyRole', 'UsersController@applyRole');
             Route::match(['get'], '/statusUpdate', 'UsersController@statusUpdate');
 
-
         });
         Route::group(['prefix' => 'payments', 'middleware' => ['can.view.payments']], function () {
             Route::get('/', 'PaymentsController@index')->name('payments');
@@ -73,6 +72,8 @@ Route::group(['middleware' => ['log.request']], function () {
                     Route::match(['post'], '/update', 'MerchantRoutesController@update')->name('payment-route.update');
                     Route::match(['post'], '/update-priority', 'MerchantRoutesController@updatePriority');
                     Route::match(['get'], '/getAllowedRoutes/{paymentTypeId}', 'MerchantRoutesController@getAllowedRoutes');
+
+                    Route::match(['get'], '/snippets', 'SnippetRouteController@index'); //добавлени снипетов для модерировани мерчант роутов
                 });
                 Route::group(['prefix' => '/route', 'middleware' => 'can.view.routes'], function () {
                     Route::match(['get'], '/table', 'MerchantRoutesController@getTable');

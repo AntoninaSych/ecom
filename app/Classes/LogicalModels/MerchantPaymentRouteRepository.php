@@ -23,7 +23,7 @@ class MerchantPaymentRouteRepository
 
     public function save(MerchantPaymentRoute $merchantPaymentRoute)
     {
-        $merchantPaymentRoute->save();
+         $merchantPaymentRoute->save();
     }
 
     public function getOne($id)

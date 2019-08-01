@@ -39,7 +39,10 @@
                     <td>{{$merchantPaymentRoute->sum_max}}</td>
                     <td>{{$merchantPaymentRoute->cardSystem->name}}</td>
                     <td>{{$merchantPaymentRoute->bins}}</td>
-                    <td>{{$merchantPaymentRoute->final}}</td>
+                    <td>@if($merchantPaymentRoute->final==1)
+                            <span class="label label-success">Final</span>
+                        @else <span class="label label-warning">Not Final</span> @endif
+                    </td>
                     <td>{{$merchantPaymentRoute->priority}}</td>
                     <td>{{$merchantPaymentRoute->created}}</td>
                     <td>{{$merchantPaymentRoute->updated}}</td>
@@ -122,7 +125,14 @@
                     <td>{{$merchantPaymentRoute->sum_max}}</td>
                     <td>{{$merchantPaymentRoute->cardSystem->name}}</td>
                     <td>{{$merchantPaymentRoute->bins}}</td>
-                    <td>{{$merchantPaymentRoute->final}}</td>
+
+                    <td>@if($merchantPaymentRoute->final==1)
+                            <span class="label label-success">Final</span>
+                        @else <span class="label label-warning">Not Final</span> @endif
+                    </td>
+
+
+
                     <td>{{$merchantPaymentRoute->priority}}</td>
                     <td>{{$merchantPaymentRoute->created}}</td>
                     <td>{{$merchantPaymentRoute->updated}}</td>

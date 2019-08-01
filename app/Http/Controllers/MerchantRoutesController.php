@@ -98,6 +98,7 @@ class MerchantRoutesController
         } else {
             try {
                 $MerchantPaymentRoute = new MerchantPaymentRoute();
+
                 $MerchantPaymentRoute->fill($this->request->all());
                 $this->merchantPaymentRoutes->save($MerchantPaymentRoute);
                 LogMerchantRequestsRepository::log(
@@ -159,13 +160,11 @@ class MerchantRoutesController
 
     public function updatePriority(): void
     {
-
             foreach ($this->request->get('objUpdate') as $data) {
                 $merchantRoute = $this->merchantPaymentRoutes->getOne($data['id']);
                 $merchantRoute->priority = $data['priority'];
                 $merchantRoute->save();
             }
-
     }
 
 }

@@ -73,7 +73,6 @@ class MerchantRoutesController
 
     public function store()
     {
-
         $validator = Validator::make($this->request->all(), [
             'payment_route_id' => 'required|integer|exists:payment_routes,id',
             'sum_min' => 'required|integer',

@@ -4,7 +4,7 @@ var currentTypeForEditModal = null;
     $(function () {
 
         // loadAccounts();
-$('#test_id_rem').click();
+        $('#test_id_rem').click();
         // $('#mcc_id').select2();
 
         $.validator.addMethod(
@@ -360,8 +360,8 @@ function loadMerchantRoutes() {
     $.ajax({
         url: '/merchants/route/table',
         type: "GET",
-        data:{
-            merchantId:merchant_id,
+        data: {
+            merchantId: merchant_id,
             // card_system:1
         },
         success: function (data) {
@@ -370,12 +370,13 @@ function loadMerchantRoutes() {
                 var final1 = $('#final1').val();
                 final1 = (parseInt(final1) === 1) ? 0 : 1;
                 $('#final1').val(final1);
-                console.log(  $('#final1').val());
+                console.log($('#final1').val());
             });
 
         }
     });
 }
+
 //end load Merchant Routes Table
 
 function dragAndDrop(id) {
@@ -383,16 +384,16 @@ function dragAndDrop(id) {
     //    drag and drop
     var sortOrder = [];
     //сортировка приоритетов
-    var sortableTable  = $("#"+id);
+    var sortableTable = $("#" + id);
     sortableTable.sortable({
-        stop: function(event, element) {
-            var objUpdate =[];
-            var id =null;
+        stop: function (event, element) {
+            var objUpdate = [];
+            var id = null;
             var priority = 1;
-            $.each($('tr [name]',  sortableTable), function(index, element){
-                if(element.className =='id'){
+            $.each($('tr [name]', sortableTable), function (index, element) {
+                if (element.className == 'id') {
                     id = element.value;
-                    objUpdate.push({ id: id, priority:priority++});
+                    objUpdate.push({id: id, priority: priority++});
                 }
             });
             // console.log(objUpdate);
@@ -415,13 +416,14 @@ function updateRoutePriority(objUpdate) {
         url: '/merchants/route/update-priority',
         type: "POST",
         data: {
-            objUpdate:objUpdate
+            objUpdate: objUpdate
         },
         success: function () {
             loadMerchantRoutes();
         }
     });
 }
+
 // //end updateRoutePriority
 
 
@@ -463,7 +465,7 @@ function addMerchantPaymentRoute() {
     var merchant_id = el.find("input[name='merchant_id']").val();
     var bins = el.find("input[name='bins']").val();
     var priority = el.find("input[name='priority']").val();
-    var final=Number($('#final1').val());
+    var final = Number($('#final1').val());
 
     $.ajax({
         url: '/merchants/route/store',
@@ -477,7 +479,7 @@ function addMerchantPaymentRoute() {
             merchant_id: merchant_id,
             bins: bins,
             priority: priority,
-            final:final
+            final: final
         },
         success: function () {
             $('#type-errors').html();
@@ -558,7 +560,7 @@ function changeMerchantPaymentRoute() {
     var el = $('#modal-edit-payment-route');
     var id = el.find("input[name='id']").val();
     var final = $('#final').val();
-    console.log("final"+final);
+    console.log("final" + final);
     var payment_type = el.find("select[name='payment_type']").val();
     var sum_min = el.find("input[name='sum_min']").val();
     var sum_max = el.find("input[name='sum_max']").val();
@@ -580,7 +582,7 @@ function changeMerchantPaymentRoute() {
             merchant_id: merchant_id,
             bins: bins,
             priority: priority,
-            final:final
+            final: final
         },
         success: function () {
             $('#type-errors').html();
@@ -784,7 +786,7 @@ function addMerchantUserAlias(input) {
                     "use strict";
 
 
-                        users.push({'id': parseInt(key), 'text': value});
+                    users.push({'id': parseInt(key), 'text': value});
 
                 });
                 return {
@@ -849,7 +851,7 @@ function updateMerchantUserAlias() {
         url: '/merchants/user-alias/update',
         type: "post",
         data: {
-            id:id,
+            id: id,
             user_id: user_id,
             merchant_id: merchant_id,
             role_id: role_id
@@ -871,6 +873,7 @@ function updateMerchantUserAlias() {
     });
 
 }
+
 function prepareDelete(e) {
 
     var id = $(e).data("id");
@@ -879,7 +882,7 @@ function prepareDelete(e) {
     var el = $('#modal-remove-merchant-user-alias');
 
     el.find("input[name='id']").val(id);
-    $('#alias-merchant-question').html('Вы действительно желаете удалить связь пользователя <b> '+username +' </b> с мерчантом?');
+    $('#alias-merchant-question').html('Вы действительно желаете удалить связь пользователя <b> ' + username + ' </b> с мерчантом?');
 }
 
 function removeMerchantUserAlias() {
@@ -890,7 +893,7 @@ function removeMerchantUserAlias() {
         url: '/merchants/user-alias/remove',
         type: "post",
         data: {
-            id:id
+            id: id
         },
         success: function () {
 

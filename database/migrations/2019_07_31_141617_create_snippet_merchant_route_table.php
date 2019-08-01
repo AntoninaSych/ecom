@@ -20,6 +20,7 @@ class CreateSnippetMerchantRouteTable extends Migration
             $table->integer('sum_max');
             $table->integer('card_system');
             $table->integer('bins');
+            $table->integer('priority');
             $table->tinyInteger('final')->default(0)->comment('1-final, 0-not final');
             $table->timestamps();
         });

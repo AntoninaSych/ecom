@@ -74,6 +74,10 @@ Route::group(['middleware' => ['log.request']], function () {
                     Route::match(['get'], '/getAllowedRoutes/{paymentTypeId}', 'MerchantRoutesController@getAllowedRoutes');
 
                     Route::match(['get'], '/snippets', 'SnippetRouteController@index'); //добавлени снипетов для модерировани мерчант роутов
+                    Route::match(['post'], '/snippets/store', 'SnippetRouteController@store'); //добавлени снипетов для модерировани мерчант роутов
+                    Route::match(['get'], '/snippets/table', 'SnippetRouteController@table'); //добавлени снипетов для модерировани мерчант роутов
+                    Route::match(['post'], '/snippets/remove', 'SnippetRouteController@remove'); //добавлени снипетов для модерировани мерчант роутов
+                    Route::match(['post'], '/snippets/update', 'SnippetRouteController@update'); //добавлени снипетов для модерировани мерчант роутов
                 });
                 Route::group(['prefix' => '/route', 'middleware' => 'can.view.routes'], function () {
                     Route::match(['get'], '/table', 'MerchantRoutesController@getTable');

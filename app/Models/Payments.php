@@ -25,4 +25,9 @@ class Payments extends BaseModel
     {
         return $this->hasOne(PaymentType::class, 'id', 'type');
     }
+
+    public function paymentRoute()
+    {
+        return $this->belongsTo(PaymentRoute::class, 'route', 'id');
+    }
 }

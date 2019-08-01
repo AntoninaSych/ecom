@@ -12,11 +12,15 @@ class PaymentRoute extends BaseModel
     const CREATED_AT = 'created';
     const UPDATED_AT = 'updated';
 
-    protected $with = [  'paymentType' ];
+
+
 
     public function paymentType()
     {
         return $this->belongsTo(PaymentType::class, 'payment_type', 'id');
     }
+
+
+
 
 }

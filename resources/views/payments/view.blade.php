@@ -62,6 +62,12 @@
                                             <td>Тип</td>
                                             <td>{{$payment->paymentType->name}}</td>
                                         </tr>
+                                        <tr>
+                                            <td>Роут</td>
+                                            <td>@if(!is_null($payment->paymentRoute))
+                                                {{$payment->paymentRoute->name}}
+                                            @endif</td>
+                                        </tr>
                                     </table>
 
                                 </div>
@@ -110,10 +116,7 @@
                         <div class="box box-info">
                             <div class="box-header with-border">
                                 <h3 class="box-title">Магазин</h3>
-
-
                                 <div class="box-body">
-
                                     <table class="table">
                                         <tr>
                                             <td>Номер заказа</td>

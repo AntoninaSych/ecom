@@ -26,7 +26,11 @@ class PaymentsRepository
     protected $merchants;
     private $route;
 
-    public function __construct(Payments $payments, PaymentStatus $status, PaymentType $type, Merchants $merchants, PaymentRoute $route)
+    public function __construct(Payments $payments,
+                                PaymentStatus $status,
+                                PaymentType $type,
+                                Merchants $merchants,
+                                PaymentRoute $route)
     {
         $this->payments = $payments;
         $this->type = $type;
@@ -128,7 +132,7 @@ class PaymentsRepository
      */
     public function getOneById(int $id): Payments
     {
-        $payment = $this->payments->whereId($id)->first();
+        $payment = $this->payments->where('id',$id)->first();
         if (is_null($payment)) {
             throw new NotFoundException('Данный платеж не существует');
         }

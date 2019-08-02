@@ -13,7 +13,6 @@
                 <div class="alert alert-danger" id="route-add-errors" style="display: none"></div>
 
                 {!! Form::open(array('url' => route('payment-route.store' ),'method' => 'post','id'=>'payment-type-add')) !!}
-
                 <div>
                     {{ Form::label("payment_route", "Роут" ) }}
                     <select class="form-control" name="payment_route">
@@ -23,9 +22,7 @@
                         @endforeach
                     </select>
                 </div>
-
-
-
+                {{Form::hidden('snippet_id',null)}}
                 <div>
                     {{ Form::label('sum_min', "Сумма минимального платежа" ) }}
                     {{ Form::text("sum_min",  0,['class'=>'form-control']) }}

@@ -7,6 +7,7 @@ namespace App\Classes\LogicalModels;
 use App\Exceptions\NotFoundException;
 use App\Models\SnippetMerchantRoute;
 
+
 class SnippetMerchantRouteRepository
 {
     public $snippet;
@@ -21,9 +22,9 @@ class SnippetMerchantRouteRepository
         $snippetMerchantRoute->save();
     }
 
-    public function list()
+    public function list($snippetId)
     {
-        return $this->snippet->select()->get();
+        return $this->snippet->select()->where('snippet_id', $snippetId)->get();
     }
 
     public function getOne($id)
@@ -37,7 +38,11 @@ class SnippetMerchantRouteRepository
         return $code;
     }
 
-    public function remove(SnippetMerchantRoute $snippetMerchantRoute){
+    public function remove(SnippetMerchantRoute $snippetMerchantRoute)
+    {
+
         $snippetMerchantRoute->delete();
     }
+
+
 }

@@ -15,6 +15,8 @@ class CreateSnippetMerchantRouteTable extends Migration
     {
         Schema::create('snippet_merchant_route', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('snippet_id');
+            $table->foreign('snippet_id')->references('id')->on('snippets_merchant')->onDelete('cascade');
             $table->integer('payment_route_id');
             $table->integer('sum_min');
             $table->integer('sum_max');

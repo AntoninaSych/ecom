@@ -8,6 +8,7 @@ use App\Classes\Helpers\ApiResponse;
 use App\Classes\Helpers\ValidatorHelper;
 use App\Classes\LogicalModels\CardSystemRepository;
 use App\Classes\LogicalModels\PaymentRoutesRepository;
+use App\Classes\LogicalModels\SnippetMerchantRepository;
 use App\Classes\LogicalModels\SnippetMerchantRouteRepository;
 use App\Exceptions\NotFoundException;
 use Illuminate\Http\Request;
@@ -34,26 +35,19 @@ class SnippetRouteController extends Controller
         $this->routesRepository = $routesRepository;
     }
 
-    public function index()
+    public function index($id)
     {
-        $merchantPaymentRoutes = $this->routesRepository->list()->pluck('name', 'id');
         $cardSystem = $this->cardSystemRepository->getList();
-
-        return view('merchants.payment-route.snippets.index')->with([
+        $snippetList = $this->snippetRepository->list($id);
+        $merchantPaymentRoutes = $this->routesRepository->list()->pluck('name', 'id');
+        return view('merchants.snippets.routes.index')->with([
             'cardSystem' => $cardSystem,
-            'merchantPaymentRoutes' => $merchantPaymentRoutes
-
+            'snippetList' => $snippetList,
+            'merchantPaymentRoutes' => $merchantPaymentRoutes,
+            'snippetId' => $id
         ]);
     }
 
-    public function table()
-    {
-        $snippetList = $this->snippetRepository->list();
-
-        return view('merchants.payment-route.snippets.snippet-list')->with([
-            'snippetList' => $snippetList
-        ]);
-    }
 
     public function store()
     {
@@ -64,7 +58,8 @@ class SnippetRouteController extends Controller
             'card_system' => 'required|integer|exists:cards_systems,id',
             'bins' => 'string|nullable',
             'priority' => 'integer|nullable',
-            'final' => 'integer|required'
+            'final' => 'integer|required',
+            'snippet_id' => 'required|integer|exists:snippets_merchant,id',
         ]);
 
         if ($validator->fails()) {
@@ -101,14 +96,15 @@ class SnippetRouteController extends Controller
     public function update()
     {
         $validator = Validator::make($this->request->all(), [
-            'id'=> 'required|integer|exists:snippet_merchant_route,id',
+            'id' => 'required|integer|exists:snippet_merchant_route,id',
             'payment_route_id' => 'required|integer|exists:payment_routes,id',
             'sum_min' => 'required|integer',
             'sum_max' => 'required|integer',
             'card_system' => 'required|integer|exists:cards_systems,id',
             'bins' => 'string|nullable',
             'priority' => 'integer|nullable',
-            'final' => 'integer|required'
+            'final' => 'integer|required',
+            'snippet_id' => 'required|integer|exists:snippets_merchant,id',
         ]);
 
         if ($validator->fails()) {
@@ -123,4 +119,6 @@ class SnippetRouteController extends Controller
             }
         }
     }
+
+
 }

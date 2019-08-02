@@ -13,7 +13,10 @@
                 <div class="alert alert-danger" id="route-add-errors" style="display: none"></div>
 
                 {!! Form::open(array('url' => route('payment-route.store' ),'method' => 'post','id'=>'payment-type-add')) !!}
+                <div>
 
+
+                </div>
                 <div>
                     {{ Form::label("payment_route", "Роут" ) }}
                     <select class="form-control" name="payment_route">
@@ -24,6 +27,7 @@
                     </select>
                 </div>
 
+                {{Form::hidden('snippet_id',$snippetId)}}
 
 
                 <div>

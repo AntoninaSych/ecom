@@ -183,4 +183,5 @@
 @endif
 @if(Auth::user()->can(PermissionHelper::MANAGE_MERCHANT_ROUTE))
     @include('merchants.payment-route.add-payment-route-modal')
+    @include('merchants.payment-route.add-route-from-snippet-modal')
 @endif

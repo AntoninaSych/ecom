@@ -63,34 +63,34 @@
 </style>
 @section('content')
     <div class="content">
-        <button data-target="#modal-add-payment-route-snippet" data-toggle="modal" class="btn btn-primary">Добавить
-            шаблон
+        <a href="/snippets">Перейти к списку шаблонов</a>
+        <button data-target="#modal-add-payment-route-snippet" data-toggle="modal" class="btn btn-primary"><i
+                    class="fa fa-fw fa-plus"></i>Добавить роут в шаблон
         </button>
         <div class="row">
 
             <div class="col-xs-12" id="snippet-list">
-
+@include('merchants.snippets.routes.snippet-route-list')
             </div>
         </div>
     </div>
     @if(Auth::user()->can(PermissionHelper::MANAGE_MERCHANT_ROUTE))
-        @include('merchants.payment-route.snippets.modal-add-payment-route-snippet')
-        @include('merchants.payment-route.snippets.modal-remove-payment-route-snippet')
-        @include('merchants.payment-route.snippets.modal-edit-payment-route-snippet')
+        @include('merchants.snippets.routes.modal-add-payment-route-snippet')
+        @include('merchants.snippets.routes.modal-remove-payment-route-snippet')
+        @include('merchants.snippets.routes.modal-edit-payment-route-snippet')
     @endif
 @stop
 
-{{--<script src="{{ asset('/js/libraries/jquery-3.3.1.min.js') }}"></script>--}}
 <script src="{{ asset('/js/libraries/jquery.js') }}"></script>
-
 <script src="{{ asset('/js/libraries/jquery-ui.js') }}"></script>
-{{--<script src="{{ asset('/js/libraries/select2/select2.full.min.js') }}"></script>--}}
 <script src="{{ asset('/js/libraries/jquery-validation/validation.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/js/libraries/jquery-validation/additional-methods.min.js') }}"></script>
 <script type="text/javascript"
         src="{{ asset('/js/libraries/jquery-validation/localization/messages_ru.min.js') }}"></script>
-
-<!--  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css" rel="stylesheet">-->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.css" rel="stylesheet">
+<script>
+    var snippet_id = {!!  $snippetId !!};
 
+</script>
 <script src="{{ asset('js/snippets.js') }}"></script>
+

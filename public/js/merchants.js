@@ -784,15 +784,11 @@ function addMerchantUserAlias(input) {
                 users = [];
                 $.each(json, function (key, value) {
                     "use strict";
-
-
                     users.push({'id': parseInt(key), 'text': value});
-
                 });
                 return {
                     results: users
                 };
-
             },
         }
     });
@@ -837,10 +833,7 @@ function storeMerchantUserAlias() {
 
 
 function updateMerchantUserAlias() {
-
     var el = $('#modal-edit-merchant-user-alias');
-
-
     var user_id = el.find("input[name='user_id']").val();
     var merchant_id = el.find("input[name='merchant_id']").val();
     var id = el.find("input[name='id']").val();
@@ -896,7 +889,6 @@ function removeMerchantUserAlias() {
             id: id
         },
         success: function () {
-
             $('#modal-remove-merchant-user-alias').hide();
             $('body').removeClass('modal-open');
             $('.modal-backdrop').remove();
@@ -905,9 +897,18 @@ function removeMerchantUserAlias() {
         }, error: function (response) {
             var response = response.responseText;
             response = JSON.parse(response);
-
             $('#limits-add-errors').html(response.data[0]);
             $('#limits-add-errors').show();
+        }
+    });
+}
+
+function loadRouteSnippets() {
+    $.ajax({
+        url: '/merchants/route/snippets/list/',
+        type: "GET",
+        success: function (data) {
+       $('#snippet-list').html(data);
         }
     });
 }

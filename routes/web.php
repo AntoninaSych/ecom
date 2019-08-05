@@ -50,14 +50,16 @@ Route::group(['middleware' => ['log.request']], function () {
             Route::match(['post'], '/update', 'SnippetController@update');
             Route::match(['post'], '/store', 'SnippetController@store');
             Route::match(['post'], '/remove', 'SnippetController@remove');
-
-                Route::match(['post'], '/routes/remove', 'SnippetRouteController@remove');
+            Route::match(['get'], '/list', 'SnippetRouteController@list');
+            Route::match(['post'], '/routes/remove', 'SnippetRouteController@remove');
 
             Route::group(['prefix' => '{id}/routes'], function () {
                 Route::match(['get'], '/', 'SnippetRouteController@index');
-                 Route::match(['post'], '/store', 'SnippetRouteController@store');
-               Route::match(['post'], '/update', 'SnippetRouteController@update');
-             });
+                Route::match(['post'], '/store', 'SnippetRouteController@store');
+                Route::match(['post'], '/update', 'SnippetRouteController@update');
+
+
+            });
         });
 
         Route::group(['prefix' => 'merchants'], function () {
@@ -86,6 +88,7 @@ Route::group(['middleware' => ['log.request']], function () {
                     Route::match(['post'], '/update', 'MerchantRoutesController@update')->name('payment-route.update');
                     Route::match(['post'], '/update-priority', 'MerchantRoutesController@updatePriority');
                     Route::match(['get'], '/getAllowedRoutes/{paymentTypeId}', 'MerchantRoutesController@getAllowedRoutes');
+                    Route::match(['get'], '/apply-snippet', 'MerchantRoutesController@applySnippet');
                 });
                 Route::group(['prefix' => '/route', 'middleware' => 'can.view.routes'], function () {
                     Route::match(['get'], '/table', 'MerchantRoutesController@getTable');

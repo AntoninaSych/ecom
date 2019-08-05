@@ -56,7 +56,7 @@
                     </div>
                     <div class="col-xs-6">
                         <div class="wrap ">
-                            <input type="checkbox" id="final1" name="final" value="0"/>
+                            <input type="checkbox" id="final1" name="final1" value="0"/>
                             <label class="slider-v2" for="final1" id="label-checkbox"></label>
                         </div>
                     </div>

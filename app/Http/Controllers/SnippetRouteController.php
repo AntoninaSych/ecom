@@ -11,6 +11,7 @@ use App\Classes\LogicalModels\PaymentRoutesRepository;
 use App\Classes\LogicalModels\SnippetMerchantRepository;
 use App\Classes\LogicalModels\SnippetMerchantRouteRepository;
 use App\Exceptions\NotFoundException;
+use App\Models\SnippetMerchant;
 use Illuminate\Http\Request;
 use App\Models\SnippetMerchantRoute;
 use Illuminate\Support\Facades\Validator;
@@ -22,17 +23,20 @@ class SnippetRouteController extends Controller
     public $request;
     protected $cardSystemRepository;
     protected $routesRepository;
+    protected $snippetMerchant;
 
     public function __construct(SnippetMerchantRouteRepository $repository,
                                 Request $request,
                                 CardSystemRepository $cardSystemRepository,
-                                PaymentRoutesRepository $routesRepository
+                                PaymentRoutesRepository $routesRepository,
+                                SnippetMerchantRepository $snippetMerchant
     )
     {
         $this->snippetRepository = $repository;
         $this->request = $request;
         $this->cardSystemRepository = $cardSystemRepository;
         $this->routesRepository = $routesRepository;
+        $this->snippetMerchant = $snippetMerchant;
     }
 
     public function index($id)
@@ -120,5 +124,13 @@ class SnippetRouteController extends Controller
         }
     }
 
+    public function list()
+    {
+        $list = $this->snippetMerchant->getNames();
+
+        return view('merchants.payment-route.apply-list-snippets')->with([
+            'snippets' => $list
+        ]);
+    }
 
 }

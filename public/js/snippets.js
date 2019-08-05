@@ -7,7 +7,13 @@
             $('#routeSnippetId').val(my_id_value);
         });
 
-        loadSnippetRoutes();
+        // loadSnippetRoutes();
+        $('#final1').on('click', function () {
+            var final1 = $('#final1').val();
+            final1 = (parseInt(final1) === 1) ? 0 : 1;
+            $('#final1').val(final1);
+            console.log($('#final1').val());
+        });
     });
 })(jQuery);
 
@@ -39,20 +45,6 @@ function addSnippetMerchantPaymentRoute() {
         },
         success: function () {
             location.reload();
-            // $('#type-errors').html();
-            // $('#type-errors').hide();
-            // el.hide();
-            // $('body').removeClass('modal-open');
-            // $('.modal-backdrop').remove();
-            // loadSnippetRoutes();
-            // el.find("select[name='route_type']").val('');
-            // // el.find("input[name='snippet_id']").val('');
-            // el.find("select[name='card_system']").val('');
-            // el.find("input[name='sum_max']").val('');
-            // el.find("input[name='sum_min']").val('');
-            // el.find("input[name='priority']").val('');
-            // $('#route-add-errors').html();
-            // $('#route-add-errors').hide();
         }, error: function (response) {
             var response = response.responseText;
             response = JSON.parse(response);
@@ -64,18 +56,19 @@ function addSnippetMerchantPaymentRoute() {
 }
 
 function loadSnippetRoutes() {
-//snippet-list
     $.ajax({
         url: '/merchants/route/snippets/table',
         type: "GET"
         ,
         success: function (data) {
             $('#snippet-list').html(data);
-            $('#final1').on('click', function () {
-                var final1 = $('#final1').val();
-                final1 = (parseInt(final1) === 1) ? 0 : 1;
-                $('#final1').val(final1);
-                console.log($('#final1').val());
+
+
+            $('#final').on('click', function () {
+                var final = $('#final').val();
+                final = (parseInt(final) === 1) ? 0 : 1;
+                $('#final').val(final);
+                console.log($('#final').val());
             });
 
         }

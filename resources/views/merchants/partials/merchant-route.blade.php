@@ -4,7 +4,7 @@
         <div class="row">
             <div class="pull-left btn btn-default" data-toggle="modal"
                  data-target="#modal-add-payment-route-from-snippet"
-                 style="margin-bottom: 15px;    margin-left: 15px;" onclick="loadRouteSnippets()">
+                 style="margin-bottom: 15px;    margin-left: 15px;" onclick="loadRouteSnippets({{$merchant->id}})">
                 <i class="fa fa-fw fa-plus"></i>   Выбрать роуты из шаблонов
             </div>
 

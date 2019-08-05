@@ -10,12 +10,6 @@ use App\Models\SnippetMerchantRoute;
 
 class SnippetMerchantRouteRepository
 {
-    public $snippet;
-
-    public function __construct(SnippetMerchantRoute $merchantRoutes)
-    {
-        $this->snippet = $merchantRoutes;
-    }
 
     public function save(SnippetMerchantRoute $snippetMerchantRoute)
     {
@@ -24,12 +18,14 @@ class SnippetMerchantRouteRepository
 
     public function list($snippetId)
     {
-        return $this->snippet->select()->where('snippet_id', $snippetId)->get();
+        $snippet = new SnippetMerchantRoute();
+        return $snippet->select()->where('snippet_id', $snippetId)->get();
     }
 
     public function getOne($id)
     {
-        $code = $this->snippet->select()->where('id', $id)->first();
+        $snippet = new SnippetMerchantRoute();
+        $code = $snippet->select()->where('id', $id)->first();
 
         if (is_null($code)) {
             throw new NotFoundException('Шаблон не найден по данному ID');

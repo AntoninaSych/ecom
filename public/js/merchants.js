@@ -903,12 +903,31 @@ function removeMerchantUserAlias() {
     });
 }
 
-function loadRouteSnippets() {
+function loadRouteSnippets(id) {
+    merchant_id = id;
     $.ajax({
-        url: '/merchants/route/snippets/list/',
+        url: '/snippets/list/',
         type: "GET",
         success: function (data) {
-       $('#snippet-list').html(data);
+            $('#snippet-list').html(data);
+        }
+    });
+}
+
+function addMerchantPaymentRouteFromSnippet() {
+
+    var snippet_id = document.querySelector('input[name="snippet_id"]:checked').value;
+
+    $.ajax({
+        url: '/merchants/route/apply-snippet',
+        type: "GET",
+        data: {
+            snippet_id: snippet_id,
+            merchant_id: merchant_id
+        },
+        success: function (data) {
+            location.reload();
+            // $('#snippet-list').html(data);
         }
     });
 }

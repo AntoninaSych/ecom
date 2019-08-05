@@ -30,5 +30,8 @@ class MerchantPaymentRouteRepository
     {
         return $this->merchantPaymentRoutes->select()->where('id', $id)->first();
     }
-
+    public function delete(MerchantPaymentRoute $route)
+    {
+        return $route->delete();
+    }
 }

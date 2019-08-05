@@ -4,7 +4,7 @@ var currentTypeForEditModal = null;
     $(function () {
 
         // loadAccounts();
-
+        $('#test_id_rem').click();
         // $('#mcc_id').select2();
 
         $.validator.addMethod(
@@ -341,7 +341,6 @@ function editPaymentType(e) {
         $('#merchant_payment_type_status').prop({
             "checked": false
         }).val(0);
-
     }
     $('#type-edit-errors').html();
     $('#type-edit-errors').hide();
@@ -359,16 +358,73 @@ function editPaymentType(e) {
 //begin load Merchant Routes Table
 function loadMerchantRoutes() {
     $.ajax({
-        url: '/merchants/route/table?merchantId=' + merchant_id,
+        url: '/merchants/route/table',
         type: "GET",
-
+        data: {
+            merchantId: merchant_id,
+            // card_system:1
+        },
         success: function (data) {
             $('#merchant-payment-route').html(data);
+            $('#final1').on('click', function () {
+                var final1 = $('#final1').val();
+                final1 = (parseInt(final1) === 1) ? 0 : 1;
+                $('#final1').val(final1);
+                console.log($('#final1').val());
+            });
+
         }
     });
 }
 
 //end load Merchant Routes Table
+
+function dragAndDrop(id) {
+    console.log(id);
+    //    drag and drop
+    var sortOrder = [];
+    //сортировка приоритетов
+    var sortableTable = $("#" + id);
+    sortableTable.sortable({
+        stop: function (event, element) {
+            var objUpdate = [];
+            var id = null;
+            var priority = 1;
+            $.each($('tr [name]', sortableTable), function (index, element) {
+                if (element.className == 'id') {
+                    id = element.value;
+                    objUpdate.push({id: id, priority: priority++});
+                }
+            });
+            // console.log(objUpdate);
+            updateRoutePriority(objUpdate);
+        }
+    });
+
+    sortableTable.disableSelection();
+
+    // $('tr [name^=prioprity]',  sortableTable).on('keydown', function(){
+    //     $(this).closest('tr').data()
+    // });
+    //    drag and drop
+
+}
+
+// //start updateRoutePriority
+function updateRoutePriority(objUpdate) {
+    $.ajax({
+        url: '/merchants/route/update-priority',
+        type: "POST",
+        data: {
+            objUpdate: objUpdate
+        },
+        success: function () {
+            loadMerchantRoutes();
+        }
+    });
+}
+
+// //end updateRoutePriority
 
 
 //begin create Merchant Routes
@@ -409,6 +465,8 @@ function addMerchantPaymentRoute() {
     var merchant_id = el.find("input[name='merchant_id']").val();
     var bins = el.find("input[name='bins']").val();
     var priority = el.find("input[name='priority']").val();
+    var final = Number($('#final1').val());
+
     $.ajax({
         url: '/merchants/route/store',
         type: "post",
@@ -420,7 +478,8 @@ function addMerchantPaymentRoute() {
             sum_min: sum_min,
             merchant_id: merchant_id,
             bins: bins,
-            priority: priority
+            priority: priority,
+            final: final
         },
         success: function () {
             $('#type-errors').html();
@@ -457,16 +516,33 @@ function editPaymentRoute(e) {
     var payment_route_id = $(e).data("payment-route-id");
     var bins = $(e).data("bins");
     var priority = $(e).data("priority");
+    var final = $(e).data("final");
 
     currentTypeForEditModal = payment_type_id;
     currentRouteForEditModal = payment_route_id;
-
+    $('#final').on('click', function () {
+        var final = $('#final').val();
+        final = (parseInt(final) === 1) ? 0 : 1;
+        $('#final').val(final);
+    });
     var sum_min = $(e).data("sum_min");
     var sum_max = $(e).data("sum_max");
     var card_system = $(e).data("card-system");
     getAllowedRotesByType('#modal-edit-payment-route');
     $('#route-edit-errors').html();
     $('#route-edit-errors').hide();
+    //final
+    if (final === 1) {
+        $('#final').prop({
+            "checked": true
+        }).val(1);
+    }
+    if (final === 0) {
+        $('#final').prop({
+            "checked": false
+        }).val(0);
+    }
+    el.find("checkbox[name='final']").val(final);//проверку
     el.find("select[name='payment_type']").val(payment_type_id);
     el.find("input[name='merchant_id']").val(merchant_id);
     el.find("select[name='payment_route']").val(payment_route_id);
@@ -482,7 +558,9 @@ function editPaymentRoute(e) {
 //begin edit Merchant Routes
 function changeMerchantPaymentRoute() {
     var el = $('#modal-edit-payment-route');
-    var id = el.find("input[name='id']").val()
+    var id = el.find("input[name='id']").val();
+    var final = $('#final').val();
+    console.log("final" + final);
     var payment_type = el.find("select[name='payment_type']").val();
     var sum_min = el.find("input[name='sum_min']").val();
     var sum_max = el.find("input[name='sum_max']").val();
@@ -503,7 +581,8 @@ function changeMerchantPaymentRoute() {
             sum_min: sum_min,
             merchant_id: merchant_id,
             bins: bins,
-            priority: priority
+            priority: priority,
+            final: final
         },
         success: function () {
             $('#type-errors').html();
@@ -705,15 +784,11 @@ function addMerchantUserAlias(input) {
                 users = [];
                 $.each(json, function (key, value) {
                     "use strict";
-
-
-                        users.push({'id': parseInt(key), 'text': value});
-
+                    users.push({'id': parseInt(key), 'text': value});
                 });
                 return {
                     results: users
                 };
-
             },
         }
     });
@@ -758,10 +833,7 @@ function storeMerchantUserAlias() {
 
 
 function updateMerchantUserAlias() {
-
     var el = $('#modal-edit-merchant-user-alias');
-
-
     var user_id = el.find("input[name='user_id']").val();
     var merchant_id = el.find("input[name='merchant_id']").val();
     var id = el.find("input[name='id']").val();
@@ -772,7 +844,7 @@ function updateMerchantUserAlias() {
         url: '/merchants/user-alias/update',
         type: "post",
         data: {
-            id:id,
+            id: id,
             user_id: user_id,
             merchant_id: merchant_id,
             role_id: role_id
@@ -794,6 +866,7 @@ function updateMerchantUserAlias() {
     });
 
 }
+
 function prepareDelete(e) {
 
     var id = $(e).data("id");
@@ -802,7 +875,7 @@ function prepareDelete(e) {
     var el = $('#modal-remove-merchant-user-alias');
 
     el.find("input[name='id']").val(id);
-    $('#alias-merchant-question').html('Вы действительно желаете удалить связь пользователя <b> '+username +' </b> с мерчантом?');
+    $('#alias-merchant-question').html('Вы действительно желаете удалить связь пользователя <b> ' + username + ' </b> с мерчантом?');
 }
 
 function removeMerchantUserAlias() {
@@ -813,10 +886,9 @@ function removeMerchantUserAlias() {
         url: '/merchants/user-alias/remove',
         type: "post",
         data: {
-            id:id
+            id: id
         },
         success: function () {
-
             $('#modal-remove-merchant-user-alias').hide();
             $('body').removeClass('modal-open');
             $('.modal-backdrop').remove();
@@ -825,9 +897,35 @@ function removeMerchantUserAlias() {
         }, error: function (response) {
             var response = response.responseText;
             response = JSON.parse(response);
-
             $('#limits-add-errors').html(response.data[0]);
             $('#limits-add-errors').show();
+        }
+    });
+}
+
+function loadRouteSnippets(id) {
+    merchant_id = id;
+    $.ajax({
+        url: '/snip/list/',
+        type: "GET",
+        success: function (data) {
+            $('#snippet-list').html(data);
+        }
+    });
+}
+
+function addMerchantPaymentRouteFromSnippet() {
+    var snippet_id = document.querySelector('input[name="snippet_id"]:checked').value;
+    $.ajax({
+        url: '/merchants/route/apply-snippet',
+        type: "POST",
+        data: {
+            snippet_id: snippet_id,
+            merchant_id: merchant_id
+        },
+        success: function (data) {
+            location.reload();
+            // $('#snippet-list').html(data);
         }
     });
 }

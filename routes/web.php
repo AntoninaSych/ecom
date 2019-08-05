@@ -38,7 +38,6 @@ Route::group(['middleware' => ['log.request']], function () {
             Route::match(['get'], '/applyRole', 'UsersController@applyRole');
             Route::match(['get'], '/statusUpdate', 'UsersController@statusUpdate');
 
-
         });
         Route::group(['prefix' => 'payments', 'middleware' => ['can.view.payments']], function () {
             Route::get('/', 'PaymentsController@index')->name('payments');
@@ -46,6 +45,22 @@ Route::group(['middleware' => ['log.request']], function () {
             Route::match(['get'], '/view', 'PaymentsController@getOneById');
             Route::match(['get'], '/getProcessLog', 'PaymentsController@getProcessLog');
         });
+        Route::group(['prefix' => '/snippets','middleware'=>['snippets.control']], function () {//todo middleware edit snippets
+            Route::match(['get'], '/', 'SnippetController@index');
+            Route::match(['post'], '/update', 'SnippetController@update');
+            Route::match(['post'], '/store', 'SnippetController@store');
+            Route::match(['post'], '/remove', 'SnippetController@remove');
+            Route::match(['post'], '/routes/remove', 'SnippetRouteController@remove');
+
+            Route::group(['prefix' => '{id}/routes'], function () {
+                Route::match(['get'], '/', 'SnippetRouteController@index');
+                Route::match(['post'], '/store', 'SnippetRouteController@store');
+                Route::match(['post'], '/update', 'SnippetRouteController@update');
+
+
+            });
+        });
+        Route::match(['get'], 'snip/list', 'SnippetRouteController@list');
 
         Route::group(['prefix' => 'merchants'], function () {
             Route::match(['get'], '/getlistByName', 'MerchantController@getlistByName'); // роут используется в поиске платежей
@@ -71,7 +86,9 @@ Route::group(['middleware' => ['log.request']], function () {
                 Route::group(['prefix' => '/route', 'middleware' => 'can.manage.merchant.route'], function () {
                     Route::match(['post'], '/store', 'MerchantRoutesController@store')->name('payment-route.store');
                     Route::match(['post'], '/update', 'MerchantRoutesController@update')->name('payment-route.update');
+                    Route::match(['post'], '/update-priority', 'MerchantRoutesController@updatePriority');
                     Route::match(['get'], '/getAllowedRoutes/{paymentTypeId}', 'MerchantRoutesController@getAllowedRoutes');
+                    Route::match(['post'], '/apply-snippet', 'MerchantRoutesController@applySnippet');
                 });
                 Route::group(['prefix' => '/route', 'middleware' => 'can.view.routes'], function () {
                     Route::match(['get'], '/table', 'MerchantRoutesController@getTable');
@@ -88,7 +105,7 @@ Route::group(['middleware' => ['log.request']], function () {
                     Route::match(['post'], '/store', 'MerchantUserAliasController@store')->name('merchant-user-alias.store');
                     Route::match(['post'], '/update', 'MerchantUserAliasController@update')->name('merchant-user-alias.update');
                     Route::match(['post'], '/remove', 'MerchantUserAliasController@remove')->name('merchant-user-alias.remove');
-                    Route::match(['get'], '/getMerchantsUserAlias', 'MerchantUserAliasController@getMerchantsUserAlias') ;
+                    Route::match(['get'], '/getMerchantsUserAlias', 'MerchantUserAliasController@getMerchantsUserAlias');
                 });
             });
         });

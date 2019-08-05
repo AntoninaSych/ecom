@@ -18,17 +18,20 @@ class MerchantPaymentRouteRepository
 
     public function list($merchantId)
     {
-        return $this->merchantPaymentRoutes->select()->where('merchant_id', $merchantId)->get();
+        return $this->merchantPaymentRoutes->select()->where('merchant_id', $merchantId)->orderBy('priority')->get();
     }
 
     public function save(MerchantPaymentRoute $merchantPaymentRoute)
     {
-        $merchantPaymentRoute->save();
+         $merchantPaymentRoute->save();
     }
 
     public function getOne($id)
     {
         return $this->merchantPaymentRoutes->select()->where('id', $id)->first();
     }
-
+    public function delete(MerchantPaymentRoute $route)
+    {
+        return $route->delete();
+    }
 }

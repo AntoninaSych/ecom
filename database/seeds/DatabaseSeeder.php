@@ -21,9 +21,9 @@ class DatabaseSeeder extends Seeder
         $this->call(UserRole::class);
         $this->call(RefFeeTypeSeeder::class);
         $this->call(LimitTypesSeeder::class);*/
-        $this->call(RefFeeTypeSeeder::class);
-        $this->call(LimitTypesSeeder::class);
-        $this->call(CmsTableSeeder::class);
-        //$this->call(MccCodesLiqpaySeeder::class);
+//      $this->call(RefFeeTypeSeeder::class);
+//      $this->call(LimitTypesSeeder::class);
+//      $this->call(CmsTableSeeder::class);
+//     $this->call(MccCodesLiqpaySeeder::class);
     }
 }

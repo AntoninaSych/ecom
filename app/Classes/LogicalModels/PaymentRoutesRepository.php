@@ -27,4 +27,11 @@ class PaymentRoutesRepository
 
         return $results;
     }
+
+    public function bySnippet($snippetId)
+    {
+        $results = $this->paymentRoute->select()->where('snippet_id', $snippetId)->get();
+
+        return $results;
+    }
 }

@@ -9,7 +9,7 @@
 
 @section('content')
   <div class="row">
-      @if(Auth::user()->can(PermissionHelper::MANAGE_MERCHANT_ROUTE))
+      @if(Auth::user()->can(PermissionHelper::SNIPPETS_MODIFY))
           <div class="col-lg-3 col-xs-6">
               <!-- small box -->
               <div class="small-box bg-aqua">

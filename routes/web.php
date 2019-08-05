@@ -45,12 +45,11 @@ Route::group(['middleware' => ['log.request']], function () {
             Route::match(['get'], '/view', 'PaymentsController@getOneById');
             Route::match(['get'], '/getProcessLog', 'PaymentsController@getProcessLog');
         });
-        Route::group(['prefix' => '/snippets'], function () {//todo middleware edit snippets
+        Route::group(['prefix' => '/snippets','middleware'=>['snippets.control']], function () {//todo middleware edit snippets
             Route::match(['get'], '/', 'SnippetController@index');
             Route::match(['post'], '/update', 'SnippetController@update');
             Route::match(['post'], '/store', 'SnippetController@store');
             Route::match(['post'], '/remove', 'SnippetController@remove');
-            Route::match(['get'], '/list', 'SnippetRouteController@list');
             Route::match(['post'], '/routes/remove', 'SnippetRouteController@remove');
 
             Route::group(['prefix' => '{id}/routes'], function () {
@@ -61,6 +60,7 @@ Route::group(['middleware' => ['log.request']], function () {
 
             });
         });
+        Route::match(['get'], 'snip/list', 'SnippetRouteController@list');
 
         Route::group(['prefix' => 'merchants'], function () {
             Route::match(['get'], '/getlistByName', 'MerchantController@getlistByName'); // роут используется в поиске платежей
@@ -88,7 +88,7 @@ Route::group(['middleware' => ['log.request']], function () {
                     Route::match(['post'], '/update', 'MerchantRoutesController@update')->name('payment-route.update');
                     Route::match(['post'], '/update-priority', 'MerchantRoutesController@updatePriority');
                     Route::match(['get'], '/getAllowedRoutes/{paymentTypeId}', 'MerchantRoutesController@getAllowedRoutes');
-                    Route::match(['get'], '/apply-snippet', 'MerchantRoutesController@applySnippet');
+                    Route::match(['post'], '/apply-snippet', 'MerchantRoutesController@applySnippet');
                 });
                 Route::group(['prefix' => '/route', 'middleware' => 'can.view.routes'], function () {
                     Route::match(['get'], '/table', 'MerchantRoutesController@getTable');

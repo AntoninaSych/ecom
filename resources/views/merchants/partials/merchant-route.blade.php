@@ -1,4 +1,4 @@
-<div id="payment-route"  class="tab-pane active">
+<div id="payment-route"  class="tab-pane ">
     <div class="content">
         @if(Auth::user()->can(PermissionHelper::MANAGE_MERCHANT_ROUTE))
         <div class="row">

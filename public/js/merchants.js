@@ -906,7 +906,7 @@ function removeMerchantUserAlias() {
 function loadRouteSnippets(id) {
     merchant_id = id;
     $.ajax({
-        url: '/snippets/list/',
+        url: '/snip/list/',
         type: "GET",
         success: function (data) {
             $('#snippet-list').html(data);
@@ -915,12 +915,10 @@ function loadRouteSnippets(id) {
 }
 
 function addMerchantPaymentRouteFromSnippet() {
-
     var snippet_id = document.querySelector('input[name="snippet_id"]:checked').value;
-
     $.ajax({
         url: '/merchants/route/apply-snippet',
-        type: "GET",
+        type: "POST",
         data: {
             snippet_id: snippet_id,
             merchant_id: merchant_id

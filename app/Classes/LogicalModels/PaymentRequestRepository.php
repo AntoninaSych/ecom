@@ -5,12 +5,13 @@ namespace App\Classes\LogicalModels;
 
 
 use App\Models\PaymentRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PaymentRequestRepository
 {
 
-    public function createRequest(PaymentRequest $paymentRequest): void
+    public function createRequest(PaymentRequest $paymentRequest, Request $request): void
     {
         //todoLog
         $list = new PaymentRequest();
@@ -21,14 +22,18 @@ class PaymentRequestRepository
                 $item->user_response = Auth::user()->id;
                 $item->comment_response = "создана новая заявка";
                 $item->save();
+                PaymentRequestStatusLogRepository::log($request, $item);
+
             }
         }
+        PaymentRequestStatusLogRepository::log($request, $paymentRequest);
         $paymentRequest->save();
     }
 
-    public function save(PaymentRequest $paymentRequest)
+    public function save(PaymentRequest $paymentRequest, Request $request)
     {
-//todoLog
+        PaymentRequestStatusLogRepository::log($request, $paymentRequest);
+
         $paymentRequest->save();
     }
 
@@ -46,7 +51,6 @@ class PaymentRequestRepository
 
     public function list()
     {
-        $list = new PaymentRequest();
-        return $list->select()->orderBy('id', 'desc')->get();
+       return PaymentRequest::paginate(15);
     }
 }

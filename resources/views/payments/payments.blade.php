@@ -139,8 +139,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
                         </form>
                     </div>
                 </div>
@@ -339,7 +337,6 @@
             });
         });
     })(jQuery);
-
 </script>
 
 

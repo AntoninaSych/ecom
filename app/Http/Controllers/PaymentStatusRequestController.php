@@ -62,7 +62,7 @@ class PaymentStatusRequestController
                 $paymentRequest->user_request = Auth::user()->id;
                 $paymentRequest->comment_request = $this->request->get('comment');
                 $paymentRequest->is_applied = $this->request->get('comment');
-                $this->paymentRequest->createRequest($paymentRequest);
+                $this->paymentRequest->createRequest($paymentRequest, $this->request);
 
                 $list = $this->paymentRequest->byPayment($payment->id);
                 return ApiResponse::goodResponseSimple($list);
@@ -112,7 +112,7 @@ class PaymentStatusRequestController
                     $payment->status = $paymentRequest->to_status;
                     $this->payments->save($payment);
                 }
-                $this->paymentRequest->save($paymentRequest);
+                $this->paymentRequest->save($paymentRequest, $this->request);
 
                 return ApiResponse::goodResponseSimple('');
             } catch (NotFoundException $e) {

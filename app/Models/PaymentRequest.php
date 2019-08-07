@@ -28,7 +28,6 @@ class PaymentRequest extends BaseModel
     public function userRequest()
     {
         return $this->belongsTo(Users::class, 'user_request', 'id');
-
     }
 
     public function userResponse()

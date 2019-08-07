@@ -16,8 +16,8 @@ class CreatePaymentRequestLogsTable extends Migration
         Schema::create('payment_request_logs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('payment_id');
-            $table->string('request');
-            $table->string('response');
+            $table->text('request');
+            $table->text('response');
             $table->timestamps();
         });
     }

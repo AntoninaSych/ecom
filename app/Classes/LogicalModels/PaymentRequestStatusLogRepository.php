@@ -18,6 +18,5 @@ class PaymentRequestStatusLogRepository
     $log->request = json_encode([ 'request'=> $request->all(),'user'=>Auth::user()->id, 'username'=>Auth::user()->name]) ;
     $log->response =  json_encode( $paymentRequest->attributesToArray());
     $log->save();
-
     }
 }

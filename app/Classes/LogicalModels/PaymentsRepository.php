@@ -115,8 +115,7 @@ class PaymentsRepository
         if ($filter->updatedTo != "" && $filter->updatedFrom != "") {
             $start_date = Carbon::createFromFormat('Y-m-d', $filter->updatedFrom)->startOfDay()->toDateTimeString();
             $end_date = Carbon::createFromFormat('Y-m-d', $filter->updatedTo)->endOfDay()->toDateTimeString();
-        }
-        else{
+        } else {
             $start_date = Carbon::now()->startOfDay()->toDateTimeString();
             $end_date = Carbon::now()->endOfDay()->toDateTimeString();
         }
@@ -132,7 +131,7 @@ class PaymentsRepository
      */
     public function getOneById(int $id): Payments
     {
-        $payment = $this->payments->where('id',$id)->first();
+        $payment = $this->payments->where('id', $id)->first();
         if (is_null($payment)) {
             throw new NotFoundException('Данный платеж не существует');
         }
@@ -152,18 +151,28 @@ class PaymentsRepository
         $processingLog = $processingLog->where('payment_id', $paymentId)->get();
 
         foreach ($processingLog as $log) {
-            $log->request_body = json_decode($log->request_body, true);
-            if (isset($log->request_body['Request']['PAN'])) {
-                // $log->request_body['Request']['PAN'] =  CardFilter::filterString(    $log->request_body['Request']['PAN'] );
-                $temp = $log->request_body;
-                $temp['Request']['PAN'] = CardFilter::filterString($log->request_body['Request']['PAN']);
-                $log->request_body = $temp;
-            }
+            if ($this->isJson($log->request_body) === true) {
+                $log->request_body = json_decode($log->request_body, true);
 
-            $log->request_body = json_encode($log->request_body);
+                if (isset($log->request_body['Request']['PAN'])) {
+                    // $log->request_body['Request']['PAN'] =  CardFilter::filterString(    $log->request_body['Request']['PAN'] );
+                    $temp = $log->request_body;
+
+                    $temp['Request']['PAN'] = CardFilter::filterString($log->request_body['Request']['PAN']);
+                    $log->request_body = $temp;
+                }
+
+                $log->request_body = json_encode($log->request_body);
+            }
         }
 
         return $processingLog;
+    }
+
+    private function isJson($string)
+    {
+        json_decode($string);
+        return (json_last_error() == JSON_ERROR_NONE);
     }
 
     public function getStatistic(StatisticPaymentFilter $filter = null)
@@ -220,14 +229,13 @@ ON  merchants.id = payments.merchant_id   where payments.status = 7 group By pay
     }
 
 
-    public function getStatisticByRoute(StatisticPaymentFilter $filter=null)
+    public function getStatisticByRoute(StatisticPaymentFilter $filter = null)
     {
         $query = DB::table($this->payments->getTable() . ' as payments')
-            ->select(DB::raw( 'rt.name, cs.name as sc_name,   rt.name, sum(payments.amount) as summa')
+            ->select(DB::raw('rt.name, cs.name as sc_name,   rt.name, sum(payments.amount) as summa')
             )
             ->leftjoin($this->route->getTable() . ' as rt', 'payments.route', '=', 'rt.id')
-            ->join('cards_systems as cs', 'payments.card_system','=','cs.id');
-
+            ->join('cards_systems as cs', 'payments.card_system', '=', 'cs.id');
 
 
         if (!is_null($filter)) {
@@ -238,7 +246,7 @@ ON  merchants.id = payments.merchant_id   where payments.status = 7 group By pay
             }
         }
         $query = $query->where('payments.status', 7);
-        $query =  $query->groupBy('rt.name', 'cs.name');
+        $query = $query->groupBy('rt.name', 'cs.name');
         $result = $query->get();
 
         return $result;

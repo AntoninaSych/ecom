@@ -148,14 +148,14 @@
                 </div>
                 <div class="row" id="statusLog">
 
-                        <div class="col-md-12">
-                            <div class="box box-info">
-                                <div class="box-header with-border">
+                    <div class="col-md-12">
+                        <div class="box box-info">
+                            <div class="box-header with-border">
 
 
-                                    <div class="box-body">
-                                        @if( Auth::user()->can(PermissionHelper::MAKE_REQUEST_STATUS) )
-                                            <h3 class="box-title">Запрос на изменение статуса платежа</h3>
+                                <div class="box-body">
+                                    @if( Auth::user()->can(PermissionHelper::MAKE_REQUEST_STATUS) )
+                                        <h3 class="box-title">Запрос на изменение статуса платежа</h3>
                                         <div>
                                             <label for="statusId">Выберите статус платежа:</label>
                                             <select class="form-control" name="status" id="statusId">
@@ -170,16 +170,16 @@
                                                 изменение статуса
                                             </button>
                                         </div>
-                                        @endif
-                                        <div id="listOfRequests">
-                                            @if(isset($statusRequest))
-                                                <div class="table-responsive">
+                                    @endif
+                                    <div id="listOfRequests">
+                                        @if(isset($statusRequest))
+                                            <div class="table-responsive">
                                                 <table class="table table-striped">
                                                     <th>id</th>
                                                     <th>payment Id</th>
                                                     <th>Со статуса платежа</th>
                                                     <th>На статус платежа</th>
-                                                    <th>Создал/Комментарий  </th>
+                                                    <th>Создал/Комментарий</th>
                                                     <th>Подтвердил/Комментарий</th>
                                                     <th>Дата</th>
                                                     <th>Статус заявки</th>
@@ -190,23 +190,31 @@
                                                             <td> {{$item->payment_id}}</td>
                                                             <td> {{$item->statusPrev->name}}</td>
                                                             <td> {{$item->statusNext->name}}</td>
-                                                            <td> {{$item->comment_request}} by <b> {{$item->userRequest->name}}</b></td>
+                                                            <td> {{$item->comment_request}} by
+                                                                <b> {{$item->userRequest->name}}</b></td>
                                                             <td>
                                                                 @if( Auth::user()->can(PermissionHelper::MAKE_RESPONSE_STATUS) && $item->is_applied == 0 )
-                                                                   <label for="commentStatusApprove">Оставить комментарий:</label>
-                                                                    <textarea id="commentStatusApprove" class="form-control"></textarea>
+                                                                    <label for="commentStatusApprove">Оставить
+                                                                        комментарий:</label>
+                                                                    <textarea id="commentStatusApprove"
+                                                                              class="form-control"></textarea>
                                                                     <div class="row">
                                                                         <div class="col-xs-6">
                                                                             <button id="approveStatusRequest"
-                                                                                    class="btn btn-success" style="margin: 15px 15px 0 0"
+                                                                                    class="btn btn-success"
+                                                                                    style="margin: 15px 15px 0 0"
                                                                                     onclick="approveStatusRequest({{$item->id}},'apply')">
-                                                                                Подтвердить</button>
+                                                                                Подтвердить
+                                                                            </button>
                                                                         </div>
                                                                         <div class="col-xs-6">
-                                                                            <button id="declineStatusRequest" style="margin: 15px 0 0 15px"
+                                                                            <button id="declineStatusRequest"
+                                                                                    style="margin: 15px 0 0 15px"
                                                                                     class="btn btn-danger"
-                                                                                  onclick="approveStatusRequest({{$item->id}},'decline')">
-                                                                                Отклонить</button></div>
+                                                                                    onclick="approveStatusRequest({{$item->id}},'decline')">
+                                                                                Отклонить
+                                                                            </button>
+                                                                        </div>
                                                                     </div>
                                                                 @endif
                                                                 @if(isset($item->userResponse->name))
@@ -248,14 +256,14 @@
                                                     </tbody>
 
                                                 </table>
-                                                </div>
-                                            @endif
+                                            </div>
+                                        @endif
 
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
 
                 </div>
@@ -377,8 +385,15 @@
                                 response_time = "Время не зафиксировано";
                             }
                             template += 'Response Time: ' + response_time + '<br>';
-                            var xml = $.parseXML(process_log[i]['response_body']);
-                            var json = xml2json(xml);
+                            var xml = '';
+                            var json = '';
+                            try {
+                                xml = $.parseXML(process_log[i]['response_body']);
+                                json = xml2json(xml);
+
+                            } catch (err) {
+                                json = process_log[i]['response_body'];
+                            }
 
                             template += 'Response body:<div id="xml' + i + '"></div>';
                             template += '</div>-';
@@ -390,7 +405,19 @@
                             template += '</li>';
 
                             $('#timeline').append(template);
-                            $('#request' + i).jsonView(process_log[i]['request_body']);
+                            var link = null;
+                            var request_body = process_log[i]['request_body'];
+                            if (!IsJsonString(request_body)) {
+                                var str = request_body;
+                                console.log('строка а потом json');
+                                delimiter = str.indexOf("{");
+                                request_body = str.slice(delimiter);
+                                link = str.substring(delimiter, -1);
+                            }
+
+                            $('#request' + i).jsonView(request_body);
+                            if(link!==null){
+                            $('#request' + i).append("<a href='"+link+"'>"+link+"</a>");}
 
                             $('#xml' + i).jsonView(json);
 
@@ -428,6 +455,7 @@
                     }
                     return obj;
                 } catch (e) {
+                    console.log('json');
                     console.log(e.message);
                 }
             }
@@ -470,7 +498,36 @@
                 $('#timeline').html("У Вас нет доступа для просмотра данного раздела");
             }
         });
-     console.log($('#commentStatusApprove').val());
+        console.log($('#commentStatusApprove').val());
+    }
+
+    function xmlValidator(xml) {
+        // var xml = "<note><to>Tove</to><from>Jani</from><heading>Reminder</heading><body>Don't forget me this weekend!</body></note>";
+        while (xml.indexOf('<') != -1) {
+            var sub = xml.substring(xml.indexOf('<'), xml.indexOf('>') + 1);
+            var value = xml.substring(xml.indexOf('<') + 1, xml.indexOf('>'));
+            var endTag = '</' + value + '>';
+            if (xml.indexOf(endTag) != -1) {
+                // console.log('xml is valid');
+                // break;
+            } else {
+                console.log('xml is in invalid');
+                break;
+            }
+            xml = xml.replace(sub, '');
+            xml = xml.replace(endTag, '');
+            console.log(xml);
+            console.log(sub + ' ' + value + ' ' + endTag);
+        }
+    }
+
+    function IsJsonString(str) {
+        try {
+            JSON.parse(str);
+        } catch (e) {
+            return false;
+        }
+        return true;
     }
 </script>
 

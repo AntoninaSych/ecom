@@ -23,5 +23,6 @@ class PermissionHelper extends Facade
     const MERCHANT_USER_ALIAS= 'merchant-user-alias';
     const VIEW_FRONT_USERS = 'view-front-users';
     const SNIPPETS_MODIFY = 'add-snippets-routes';
-
+    const MAKE_REQUEST_STATUS = 'make-request-status';
+    const MAKE_RESPONSE_STATUS = 'make-response-status';
 }

@@ -44,6 +44,9 @@ Route::group(['middleware' => ['log.request']], function () {
             Route::match(['get'], '/datatable', 'PaymentsController@anyData')->name('get.search.payment');
             Route::match(['get'], '/view', 'PaymentsController@getOneById');
             Route::match(['get'], '/getProcessLog', 'PaymentsController@getProcessLog');
+            Route::match(['post'], '/changeStatusRequest', 'PaymentStatusRequestController@changeStatusRequest');
+            Route::match(['get'], '/statusRequestList', 'PaymentStatusRequestController@list');
+            Route::match(['post'], '/changeStatusResponse', 'PaymentStatusRequestController@changeStatusResponse');
         });
         Route::group(['prefix' => '/snippets','middleware'=>['snippets.control']], function () {//todo middleware edit snippets
             Route::match(['get'], '/', 'SnippetController@index');

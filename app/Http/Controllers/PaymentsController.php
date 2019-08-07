@@ -11,11 +11,11 @@ use App\Classes\Helpers\PermissionHelper;
 use App\Classes\Helpers\ValidatorHelper;
 use App\Classes\LogicalModels\CallBackRepository;
 use App\Classes\LogicalModels\MerchantsRepository;
+use App\Classes\LogicalModels\PaymentRequestRepository;
 use App\Classes\LogicalModels\PaymentsRepository;
 use App\Classes\LogicalModels\PaymentStatusRepository;
 use App\Classes\LogicalModels\PaymentTypesRepository;
 use App\Exceptions\NotFoundException;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -28,17 +28,19 @@ class PaymentsController extends Controller
     protected $paymentTypes;
     protected $paymentStatuses;
     protected $payments;
+    protected $paymentReqeust;
 
     public function __construct(Request $request,
                                 MerchantsRepository $merchantsRepository,
                                 PaymentTypesRepository $paymentTypes,
                                 PaymentStatusRepository $paymentStatuses,
-                                PaymentsRepository $paymentsRepository
+                                PaymentsRepository $paymentsRepository,
+                                PaymentRequestRepository $paymentReqeust
 
     )
     {
 
-
+        $this->paymentReqeust = $paymentReqeust;
         $this->request = $request;
         $this->merchants = $merchantsRepository;
         $this->paymentTypes = $paymentTypes;
@@ -69,14 +71,17 @@ class PaymentsController extends Controller
             return ApiResponse::badResponseValidation(ValidatorHelper::toArray($validator));
         }
 
-            $payment = $this->payments->getOneById($this->request->get('id'));
-
-            $callBackLog = new CallBackRepository();
-            $callBackLog = $callBackLog->getByPaymentId($payment->id);
+        $payment = $this->payments->getOneById($this->request->get('id'));
+        $list =  $this->paymentReqeust->byPayment($this->request->get('id'));
+        $callBackLog = new CallBackRepository();
+        $callBackLog = $callBackLog->getByPaymentId($payment->id);
+        $paymentStatusList = $this->paymentStatuses->getList();
 
         return view('payments.view')->with([
             'payment' => $payment,
-            'callBackLog' => $callBackLog
+            'callBackLog' => $callBackLog,
+            'paymentStatusList' => $paymentStatusList,
+            'statusRequest' =>$list
         ]);
     }
 
@@ -112,17 +117,14 @@ class PaymentsController extends Controller
             ->addColumn('id', function ($payments) {
                 return $payments->id;
             })
-//            ->editColumn('created', function ($payments) {
-//                return $payments->created;
-//            })
             ->editColumn('created', function ($payments) {
                 return $payments->created;
             })
             ->editColumn('amount', function ($payments) {
-                return str_replace('.',',',$payments->amount);
+                return str_replace('.', ',', $payments->amount);
             })
             ->editColumn('customer_fee', function ($payments) {
-                return str_replace('.',',',$payments->customer_fee + $payments->merchant_fee );
+                return str_replace('.', ',', $payments->customer_fee + $payments->merchant_fee);
             })
             ->editColumn('status', function ($payments) {
                 return $payments->status;
@@ -131,7 +133,9 @@ class PaymentsController extends Controller
                 return $payments->merchant;
             })
             ->editColumn('card_num', function ($payments) {
-                if(!is_null($payments->card_num)){   return CardFilter::filterString($payments->card_num);}else{
+                if (!is_null($payments->card_num)) {
+                    return CardFilter::filterString($payments->card_num);
+                } else {
                     return '';
                 }
             })
@@ -147,4 +151,5 @@ class PaymentsController extends Controller
             ->rawColumns(['view_details'])
             ->make(true);
     }
+
 }

@@ -147,34 +147,6 @@ class MerchantController extends Controller
         return redirect()->back()->with('success', 'Мерчант  с ID  ' . $merchant->id . ' успешно создан.');
     }
 
-//    public function anyData()
-//    {
-//        $merchants = $this->merchants->getListForDatatable() ;
-//
-//        return Datatables::eloquent($merchants)
-//            ->addColumn('id', function ($merchants) {
-//                return $merchants->id;
-//            })
-//            ->addColumn('merchant_id', function ($merchants) {
-//                return $merchants->merchant_id;
-//            })
-//            ->editColumn('name', function ($merchants) {
-//                return $merchants->name;
-//            })
-//            ->editColumn('url', function ($merchants) {
-//                return '<a class="btn btn-black" href="' . $merchants->url . '">' . $merchants->url . '</a>';
-//            })
-//            ->editColumn('status', function ($merchants) {
-//                return $merchants->merchant_status->name;
-//            })
-//            ->addColumn('view_details', function ($merchants) {
-//                return '<a class="btn btn-black" href="' . route('merchant.detail', ['id' => $merchants->id]) . '"><i class="fa fa-fw fa-eye"></i></a>';
-//            })
-//            ->rawColumns(['view_details', 'url'])
-//            ->make(true);
-//    }
-
-
     public function getMerchantsIdentifier()
     {
         return  $this->merchants->getMerchantsIdentifier($this->request->get('name')) ;

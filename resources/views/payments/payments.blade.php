@@ -61,6 +61,11 @@
                                 {{--                                    </label>--}}
                                 {{--                                    <button class="form-control btn-default"><i class="icon ion-ios-copy"></i> Скачать в файл CSV</button> --}}
                                 {{--                                </div>--}}
+
+                                <div class="col-md-4">
+                                    <a href="/payments/statusRequestList" class="btn-default btn"> Управление статусами изменение статуса</a>
+                                </div>
+
                             </div>
 
                             <div class="row">
@@ -147,7 +152,7 @@
             <div class="box box-info">
                 <div class="box-header with-border">
                     <h3 class="box-title">Результаты поиска</h3>
-                    <div class="box-body" id="payment-search-results">
+                    <div class="box-body table-responsive" id="payment-search-results">
                         <table class="table table-hover" id="payment-table">
                             <thead>
                             <tr role="row">

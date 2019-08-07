@@ -221,3 +221,8 @@ canceled = null
   Добавлена роль для просмотра роутов - дальнейшая разработка идет с учетом этого- в роутах web можно посмотреть доступы
   
   add-snippets-routes
+  
+  this permissions needs to be for apply status of payment
+  
+   make-request-status
+   make-response-status

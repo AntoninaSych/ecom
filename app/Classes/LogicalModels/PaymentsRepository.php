@@ -243,4 +243,10 @@ ON  merchants.id = payments.merchant_id   where payments.status = 7 group By pay
 
         return $result;
     }
+
+    public function save(Payments $payment)
+    {
+        //todo LOG
+        $payment->save();
+    }
 }

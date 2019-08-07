@@ -9,7 +9,10 @@ use App\Models\BaseModel;
 class Payments extends BaseModel
 {
     protected $table = 'payments';
+    public $timestamps = ['updated', 'created'];
 
+    const CREATED_AT = 'created';
+    const UPDATED_AT = 'updated';
 
     public function merchant()
     {

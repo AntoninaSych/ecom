@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 
 class MerchantStatus extends BaseModel
 {
@@ -11,4 +10,9 @@ class MerchantStatus extends BaseModel
     const NEW_STATUS = 1;
     const TEST_STATUS = 2;
     const ACTIVE_STATUS = 3;
+    const SUSPENDED = 4;
+    const BLOCKED = 5;
+
+
+
 }

@@ -100,7 +100,7 @@ class MerchantController extends Controller
         });
 
         $mcc_codes = $this->codes->getList()->mapWithKeys(function ($item) {
-            return [$item['id'] => $item['name']];
+            return [$item['id'] => "(".$item['code'].") ".$item['name']];
         });
 
 
@@ -188,10 +188,16 @@ class MerchantController extends Controller
             ->editColumn('status', function ($merchants) {
                 return $merchants->status;
             })
+            ->editColumn('mcc_id', function ($merchants) {
+                if(isset($merchants->mcc_id)) {
+                    return "(" . $merchants->code . ") " . $merchants->mcc_name;
+                }
+                return '-';
+            })
             ->addColumn('view_details', function ($merchants) {
                 return '<a class="btn btn-black" href="' . route('merchant.detail', ['id' => $merchants->id]) . '"><i class="fa fa-fw fa-eye"></i></a>';
             })
-            ->rawColumns(['view_details', 'url'])
+            ->rawColumns(['view_details', 'url','mcc'])
             ->make(true);
     }
 }

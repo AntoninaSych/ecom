@@ -16,16 +16,22 @@
         <th>Пользователь</th>
         <th>Email</th>
         <th>Статус</th>
+        <th>Мерчанты</th>
 
         </thead>
         <tbody>
 
         @foreach($users as $user)
-            <tr>
+            <tr onclick="loadMerchantAlias(this,{{$user->id}})" id ="id-{{$user->id}}"  >
                 <td>    {{$user->id}}</td>
                 <td>    {{$user->username}}</td>
                 <td>    {{$user->email}}</td>
                 <td>    {{$user->status}}</td>
+                <td>
+                    @foreach($user->merchants as $merchant)
+                <a href="/merchants/{{$merchant->id}}">    {{$merchant->name}}</a><br>
+                    @endforeach
+                </td>
             </tr>
         @endforeach
         </tbody>
@@ -46,47 +52,3 @@
 <script type="text/javascript" src="{{ asset('/js/config.js') }}"></script>
 <script type="text/javascript"
         src="{{ asset('/js/libraries/jquery-validation/localization/messages_ru.min.js') }}"></script>
-
-
-{{--<script>--}}
-
-{{--    (function ($) {--}}
-{{--        $(function () {--}}
-{{--            console.log('123');--}}
-
-{{--        });--}}
-{{--    })(jQuery);--}}
-
-
-{{--    function loadMerchantAlias(e,id) {--}}
-{{--        $.ajax({--}}
-{{--            url: '/front/user/' + id,--}}
-{{--            type: "GET",--}}
-
-{{--            success: function (data) {--}}
-{{--                var counter = $('#front-users tbody tr').length + 1;--}}
-{{--                var newRow = $("<tr>");--}}
-{{--                var cols = "";--}}
-{{--                cols += '<td colspan=4>'+data+' </td>';--}}
-{{--                newRow.append(cols);--}}
-
-{{-- --}}
-
-
-
-{{--                newRow.insertAfter( $('#'+id).closest("tr") );--}}
-
-
-{{--                // var table = document.getElementById("front-users");--}}
-{{--                // var row = table.insertRow($('#myTable tbody tr').length);--}}
-{{--                // var cell = row.insertCell(0);--}}
-{{--                // cell.colSpan = 4;--}}
-{{--                // // table.insertRow(0);--}}
-{{--                // cell.innerHTML = data;--}}
-{{--                // appendTo('#'+id+' tr ').html( ' <tr><td colspan=4>'+data+'</td></tr>');--}}
-{{--                // $('#details-' + id).html(data);--}}
-
-{{--            }--}}
-{{--        });--}}
-{{--    }--}}
-{{--</script>--}}

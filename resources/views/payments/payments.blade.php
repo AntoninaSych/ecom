@@ -164,6 +164,7 @@
                                 <th> Карта</th>
                                 <th> ID заказа</th>
                                 <th> Описание</th>
+                                <th> ПС</th>
                                 <th> Просмотр</th>
                             </tr>
                             </thead>
@@ -231,6 +232,7 @@
                     {data: 'card_num', name: 'card_num'},
                     {data: 'order_id', name: 'order_id'},
                     {data: 'description', name: 'description'},
+                    {data: 'route', name: 'route'},
                     {data: 'view_details', name: 'view_details', searchable: false}
                 ]
             });
@@ -328,6 +330,7 @@
                             {data: 'card_num', name: 'card_num'},
                             {data: 'order_id', name: 'order_id'},
                             {data: 'description', name: 'description'},
+                            {data: 'route', name: 'route'},
                             {data: 'view_details', name: 'view_details', searchable: false}
                         ]
                     });

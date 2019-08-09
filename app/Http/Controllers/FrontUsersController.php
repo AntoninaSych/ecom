@@ -23,8 +23,7 @@ class FrontUsersController
 
     public function index()
     {
-
-        $list = MerchantUser::paginate(15);
+      $list = MerchantUser::paginate(20);
         return view('front-users.index')->with(['users'=>$list]) ;
     }
 
@@ -34,9 +33,4 @@ class FrontUsersController
 
         return view('front-users.show')->with(['merchants' => $merchants]);
     }
-
-
-
-
-
 }

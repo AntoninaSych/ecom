@@ -68,6 +68,16 @@
                                             <td>Роут</td>
                                             <td>@if(!is_null($payment->paymentRoute))
                                                     {{$payment->paymentRoute->name}}
+                                                    @if(  $payment->paymentRoute->id == 12)
+                                                        <br>
+                                                        Номер квитанции: {{$payment->fkSystem->cheque_id}}
+                                                        Номер платежа: {{$payment->fkSystem->ps_id}}
+
+                                                    @endif
+
+                                                    @if(  $payment->paymentRoute->id == 13)
+                                                        <br> Номер платежа:  {{ $payment->monobank->payment_id}}
+                                                    @endif
                                                 @endif</td>
                                         </tr>
                                     </table>
@@ -416,8 +426,9 @@
                             }
 
                             $('#request' + i).jsonView(request_body);
-                            if(link!==null){
-                            $('#request' + i).append("<a href='"+link+"'>"+link+"</a>");}
+                            if (link !== null) {
+                                $('#request' + i).append("<a href='" + link + "'>" + link + "</a>");
+                            }
 
                             $('#xml' + i).jsonView(json);
 

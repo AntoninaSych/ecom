@@ -18,7 +18,6 @@ use App\Classes\LogicalModels\MerchantUserRepository;
 use App\Exceptions\NotFoundException;
 use App\Http\Requests\Merchant\CreateMerchant;
 use App\Http\Requests\Merchant\UpdateMerchant;
-use App\Models\MerchantsAttachments;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -122,8 +121,7 @@ class MerchantController extends Controller
     public function update(UpdateMerchant $updateMerchant, int $id)
     {
         $merchant = $this->merchants->getOneById($id);
-        $oldStatus = $merchant->status;
-        $this->merchants->updateOverall($updateMerchant, $id);
+         $this->merchants->updateOverall($updateMerchant, $id);
         $log = new Request(array_merge(['old merchant'=>$merchant],['new data for merchant'=>$updateMerchant->all()]));
         LogMerchantRequestsRepository::log($id, $log, ['action' => 'update from backoffice', 'user' => Auth::user(), 'status' => 'Изменение данных мерчанта.']);
 

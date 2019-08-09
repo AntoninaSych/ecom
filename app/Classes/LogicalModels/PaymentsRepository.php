@@ -70,10 +70,12 @@ class PaymentsRepository
                 'payments.description',
                 'st.name  as  status',
                 'st.name  as  type',
-                'mer.name as merchant'
+                'mer.name as merchant',
+                'route.name as route'
             )
             ->leftjoin($this->merchants->getTable() . ' as mer', 'payments.merchant_id', '=', 'mer.id')
             ->leftjoin($this->status->getTable() . ' as st', 'payments.status', '=', 'st.id')
+            ->leftjoin($this->route->getTable() . ' as route', 'payments.route', '=', 'route.id')
             ->leftjoin($this->type->getTable() . ' as tp', 'payments.type', '=', 'tp.id');
 
         if (!is_null($filter->id)) {
@@ -131,7 +133,7 @@ class PaymentsRepository
      */
     public function getOneById(int $id): Payments
     {
-        $payment = $this->payments->where('id', $id)->first();
+        $payment = $this->payments->where('id', $id)->with(['fkSystem'])->first();
         if (is_null($payment)) {
             throw new NotFoundException('Данный платеж не существует');
         }

@@ -48,7 +48,7 @@ Route::group(['middleware' => ['log.request']], function () {
             Route::match(['get'], '/statusRequestList', 'PaymentStatusRequestController@list');
             Route::match(['post'], '/changeStatusResponse', 'PaymentStatusRequestController@changeStatusResponse');
         });
-        Route::group(['prefix' => '/snippets','middleware'=>['snippets.control']], function () {//todo middleware edit snippets
+        Route::group(['prefix' => '/snippets', 'middleware' => ['snippets.control']], function () {//todo middleware edit snippets
             Route::match(['get'], '/', 'SnippetController@index');
             Route::match(['post'], '/update', 'SnippetController@update');
             Route::match(['post'], '/store', 'SnippetController@store');
@@ -110,6 +110,16 @@ Route::group(['middleware' => ['log.request']], function () {
                     Route::match(['post'], '/remove', 'MerchantUserAliasController@remove')->name('merchant-user-alias.remove');
                     Route::match(['get'], '/getMerchantsUserAlias', 'MerchantUserAliasController@getMerchantsUserAlias');
                 });
+
+
+                Route::group(['prefix' => '/apple-pay', 'middleware' => 'can.manage.applePay'], function () {
+                    Route::match(['get'], '/{merchant_id}', 'ApplePayMerchantController@index');
+                    Route::match(['get'], '/show', 'ApplePayMerchantController@show');
+                    Route::match(['post'], '/remove', 'ApplePayMerchantController@remove')->name('apple-pay.remove');
+                    Route::match(['post'], '/update', 'ApplePayMerchantController@update')->name('apple-pay.update');
+                    Route::match(['post'], '/add', 'ApplePayMerchantController@store')->name('apple-pay.store');
+                });
+
             });
         });
 
@@ -148,6 +158,7 @@ Route::group(['middleware' => ['log.request']], function () {
         Route::resource('mcc', 'MccController')->only([
             'index', 'store', 'edit', 'update', 'create'
         ])->middleware('can.manage.mcc');
+
 
         Route::match(['get'], '/mcc/{id_code}/merchants', 'MccController@merchants')->middleware('can.manage.mcc');
         Route::match(['get'], '/mcc/datatable', 'MccController@anyData')->name('get.search.mcc.codes')->middleware('can.manage.mcc');

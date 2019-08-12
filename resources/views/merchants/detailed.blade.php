@@ -89,6 +89,12 @@
                 <li class=""><a href="#attachments" data-toggle="tab" aria-expanded="false">Файлы</a>
                 </li>
 
+                @if( Auth::user()->can(PermissionHelper::MANAGE_MERCHANT_APPLE_PAY) )
+                    <li class=""><a href="#apple-pay" id="ref_a" data-toggle="tab" aria-expanded="false"
+                                    onclick="loadMerchantApplePayTable()">ApplePay</a>
+                    </li>
+                @endif
+
              @endif
 
                 @if( Auth::user()->can(PermissionHelper::MANAGE_MERCHANT_ROUTE) || Auth::user()->can(PermissionHelper::VIEW_ROUTES))
@@ -155,6 +161,12 @@
                 @include('merchants.partials.merchant-user-alias')
             @endif
 {{--        end    merchant-user-alias--}}
+
+            {{--        start    merchant-user-alias--}}
+            @if(Auth::user()->can(PermissionHelper::MANAGE_MERCHANT_APPLE_PAY))
+                @include('merchants.partials.merchant-apple-pay')
+            @endif
+            {{--        end    merchant-user-alias--}}
         </div>
     </div>
 @stop

@@ -929,3 +929,21 @@ function addMerchantPaymentRouteFromSnippet() {
         }
     });
 }
+
+function loadCharts() {
+
+   var date_from = $('#request_period_updated').val().split(delimiter)[0];//дата платежа
+   var    date_to = $('#request_period_updated').val().split(delimiter)[1];//дата платежа
+    $.ajax({
+        url: '/merchants/getChart',
+        type: "GET",
+        data: {
+            date_from: date_from,
+            date_to: date_to,
+            merchant_id: merchant_id
+        },
+        success: function (data) {
+            $('#charts').html(data);
+        }
+    });
+}

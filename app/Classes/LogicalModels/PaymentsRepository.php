@@ -257,4 +257,20 @@ ON  merchants.id = payments.merchant_id   where payments.status = 7 group By pay
         //todo LOG
         $payment->save();
     }
+
+    public function getChartByMerchant($idMerchant, $date_from, $date_to)
+    {
+        $start_date = Carbon::createFromFormat('Y-m-d', $date_from)->startOfDay();
+        $end_date = Carbon::createFromFormat('Y-m-d', $date_to)->endOfDay();
+
+        $data = DB::table('payments')
+            ->select(DB::raw('  date(created) as dt, sum(amount)'))
+            ->where('status', 7)
+            ->where('merchant_id', $idMerchant)
+            ->whereBetween('payments.created', [$start_date, $end_date])
+            ->groupBy('dt')
+            ->get();
+
+        return $data;
+    }
 }

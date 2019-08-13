@@ -28,8 +28,10 @@
                 <div class="box-tools pull-right">
                 </div>
             </div>
-            <div class="box-body" id="charts">
-                @include('merchants.charts.index');
+            <div class="box-body" >
+                <div id="charts">
+
+                </div>
             </div>
             <div class="box-footer">
             </div>

@@ -264,7 +264,7 @@ ON  merchants.id = payments.merchant_id   where payments.status = 7 group By pay
         $end_date = Carbon::createFromFormat('Y-m-d', $date_to)->endOfDay();
 
         $data = DB::table('payments')
-            ->select(DB::raw('  date(created) as dt, sum(amount)'))
+            ->select(DB::raw('  date(created) as dt, sum(amount) as value'))
             ->where('status', 7)
             ->where('merchant_id', $idMerchant)
             ->whereBetween('payments.created', [$start_date, $end_date])

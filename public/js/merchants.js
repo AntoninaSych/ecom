@@ -943,7 +943,24 @@ function loadCharts() {
             merchant_id: merchant_id
         },
         success: function (data) {
-            $('#charts').html(data);
+
+
+
+            new Morris.Line({
+
+                element: 'charts',
+
+                data:  data,
+
+                xkey: 'dt',
+
+                ykeys: ['value'],
+
+
+                labels: ['Amount']
+            });
+
+            // $('#charts').html(data);
         }
     });
 }

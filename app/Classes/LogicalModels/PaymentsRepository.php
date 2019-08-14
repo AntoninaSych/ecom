@@ -263,8 +263,8 @@ ON  merchants.id = payments.merchant_id   where payments.status = 7 group By pay
 
         $start_date = Carbon::createFromFormat('Y-m-d', $date_from)->startOfDay();
         $end_date = Carbon::createFromFormat('Y-m-d', $date_to)->endOfDay();
-        $timeDiff = $end_date->diffInDays($start_date);
-//        if ($timeDiff > 3) {
+
+
             $data = DB::table('payments')
                 ->select(DB::raw('(created) as dt, sum(amount) as value'))
                 ->where('status', 7)
@@ -274,33 +274,6 @@ ON  merchants.id = payments.merchant_id   where payments.status = 7 group By pay
                 ->get();
 
             return $data;
-//        }
-
-
-//        for ($i = 0; $i < $timeDiff; $i++) {
-//            if ($i === 0) {
-//                $start_date1 = $start_date;
-//            } else {
-//                $start_date1 = Carbon::createFromFormat('Y-m-d', $date_from)->add($i, 'day')->startOfDay();
-//            }
-//
-//           $end_date1 =Carbon::createFromFormat('Y-m-d', $start_date1->toDateString())->add(1, 'day')->endOfDay();
-////dd(Carbon::createFromFormat('Y-m-d', $start_date)->add($i, 'day')->startOfDay());
-//
-//            $data[$i] = DB::table('payments')
-//                ->select(DB::raw(' HOUR(created) as dt, DATE(created) as full_date ,sum(amount) as value'))
-//
-//                ->where('status', 7)
-//                ->where('merchant_id', $idMerchant)
-//                ->whereBetween('payments.created', [$start_date1->toDateString(), $end_date1->toDateString()])
-//                ->groupBy('dt')
-//                ->get();
-//
-//        }
-//        $collection = collect([]);
-//        for ($i = 0; $i < $timeDiff; $i++) {
-//            $collection =  $collection->merge($data[$i]);
-//        }
 
 
         return $data;

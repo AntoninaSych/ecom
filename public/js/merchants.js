@@ -948,17 +948,10 @@ function loadCharts() {
 
 ///Рабочая версия по дням
             new Morris.Line({
-                // parseTime: false,
-
                 element: 'charts',
-
                 data:  data,
-
                 xkey: 'dt',
-
                 ykeys: ['value'],
-
-
                 labels: ['UAH']
             });
 ///конец Рабочая версия по дням

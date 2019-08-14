@@ -943,10 +943,12 @@ function loadCharts() {
             merchant_id: merchant_id
         },
         success: function (data) {
+            $('#charts').html('');
 
 
-
+///Рабочая версия по дням
             new Morris.Line({
+                // parseTime: false,
 
                 element: 'charts',
 
@@ -957,10 +959,11 @@ function loadCharts() {
                 ykeys: ['value'],
 
 
-                labels: ['Amount']
+                labels: ['UAH']
             });
+///конец Рабочая версия по дням
 
-            // $('#charts').html(data);
+
         }
     });
 }

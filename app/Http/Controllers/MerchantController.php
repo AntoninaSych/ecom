@@ -217,7 +217,8 @@ class MerchantController extends Controller
             return ApiResponse::badResponseValidation(ValidatorHelper::toArray($validator));
         } else {
             try {
-                $data = $this->payments->getChartByMerchant($this->request->get('merchant_id'),
+                $data = $this->payments->getChartByMerchant(
+                    $this->request->get('merchant_id'),
                     $this->request->get('date_from'),
                     $this->request->get('date_to'));
 

@@ -1,4 +1,4 @@
-<div id="merchant-charts" class="tab-pane  active">
+<div id="merchant-charts" class="tab-pane">
     <div class="content">
         <div class="row">
 

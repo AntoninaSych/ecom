@@ -102,7 +102,7 @@
                 </li>
             @endif
 
-            @if( Auth::user()->can(Auth::user()->can(PermissionHelper::MERCHANT_USER_ALIAS)))
+            @if( Auth::user()->can(Auth::user()->can(PermissionHelper::MERCHANT_VIEW)))
                 <li class=""><a href="#merchant-charts" data-toggle="tab" aria-expanded="true"
                                >Merchant Charts</a>
                 </li>
@@ -181,12 +181,10 @@
 <script type="text/javascript"
         src="{{ asset('/js/libraries/jquery-validation/localization/messages_ru.min.js') }}"></script>
 
-<!--  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css" rel="stylesheet">-->
 <link href="{{ asset('/css/libraries/jquery-ui/1.11.4.jquery-ui.css')}}" rel="stylesheet">
 
 
 <link rel="stylesheet" href="{{ asset('/css/libraries/morris/morris.css')}}">
-{{--  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>--}}
   <script src="{{ asset('/js/libraries/morris/raphael-min.js') }}"></script>
   <script src="{{ asset('/js/libraries/morris/morris.min.js') }}"></script>
 

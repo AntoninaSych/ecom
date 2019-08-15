@@ -15,6 +15,7 @@ use App\Classes\LogicalModels\PaymentRequestRepository;
 use App\Classes\LogicalModels\PaymentsRepository;
 use App\Classes\LogicalModels\PaymentStatusRepository;
 use App\Classes\LogicalModels\PaymentTypesRepository;
+use App\Classes\LogicalModels\ProcessingLogRepository;
 use App\Exceptions\NotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,13 +30,15 @@ class PaymentsController extends Controller
     protected $paymentStatuses;
     protected $payments;
     protected $paymentReqeust;
+    protected $processingLogRepository;
 
     public function __construct(Request $request,
                                 MerchantsRepository $merchantsRepository,
                                 PaymentTypesRepository $paymentTypes,
                                 PaymentStatusRepository $paymentStatuses,
                                 PaymentsRepository $paymentsRepository,
-                                PaymentRequestRepository $paymentReqeust
+                                PaymentRequestRepository $paymentReqeust,
+                                ProcessingLogRepository $processingLogRepository
 
     )
     {
@@ -46,6 +49,7 @@ class PaymentsController extends Controller
         $this->paymentTypes = $paymentTypes;
         $this->paymentStatuses = $paymentStatuses;
         $this->payments = $paymentsRepository;
+        $this->processingLogRepository = $processingLogRepository;
     }
 
 
@@ -96,7 +100,7 @@ class PaymentsController extends Controller
         try {
             $processLog = null;
             if (Auth::user()->can(PermissionHelper::PROCESS_LOG_VIEW)) {
-                $processLog = $this->payments->getProcessingLog($this->request->get('id'));
+                $processLog = $this->processingLogRepository->getProcessingLog($this->request->get('id'));
             }
         } catch (NotFoundException $e) {
             return ApiResponse::badResponse($e->getMessage(), $e->getCode());

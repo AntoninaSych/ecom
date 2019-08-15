@@ -25,4 +25,5 @@ class PermissionHelper extends Facade
     const SNIPPETS_MODIFY = 'add-snippets-routes';
     const MAKE_REQUEST_STATUS = 'make-request-status';
     const MAKE_RESPONSE_STATUS = 'make-response-status';
+    const VIEW_MONITORING = 'view-monitoring';
 }

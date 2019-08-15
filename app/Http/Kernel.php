@@ -10,6 +10,7 @@ use App\Http\Middleware\CanManageMerchantUserAlias;
 use App\Http\Middleware\CanMccCodes;
 use App\Http\Middleware\CanViewFrontUsers;
 use App\Http\Middleware\CanViewMerchants;
+use App\Http\Middleware\CanViewMonitoring;
 use App\Http\Middleware\CanViewPayments;
 use App\Http\Middleware\CanViewReestrs;
 use App\Http\Middleware\CanViewRoutes;
@@ -93,7 +94,8 @@ class Kernel extends HttpKernel
         'can.view.routes' => CanViewRoutes::class,
         'merchant.user.alias' => CanManageMerchantUserAlias::class,
         'can.view.front.users' => CanViewFrontUsers::class,
-        'snippets.control' => CanCreateSnippets::class
+        'snippets.control' => CanCreateSnippets::class,
+        'can.view.monitoring' => CanViewMonitoring::class
     ];
 
     /**

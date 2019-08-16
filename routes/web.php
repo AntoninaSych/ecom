@@ -162,6 +162,7 @@ Route::group(['middleware' => ['log.request']], function () {
         Route::group(['prefix' => 'monitoring', 'middleware' => ['can.view.monitoring']], function () {
             Route::match(['get'], '/', 'MonitoringController@index');
             Route::match(['get'], '/getPaymentLogOnline', 'MonitoringController@getPaymentLogOnline');
+            Route::match(['get'], '/getArchiveData', 'MonitoringController@getArchiveData');
          });
     });
 

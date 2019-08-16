@@ -8,7 +8,7 @@
                     </div>
                 </div>
                 <div class="box-body" >
-                    <div id="archive-monitoring">
+                    <div id="archive-chart">
                     </div>
                 </div>
                 <div class="box-footer">

@@ -1,20 +1,23 @@
+var interval = 0;
 (function ($) {
     $(function () {
-      setInterval(onlineMonitoring,2000);
+        techMonitoring();
+
     });
 })(jQuery);
 
 
 function onlineMonitoring()
 {
+    interval =  setTimeout(onlineMonitoring,2000);
     $.ajax({
         url: '/monitoring/getPaymentLogOnline',
         type: "GET",
         success: function (data) {
-            $('#online-monitoring').html('');
+            $('#online-chart').html('');
 
             new Morris.Line({
-                element: 'online-monitoring',
+                element: 'online-chart',
                 data:  data,
                 xkey: 'ts',
                 ykeys: ['value'],
@@ -22,4 +25,30 @@ function onlineMonitoring()
             });
         }
     });
+}
+
+function techMonitoring()
+{
+    clearTimeout(interval);
+
+    $.ajax({
+        url: '/monitoring/getArchiveData',
+        type: "GET",
+        success: function (data) {
+            $('#technical-chart').html('');
+
+            new Morris.Line({
+                element: 'technical-chart',
+                data:  data,
+                xkey: 'created',
+                ykeys: ['count'],
+                labels: ['количество']
+            });
+        }
+    });
+}
+
+
+function archiveMonitoring() {
+
 }

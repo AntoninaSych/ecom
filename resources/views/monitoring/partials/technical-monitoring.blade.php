@@ -8,7 +8,10 @@
                     </div>
                 </div>
                 <div class="box-body" >
-                    <div id="technical-monitoring">
+                    <div>
+
+                    </div>
+                    <div id="technical-chart">
                     </div>
                 </div>
                 <div class="box-footer">

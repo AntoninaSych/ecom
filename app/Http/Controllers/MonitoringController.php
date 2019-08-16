@@ -27,15 +27,17 @@ class MonitoringController
 
     public function getPaymentLogOnline()
     {
-
-        //  $from = Carbon::createFromFormat('Y-m-d', '2019-08-17')->startOfDay();
-//        $to = Carbon::createFromFormat('Y-m-d','2019-08-17')->endOfDay();
-
-
-        $from = Carbon::now()->startOfDay();
+        $from = Carbon::now()->subHours(3);
         $to = Carbon::now()->endOfDay();
 
-
         return  $this->paymentsLog->getPaymentLogOnline($from,$to);
+    }
+
+    public function getArchiveData()
+    {
+       $from = Carbon::createFromFormat('Y-m-d', '2019-05-01')->startOfDay();
+       $to = Carbon::createFromFormat('Y-m-d','2019-08-17')->endOfDay();
+
+        return  $this->paymentsLog->getArchiveData($from,$to);
     }
 }

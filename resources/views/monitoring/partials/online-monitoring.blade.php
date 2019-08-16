@@ -1,4 +1,4 @@
-<div id="merchant-charts" class="tab-pane active">
+<div id="online-monitoring" class="tab-pane active">
     <div class="content">
         <div class="row">
             <div class="box">
@@ -8,7 +8,7 @@
                     </div>
                 </div>
                 <div class="box-body" >
-                    <div id="online-monitoring">
+                    <div id="online-chart">
                     </div>
                 </div>
                 <div class="box-footer">

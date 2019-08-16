@@ -11,6 +11,8 @@ use App\Models\Payments;
 use App\Models\PaymentStatus;
 use App\Models\PaymentType;
 use App\Models\ProcessingLog;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class ProcessingLogRepository
 {
@@ -58,11 +60,18 @@ class ProcessingLogRepository
         return $processingLog;
     }
 
+
     public function getPaymentLogOnline($from, $to)
     {
         $paymentsLog =   $processingLog = new ProcessingLog();
 
-        $processingLog = $processingLog->whereBetween('payments.created', [$from, $to])->get();
+
+
+        $processingLog =  DB::table('processing_log')
+            ->select(DB::raw('  request_time  as value, ts '))
+            ->whereBetween('ts', [$from, $to])
+            ->groupBy('ts')
+            ->get();
 
         return $processingLog;
     }

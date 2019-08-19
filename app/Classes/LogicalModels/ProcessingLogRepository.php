@@ -76,22 +76,16 @@ class ProcessingLogRepository
         return $processingLog;
     }
 
-    public function getArchiveData($from, $to){
+    public function getArchiveData($from, $to, $payment_type){
         $paymentsLog =   new ProcessingLog();
 
         $paymentsLog =  DB::table('payments')
             ->select(DB::raw('SQL_CALC_FOUND_ROWS  `created` as created, COUNT(`id`) as count'))
             ->whereBetween('created', [$from, $to])
-//            ->whereIn('type', [5])
+            ->whereIn('type', $payment_type)
             ->groupBy('created')
             ->get();
 
         return $paymentsLog;
-
-//        SELECT SQL_CALC_FOUND_ROWS DATE(`created`), COUNT(`id`)
-//FROM `payments` where DATE(`created`) BETWEEN '2019-07-05' AND DATE(NOW()) and type=5
-//GROUP BY DATE(`created`)
-
-
     }
 }

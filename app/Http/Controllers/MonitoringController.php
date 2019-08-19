@@ -51,7 +51,29 @@ class MonitoringController
             try {
                 $from = Carbon::createFromFormat('Y-m-d', $this->request->get('date_from'))->startOfDay();
                 $to = Carbon::createFromFormat('Y-m-d', $this->request->get('date_to'))->endOfDay();
-                return $this->paymentsLog->getArchiveData($from, $to, $this->request->get('payment_type'));
+                return $this->paymentsLog->getTechData($from, $to, $this->request->get('payment_type'));
+            } catch (\Throwable $exception) {
+                return ApiResponse::badResponse('Невозможно построить график');
+            }
+        }
+    }
+
+    public function getArchiveData()
+    {
+        $validator = Validator::make($this->request->all(), [
+            'date_from' => 'required',
+            'date_to' => 'required',
+        ]);
+
+
+        if ($validator->fails()) {
+            return ApiResponse::badResponseValidation(ValidatorHelper::toArray($validator));
+        } else {
+            try {
+                $from = Carbon::createFromFormat('Y-m-d', $this->request->get('date_from'))->startOfDay();
+                $to = Carbon::createFromFormat('Y-m-d', $this->request->get('date_to'))->endOfDay();
+
+                return $this->paymentsLog->getPaymentLogOnline($from, $to);
             } catch (\Throwable $exception) {
                 return ApiResponse::badResponse('Невозможно построить график');
             }

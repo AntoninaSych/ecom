@@ -65,8 +65,6 @@ class ProcessingLogRepository
     {
         $paymentsLog =   $processingLog = new ProcessingLog();
 
-
-
         $processingLog =  DB::table('processing_log')
             ->select(DB::raw('  request_time  as value, ts '))
             ->whereBetween('ts', [$from, $to])
@@ -76,7 +74,7 @@ class ProcessingLogRepository
         return $processingLog;
     }
 
-    public function getArchiveData($from, $to, $payment_type){
+    public function getTechData($from, $to, $payment_type){
         $paymentsLog =   new ProcessingLog();
 
         $paymentsLog =  DB::table('payments')
@@ -88,4 +86,6 @@ class ProcessingLogRepository
 
         return $paymentsLog;
     }
+
+
 }

@@ -9,9 +9,9 @@
         <!-- Tabs within a box -->
         <ul class="nav nav-tabs pull-right ui-sortable-handle">
             @if( Auth::user()->can(PermissionHelper::VIEW_MONITORING) )
-                <li class=""><a href="#online-monitoring" data-toggle="tab" onclick="onlineMonitoring()" aria-expanded="false">Online</a></li>
-{{--                <li class=""><a href="#archive-monitoring" data-toggle="tab" onclick="archiveMonitoring()"  aria-expanded="false">Archive</a></li>--}}
-                <li class="active"><a href="#technical-monitoring" data-toggle="tab" onclick="techMonitoring()" aria-expanded="true">Tech</a></li>
+                <li class="active"><a href="#online-monitoring" data-toggle="tab" onclick="onlineMonitoring()" aria-expanded="true">Online</a></li>
+                <li class=""><a href="#archive-monitoring" data-toggle="tab" onclick="archiveMonitoring()"  aria-expanded="false">Archive</a></li>
+                <li class=""><a href="#technical-monitoring" data-toggle="tab" onclick="techMonitoring()" aria-expanded="false">Tech</a></li>
             @endif
         </ul>
         <div class="tab-content no-padding">

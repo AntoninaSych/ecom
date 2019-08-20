@@ -168,6 +168,12 @@ return [
             'url'  => '/statistic',
             'icon' => ' fa-credit-card',
             'hasRole'  => 'view-statistic',
+        ],
+        [
+            'text' => 'Мониторинг',
+            'url'  => '/monitoring',
+            'icon' => ' fa-credit-card',
+            'hasRole'  => 'view-monitoring',
         ]
     ],
 //    'menu' => [

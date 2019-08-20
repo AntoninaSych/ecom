@@ -11,6 +11,7 @@ use App\Http\Middleware\CanManageMerchantUserAlias;
 use App\Http\Middleware\CanMccCodes;
 use App\Http\Middleware\CanViewFrontUsers;
 use App\Http\Middleware\CanViewMerchants;
+use App\Http\Middleware\CanViewMonitoring;
 use App\Http\Middleware\CanViewPayments;
 use App\Http\Middleware\CanViewReestrs;
 use App\Http\Middleware\CanViewRoutes;
@@ -95,7 +96,11 @@ class Kernel extends HttpKernel
         'merchant.user.alias' => CanManageMerchantUserAlias::class,
         'can.view.front.users' => CanViewFrontUsers::class,
         'snippets.control' => CanCreateSnippets::class,
+<<<<<<< HEAD
         'can.manage.applePay' =>  CanManageApplePay::class,
+=======
+        'can.view.monitoring' => CanViewMonitoring::class
+>>>>>>> remotes/origin/feature/monitoring-charts
     ];
 
     /**

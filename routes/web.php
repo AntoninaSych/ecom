@@ -48,7 +48,11 @@ Route::group(['middleware' => ['log.request']], function () {
             Route::match(['get'], '/statusRequestList', 'PaymentStatusRequestController@list');
             Route::match(['post'], '/changeStatusResponse', 'PaymentStatusRequestController@changeStatusResponse');
         });
+<<<<<<< HEAD
         Route::group(['prefix' => '/snippets', 'middleware' => ['snippets.control']], function () {//todo middleware edit snippets
+=======
+        Route::group(['prefix' => '/snippets','middleware'=>['snippets.control']], function () {
+>>>>>>> remotes/origin/feature/monitoring-charts
             Route::match(['get'], '/', 'SnippetController@index');
             Route::match(['post'], '/update', 'SnippetController@update');
             Route::match(['post'], '/store', 'SnippetController@store');
@@ -162,6 +166,7 @@ Route::group(['middleware' => ['log.request']], function () {
 
         Route::match(['get'], '/mcc/{id_code}/merchants', 'MccController@merchants')->middleware('can.manage.mcc');
         Route::match(['get'], '/mcc/datatable', 'MccController@anyData')->name('get.search.mcc.codes')->middleware('can.manage.mcc');
+<<<<<<< HEAD
            Route::match(['get'], '/mcc/remove', 'MccController@remove')->name('remove.mcc')->middleware('can.manage.mcc');
 
 
@@ -170,6 +175,17 @@ Route::group(['middleware' => ['log.request']], function () {
             Route::match(['get'], '/users', 'FrontUsersController@index');
             Route::match(['get'], '/user/{id}', 'FrontUsersController@show');
         });
+=======
+        Route::match(['get'], '/mcc/remove', 'MccController@remove')->name('remove.mcc')->middleware('can.manage.mcc');
+
+
+        Route::group(['prefix' => 'monitoring', 'middleware' => ['can.view.monitoring']], function () {
+            Route::match(['get'], '/', 'MonitoringController@index');
+            Route::match(['get'], '/getPaymentLogOnline', 'MonitoringController@getPaymentLogOnline');
+            Route::match(['get'], '/getTechData', 'MonitoringController@getTechData');
+            Route::match(['get'], '/getPaymentLogArchive', 'MonitoringController@getArchiveData');
+         });
+>>>>>>> remotes/origin/feature/monitoring-charts
     });
 
 });

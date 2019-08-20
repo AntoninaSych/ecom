@@ -1,5 +1,6 @@
 <?php
 
+use App\Classes\Helpers\RefPaymentTypes;
 use App\Providers\AccessServiceProvider;
 
 return [
@@ -179,7 +180,7 @@ return [
         Zizaco\Entrust\EntrustServiceProvider::class,
         'Collective\Html\HtmlServiceProvider',
         JeroenNoten\LaravelAdminLte\ServiceProvider::class,
-        Yajra\DataTables\DataTablesServiceProvider::class,
+        Yajra\DataTables\DataTablesServiceProvider::class
     ],
 
     /*
@@ -236,7 +237,8 @@ return [
         'Datatables' => Yajra\Datatables\Facades\Datatables::class,
         'PermissionHelper' => App\Classes\Helpers\PermissionHelper::class,
         'OrderStatusHelper' => App\Classes\Helpers\OrderStatusHelper::class,
-        'OrderFieldHelper' => App\Classes\Helpers\OrderFieldHelper::class
+        'OrderFieldHelper' => App\Classes\Helpers\OrderFieldHelper::class,
+        'PaymentTypesHelper'=>      App\Classes\Helpers\RefPaymentTypes::class
     ],
 
 ];

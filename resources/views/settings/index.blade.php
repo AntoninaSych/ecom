@@ -5,7 +5,7 @@
 
 @section('content')
     <div class="box">
-        <div class="box-body">
+        <div class="box-body" style="overflow-x: scroll">
             <div class="row">
 
                 @foreach($roles as $role)

@@ -146,30 +146,30 @@ class PaymentsRepository
         return $payment;
     }
 
-    public function getProcessingLog($paymentId)
-    {
-        $processingLog = new ProcessingLog();
-
-        $processingLog = $processingLog->where('payment_id', $paymentId)->get();
-
-        foreach ($processingLog as $log) {
-            if ($this->isJson($log->request_body) === true) {
-                $log->request_body = json_decode($log->request_body, true);
-
-                if (isset($log->request_body['Request']['PAN'])) {
-                    // $log->request_body['Request']['PAN'] =  CardFilter::filterString(    $log->request_body['Request']['PAN'] );
-                    $temp = $log->request_body;
-
-                    $temp['Request']['PAN'] = CardFilter::filterString($log->request_body['Request']['PAN']);
-                    $log->request_body = $temp;
-                }
-
-                $log->request_body = json_encode($log->request_body);
-            }
-        }
-
-        return $processingLog;
-    }
+//    public function getProcessingLog($paymentId)
+//    {
+//        $processingLog = new ProcessingLog();
+//
+//        $processingLog = $processingLog->where('payment_id', $paymentId)->get();
+//
+//        foreach ($processingLog as $log) {
+//            if ($this->isJson($log->request_body) === true) {
+//                $log->request_body = json_decode($log->request_body, true);
+//
+//                if (isset($log->request_body['Request']['PAN'])) {
+//                    // $log->request_body['Request']['PAN'] =  CardFilter::filterString(    $log->request_body['Request']['PAN'] );
+//                    $temp = $log->request_body;
+//
+//                    $temp['Request']['PAN'] = CardFilter::filterString($log->request_body['Request']['PAN']);
+//                    $log->request_body = $temp;
+//                }
+//
+//                $log->request_body = json_encode($log->request_body);
+//            }
+//        }
+//
+//        return $processingLog;
+//    }
 
     private function isJson($string)
     {

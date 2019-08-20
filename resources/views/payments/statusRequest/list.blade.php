@@ -61,7 +61,7 @@
 
                             @break
                             @case(0)
-                            <span class="label label-info">Новая заявка ожидает обработки<</span>
+                            <span class="label label-info">Новая заявка ожидает обработки</span>
 
                             @break
                         @endswitch

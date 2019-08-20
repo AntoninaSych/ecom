@@ -96,11 +96,8 @@ class Kernel extends HttpKernel
         'merchant.user.alias' => CanManageMerchantUserAlias::class,
         'can.view.front.users' => CanViewFrontUsers::class,
         'snippets.control' => CanCreateSnippets::class,
-<<<<<<< HEAD
         'can.manage.applePay' =>  CanManageApplePay::class,
-=======
         'can.view.monitoring' => CanViewMonitoring::class
->>>>>>> remotes/origin/feature/monitoring-charts
     ];
 
     /**

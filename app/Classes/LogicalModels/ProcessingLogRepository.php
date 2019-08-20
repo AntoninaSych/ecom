@@ -63,9 +63,9 @@ class ProcessingLogRepository
 
     public function getPaymentLogOnline($from, $to)
     {
-        $paymentsLog =   $processingLog = new ProcessingLog();
+        $paymentsLog = $processingLog = new ProcessingLog();
 
-        $processingLog =  DB::table('processing_log')
+        $processingLog = DB::table('processing_log')
             ->select(DB::raw('  request_time  as value, ts '))
             ->whereBetween('ts', [$from, $to])
             ->groupBy('ts')
@@ -74,15 +74,17 @@ class ProcessingLogRepository
         return $processingLog;
     }
 
-    public function getTechData($from, $to, $payment_type){
-        $paymentsLog =   new ProcessingLog();
+    public function getTechData($from, $to, $payment_type)
+    {
+        $paymentsLog = new ProcessingLog();
 
-        $paymentsLog =  DB::table('payments')
+        $paymentsLog = DB::table('payments')
             ->select(DB::raw('SQL_CALC_FOUND_ROWS  `created` as created, COUNT(`id`) as count'))
-            ->whereBetween('created', [$from, $to])
-            ->whereIn('type', $payment_type)
-            ->groupBy('created')
-            ->get();
+            ->whereBetween('created', [$from, $to]);
+        if (!is_null($payment_type)) {
+            $paymentsLog = $paymentsLog->whereIn('type', $payment_type);
+        }
+        $paymentsLog = $paymentsLog->groupBy('created')->get();
 
         return $paymentsLog;
     }

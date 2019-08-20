@@ -226,3 +226,5 @@ canceled = null
   
    make-request-status
    make-response-status
+
+   manage-merchant-apple-pay

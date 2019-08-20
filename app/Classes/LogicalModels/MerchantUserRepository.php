@@ -17,7 +17,7 @@ class MerchantUserRepository
 
     public function list()
     {
-        return $this->user->select('id','username')->get();
+        return $this->user->select('*')->get();
     }
 
     public function getSearch(array $params)
@@ -31,6 +31,7 @@ class MerchantUserRepository
 
         return $query->limit(10)->get();
     }
+
 
 
 }

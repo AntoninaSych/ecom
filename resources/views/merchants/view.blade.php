@@ -29,7 +29,16 @@
                                 <i class="fa fa-fw fa-plus"></i> Добавить мерчанта
                             </div>
                         </div>
+                        <div class="row">
+                            <a href="/front/users" class="pull-left btn btn-primary"   style="margin-bottom: 15px">
+                                <i class="fa fa-fw fa-street-view"></i> Посмотреть пользователей ConcordPay
+                            </a>
+                        </div>
+                        <div class="box-tools " style="margin: 15px!important">
 
+
+
+                        </div>
                     </div>
                 </div>
 
@@ -92,6 +101,7 @@
                                 <th> Тип</th>
                                 <th> URL</th>
                                 <th> Статус</th>
+                                <th> MCC</th>
                                 <th> Детали</th>
                             </tr>
                             </thead>
@@ -138,6 +148,7 @@
                     {data: 'type', name: 'type'},
                     {data: 'url', name: 'url',},
                     {data: 'status', name: 'status'},
+                    {data: 'mcc_id', name: 'mcc_id', searchable: false},
                     {data: 'view_details', name: 'view_details', searchable: false}
                 ]
             });
@@ -190,6 +201,7 @@
                         {data: 'type', name: 'type'},
                         {data: 'url', name: 'url',},
                         {data: 'status', name: 'status'},
+                        {data: 'mcc_id', name: 'mcc_id', searchable: false},
                         {data: 'view_details', name: 'view_details', searchable: false}
                     ]
                 });

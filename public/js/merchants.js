@@ -759,6 +759,7 @@ function editMerchantUserAlias(e) {
 
 //end Merchant User Alias
 
+
 function removeMerchantUserAlias(e) {
 
 }
@@ -803,8 +804,7 @@ function storeMerchantUserAlias() {
     var user_id = el.find("select[name='user_id']").val();
     var merchant_id = el.find("input[name='merchant_id']").val();
     var role_id = el.find("select[name='role_id']").val();
-    console.log(user_id);
-    console.log(role_id);
+
     $.ajax({
         url: '/merchants/user-alias/store',
         type: "post",
@@ -930,33 +930,151 @@ function addMerchantPaymentRouteFromSnippet() {
     });
 }
 
-function loadCharts() {
-
-   var date_from = $('#request_period_updated').val().split(delimiter)[0];//дата платежа
-   var    date_to = $('#request_period_updated').val().split(delimiter)[1];//дата платежа
-    $.ajax({
-        url: '/merchants/getChart',
+function loadMerchantApplePayTable() {
+     $.ajax({
+        url: '/merchants/apple-pay/'+ merchant_id,
         type: "GET",
-        data: {
-            date_from: date_from,
-            date_to: date_to,
-            merchant_id: merchant_id
-        },
+
         success: function (data) {
-            $('#charts').html('');
+
+        $('#merchant-apple-pay').html(data);
+        }
+    });
+}
+
+//add Apple Pay
+function addApplePay() {
+
+    var el = $('#modal-add-apple-pay');
+    merchant_identifier = el.find("input[name='merchant_identifier']").val();
+    domain_name = el.find("input[name='domain_name']").val();
+    merchant_id = el.find("input[name='merchant_id']").val();
+
+    $.ajax({
+        url: '/merchants/apple-pay/add',
+        type: "post",
+        data: {
+            merchant_identifier: merchant_identifier,
+            domain_name: domain_name,
+            merchant_id: merchant_id,
+
+        },
+        success: function () {
+            $('#modal-add-apple-pay').hide();
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+            loadAccounts();
+
+            el.find("input[name='merchant_identifier']").val('');
+            el.find("input[name='domain_name']").val('')
+            el.find("input[name='merchant_id']").val('');
+            loadMerchantApplePayTable();
+
+        }, error: function (data) {
+            var response = data.responseText;
+            response = JSON.parse(response);
+            console.log(response.data);
+        }
+    });
+};
+//addd account end
 
 
-///Рабочая версия по дням
-            new Morris.Line({
-                element: 'charts',
-                data:  data,
-                xkey: 'dt',
-                ykeys: ['value'],
-                labels: ['UAH']
-            });
-///конец Рабочая версия по дням
+///editMerchantApplePay
+function editMerchantApplePay(e) {
 
 
+var el = $('#modal-edit-apple-pay');
+ var merchant_identifier = $(e).data("merchant-identifier");
+var domain_name = $(e).data("domain-name");
+var merchant_id = $(e).data("merchant-id");
+var id = $(e).data("id");
+
+
+el.find("input[name='merchant_identifier']").val(merchant_identifier);
+el.find("input[name='domain_name']").val(domain_name);
+el.find("input[name='merchant_id']").val(merchant_id);
+el.find("input[name='id']").val(id);
+
+}
+//editMerchantApplePay
+
+
+//add Apple Pay
+function updateApplePay() {
+
+    var el = $('#modal-edit-apple-pay');
+    merchant_identifier = el.find("input[name='merchant_identifier']").val();
+    domain_name = el.find("input[name='domain_name']").val();
+    merchant_id = el.find("input[name='merchant_id']").val();
+    id = el.find("input[name='id']").val();
+
+    $.ajax({
+        url: '/merchants/apple-pay/update',
+        type: "post",
+        data: {
+            merchant_identifier: merchant_identifier,
+            domain_name: domain_name,
+            merchant_id: merchant_id,
+            id: id,
+
+        },
+        success: function () {
+            $('#modal-edit-apple-pay').hide();
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+            loadAccounts();
+
+            el.find("input[name='merchant_identifier']").val('');
+            el.find("input[name='domain_name']").val('')
+            el.find("input[name='merchant_id']").val('');
+            el.find("input[name='id']").val('');
+            loadMerchantApplePayTable();
+
+        }, error: function (data) {
+            var response = data.responseText;
+            response = JSON.parse(response);
+            console.log(response.data);
+        }
+    });
+};
+//addd account end
+
+
+
+function askToRemoveApplePay(id) {
+    var el = $('#modal-remove-apple-pay');
+    el.find("input[name='id']").val(id);
+}
+
+
+function removeApplePay(id) {
+    var el = $('#modal-remove-apple-pay');
+
+    id = el.find("input[name='id']").val();
+
+    $.ajax({
+        url: '/merchants/apple-pay/remove',
+        type: "post",
+        data: {
+
+            id: id,
+
+        },
+        success: function () {
+            $('#modal-remove-apple-pay').hide();
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+            loadMerchantApplePayTable();
+
+
+            el.find("input[name='id']").val('');
+            loadMerchantApplePayTable();
+
+        }, error: function (data) {
+            var response = data.responseText;
+            response = JSON.parse(response);
+            console.log(response.data);
         }
     });
 }

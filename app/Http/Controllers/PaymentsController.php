@@ -145,6 +145,9 @@ class PaymentsController extends Controller
             ->editColumn('description', function ($payments) {
                 return $payments->description;
             })
+            ->editColumn('route', function ($payments) {
+                return $payments->route;
+            })
             ->addColumn('view_details', function ($payments) {
                 return '<a class="btn btn-black" href="/payments/view?id=' . $payments->id . '"><i class="fa fa-fw fa-eye"></i></a>';
             })

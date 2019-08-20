@@ -4,6 +4,7 @@ namespace App\Http;
 
 use App\Http\Middleware\CanApplyMerchantsRequest;
 use App\Http\Middleware\CanCreateSnippets;
+use App\Http\Middleware\CanManageApplePay;
 use App\Http\Middleware\CanManageMerchantPaymentType;
 use App\Http\Middleware\CanManageMerchantRoute;
 use App\Http\Middleware\CanManageMerchantUserAlias;
@@ -93,7 +94,8 @@ class Kernel extends HttpKernel
         'can.view.routes' => CanViewRoutes::class,
         'merchant.user.alias' => CanManageMerchantUserAlias::class,
         'can.view.front.users' => CanViewFrontUsers::class,
-        'snippets.control' => CanCreateSnippets::class
+        'snippets.control' => CanCreateSnippets::class,
+        'can.manage.applePay' =>  CanManageApplePay::class,
     ];
 
     /**

@@ -8,6 +8,7 @@ use App\Classes\Filters\MerchantSearchFilter;
 use App\Exceptions\NotFoundException;
 use App\Http\Requests\Merchant\CreateMerchant;
 use App\Http\Requests\Merchant\UpdateMerchant;
+use App\Models\MccCodes;
 use App\Models\MerchantInfo;
 use App\Models\MerchantKeys;
 use App\Models\Merchants;
@@ -24,18 +25,21 @@ class MerchantsRepository
     protected $merchantKeys;
     protected $merchantUser;
     protected $merchantInfo;
+    protected $mccCode;
 
     public function __construct(Merchants $merchants,
                                 MerchantStatus $merchantStatus,
                                 MerchantKeys $merchantKeys,
                                 MerchantsUserAlias $merchantUser,
-                                MerchantInfo $merchantInfo)
+                                MerchantInfo $merchantInfo,
+                                MccCodes $mccCode)
     {
         $this->merchants = $merchants;
         $this->merchantStatus = $merchantStatus;
         $this->merchantKeys = $merchantKeys;
         $this->merchantUser = $merchantUser;
         $this->merchantInfo = $merchantInfo;
+        $this->mccCode = $mccCode;
     }
 
     public function getQuickSearch(array $params)
@@ -60,22 +64,25 @@ class MerchantsRepository
                 'merchants.id',
                 'merchants.merchant_id',
                 'merchants.name',
+                'merchants.mcc_id',
                 'merchants.url',
                 'merchants_status.name as status',
                 'terminal.key_types',
                 'terminal.merchant_login as terminalId',
-                'merchant_info.personType as type'
+                'merchant_info.personType as type',
+                'merchants_mcc.code as code' ,
+                'merchants_mcc.name as mcc_name'
 
             )
             ->leftjoin($this->merchantStatus->getTable() . ' as merchants_status', 'merchants.status', '=', 'merchants_status.id')
             ->leftjoin($this->merchantKeys->getTable() . ' as terminal', 'merchants.id', '=', 'terminal.merchant_id')
             ->leftjoin($this->merchantUser->getTable() . ' as merchants_users', 'merchants.id', '=', 'merchants_users.merchant_id')
-            ->leftjoin($this->merchantInfo->getTable() , 'merchants.id', '=',  'merchant_info.merchant_id')
-         ;
+            ->leftjoin($this->mccCode->getTable() . ' as merchants_mcc', 'merchants.mcc_id', '=', 'merchants_mcc.id')
+            ->leftjoin($this->merchantInfo->getTable(), 'merchants.id', '=', 'merchant_info.merchant_id');
         $query = $query->where('terminal.key_types', '=', 5);
 
         if (!is_null($filter->terminal)) {
-            $query = $query->where('terminal.merchant_login',  $filter->terminal );
+            $query = $query->where('terminal.merchant_login', $filter->terminal);
         }
         if (!is_null($filter->merchant_id)) {
             $query = $query->where('merchants.id', $filter->merchant_id);
@@ -90,9 +97,8 @@ class MerchantsRepository
             $query = $query->where('merchants_users.user_id', $filter->concordpay_user);
         }
         $query = $query->groupBy('merchants.id');
-        if(!is_null($filter->order))
-        {
-          $query = $query->orderBy($filter->order[0]['column'],$filter->order[0]['dir']);
+        if (!is_null($filter->order)) {
+            $query = $query->orderBy($filter->order[0]['column'], $filter->order[0]['dir']);
         }
 
         return $query;

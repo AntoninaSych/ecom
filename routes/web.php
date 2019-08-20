@@ -132,17 +132,12 @@ Route::group(['middleware' => ['log.request']], function () {
             Route::match(['get'], '/byRoutes', 'StatisticController@byRoutes');
         });
 
-
         Route::group(['prefix' => 'reestrs', 'middleware' => ['can.view.reestrs']], function () {
             Route::match(['get'], '/', 'ReestrController@index');
             Route::match(['get'], '/getReestr', 'ReestrController@getReestr');
         });
 
 
-        Route::group(['prefix' => 'front', 'middleware' => ['can.view.front.users']], function () {
-            Route::match(['get'], '/users', 'FrontUsersController@index');
-            Route::match(['get'], '/user/{id}', 'FrontUsersController@show');
-        });
 
 
         Route::resource('mcc', 'MccController')->only([
@@ -151,7 +146,14 @@ Route::group(['middleware' => ['log.request']], function () {
 
         Route::match(['get'], '/mcc/{id_code}/merchants', 'MccController@merchants')->middleware('can.manage.mcc');
         Route::match(['get'], '/mcc/datatable', 'MccController@anyData')->name('get.search.mcc.codes')->middleware('can.manage.mcc');
-        Route::match(['get'], '/mcc/remove', 'MccController@remove')->name('remove.mcc')->middleware('can.manage.mcc');
+           Route::match(['get'], '/mcc/remove', 'MccController@remove')->name('remove.mcc')->middleware('can.manage.mcc');
+
+
+        Route::group(['prefix' => 'front', 'middleware' => ['can.view.front.users']], function () {
+            Route::match(['get'], '/datatable', 'FrontUsersController@anyData')->name('get.front.users') ;
+            Route::match(['get'], '/users', 'FrontUsersController@index');
+            Route::match(['get'], '/user/{id}', 'FrontUsersController@show');
+        });
     });
 
 });

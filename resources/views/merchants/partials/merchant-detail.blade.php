@@ -9,16 +9,16 @@
             <div class=" col-md-6">
                 <div class="box box-primary">
                     <div class="box-body box-profile">
-                <table class="table">
-                    @foreach( $merchantInfo->toArray() as $key => $value )
-                        @if(!is_null($value))
-                            <tr>
-                                <td> {{ OrderFieldHelper::getLabel($key)}}</td>
-                                <td>{{$value}}</td>
-                            </tr>
-                        @endif
-                    @endforeach
-                </table>
+                        <table class="table">
+                            @foreach( $merchantInfo->toArray() as $key => $value )
+                                @if(!is_null($value))
+                                    <tr>
+                                        <td> {{ OrderFieldHelper::getLabel($key)}}</td>
+                                        <td>{{$value}}</td>
+                                    </tr>
+                                @endif
+                            @endforeach
+                        </table>
                     </div>
                 </div>
             </div>
@@ -27,7 +27,7 @@
         <div class=" col-md-6">
             <div class="box box-primary">
                 <div class="box-body box-profile">
-                    <img class="profile-user-img img-responsive img-circle" src="/images/shop-icon.png"  >
+                    <img class="profile-user-img img-responsive img-circle" src="/images/shop-icon.png">
 
                     <h3 class="profile-username text-center">{{$merchant->name}}</h3>
 
@@ -41,43 +41,58 @@
                             <b>Имя мерчанта</b> <span class="pull-right">{{$merchant->name}}</span>
                         </li>
                         @if(isset($terminal))
-                        <li class="list-group-item">
-                            <b>ID терминала</b> <span class="pull-right"> {{$terminal->merchant_login}}</span>
-                        </li>
+                            <li class="list-group-item">
+                                <b>ID терминала</b> <span class="pull-right"> {{$terminal->merchant_login}}</span>
+                            </li>
                         @endif
                         @if(!is_null($merchant->mcc_id))
                             <li class="list-group-item">
-                                <b>MCC Код</b>   <span class="pull-right"> {{ OrderFieldHelper::getMcc($merchant->mcc_id)}}</span>
+                                <b>MCC Код</b> <span
+                                        class="pull-right"> {{ OrderFieldHelper::getMcc($merchant->mcc_id)}}</span>
                             </li>
                         @endif
 
                         @if(!is_null($merchant->cms_id))
                             <li class="list-group-item">
-                                <b>CMS</b>   <span class="pull-right"> {{ OrderFieldHelper::getCms($merchant->cms_id)}}</span>
+                                <b>CMS</b> <span
+                                        class="pull-right"> {{ OrderFieldHelper::getCms($merchant->cms_id)}}</span>
                             </li>
                         @endif
                         <li class="list-group-item">
                             <b>URL</b> <a href="{{$merchant->url}}" class="pull-right">{{$merchant->url}}</a>
                         </li>
                         <li class="list-group-item">
-                            <b>Статус</b> <span   class="pull-right">{{$relations['merchant_status']->name}}</span>
+                            <b>Статус</b> <span class="pull-right">{{$relations['merchant_status']->name}}</span>
                         </li>
                         <li class="list-group-item">
-                            <b>Создал (имя пользователя в dispatcher)</b> <span   class="pull-right">  {{$relations['user']->username}}</span>
+                            <b>Создал (имя пользователя в dispatcher)</b> <span
+                                    class="pull-right">  {{$relations['user']->username}}</span>
+                        </li>
+
+                        <li class="list-group-item">
+                            <b>MCC</b>
+                            <span class="pull-right">
+                                @if(isset($merchant->mcc_id))
+                                    ({{$merchant->merchantMcc->code}}) {{$merchant->merchantMcc->name }}
+                                @else
+                                    Не назначен
+                                @endif
+                            </span>
                         </li>
                         <li class="list-group-item">
-                            <b>Email</b> <span   class="pull-right">  {{$relations['user']->email}}</span>
+                            <b>Email</b> <span class="pull-right">  {{$relations['user']->email}}</span>
                         </li>
                         <li class="list-group-item">
-                            <b>Дата обновления</b> <span   class="pull-right">  {{$merchant->updated}}</span>
+                            <b>Дата обновления</b> <span class="pull-right">  {{$merchant->updated}}</span>
                         </li>
                         @if(!is_null($merchantInfo))
                             <li class="list-group-item">
-                                <b>Тип мерчанта</b> <span   class="pull-right"> {{($merchantInfo->type=='ind')?"Физ лицо": "Юр лицо"}}  </span>
+                                <b>Тип мерчанта</b> <span
+                                        class="pull-right"> {{($merchantInfo->type=='ind')?"Физ лицо": "Юр лицо"}}  </span>
                             </li>
-                            @else
+                        @else
                             <li class="list-group-item">
-                                <b>Тип мерчанта</b> <span   class="pull-right">
+                                <b>Тип мерчанта</b> <span class="pull-right">
                                     Невозможно определить - клиент не заполнил форму "Информация" <br>
                                    </span>
                             </li>

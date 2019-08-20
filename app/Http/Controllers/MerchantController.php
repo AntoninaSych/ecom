@@ -18,7 +18,6 @@ use App\Classes\LogicalModels\MerchantUserRepository;
 use App\Exceptions\NotFoundException;
 use App\Http\Requests\Merchant\CreateMerchant;
 use App\Http\Requests\Merchant\UpdateMerchant;
-use App\Models\MerchantsAttachments;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -100,7 +99,7 @@ class MerchantController extends Controller
         });
 
         $mcc_codes = $this->codes->getList()->mapWithKeys(function ($item) {
-            return [$item['id'] => $item['name']];
+            return [$item['id'] => "(".$item['code'].") ".$item['name']];
         });
 
 
@@ -122,8 +121,7 @@ class MerchantController extends Controller
     public function update(UpdateMerchant $updateMerchant, int $id)
     {
         $merchant = $this->merchants->getOneById($id);
-        $oldStatus = $merchant->status;
-        $this->merchants->updateOverall($updateMerchant, $id);
+         $this->merchants->updateOverall($updateMerchant, $id);
         $log = new Request(array_merge(['old merchant'=>$merchant],['new data for merchant'=>$updateMerchant->all()]));
         LogMerchantRequestsRepository::log($id, $log, ['action' => 'update from backoffice', 'user' => Auth::user(), 'status' => 'Изменение данных мерчанта.']);
 
@@ -188,10 +186,16 @@ class MerchantController extends Controller
             ->editColumn('status', function ($merchants) {
                 return $merchants->status;
             })
+            ->editColumn('mcc_id', function ($merchants) {
+                if(isset($merchants->mcc_id)) {
+                    return "(" . $merchants->code . ") " . $merchants->mcc_name;
+                }
+                return '-';
+            })
             ->addColumn('view_details', function ($merchants) {
                 return '<a class="btn btn-black" href="' . route('merchant.detail', ['id' => $merchants->id]) . '"><i class="fa fa-fw fa-eye"></i></a>';
             })
-            ->rawColumns(['view_details', 'url'])
+            ->rawColumns(['view_details', 'url','mcc'])
             ->make(true);
     }
 }

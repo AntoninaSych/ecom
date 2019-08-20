@@ -62,4 +62,7 @@ class MerchantInfo extends BaseModel
     {
         return $this->belongsTo(MerchantType::class, 'compensation_term', 'id');
     }
+
+
+
 }

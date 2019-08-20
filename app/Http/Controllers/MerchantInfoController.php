@@ -6,7 +6,6 @@ namespace App\Http\Controllers;
 
 use App\Classes\Filters\SearchMerchantRequestsFilter;
 use App\Classes\Helpers\ApiResponse;
-use App\Classes\Helpers\MailFormatter;
 use App\Classes\Helpers\RoleHelper;
 use App\Classes\LogicalModels\LogMerchantRequestsRepository;
 use App\Classes\LogicalModels\MailPostmanRepository;
@@ -14,12 +13,9 @@ use App\Classes\LogicalModels\MerchantInfoRepository;
 use App\Classes\LogicalModels\MerchantsRepository;
 use App\Classes\LogicalModels\OrderRepository;
 use App\Exceptions\PermissionException;
-use App\Models\MailerPostman;
 use App\Models\MerchantStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
 
 class MerchantInfoController

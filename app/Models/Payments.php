@@ -33,4 +33,14 @@ class Payments extends BaseModel
     {
         return $this->belongsTo(PaymentRoute::class, 'route', 'id');
     }
+
+    public function  fkSystem()
+    {
+        return $this->belongsTo(FcSystemaPayments::class, 'id', 'payment_id');
+    }
+
+    public function  monobank()
+    {
+        return $this->belongsTo(MonobankPayments::class, 'id', 'payment_id');
+    }
 }

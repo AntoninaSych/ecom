@@ -1,4 +1,4 @@
-<div id="main-information" class="tab-pane active">
+<div id="main-information" class="tab-pane active ">
     <div class="box">
         <div style="margin: 15px">
 

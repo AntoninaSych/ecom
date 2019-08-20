@@ -68,7 +68,7 @@
     <div class="nav-tabs-custom" style="cursor: move;">
         <!-- Tabs within a box -->
         <ul class="nav nav-tabs pull-right ui-sortable-handle">
-            <li class="active"><a href="#main-information" data-toggle="tab" aria-expanded="true">Детали</a></li>
+            <li class="active"><a href="#main-information" data-toggle="tab" aria-expanded="false">Детали</a></li>
 
             @if( Auth::user()->can(PermissionHelper::MANAGE_MERCHANT) )
                 <li class=""><a href="#settings" data-toggle="tab" aria-expanded="false">Настройки</a></li>
@@ -93,7 +93,7 @@
 
                 @if( Auth::user()->can(PermissionHelper::MANAGE_MERCHANT_ROUTE) || Auth::user()->can(PermissionHelper::VIEW_ROUTES))
                     <li class=""><a href="#payment-route" data-toggle="tab" aria-expanded="false"
-                                    onclick="loadMerchantRoutes()" id="test_id_rem">Роут платежей</a>
+                                     id="test_id_rem">Роут платежей</a>
                     </li>
                 @endif
             @if( Auth::user()->can(Auth::user()->can(PermissionHelper::MERCHANT_USER_ALIAS)))
@@ -102,7 +102,11 @@
                 </li>
             @endif
 
-
+            @if( Auth::user()->can(Auth::user()->can(PermissionHelper::MERCHANT_VIEW)))
+                <li class=""><a href="#merchant-charts" data-toggle="tab" aria-expanded="true"
+                               >Merchant Charts</a>
+                </li>
+            @endif
 
             <li class="pull-left header"><i class="fa fa-inbox"></i> Информация о мерчантe</li>
         </ul>
@@ -155,12 +159,21 @@
                 @include('merchants.partials.merchant-user-alias')
             @endif
 {{--        end    merchant-user-alias--}}
+
+            {{--  start   merchant-charts--}}
+            @if(Auth::user()->can(PermissionHelper::MANAGE_MERCHANT))
+                @include('merchants.partials.merchant-charts')
+            @endif
+            {{--  end   merchant-charts--}}
         </div>
     </div>
 @stop
+
+
 {{--<script src="{{ asset('/js/libraries/jquery-3.3.1.min.js') }}"></script>--}}
 <script src="{{ asset('/js/libraries/jquery.js') }}"></script>
-
+<script src="{{ asset('/js/libraries/moment/moment.js') }}"></script>
+<script src="{{ asset('/js/libraries/datarangepicker/daterangepicker.min.js') }}"></script>
 <script src="{{ asset('/js/libraries/jquery-ui.js') }}"></script>
 {{--<script src="{{ asset('/js/libraries/select2/select2.full.min.js') }}"></script>--}}
  <script src="{{ asset('/js/libraries/jquery-validation/validation.js') }}"></script>
@@ -168,10 +181,71 @@
 <script type="text/javascript"
         src="{{ asset('/js/libraries/jquery-validation/localization/messages_ru.min.js') }}"></script>
 
-<!--  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css" rel="stylesheet">-->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.css" rel="stylesheet">
+<link href="{{ asset('/css/libraries/jquery-ui/1.11.4.jquery-ui.css')}}" rel="stylesheet">
+
+
+<link rel="stylesheet" href="{{ asset('/css/libraries/morris/morris.css')}}">
+  <script src="{{ asset('/js/libraries/morris/raphael-min.js') }}"></script>
+  <script src="{{ asset('/js/libraries/morris/morris.min.js') }}"></script>
 
 <script src="{{ asset('js/merchants.js') }}"></script>
 <script>
     var merchant_id ={!! $merchant->id !!};
+
+
 </script>
+
+
+<script>
+    (function ($) {
+        $(function () {  //добавляем datetimepicker - ы
+            delimiter = ' - ';
+            var dateTimeRangeConfiguration = {
+                "format": 'YYYY-MM-DD',
+                "separator": " - ",
+                "applyLabel": "Применить",
+                "cancelLabel": "Отмена",
+                "fromLabel": "От",
+                "toLabel": "До",
+                "customRangeLabel": "Свой",
+                "daysOfWeek": [
+                    "Вс",
+                    "Пн",
+                    "Вт",
+                    "Ср",
+                    "Чт",
+                    "Пт",
+                    "Сб"
+                ],
+                "monthNames": [
+                    "Январь",
+                    "Февраль",
+                    "Март",
+                    "Апрель",
+                    "Май",
+                    "Июнь",
+                    "Июль",
+                    "Август",
+                    "Сентябрь",
+                    "Октябрь",
+                    "Ноябрь",
+                    "Декабрь"
+                ],
+                "firstDay": 1
+            };
+
+            $('#request_period_updated').daterangepicker({
+                locale: dateTimeRangeConfiguration,
+                startDate: moment().subtract(1, 'days'),
+                timePicker24Hour: false,
+                endDate: moment(),
+                timePicker: false,
+                timePickerSeconds: false
+            });
+
+
+        });
+
+    })(jQuery);
+</script>
+

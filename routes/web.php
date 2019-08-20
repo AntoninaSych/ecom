@@ -66,11 +66,16 @@ Route::group(['middleware' => ['log.request']], function () {
         Route::match(['get'], 'snip/list', 'SnippetRouteController@list');
 
         Route::group(['prefix' => 'merchants'], function () {
+
             Route::match(['get'], '/getlistByName', 'MerchantController@getlistByName'); // роут используется в поиске платежей
             Route::match(['get'], '/getMerchantsIdentifier', 'MerchantController@getMerchantsIdentifier'); // роут используется в поиске мерчантов
             Route::match(['get'], '/getConcordPayUserName', 'MerchantController@getConcordPayUserName'); // роут используется в поиске мерчантов
 
             Route::group(['middleware' => 'can.view.merchants'], function () {
+                Route::match(['get'], '/viewChart', 'MerchantController@viewChart');//todo middleware
+                Route::match(['get'], '/getChart', 'MerchantController@getChart');//todo middleware
+
+
                 Route::match(['get'], '/{merchantId}/account/table', 'MerchantAccountController@getList');
                 Route::match(['get'], '/', 'MerchantController@list');
                 Route::match(['get'], '/datatable', 'MerchantController@anyData')->name('get.search.merchants');

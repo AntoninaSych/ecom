@@ -267,17 +267,42 @@ ON  merchants.id = payments.merchant_id   where payments.status = 7 group By pay
         $end_date = Carbon::createFromFormat('Y-m-d', $date_to)->endOfDay();
 
 
-            $data = DB::table('payments')
-                ->select(DB::raw('(created) as dt, sum(amount) as value'))
-                ->where('status', 7)
-                ->where('merchant_id', $idMerchant)
-                ->whereBetween('payments.created', [$start_date, $end_date])
-                ->groupBy('dt')
-                ->get();
+        $data = DB::table('payments')
+            ->select(DB::raw('(created) as dt, sum(amount) as value'))
+            ->where('status', 7)
+            ->where('merchant_id', $idMerchant)
+            ->whereBetween('payments.created', [$start_date, $end_date])
+            ->groupBy('dt')
+            ->get();
 
-            return $data;
+        return $data;
 
 
         return $data;
+    }
+
+    public static function getDataForReestr($idMerchant, $date_from, $date_to)
+    {
+        $start_date = Carbon::createFromFormat('Y-m-d', $date_from)->startOfDay();
+        $end_date = Carbon::createFromFormat('Y-m-d', $date_to)->endOfDay();
+
+        $data = DB::table('payments as p')
+            ->select(DB::raw("
+            p.created, p.id as transactionId, p.order_id,
+           (concat(SUBSTR(p.card_num,1,6),'******'),SUBSTR(p.card_num,-4)) as PAN,
+            REPLACE(CAST(p.amount AS CHAR), '.', ',') as amount,
+            REPLACE(CAST(p.merchant_fee AS CHAR), '.', ',') as merchant_fee"
+
+            ))
+            ->leftJoin('procard_payments as pp', 'pp.payment_id', '=', 'p.id')
+            ->leftJoin('fc_systema_payments as fc', 'fc.payment_id', '=', 'p.id')
+            ->where('p.status', 7)
+            ->where('p.merchant_id', $idMerchant)
+            ->whereBetween('p.created', [$start_date, $end_date])
+            ->orderBy('p.id')
+            ->get();
+
+        return $data;
+
     }
 }

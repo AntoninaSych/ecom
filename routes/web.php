@@ -11,6 +11,8 @@
 |
 */
 
+use App\Classes\LogicalModels\PaymentsRepository;
+
 Auth::routes();
 
 Route::group(['middleware' => ['log.request']], function () {
@@ -51,7 +53,7 @@ Route::group(['middleware' => ['log.request']], function () {
 
 //        Route::group(['prefix' => '/snippets', 'middleware' => ['snippets.control']], function () {//todo middleware edit snippets
 
-        Route::group(['prefix' => '/snippets','middleware'=>['snippets.control']], function () {
+        Route::group(['prefix' => '/snippets', 'middleware' => ['snippets.control']], function () {
 
             Route::match(['get'], '/', 'SnippetController@index');
             Route::match(['post'], '/update', 'SnippetController@update');
@@ -157,8 +159,6 @@ Route::group(['middleware' => ['log.request']], function () {
         });
 
 
-
-
         Route::resource('mcc', 'MccController')->only([
             'index', 'store', 'edit', 'update', 'create'
         ])->middleware('can.manage.mcc');
@@ -167,11 +167,11 @@ Route::group(['middleware' => ['log.request']], function () {
         Route::match(['get'], '/mcc/{id_code}/merchants', 'MccController@merchants')->middleware('can.manage.mcc');
         Route::match(['get'], '/mcc/datatable', 'MccController@anyData')->name('get.search.mcc.codes')->middleware('can.manage.mcc');
 
-           Route::match(['get'], '/mcc/remove', 'MccController@remove')->name('remove.mcc')->middleware('can.manage.mcc');
+        Route::match(['get'], '/mcc/remove', 'MccController@remove')->name('remove.mcc')->middleware('can.manage.mcc');
 
 
         Route::group(['prefix' => 'front', 'middleware' => ['can.view.front.users']], function () {
-            Route::match(['get'], '/datatable', 'FrontUsersController@anyData')->name('get.front.users') ;
+            Route::match(['get'], '/datatable', 'FrontUsersController@anyData')->name('get.front.users');
             Route::match(['get'], '/users', 'FrontUsersController@index');
             Route::match(['get'], '/user/{id}', 'FrontUsersController@show');
         });
@@ -184,8 +184,16 @@ Route::group(['middleware' => ['log.request']], function () {
             Route::match(['get'], '/getPaymentLogOnline', 'MonitoringController@getPaymentLogOnline');
             Route::match(['get'], '/getTechData', 'MonitoringController@getTechData');
             Route::match(['get'], '/getPaymentLogArchive', 'MonitoringController@getArchiveData');
-         });
+        });
 
+    });
+
+    Route::get('/test', function () {
+        $idMerchant = 33;
+        $date_from = "2019-08-01";
+        $date_to = "2019-08-18";
+        $p = PaymentsRepository::getDataForReestr($idMerchant, $date_from, $date_to);
+        dd($p);
     });
 
 });

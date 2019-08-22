@@ -283,17 +283,17 @@ ON  merchants.id = payments.merchant_id   where payments.status = 7 group By pay
 
     public static function getDataForReestr($idMerchant, $date_from, $date_to)
     {
+
         $start_date = Carbon::createFromFormat('Y-m-d', $date_from)->startOfDay();
         $end_date = Carbon::createFromFormat('Y-m-d', $date_to)->endOfDay();
 
         $data = DB::table('payments as p')
             ->select(DB::raw("
             p.created, p.id as transactionId, p.order_id,
-           (concat(SUBSTR(p.card_num,1,6),'******'),SUBSTR(p.card_num,-4)) as PAN,
-            REPLACE(CAST(p.amount AS CHAR), '.', ',') as amount,
-            REPLACE(CAST(p.merchant_fee AS CHAR), '.', ',') as merchant_fee"
-
-            ))
+           concat(concat(SUBSTR(p.card_num,1,6),'******'),SUBSTR(p.card_num,-4)) as PAN,
+         REPLACE(CAST(p.amount AS CHAR), '.', ',') as amount,
+          REPLACE(CAST(p.merchant_fee AS CHAR), '.', ',') as merchant_fee
+            " ))
             ->leftJoin('procard_payments as pp', 'pp.payment_id', '=', 'p.id')
             ->leftJoin('fc_systema_payments as fc', 'fc.payment_id', '=', 'p.id')
             ->where('p.status', 7)

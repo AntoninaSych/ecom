@@ -203,9 +203,9 @@ Route::group(['middleware' => ['log.request']], function () {
 
         // 1	Ежедневная
         // 3	Ежемесячная (1 числа каждого месяца),
-        $type = 1;
-        $start_date = "2019-08-01";
-        $end_date = "2019-08-18";
+        $type = 3;
+//        $start_date = "2019-07-01";
+//        $end_date = "2019-07-31";
         if ($type == 1) {
             $start_date = Carbon::now()->subDay()->startOfDay()->format('Y-m-d');
             $end_date = Carbon::now()->subDay()->endOfDay()->format('Y-m-d');

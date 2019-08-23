@@ -281,11 +281,11 @@ ON  merchants.id = payments.merchant_id   where payments.status = 7 group By pay
         return $data;
     }
 
-    public static function getDataForReestr($idMerchant, $date_from, $date_to)
+    public static function getDataForReestr($idMerchant, $start_date, $end_date)
     {
 
-        $start_date = Carbon::createFromFormat('Y-m-d', $date_from)->startOfDay();
-        $end_date = Carbon::createFromFormat('Y-m-d', $date_to)->endOfDay();
+//        $start_date = Carbon::createFromFormat('Y-m-d', $date_from)->startOfDay();
+//        $end_date = Carbon::createFromFormat('Y-m-d', $date_to)->endOfDay();
 
         $data = DB::table('payments as p')
             ->select(DB::raw("

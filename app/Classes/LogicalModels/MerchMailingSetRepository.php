@@ -16,4 +16,12 @@ class MerchMailingSetRepository
 
         return $merchants;
     }
+
+    public function getMerchantById(int $merchantId)
+    {
+        $settings = new MerchantMailingSettings();
+        $merchants = $settings->select('merchant_id','email')->where('merchant_id',$merchantId)->get();
+
+        return $merchants;
+    }
 }

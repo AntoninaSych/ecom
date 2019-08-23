@@ -55,5 +55,22 @@ class MailPostmanRepository
 
     }
 
+public static function newLetter($merchantName,$path, $merchantEmail)
+{
+    $mail = new MailerPostman();
+    $mail->subject = "Данные из реестра.";
+    $mail->body = view('email.mailing')->with(
+        ['merchantName' => $merchantName
+           ]);
+    $mail->date_create = date('y-m-d h:m:i');
+    $mail->code = "Mailing_reestr_" . Str::random(40);
+    $mail->attachments = $path;
+    $mail->recipients = json_encode([
+        'from' => [
+            'concord@concord.ua',
+            'Concord Bank'],
+        'to' => [$merchantEmail]]);
 
+    $mail->save();
+}
 }

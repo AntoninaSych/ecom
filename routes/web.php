@@ -11,6 +11,7 @@
 |
 */
 
+use App\Classes\LogicalModels\MailPostmanRepository;
 use App\Classes\LogicalModels\MerchMailingSetRepository;
 use App\Classes\LogicalModels\PaymentsRepository;
 use Carbon\Carbon;
@@ -203,7 +204,8 @@ Route::group(['middleware' => ['log.request']], function () {
         // 1	Ежедневная
         // 3	Ежемесячная (1 числа каждого месяца),
         $type = 1;
-
+        $start_date = "2019-08-01";
+        $end_date = "2019-08-18";
         if ($type == 1) {
             $start_date = Carbon::now()->subDay()->startOfDay()->format('Y-m-d');
             $end_date = Carbon::now()->subDay()->endOfDay()->format('Y-m-d');
@@ -218,24 +220,34 @@ Route::group(['middleware' => ['log.request']], function () {
         $settings = new   MerchMailingSetRepository();
         $merchants = $settings->getMerchantsByType($type);
 
+        $files = [];
+        //Создание файла
         foreach ($merchants as $merchant) {
 
-            $fileName =  $merchant->merchantName->name . '_' . Carbon::now()->format('Y-m-d').'.csv';
-$filePath = public_path().'/mailing/reestrs/';
-            $handle = fopen($filePath.$fileName, 'w') or die('Cannot open file:  '.$fileName);
+            $fileName = $merchant->merchantName->name . '_' . Carbon::now()->format('Y-m-d_h-i-s') . '.csv';
 
-        $p = PaymentsRepository::getDataForReestr($merchant->merchant_id, $start_date, $end_date);
+            $filePath = public_path() . '/mailing/reestrs/';
+            $files[] = [
+                'path' => $filePath . $fileName,
+                'merchantName' => $merchant->merchantName->name,
+                'email' => $merchant->email
+            ];
+            $handle = fopen($filePath . $fileName, 'w') or die('Cannot open file:  ' . $fileName);
 
-            file_put_contents($filePath.$fileName, $p->toArray());
+            $p = PaymentsRepository::getDataForReestr($merchant->merchant_id, $start_date, $end_date)->all();
 
+            fputcsv($handle, ['Дата платежа', 'ID транзакции', '№ Заказа', 'PAN', 'Сумма', 'Комиссия'], ';');
 
+            foreach ($p as $p1) {
+                fputcsv($handle, get_object_vars($p1), ';');
+            }
+            fclose($handle);
         }
+        //Конец создания файла
 
-//        $idMerchant = 33;
-//        $date_from = "2019-08-01";
-//        $date_to = "2019-08-18";
-//        $p = PaymentsRepository::getDataForReestr($idMerchant, $date_from, $date_to);
-//        dd($p);
+        foreach ($files as $file) {
+            MailPostmanRepository::newLetter($file['merchantName'], $file['path'], $file['email']);
+        }
     });
 
 });

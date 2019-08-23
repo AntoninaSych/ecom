@@ -22,7 +22,10 @@ class Mailing extends Command
      *
      * @var string
      */
-    protected $description = 'Send mails to merchants by types of mailing';
+    protected $description = 'Send mails to merchants by types of mailing  
+    * php artisan mailing-merchants 1 2019-08-01 2019-08-18
+     * php artisan mailing-merchants 3
+     * php artisan mailing-merchants 1 2019-08-01 2019-08-18 33';
 
     /**
      * Create a new command instance.
@@ -37,7 +40,7 @@ class Mailing extends Command
     /**
      * Execute the console command.
      * php artisan mailing-merchants 1 2019-08-01 2019-08-18
-     *  php artisan mailing-merchants 2
+     * php artisan mailing-merchants 2
      * php artisan mailing-merchants 1 2019-08-01 2019-08-18 33
      * @return mixed
      */

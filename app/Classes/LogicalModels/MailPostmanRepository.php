@@ -11,7 +11,6 @@ use App\Models\Orders;
 use Illuminate\Support\Str;
 
 
-
 class MailPostmanRepository
 {
     public function apply(Orders $order, Merchants $merchant)
@@ -40,7 +39,7 @@ class MailPostmanRepository
         $mail = new MailerPostman();
         $mail->subject = "Нам нужна дополнительная информация по Вашему магазину.";
         $mail->body = view('email.decline')->with(
-            [   'user' => $order->user,
+            ['user' => $order->user,
                 'url' => $merchant->url]);
         $mail->date_create = date('y-m-d h:m:i');
         $mail->code = "BO_" . Str::random(40);
@@ -55,22 +54,9 @@ class MailPostmanRepository
 
     }
 
-public static function newLetter($merchantName,$path, $merchantEmail)
-{
-    $mail = new MailerPostman();
-    $mail->subject = "Данные из реестра.";
-    $mail->body = view('email.mailing')->with(
-        ['merchantName' => $merchantName
-           ]);
-    $mail->date_create = date('y-m-d h:m:i');
-    $mail->code = "Mailing_reestr_" . Str::random(40);
-    $mail->attachments = $path;
-    $mail->recipients = json_encode([
-        'from' => [
-            'concord@concord.ua',
-            'Concord Bank'],
-        'to' => [$merchantEmail]]);
+    public static function newLetter(MailerPostman $letter)
+    {
+        $letter->save();
+    }
 
-    $mail->save();
-}
 }

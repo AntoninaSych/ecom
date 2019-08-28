@@ -287,16 +287,15 @@ ON  merchants.id = payments.merchant_id   where payments.status = 7 group By pay
 //        $start_date = Carbon::createFromFormat('Y-m-d', $date_from)->startOfDay();
 //        $end_date = Carbon::createFromFormat('Y-m-d', $date_to)->endOfDay();
 
-        $data = DB::table('payments as p')
+        $data = DB::table('monobank_payments as mp')
             ->select(DB::raw("
-            p.created, p.id as transactionId, p.order_id,
+            p.id, p.id as transactionId, p.order_id,
            concat(concat(SUBSTR(p.card_num,1,6),'******'),SUBSTR(p.card_num,-4)) as PAN,
          REPLACE(CAST(p.amount AS CHAR), '.', ',') as amount,
           REPLACE(CAST(p.merchant_fee AS CHAR), '.', ',') as merchant_fee
             " ))
-            ->leftJoin('procard_payments as pp', 'pp.payment_id', '=', 'p.id')
-            ->leftJoin('fc_systema_payments as fc', 'fc.payment_id', '=', 'p.id')
-            ->where('p.status', 7)
+            ->leftJoin('payments as p', 'mp.payment_id', '=', 'p.id')
+             ->where('p.status', 7)
             ->where('p.merchant_id', $idMerchant)
             ->whereBetween('p.created', [$start_date, $end_date])
             ->orderBy('p.id')

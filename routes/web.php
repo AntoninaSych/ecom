@@ -12,9 +12,11 @@
 */
 
 use App\Classes\LogicalModels\MailPostmanRepository;
-use App\Classes\LogicalModels\MerchMailingSetRepository;
+use App\Classes\LogicalModels\MonobankPaymentsRepository;
 use App\Classes\LogicalModels\PaymentsRepository;
+use App\Models\MailerPostman;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 Auth::routes();
 
@@ -188,8 +190,5 @@ Route::group(['middleware' => ['log.request']], function () {
             Route::match(['get'], '/getTechData', 'MonitoringController@getTechData');
             Route::match(['get'], '/getPaymentLogArchive', 'MonitoringController@getArchiveData');
         });
-
     });
-
-
 });

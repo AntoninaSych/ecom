@@ -5,8 +5,10 @@ namespace App\Console\Commands;
 use App\Classes\LogicalModels\MailPostmanRepository;
 use App\Classes\LogicalModels\MerchMailingSetRepository;
 use App\Classes\LogicalModels\PaymentsRepository;
+use App\Models\MailerPostman;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 
 class Mailing extends Command
 {
@@ -107,7 +109,20 @@ class Mailing extends Command
         //Конец создания файла
 
         foreach ($files as $file) {
-            MailPostmanRepository::newLetter($file['merchantName'], $file['path'], $file['email']);
+            $mail = new MailerPostman();
+            $mail->subject = "Данные из реестра.";
+            $mail->body = view('email.mailing')->with(
+                ['merchantName' => $file['merchantName']
+                ]);
+            $mail->date_create = date('y-m-d h:m:i');
+            $mail->code = "Mailing_reestr_" . Str::random(40);
+            $mail->attachments = $file['path'];
+            $mail->recipients = json_encode([
+                'from' => [
+                    'concord@concord.ua',
+                    'Concord Bank'],
+                'to' => [ $file['email']]]);
+            MailPostmanRepository::newLetter($mail);
         }
     }
 }

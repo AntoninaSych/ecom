@@ -46,8 +46,7 @@ class SendReestrMono extends Command
         $p = new MonobankPaymentsRepository();
 
         if ($this->argument('start_date') !== "null" && $this->argument('end_date') !== "null") {
-            $start_date = Carbon::createFromFormat('Y-m-d', $this->argument('start_date'))->startOfDay();
-            $end_date = Carbon::createFromFormat('Y-m-d', $this->argument('end_date'))->endOfDay();
+             $end_date = Carbon::createFromFormat('Y-m-d', $this->argument('end_date'))->endOfDay();
             $start_date = Carbon::createFromFormat('Y-m-d', $this->argument('start_date'))->startOfDay();
         } else {
 

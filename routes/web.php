@@ -186,6 +186,18 @@ Route::group(['middleware' => ['log.request']], function () {
             Route::match(['get'], '/getPaymentLogArchive', 'MonitoringController@getArchiveData');
          });
 
+        Route::group(['prefix' => 'reports', 'middleware' => ['can.view.reports']], function () {
+            Route::match(['get'], '/', 'ReportsController@index');
+
+            Route::group(['prefix' => 'manage', 'middleware' => ['can.manage.reports']], function () {
+                Route::match(['get'], '/', 'ReportsController@list');
+                Route::match(['post'], '/store', 'ReportsController@store')->name('report.store');
+                Route::match(['post'], '/remove', 'ReportsController@remove');
+                Route::match(['post'], '/update', 'ReportsController@update');
+                Route::match(['get'], '/execute', 'ReportsController@execute');
+            });
+        });
+
     });
 
 });

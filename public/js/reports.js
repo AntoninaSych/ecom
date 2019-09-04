@@ -88,12 +88,29 @@ function updateReport() {
     });
 }
 
-function execute(id) {
+function execute(e) {
+
+    var id = $(e).data("id");
+    var query = $(e).data("query");
+    let pos = -1;
+    var variables = Array();
+    while ((pos = query.indexOf('@', pos + 1)) != -1) {
+        var str = query.slice(pos, query.length);
+        variables.push(str.split("@")[1].split(" ")[0]);
+    }
+
+    params= Array();
+    for(var i=0;i<variables.length;i++)
+    {
+         var  item  = prompt('Введите '+variables[i], null);
+        params.push(item);
+    }console.log(params);
     $.ajax({
-        url: '/reports/manage/execute?id=3',
+        url: '/reports/manage/execute',
         type: "get",
         data: {
-            id: id
+            id: id,
+            variables:params
         },
         success: function (data) {
             var el = $('#report-preview');

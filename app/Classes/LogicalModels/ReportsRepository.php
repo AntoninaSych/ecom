@@ -4,6 +4,8 @@
 namespace App\Classes\LogicalModels;
 
 
+use App\Classes\Filters\ExecuteFilter;
+
 use App\Models\Reports;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +17,7 @@ class ReportsRepository
         $reports->save();
     }
 
-    public function list():Collection
+    public function list(): Collection
     {
         $reports = new Reports();
         $list = $reports->select()->orderBy('id', 'desc')->get();
@@ -34,11 +36,17 @@ class ReportsRepository
         return $report;
     }
 
-    public function execute(Reports $report)
-    {
-     //   $results = DB::select('select * from users where id = :id', ['id' => 1]);
 
-        $results = DB::select($report->query);
+    /*
+     *  $results = DB::select('select * from users where id = :id', ['id' => 1]);
+     *
+     */
+    public function execute(Reports $report,   $params)
+    {
+        $report->query = str_replace("@", ":", $report->query);
+
+        $results = DB::select($report->query,  $params );
+
         return $results;
     }
 }

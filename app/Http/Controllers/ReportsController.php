@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Classes\Filters\ExecuteFilter;
 use App\Classes\Helpers\ApiResponse;
 use App\Classes\Helpers\ValidatorHelper;
 use App\Classes\LogicalModels\LogMerchantRequestsRepository;
@@ -106,7 +107,8 @@ class ReportsController extends Controller
     public function execute()
     {
         $validator = Validator::make($this->request->all(), [
-            'id' => 'required|integer|exists:reports,id'
+            'id' => 'required|integer|exists:reports,id',
+            'variables' => 'array|nullable'
         ]);
 
         if ($validator->fails()) {
@@ -114,7 +116,7 @@ class ReportsController extends Controller
         } else {
             try {
                 $report = $this->reports->getOne($this->request->get('id'));
-                $data = $this->reports->execute($report);
+                $data = $this->reports->execute($report,  $this->request->get('variables') );
 
                 return ApiResponse::goodResponseSimple($data);
             } catch (NotFoundException $e) {

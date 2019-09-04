@@ -36,14 +36,14 @@
                         <td><button class="btn button btn-dropbox"
                                     data-query="{{$query->query}}"
                                     data-id="{{$query->id}}"
-                                    onclick="execute({{$query->id}})">Execute</button></td>
+                                    onclick="execute(this)">Execute</button></td>
                     </tr>
                 @endforeach
                 </table>
             </div>
         </div>
         <hr>
-        <div id="report-preview">
+        <div id="report-preview" class="table-responsive responsive">
 
         </div>
     </div>

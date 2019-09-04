@@ -108,7 +108,7 @@ class ReportsController extends Controller
     {
         $validator = Validator::make($this->request->all(), [
             'id' => 'required|integer|exists:reports,id',
-            'variables' => 'array|nullable'
+            'variables' => 'nullable'
         ]);
 
         if ($validator->fails()) {
@@ -116,7 +116,7 @@ class ReportsController extends Controller
         } else {
             try {
                 $report = $this->reports->getOne($this->request->get('id'));
-                $data = $this->reports->execute($report,  $this->request->get('variables') );
+                $data = $this->reports->execute($report,  (!is_null($this->request->get('variables')))?$this->request->get('variables'):null );
 
                 return ApiResponse::goodResponseSimple($data);
             } catch (NotFoundException $e) {

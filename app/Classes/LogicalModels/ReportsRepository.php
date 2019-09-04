@@ -41,12 +41,18 @@ class ReportsRepository
      *  $results = DB::select('select * from users where id = :id', ['id' => 1]);
      *
      */
-    public function execute(Reports $report,   $params)
+    public function execute(Reports $report,   $params=null)
     {
+        if(!is_null($params))
+        {
         $report->query = str_replace("@", ":", $report->query);
 
         $results = DB::select($report->query,  $params );
 
+        return $results;
+        }
+
+        $results = DB::select($report->query );
         return $results;
     }
 }

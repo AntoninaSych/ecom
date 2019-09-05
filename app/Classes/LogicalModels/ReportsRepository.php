@@ -47,12 +47,12 @@ class ReportsRepository
         {
         $report->query = str_replace("@", ":", $report->query);
 
-        $results = DB::select($report->query,  $params );
+        $results = DB::select($report->query,  $params);
 
         return $results;
         }
 
-        $results = DB::select($report->query );
+        $results = DB::select($report->query);
         return $results;
     }
 }

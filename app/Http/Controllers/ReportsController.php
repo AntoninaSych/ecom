@@ -3,8 +3,6 @@
 
 namespace App\Http\Controllers;
 
-
-use App\Classes\Filters\ExecuteFilter;
 use App\Classes\Helpers\ApiResponse;
 use App\Classes\Helpers\ValidatorHelper;
 use App\Classes\LogicalModels\LogMerchantRequestsRepository;
@@ -31,7 +29,8 @@ class ReportsController extends Controller
 
     public function index()
     {
-        return view('reports.index');
+
+        return view('reports.index')->with(['queriesReport' => $this->reports->list()]);
     }
 
     public function list()
@@ -116,9 +115,10 @@ class ReportsController extends Controller
         } else {
             try {
                 $report = $this->reports->getOne($this->request->get('id'));
-                $data = $this->reports->execute($report,  (!is_null($this->request->get('variables')))?$this->request->get('variables'):null );
+                $data = $this->reports->execute($report, (!is_null($this->request->get('variables'))) ? $this->request->get('variables') : null);
 
-                return ApiResponse::goodResponseSimple($data);
+            return view('reports.table')->with(['report' => $data,      'reportInfo' => $report]);
+                //    return ApiResponse::goodResponseSimple($data);
             } catch (NotFoundException $e) {
                 return ApiResponse::badResponse($e->getMessage(), $e->getCode());
             }

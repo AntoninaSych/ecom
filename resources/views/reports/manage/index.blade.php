@@ -7,11 +7,11 @@
     <div class="box">
         <div class="box-body" style="overflow-x: scroll">
             <div class="row">
-                <div><h3>Список отчетов</h3></div>
+                <div><h3 style="margin: 15px">Список отчетов</h3></div>
             </div>
             <div class="pull-right">
                 <button class="btn btn-default"
-                        data-target="#modal-add-report" data-toggle="modal">Добавить отчет
+                        data-target="#modal-add-report" data-toggle="modal" style="margin: 15px">Добавить отчет
                 </button>
             </div>
 

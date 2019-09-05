@@ -179,7 +179,7 @@ return [
             'text' => 'Отчеты',
             'url'  => '/reports',
             'icon' => ' fa-credit-card',
-            'hasRole'  => 'view-monitoring',
+            'can'  => 'view-reports',
         ]
     ],
 //    'menu' => [

@@ -8,8 +8,8 @@ use App\Models\MailerPostman;
 
 use App\Models\Merchants;
 use App\Models\Orders;
+use App\Models\Role;
 use Illuminate\Support\Str;
-
 
 
 class MailPostmanRepository
@@ -40,7 +40,7 @@ class MailPostmanRepository
         $mail = new MailerPostman();
         $mail->subject = "Нам нужна дополнительная информация по Вашему магазину.";
         $mail->body = view('email.decline')->with(
-            [   'user' => $order->user,
+            ['user' => $order->user,
                 'url' => $merchant->url]);
         $mail->date_create = date('y-m-d h:m:i');
         $mail->code = "BO_" . Str::random(40);
@@ -55,5 +55,25 @@ class MailPostmanRepository
 
     }
 
+    public function informDepartLetter(Orders $order, Role $role)
+    {
+        $mails = array_map(function (array $user) {
+            return $user['email'];
+        }, $role->users->toArray());
 
+
+        $mail = new MailerPostman();
+        $mail->subject = "Заявка из Backoffice от мерчанта.";
+        $mail->body = view('email.order-inform')->with(
+            ['order' => $order]);
+        $mail->date_create = date('y-m-d h:m:i');
+        $mail->code = "BO_" . Str::random(40);
+        $mail->recipients = json_encode([
+            'from' => [
+                'backoffice@concord.ua',
+                'Concord Pay'],
+            'to' => $mails]);
+
+        $mail->save();
+    }
 }

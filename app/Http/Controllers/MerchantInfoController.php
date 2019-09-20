@@ -187,6 +187,7 @@ class MerchantInfoController
             $mail = new MailPostmanRepository();
             $mail->decline($order, $this->merchant->getOneById($order->merchant_id));
         }
+
         if ($this->request->get('type') === 'apply' && $user->hasRole(RoleHelper::BUSINESS)) {
             $mail = new MailPostmanRepository();
             $mail->apply($order, $this->merchant->getOneById($order->merchant_id));
@@ -194,6 +195,9 @@ class MerchantInfoController
             $merchant = $this->merchant->getOneById($order->merchant_id);
             $merchant->status = MerchantStatus::ACTIVE_STATUS;
             $merchant->save();
+
+                $this->merchantInfo->save($order);
+
         }
         $order->assigned = null;
         $order->save();

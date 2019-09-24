@@ -125,10 +125,10 @@ class PaymentsController extends Controller
                 return $payments->created;
             })
             ->editColumn('amount', function ($payments) {
-                return str_replace('.', ',', $payments->amount);
+                return str_replace(',', '.', $payments->amount);
             })
             ->editColumn('customer_fee', function ($payments) {
-                return str_replace('.', ',', $payments->customer_fee + $payments->merchant_fee);
+                return str_replace(',', '.', $payments->customer_fee + $payments->merchant_fee);
             })
             ->editColumn('status', function ($payments) {
                 return $payments->status;

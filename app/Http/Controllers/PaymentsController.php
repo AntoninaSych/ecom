@@ -17,6 +17,7 @@ use App\Classes\LogicalModels\PaymentStatusRepository;
 use App\Classes\LogicalModels\PaymentTypesRepository;
 use App\Classes\LogicalModels\ProcessingLogRepository;
 use App\Exceptions\NotFoundException;
+use common\components\helpers\Cards;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -76,7 +77,7 @@ class PaymentsController extends Controller
         }
 
         $payment = $this->payments->getOneById($this->request->get('id'));
-        $list =  $this->paymentReqeust->byPayment($this->request->get('id'));
+        $list = $this->paymentReqeust->byPayment($this->request->get('id'));
         $callBackLog = new CallBackRepository();
         $callBackLog = $callBackLog->getByPaymentId($payment->id);
         $paymentStatusList = $this->paymentStatuses->getList();
@@ -85,7 +86,7 @@ class PaymentsController extends Controller
             'payment' => $payment,
             'callBackLog' => $callBackLog,
             'paymentStatusList' => $paymentStatusList,
-            'statusRequest' =>$list
+            'statusRequest' => $list
         ]);
     }
 
@@ -125,10 +126,11 @@ class PaymentsController extends Controller
                 return $payments->created;
             })
             ->editColumn('amount', function ($payments) {
-                return str_replace(',', '.', $payments->amount);
+                return str_replace('.', ',', $payments->amount);
             })
             ->editColumn('customer_fee', function ($payments) {
-                return str_replace(',', '.', $payments->customer_fee + $payments->merchant_fee);
+                return str_replace('.', ',', $payments->customer_fee + $payments->merchant_fee);
+//                return str_replace('.', ',', $payments->customer_fee + $payments->merchant_fee);
             })
             ->editColumn('status', function ($payments) {
                 return $payments->status;
@@ -159,4 +161,30 @@ class PaymentsController extends Controller
             ->make(true);
     }
 
+
+    public function exportToCSV()
+    {
+        header('Content-Encoding: UTF-8');
+        header('Content-type: text/csv; charset=UTF-8');
+        header("Content-Disposition: attachment; filename=" . date(DATE_ATOM) . ".csv");
+        echo "\xEF\xBB\xBF";
+        header("Pragma: no-cache");
+        header("Expires: 0");
+        $fp = fopen('php://output', 'w');
+        $val = ['Id', 'Дата', 'Сумма', 'Комиссия', 'Статус', 'Номер карты', 'Id заказа', 'Описание'];
+        fputcsv($fp, $val, ';');
+        foreach ($this->payments->getSearch(SearchPaymentsFilter::create($this->request->all()))->get() as $model) {
+
+            $val = [$model->id,
+                $model->created,
+                str_replace('.', ',', $model->amount),
+              str_replace('.', ',', $model->customer_fee + $model->merchant_fee),
+                       $model->status ,
+                (!is_null($model->card_num))?CardFilter::filterString($model->card_num):'', $model->order_id, $model->description];
+            fputcsv($fp, $val, ';');
+        }
+
+        fclose($fp);
+        return null;
+    }
 }

@@ -211,8 +211,13 @@
             var oTable = $('#payment-table').DataTable({
                 dom: 'rBltp',
                 buttons: [
-                    'copy', 'csv', 'print',
-
+                    {
+                        text: 'Экспорт в CSV',
+                        class:'csv-btn',
+                        action: function (dt) {
+                            csv();
+                        }
+                    }
                 ],
                 processing: true,
                 "language": {
@@ -281,7 +286,12 @@
                         dom: 'lBrtip',
 
                         buttons: [
-                            'copy', 'csv', 'excel', 'print'
+                            {
+                                text: 'Экспорт в CSV',
+                                action: function (dt) {
+                                    csv();
+                                }
+                            }
                         ],
                         processing: true,
 
@@ -311,13 +321,11 @@
                         success: function (result, status) {
                             self.editing = false;
                             callback.apply(self, [result, settings]);
-                            console.log('123');
                             if (!$.trim($(self).html())) {
                                 $(self).html(settings.placeholder);
                             }
                         },
                         error: function (data) {
-                            console.log('success' + data)
                         },
                         columns: [
                             {data: 'id', name: 'id'},
@@ -339,6 +347,22 @@
                 }
             });
         });
+
+        function csv() {
+            var el = $('#search-form');
+
+            var href = '/payments/exportToCSV?';
+            href+=  (el.find("select[name*='payment_type']").val()!=null) ? '&payment_type='+el.find("select[name*='payment_type']").val() : '';
+            href+=  (el.find("select[name*='payment_status']").val()!=null) ? '&payment_status='+el.find("select[name*='payment_status']").val(): '';
+            href+=  (el.find("input[name*='number_order']").val()!=null) ? '&number_order='+el.find("input[name*='number_order']").val(): '';
+            href+=  (el.find("input[name*='amount']").val()!=null) ? '&amount='+el.find("input[name*='amount']").val(): '';
+            href+=  (el.find("select[name*='merchant_id']").val()!=null) ? '&merchant_id='+el.find("select[name*='merchant_id']").val(): '';
+            href+=  (el.find("input[name*='card_number']").val()!=null) ? '&card_number='+el.find("input[name*='card_number']").val(): '';
+            href+=  (el.find("input[name*='description']").val()!=null) ? '&description='+el.find("input[name*='description']").val(): '';
+            href+=  ($('#request_period_updated').val().split(delimiter)[0]!=null) ? '&updated_from='+$('#request_period_updated').val().split(delimiter)[0]: '';
+            href+=  ($('#request_period_updated').val().split(delimiter)[1]!=null) ? '&updated_to='+$('#request_period_updated').val().split(delimiter)[1]: '';
+            window.location = href;
+        }
     })(jQuery);
 </script>
 

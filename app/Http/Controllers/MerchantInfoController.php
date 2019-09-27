@@ -149,7 +149,6 @@ class MerchantInfoController
 
     public function apply()
     {
-
         $user = Auth::user();
         $comment = $this->request->get('comment');
         $order = $this->orders->getOne($this->request->get('order_id'));
@@ -191,7 +190,6 @@ class MerchantInfoController
         if ($this->request->get('type') === 'apply' && $user->hasRole(RoleHelper::BUSINESS)) {
             $mail = new MailPostmanRepository();
             $mail->apply($order, $this->merchant->getOneById($order->merchant_id));
-
             $merchant = $this->merchant->getOneById($order->merchant_id);
             $merchant->status = MerchantStatus::ACTIVE_STATUS;
             $merchant->save();

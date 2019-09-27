@@ -17,7 +17,8 @@ class MailPostmanRepository
     public function apply(Orders $order, Merchants $merchant)
     {
         $mail = new MailerPostman();
-        $mail->subject = "Ваш магазин активирован.";
+        $mail->subject = "ConcordPay / Успішна реєстрація на порталі сервісу ConcordPay";
+
         $mail->body = view('email.approved')->with(
             ['user' => $order->user,
                 'url' => $merchant->url]);
@@ -38,7 +39,9 @@ class MailPostmanRepository
     {
 
         $mail = new MailerPostman();
-        $mail->subject = "Нам нужна дополнительная информация по Вашему магазину.";
+        $mail->subject = "ConcordPay / Нам потрібна додаткова інформація за Вашим магазином";
+
+
         $mail->body = view('email.decline')->with(
             ['user' => $order->user,
                 'url' => $merchant->url]);

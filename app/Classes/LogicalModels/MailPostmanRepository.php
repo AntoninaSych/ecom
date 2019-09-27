@@ -17,7 +17,7 @@ class MailPostmanRepository
     public function apply(Orders $order, Merchants $merchant)
     {
         $mail = new MailerPostman();
-        $mail->subject = "ConcordPay / Успішна реєстрація на порталі сервісу ConcordPay";
+        $mail->subject = "ConcordPay / Ваш сайт може прйимати платежі";
 
         $mail->body = view('email.approved')->with(
             ['user' => $order->user,

@@ -190,6 +190,8 @@ class MerchantInfoController
         if ($this->request->get('type') === 'apply' && $user->hasRole(RoleHelper::BUSINESS)) {
             $mail = new MailPostmanRepository();
             $mail->apply($order, $this->merchant->getOneById($order->merchant_id));
+
+
             $merchant = $this->merchant->getOneById($order->merchant_id);
             $merchant->status = MerchantStatus::ACTIVE_STATUS;
             $merchant->save();

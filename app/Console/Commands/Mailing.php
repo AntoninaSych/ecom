@@ -116,7 +116,15 @@ class Mailing extends Command
                 ]);
             $mail->date_create = date('y-m-d h:m:i');
             $mail->code = "Mailing_reestr_" . Str::random(40);
-            $mail->attachments = $file['path'];
+
+            $mail->attachments =   json_encode([["path"=>
+                realpath(__DIR__ .'/../../../public/mailing/reestrs/'.$fileName ),
+
+           "name"=>$fileName ,
+           "encoding"=>"base64",
+           "type"=>"application/octet-stream" ]])   ;
+            $mail->attachments = str_replace("\\/", "/", $mail->attachments);
+
             $mail->recipients = json_encode([
                 'from' => [
                     'concord@concord.ua',

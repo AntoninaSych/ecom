@@ -98,7 +98,7 @@ class Mailing extends Command
             $handle = fopen($filePath . $fileName, 'w') or die('Cannot open file:  ' . $fileName);
 
             $p = PaymentsRepository::getDataForReestr($merchant->merchant_id, $start_date, $end_date)->all();
-
+            fputs( $handle, "\xEF\xBB\xBF" );
             fputcsv($handle, ['Дата платежа', 'ID транзакции', '№ Заказа', 'PAN', 'Сумма', 'Комиссия'], ';');
 
             foreach ($p as $p1) {
@@ -117,19 +117,19 @@ class Mailing extends Command
             $mail->date_create = date('y-m-d h:m:i');
             $mail->code = "Mailing_reestr_" . Str::random(40);
 
-            $mail->attachments =   json_encode([["path"=>
-                realpath(__DIR__ .'/../../../public/mailing/reestrs/'.$fileName ),
+            $mail->attachments = json_encode([["path" =>
+                realpath(__DIR__ . '/../../../public/mailing/reestrs/' . $fileName),
 
-           "name"=>$fileName ,
-           "encoding"=>"base64",
-           "type"=>"application/octet-stream" ]])   ;
+                "name" => $fileName,
+                "encoding" => "base64",
+                "type" => "application/octet-stream"]]);
             $mail->attachments = str_replace("\\/", "/", $mail->attachments);
 
             $mail->recipients = json_encode([
                 'from' => [
                     'concord@concord.ua',
                     'Concord Bank'],
-                'to' => [ $file['email']]]);
+                'to' => [$file['email']]]);
             MailPostmanRepository::newLetter($mail);
         }
     }

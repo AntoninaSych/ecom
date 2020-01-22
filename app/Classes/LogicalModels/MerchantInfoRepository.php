@@ -13,6 +13,7 @@ use App\Models\MerchantStatus;
 use App\Models\MerchantUser;
 use App\Models\OrderFieldValues;
 use App\Models\Orders;
+use App\Models\SubMerchant;
 use App\User;
 use Carbon\Carbon;
 use mysql_xdevapi\Collection;
@@ -34,7 +35,7 @@ class MerchantInfoRepository
         $this->merchantInfo = $merchantInfo;
         $this->fieldValues = $fieldValues;
         $this->merchantAccount = $merchantAccount;
-        $this->merchant = $merchant;
+         $this->merchant = $merchant;
     }
 
 
@@ -57,8 +58,10 @@ class MerchantInfoRepository
 
 
         $merchantAccount = null;
+        $merchantSubMerchant = null;
 
         $account = null;
+        $subMerchant = null;
 
         foreach ($fields as $field) {
             if ($field->field->field_key === 'account_id') {
@@ -66,7 +69,14 @@ class MerchantInfoRepository
                 $account = $field->field_value;
                 break;
             }
+            if ($field->field->field_key === 'exist_sub_merchant') {
+
+                $subMerchant = $field->field_value;
+                break;
+            }
         }
+
+
 
         if (!is_null($account)) {
             $merchantAccount = $this->merchantAccount->select()->where('id', $account)->first();
@@ -78,10 +88,23 @@ class MerchantInfoRepository
 
         }
 
+        if (!is_null($subMerchant)) {
+            $merchantSubMerchant = new SubMerchant();
+            $subMerchant = $merchantSubMerchant->select()->where('id', $subMerchant)->first();
+        }
+
+
+        if (is_null($subMerchant)) {
+            $merchantSubMerchant = new SubMerchant();
+
+        }
+
+
 
         $accountTable = false;
         $merchantTable = false;
         $merchantInfoTable = false;
+        $merchantSubTable = false;
 
         foreach ($fields as $field) {
             if ($field->field->table_name === 'merchants') {
@@ -106,8 +129,17 @@ class MerchantInfoRepository
 
                 $merchantAccount->fill([$field->field->field_key => $field->field_value]);
             }
+
+            if ($field->field->table_name === 'sub_merchants') {
+                $merchantSubTable = true;
+                $merchantSubMerchant->fill([$field->field->field_key => $field->field_value]);
+            }
         }
 
+        if ($merchantSubTable) {
+            $merchantSubMerchant->merchant_id = $order->merchant_id;
+            $merchantSubMerchant->save();
+        }
 
         if ($accountTable) {
             $merchantAccount->merchant_id = $order->merchant_id;

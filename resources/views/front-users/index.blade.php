@@ -17,26 +17,59 @@
         <th>Email</th>
         <th>Статус</th>
         <th>Мерчанты</th>
-
+        <th>Utm Info</th>
         </thead>
         <tbody>
 
         @foreach($users as $user)
-            <tr onclick="loadMerchantAlias(this,{{$user->id}})" id ="id-{{$user->id}}"  >
+
+            <tr onclick="loadMerchantAlias(this,{{$user->id}})" id="id-{{$user->id}}">
                 <td>    {{$user->id}}</td>
                 <td>    {{$user->username}}</td>
                 <td>    {{$user->email}}</td>
                 <td>    {{$user->status}}</td>
+
                 <td>
                     @foreach($user->merchants as $merchant)
-                <a href="/merchants/{{$merchant->id}}">    {{$merchant->name}}</a><br>
+                        <a href="/merchants/{{$merchant->id}}">    {{$merchant->name}}</a><br>
                     @endforeach
+                </td>
+                <td>
+                    @if(!is_null($user->utm['utm_source']) ||
+                            !is_null($user->utm['utm_medium'])||
+                            !is_null($user->utm['utm_campaign'])||
+                            !is_null($user->utm['utm_content'])||
+                            !is_null($user->utm['utm_term'])
+                            )
+                        <table class="table">
+                            <tr>
+                                <th>utm_source</th>
+                                <td>{{$user->utm['utm_source']}}</td>
+                            </tr>
+                            <tr>
+                                <th>utm_medium</th>
+                                <td>{{$user->utm['utm_medium']}}</td>
+                            </tr>
+                            <tr>
+                                <th>utm_campaign</th>
+                                <td>{{$user->utm['utm_campaign']}}</td>
+                            </tr>
+                            <tr>
+                                <th>utm_content</th>
+                                <td>{{$user->utm['utm_content']}}</td>
+                            </tr>
+                            <tr>
+                                <th>utm_term</th>
+                                <td>{{$user->utm['utm_term']}}</td>
+                            </tr>
+                        </table>
+                    @endif
                 </td>
             </tr>
         @endforeach
         </tbody>
     </table>
-{{$users->links()}}
+    {{$users->links()}}
 @stop
 
 <script src="{{ asset('/js/libraries/jquery.js') }}"></script>

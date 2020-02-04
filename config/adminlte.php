@@ -181,6 +181,13 @@ return [
             'icon' => ' fa-credit-card',
             'can'  => 'view-reports',
         ]
+        ,
+        [
+            'text' => 'ConcordPay Users',
+            'url'  => '/front/users',
+            'icon' => ' fa-users',
+            'hasRole'  => 'view-front-users',
+        ]
     ],
 //    'menu' => [
 //        'MAIN NAVIGATION',

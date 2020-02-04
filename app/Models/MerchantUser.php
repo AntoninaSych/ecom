@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class MerchantUser extends Model
@@ -10,8 +11,7 @@ class MerchantUser extends Model
     protected $table = 'user';
     public $timestamps = false;
     protected $hidden = ['auth_key', 'password_hash', 'password_reset_token', 'created_at', 'status'];
-
-    protected $with = ['merchants' ];
+    protected $with = ['merchants','utm' ];
 
 
     public function merchants()
@@ -20,4 +20,11 @@ class MerchantUser extends Model
 
             'merchant_id','user_id','id','id') ;
     }
+
+    public function utm()
+    {
+        return $this->hasOne(Utm::class, 'user_id','id');
+    }
+
+
 }

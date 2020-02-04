@@ -15,10 +15,6 @@ class Role extends EntrustRole
         'description'
     ];
 
-    public function users(){
-        return $this->belongsToMany('App\Users');
-    }
-
     public function permissions()
     {
         return $this->belongsToMany(Permission::class,
@@ -27,5 +23,11 @@ class Role extends EntrustRole
             'permission_id');
     }
 
-
+    public function users()
+    {
+        return $this->belongsToMany(Users::class,
+            'role_user',
+            'role_id',
+            'user_id');
+    }
 }

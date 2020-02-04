@@ -11,24 +11,20 @@ use Illuminate\Support\Collection;
 
 class UsersRepository
 {
-
     public $users;
-
-    public function __construct(Users $users)
-    {
-        $this->users = $users;
-    }
 
     public function getList(): Collection
     {
-    $result= $this->users->with('roles_relation')->orderBy('id','desc')->get()  ;
+        $this->users = new Users();
+        $result = $this->users->with('roles_relation')->orderBy('id', 'desc')->get();
 
-    return $result;
+        return $result;
     }
 
     public function applyRole(int $role_id, int $user_id): void
     {
         $newRole = Role::where('id', '=', $role_id)->first();
+        $this->users = new Users();
         $user = $this->users->where('id', '=', $user_id)->first();
         $user->roles_relation()->detach();
         $user->roles_relation()->attach($newRole);
@@ -36,14 +32,16 @@ class UsersRepository
 
     public function updateStatus($user_id, $status)
     {
+        $this->users = new Users();
         $user = $this->users->findOrFail($user_id);
         $user->status = intval($status);
         $user->save();
     }
 
-    public function getOne($key,$value)
+    public function getOne($key, $value)
     {
-        return $this->users->select()->where($key ,'=', $value)->first();
+        $this->users = new Users();
+        return $this->users->select()->where($key, '=', $value)->first();
     }
 
 }

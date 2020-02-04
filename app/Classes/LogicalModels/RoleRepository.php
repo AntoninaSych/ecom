@@ -81,4 +81,13 @@ class RoleRepository
             Session()->flash('flash_message_warning', 'Can not delete Administrator role');
         }
     }
+
+    public function getOne(string $name)
+    {
+        $role = Role::select()->where('name', $name)->with(['users'])->first();
+
+        return $role;
+    }
+
+
 }

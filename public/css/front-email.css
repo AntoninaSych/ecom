@@ -1,0 +1,106 @@
+
+@font-face {
+    font-family: "MuseoSansCyrl-300"; /* Имя шрифта */
+    src: url('/fonts/MuseoSansCyrl-300/museosanscyrl-300.ttf'); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+    font-family: "MuseoSansCyrl-700"; /* Имя шрифта */
+    src: url('/fonts/MuseoSansCyrl-700/museosanscyrl-700.ttf'); /* Путь к файлу со шрифтом */
+}
+
+P {
+    font-family: MuseoSansCyrl-300;
+}
+
+body {
+    font-family:MuseoSansCyrl-300;
+    font-weight: 300;
+    font-size: 1em
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: MuseoSansCyrl-700;
+    font-weight: 700;
+    font-style: normal;
+    color: #0a54ba;
+    text-align: center;
+
+}
+
+.a {
+    font-weight: normal;
+    font-style: normal;
+    color: #0a54ba;
+}
+
+
+
+.wrapper-body {
+    width: 100%;
+    margin: 0 auto;
+    max-width: 850px;
+}
+
+.table-wrapper{
+    padding: 17px;
+    background: #fff;
+}
+
+.email-table {
+    margin: 17px;
+    padding: 15px;
+    background-color: #ffffff;
+}
+
+.td-bottom {
+    padding: 15px 0 15px 0;
+    /*line-height: 47px;*/
+}
+
+.concordPay {
+    content: '&nbsp;';
+    display: inline-block;
+    height: 47px;
+    width: 166px;
+    background-repeat: no-repeat;
+    background-size: 166px 47px;
+    background-image: url('/images/email/concordpay.png');
+}
+
+.concordBank {
+    content: '&nbsp;';
+    display: inline-block;
+    height: 44px;
+    width: 189px;
+    background-repeat: no-repeat;
+    background-size: 189px 44px;
+    background-image: url('/images/email/concordbank.png');
+}
+
+.concordPhone { padding-top: 15px;
+    content: '&nbsp;';
+    display: inline-block;
+    text-align: center;
+    height: 412px;
+    width: 780px;
+    background-repeat: no-repeat;
+    background-size: 780px 412px;
+    background-image: url('/images/email/email-phone.jpg');
+}
+.concordPhone-text{
+    text-align: center;    padding: 15px;
+}
+
+.bottom-link{
+    color: #000;
+    font-family: MuseoSansCyrl-700;
+    font-weight: bold;
+}
+
+a{ font-family:  MuseoSansCyrl-700;
+    color: #0a54ba;
+}
+b{
+    font-family:  MuseoSansCyrl-700;
+}

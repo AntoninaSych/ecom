@@ -12,6 +12,7 @@ use App\Classes\LogicalModels\MailPostmanRepository;
 use App\Classes\LogicalModels\MerchantInfoRepository;
 use App\Classes\LogicalModels\MerchantsRepository;
 use App\Classes\LogicalModels\OrderRepository;
+use App\Classes\LogicalModels\RoleRepository;
 use App\Exceptions\PermissionException;
 use App\Models\MerchantStatus;
 use Illuminate\Http\Request;
@@ -152,6 +153,9 @@ class MerchantInfoController
         $comment = $this->request->get('comment');
         $order = $this->orders->getOne($this->request->get('order_id'));
 
+        $mail = new MailPostmanRepository();
+        $role= new RoleRepository();
+
         if ($user->getAuthIdentifier() !== $order->assigned) {
             throw new PermissionException('Данная заявка была закреплена ранее за другим сотрудником.');
         }
@@ -159,10 +163,14 @@ class MerchantInfoController
         if ($user->hasRole(RoleHelper::FRAUD_MONITORING)) {
             $order->fraud_check = $user->id;
             $order->fraud_comment = $comment;
+            $role =  $role->getOne(RoleHelper::SECURITY);
+            $mail->informDepartLetter($order, $role );
         }
         if ($user->hasRole(RoleHelper::SECURITY)) {
             $order->security_check = $user->id;
             $order->security_comment = $comment;
+            $role =  $role->getOne(RoleHelper::BUSINESS);
+            $mail->informDepartLetter($order, $role );
         }
         if ($user->hasRole(RoleHelper::BUSINESS)) {
             $order->business_check = $user->id;
@@ -178,13 +186,18 @@ class MerchantInfoController
             $mail = new MailPostmanRepository();
             $mail->decline($order, $this->merchant->getOneById($order->merchant_id));
         }
+
         if ($this->request->get('type') === 'apply' && $user->hasRole(RoleHelper::BUSINESS)) {
             $mail = new MailPostmanRepository();
             $mail->apply($order, $this->merchant->getOneById($order->merchant_id));
 
+
             $merchant = $this->merchant->getOneById($order->merchant_id);
             $merchant->status = MerchantStatus::ACTIVE_STATUS;
             $merchant->save();
+
+                $this->merchantInfo->save($order);
+
         }
         $order->assigned = null;
         $order->save();

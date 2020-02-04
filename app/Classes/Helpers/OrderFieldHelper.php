@@ -79,7 +79,12 @@ class OrderFieldHelper extends Facade
             'mfo' => 'МФО  (юр)',
             'ed_rpo' => 'ЕД РПО (юр)',
             'checking_account' => 'Расчетный счет (юр)',
-            'account_id' => 'ID аккаунта (юр)'
+            'account_id' => 'ID аккаунта (юр)',
+            //sub_merchant
+            'sub_merchant_id'=>'Sub Merchant ID',
+            'transit_acc'=>'Транзитный аккаунт',
+            'status'=>'Статус',
+            'name'=>'Название'
         ];
 
         return $fieldLabels[$fieldName];

@@ -172,8 +172,10 @@ Route::group(['middleware' => ['log.request']], function () {
 
         Route::group(['prefix' => 'front', 'middleware' => ['can.view.front.users']], function () {
             Route::match(['get'], '/datatable', 'FrontUsersController@anyData')->name('get.front.users') ;
+            Route::get('/exportToCSV', 'PaymentsController@exportToCSV');
             Route::match(['get'], '/users', 'FrontUsersController@index');
             Route::match(['get'], '/user/{id}', 'FrontUsersController@show');
+            Route::match(['get'], '/exportToCSV', 'FrontUsersController@exportToCSV');
         });
 
         Route::match(['get'], '/mcc/remove', 'MccController@remove')->name('remove.mcc')->middleware('can.manage.mcc');

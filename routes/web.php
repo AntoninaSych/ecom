@@ -41,6 +41,7 @@ Route::group(['middleware' => ['log.request']], function () {
         });
         Route::group(['prefix' => 'payments', 'middleware' => ['can.view.payments']], function () {
             Route::get('/', 'PaymentsController@index')->name('payments');
+            Route::get('/exportToCSV', 'PaymentsController@exportToCSV');
             Route::match(['get'], '/datatable', 'PaymentsController@anyData')->name('get.search.payment');
             Route::match(['get'], '/view', 'PaymentsController@getOneById');
             Route::match(['get'], '/getProcessLog', 'PaymentsController@getProcessLog');

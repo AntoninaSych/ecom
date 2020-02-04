@@ -8,12 +8,14 @@ use App\Http\Middleware\CanManageApplePay;
 use App\Http\Middleware\CanManageMerchantPaymentType;
 use App\Http\Middleware\CanManageMerchantRoute;
 use App\Http\Middleware\CanManageMerchantUserAlias;
+use App\Http\Middleware\CanManageReports;
 use App\Http\Middleware\CanMccCodes;
 use App\Http\Middleware\CanViewFrontUsers;
 use App\Http\Middleware\CanViewMerchants;
 use App\Http\Middleware\CanViewMonitoring;
 use App\Http\Middleware\CanViewPayments;
 use App\Http\Middleware\CanViewReestrs;
+use App\Http\Middleware\CanViewReports;
 use App\Http\Middleware\CanViewRoutes;
 use App\Http\Middleware\CanViewStatistic;
 use App\Http\Middleware\IsBlockUser;
@@ -97,7 +99,9 @@ class Kernel extends HttpKernel
         'can.view.front.users' => CanViewFrontUsers::class,
         'snippets.control' => CanCreateSnippets::class,
         'can.manage.applePay' =>  CanManageApplePay::class,
-        'can.view.monitoring' => CanViewMonitoring::class
+        'can.view.monitoring' => CanViewMonitoring::class,
+        'can.view.reports' => CanViewReports::class,
+        'can.manage.reports' => CanManageReports::class
     ];
 
     /**

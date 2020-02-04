@@ -178,5 +178,20 @@ class PermissionTableSeeder extends Seeder
             $permission->save();
         }
 
+        $permission = new Permission();
+        if(is_null($permission->select()->where('name','manage-reports')->first())) {
+            $permission->name = 'manage-reports';
+            $permission->display_name = 'manage-reports';
+            $permission->description = 'manage-reports';
+            $permission->save();
+        }
+
+        $permission = new Permission();
+        if(is_null($permission->select()->where('name','view-reports')->first())) {
+            $permission->name = 'view-reports';
+            $permission->display_name = 'view-reports';
+            $permission->description = 'view-reports';
+            $permission->save();
+        }
     }
 }

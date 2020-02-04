@@ -174,6 +174,12 @@ return [
             'url'  => '/monitoring',
             'icon' => ' fa-credit-card',
             'hasRole'  => 'view-monitoring',
+        ],
+        [
+            'text' => 'Отчеты',
+            'url'  => '/reports',
+            'icon' => ' fa-credit-card',
+            'can'  => 'view-reports',
         ]
     ],
 //    'menu' => [

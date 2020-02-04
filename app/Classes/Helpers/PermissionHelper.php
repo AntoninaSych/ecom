@@ -27,5 +27,7 @@ class PermissionHelper extends Facade
     const MAKE_RESPONSE_STATUS = 'make-response-status';
     const MANAGE_MERCHANT_APPLE_PAY = 'manage-merchant-apple-pay';
     const VIEW_MONITORING = 'view-monitoring';
+    const CAN_VIEW_REPORTS = 'view-reports';
+    const CAN_MANAGE_REPORTS = 'manage-reports';
 }
 

@@ -11,6 +11,13 @@
 |
 */
 
+use App\Classes\LogicalModels\MailPostmanRepository;
+use App\Classes\LogicalModels\MonobankPaymentsRepository;
+use App\Classes\LogicalModels\PaymentsRepository;
+use App\Models\MailerPostman;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
+
 Auth::routes();
 
 Route::group(['middleware' => ['log.request']], function () {
@@ -41,7 +48,6 @@ Route::group(['middleware' => ['log.request']], function () {
         });
         Route::group(['prefix' => 'payments', 'middleware' => ['can.view.payments']], function () {
             Route::get('/', 'PaymentsController@index')->name('payments');
-            Route::get('/exportToCSV', 'PaymentsController@exportToCSV');
             Route::match(['get'], '/datatable', 'PaymentsController@anyData')->name('get.search.payment');
             Route::match(['get'], '/view', 'PaymentsController@getOneById');
             Route::match(['get'], '/getProcessLog', 'PaymentsController@getProcessLog');
@@ -52,7 +58,7 @@ Route::group(['middleware' => ['log.request']], function () {
 
 //        Route::group(['prefix' => '/snippets', 'middleware' => ['snippets.control']], function () {//todo middleware edit snippets
 
-        Route::group(['prefix' => '/snippets','middleware'=>['snippets.control']], function () {
+        Route::group(['prefix' => '/snippets', 'middleware' => ['snippets.control']], function () {
 
             Route::match(['get'], '/', 'SnippetController@index');
             Route::match(['post'], '/update', 'SnippetController@update');
@@ -158,8 +164,6 @@ Route::group(['middleware' => ['log.request']], function () {
         });
 
 
-
-
         Route::resource('mcc', 'MccController')->only([
             'index', 'store', 'edit', 'update', 'create'
         ])->middleware('can.manage.mcc');
@@ -168,19 +172,16 @@ Route::group(['middleware' => ['log.request']], function () {
         Route::match(['get'], '/mcc/{id_code}/merchants', 'MccController@merchants')->middleware('can.manage.mcc');
         Route::match(['get'], '/mcc/datatable', 'MccController@anyData')->name('get.search.mcc.codes')->middleware('can.manage.mcc');
 
-           Route::match(['get'], '/mcc/remove', 'MccController@remove')->name('remove.mcc')->middleware('can.manage.mcc');
+        Route::match(['get'], '/mcc/remove', 'MccController@remove')->name('remove.mcc')->middleware('can.manage.mcc');
 
 
         Route::group(['prefix' => 'front', 'middleware' => ['can.view.front.users']], function () {
-            Route::match(['get'], '/datatable', 'FrontUsersController@anyData')->name('get.front.users') ;
-            Route::get('/exportToCSV', 'PaymentsController@exportToCSV');
+            Route::match(['get'], '/datatable', 'FrontUsersController@anyData')->name('get.front.users');
             Route::match(['get'], '/users', 'FrontUsersController@index');
             Route::match(['get'], '/user/{id}', 'FrontUsersController@show');
-            Route::match(['get'], '/exportToCSV', 'FrontUsersController@exportToCSV');
         });
 
         Route::match(['get'], '/mcc/remove', 'MccController@remove')->name('remove.mcc')->middleware('can.manage.mcc');
-
 
 
         Route::group(['prefix' => 'monitoring', 'middleware' => ['can.view.monitoring']], function () {
@@ -188,20 +189,6 @@ Route::group(['middleware' => ['log.request']], function () {
             Route::match(['get'], '/getPaymentLogOnline', 'MonitoringController@getPaymentLogOnline');
             Route::match(['get'], '/getTechData', 'MonitoringController@getTechData');
             Route::match(['get'], '/getPaymentLogArchive', 'MonitoringController@getArchiveData');
-         });
-
-        Route::group(['prefix' => 'reports', 'middleware' => ['can.view.reports']], function () {
-            Route::match(['get'], '/', 'ReportsController@index');
-
-            Route::group(['prefix' => 'manage', 'middleware' => ['can.manage.reports']], function () {
-                Route::match(['get'], '/', 'ReportsController@list');
-                Route::match(['post'], '/store', 'ReportsController@store')->name('report.store');
-                Route::match(['post'], '/remove', 'ReportsController@remove');
-                Route::match(['post'], '/update', 'ReportsController@update');
-                Route::match(['get'], '/execute', 'ReportsController@execute');
-            });
         });
-
     });
-
 });
